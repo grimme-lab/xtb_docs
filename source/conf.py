@@ -1,3 +1,4 @@
+import sphinx_bootstrap_theme
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -17,7 +18,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'xtb_docs'
+project = 'xtb doc'
 copyright = '2019, Eike Caldeweyher'
 author = 'Eike Caldeweyher'
 
