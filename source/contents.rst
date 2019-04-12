@@ -114,5 +114,6 @@ Guide
 
    basics
    xcontrol
+   md
    license
    help   
