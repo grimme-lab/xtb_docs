@@ -1,7 +1,7 @@
 Molecular dyamics simulations
 =============================
 
-In this chapter, all neccessary information will be given in order to perform MD simulations with xTB. 
+In this chapter, all neccessary information will be given in order to perform MD simulations with `xTB`. 
 The adjustable parameters will be discussed and a guide to how to change them will be given.
 
 General command-line control
@@ -46,7 +46,7 @@ The adjustable parameters are::
             
 MD specific Files
 -----------------
-After the xtb program has performed the desired MD simulation the trajectory of the structures can be found in `xtb.trj`.
+After the `xtb` program has performed the desired MD simulation the trajectory of the structures can be found in `xtb.trj`.
 Furthermore, files with the names `scoord.*` are generated. After every picosecond of simulation the structure at this point will be written into these files. After a successful completion of the MD simulation a `xtbmdok` file will be touched. The structure and velocities at the end of the simulation will be written into a `mdrestart` file.  
 
 Restart
@@ -59,8 +59,8 @@ In order to achive this, in the `$md` block the `mdrestart` parameter has to be 
 
 Example/Case study
 ------------------
-To summarize the most important topics of this chapter we will perform an MD simulation of the ethane molecule with xTB.
-Make sure that xtb is properly set up and you have the following files in your working directory::
+To summarize the most important topics of this chapter we will perform an MD simulation of the ethane molecule with `xTB`.
+Make sure that `xtb` is properly set up and you have the following files in your working directory::
  > cat coord
  $coord
   1.82409443250962  -0.02380488009596  0.17250251620479  c
@@ -79,7 +79,7 @@ Make sure that xtb is properly set up and you have the following files in your w
   temp=500
   shake=1
 
-As you can see, we will run the simulation for 10 ps with a timestep of 1 fs at a temperature of 500 K. Furthermore, all hydrogen-containing bonds will be constrained using the SHAKE algorithm. To start the simulation we call xtb as follows::
+As you can see, we will run the simulation for 10 ps with a timestep of 1 fs at a temperature of 500 Kelvin. Furthermore, all hydrogen-containing bonds will be constrained using the *SHAKE* algorithm. To start the simulation we call xtb as follows::
  > xtb coord --input xcontrol --omd
 
 In the file `xtb.trj` we can find our trajectory. We can analyze the structures now by displaying them in a molecular graphics editor (e.g., `MOLDEN`_, `VMD`_ etc. ) or a trajectory analyzer (e.g. `TRAVIS`_).
