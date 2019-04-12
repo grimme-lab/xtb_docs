@@ -11,7 +11,7 @@ and this structure then will be used for the MD simulation, a loose optimization
   > xtb coord --omd
     
 By using the flag `-md` the MD simulation will be performed directly with the user given input structure.::
-   > xtb coord --md
+  > xtb coord --md
 
 It is strongly recommended to start the MD simulation from an xTB optimized structure. 
 Otherwise there may be instabilities during the MD and the equilibration will be severely hindered. 
@@ -80,7 +80,7 @@ Make sure that xtb is properly set up and you have the following files in your w
   shake=1
 
 As you can see, we will run the simulation for 10 ps with a timestep of 1 fs at a temperature of 500 K. Furthermore, all hydrogen-containing bonds will be constrained using the SHAKE algorithm. To start the simulation we call xtb as follows::
-  > xtb coord --input xcontrol --omd
+ > xtb coord --input xcontrol --omd
 
 In the file `xtb.trj` we can find our trajectory. We can analyze the structures now by displaying them in a molecular graphics editor (e.g., `MOLDEN`_, `VMD`_ etc. ) or a trajectory analyzer (e.g. `TRAVIS`_).
 
