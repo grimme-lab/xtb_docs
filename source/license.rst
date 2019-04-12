@@ -73,7 +73,7 @@ modification follow.
 
 TERMS AND CONDITIONS
 ^^^^^^^^^^^^^^^^^^^^
-0. **Definitions.**
+0. Definitions.
 
 "This License" refers to version 3 of the GNU General Public License.
 
@@ -623,7 +623,3 @@ copy of the Program in return for a fee.
 
 END OF TERMS AND CONDITIONS
 
-
-Contact
-=======
-Questions? Please contact xtb@thch.uni-bonn.de
