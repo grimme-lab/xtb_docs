@@ -1,13 +1,16 @@
-Input using `xcontrol`
-======================
+.. _detailed-input:
 
-The `xcontrol` instruction set is inspired by the Turbomole `control`
-file syntax. I decided to call it `xcontrol` instructions back than,
+----------------
+ Detailed Input
+----------------
+
+The ``xcontrol`` instruction set is inspired by the Turbomole ``control``
+file syntax. I decided to call it ``xcontrol`` instructions back than,
 but here we will just call it (detailed) input for convenience.
-As a sitenote: The parser is actually not limited to this choice
-of syntax and could be without much effort extended to something more
-general like JSON or YAML.
-To read an input file called `xtb.inp` use::
+To read an input file called ``xtb.inp`` use
+
+.. code:: bash
+
   > xtb --input xtb.inp coord
 
 In the detailed input you have control about almost very global
@@ -22,13 +25,14 @@ I will walk you through some selected instructions you might find useful
 for your application.
 
 Fixing, Constraining and Confining
-----------------------------------
+==================================
 
-In `xtb` different concepts of constraints are implemented,
+In ``xtb`` different concepts of constraints are implemented,
 so you should know which tool is best for you problem before you
 start writing the detailed input.
 
-**Exact Fixing**
+Exact Fixing
+------------
 
 In the *exact fixing* approach the Cartesian position of the selected
 atom is fixed in space by setting its gradient to zero and the degrees
@@ -39,7 +43,10 @@ For dynamics this exact fixing is *automatically deactivated*, since it
 usually leads to instabilities in the simulation.
 
 To activate the exact fixing for atoms 1--10 and atom 12 as well as for
-all oxygen atoms, add::
+all oxygen atoms, add
+
+.. code::
+
   $fix
    atoms: 1-10,12
    elements: O
@@ -48,13 +55,16 @@ all oxygen atoms, add::
 to your detailed input, the atoms keyword refers to the numbering
 of the individual atoms in your input geometry.
 
-**Constraining Potentials**
-
+Constraining Potentials
+-----------------------
 
 Almost absolute control about anything in your system is archived
 by applying *constraining potentials*. First of all the constraining
 potentials offer a weaker version of the exact fixing, which is
-invoked by the same syntax in the `$contrain` data group as::
+invoked by the same syntax in the ``$contrain`` data group as
+
+.. code::
+
   $constrain
    atoms: 11
    elements: C,N,8
@@ -66,7 +76,10 @@ carbon, nitrogen and oxygen. For each atom pair a harmonic potential
 is generated to hold the distances at roughly the starting value, this even
 works without problems in dynamics.
 
-To constrain the atoms more tightly the force constant can be adjusted::
+To constrain the atoms more tightly the force constant can be adjusted
+
+.. code::
+
   $constrain
    force constant=1.0
   $end
@@ -77,7 +90,10 @@ Note the difference in the syntax as you are required to use an equal-sign
 instead of a colon, as you are modifying a global variable.
 
 It is also possible to constrain selected internal coordinates, possible
-are distances, angles and dihedral angles as done here::
+are distances, angles and dihedral angles as done here
+
+.. code::
+
   $constrain
      distance: 1, 2, 2.5
      angle: 5, 7, 8, 120
@@ -91,13 +107,16 @@ your coordinate input, angles are defined by three atom numbers and
 dihedral angles by four atoms, in any case the atoms do not have to
 be connected by bonds. The last argument is always the value which should
 be used in the constraining potential as reference, if you decide to
-use the current value `auto` can be passed. The constraints will be
+use the current value ``auto`` can be passed. The constraints will be
 printed to the screen (the newer implementation may require the verbose mode,
 to trigger the printout of the constraint summary).
 
 
 If you are not quite sure which distances or angles you want to constrain,
-run::
+run
+
+.. code:: bash
+
   > cat geosum.inp
   $write
      distances=true
@@ -110,18 +129,22 @@ and have a look at the geometry summary for your molecule. The `$write`
 data group toggles the printout in the property section and also some
 printouts in the input section.
 
-**Confining in a Cavity**
+Confining in a Cavity
+---------------------
 
 If you are running dynamics for systems that are non-covalently bound,
 you may encounter dissociation in the dynamics. If you want to
 study the bound complex, you can try to *confine* the simulation
 in a little sphere, which keeps the molecules from escaping.
-The detailed input looks like::
+The detailed input looks like
+
+.. code::
+
   $wall
      potential=logfermi
      sphere: auto, all
   $end
 
 You can be more precise on the radius by giving the value in bohr instead
-of `auto`. I personally recommend to use the logfermi potential, since it
+of ``auto``. I personally recommend to use the logfermi potential, since it
 is best suited for confinements, but yet not the default.

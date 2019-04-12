@@ -1,66 +1,110 @@
-Molecular dyamics simulations
-=============================
+.. _md:
 
-In this chapter, all neccessary information will be given in order to perform MD simulations with `xTB`. 
-The adjustable parameters will be discussed and a guide to how to change them will be given.
+-------------------------------
+ Molecular Dyamics Simulations
+-------------------------------
+
+In this chapter, all neccessary information will be given in order
+to perform MD simulations with `xTB`. 
+The adjustable parameters will be discussed and a guide to how to change
+them will be given.
+
 
 General command-line control
------------------------------
-There are two main possibilities how to evoke a MD simulation. With the flag `-omd` geometry optimization will be performed
-and this structure then will be used for the MD simulation, a loose optimization level will be chosen.::
+============================
+
+There are two main possibilities how to evoke a MD simulation.
+With the flag ``--omd`` geometry optimization will be performed
+and this structure then will be used for the MD simulation, a loose
+optimization level will be chosen.
+
+.. code:: bash
+
   > xtb coord --omd
     
-By using the flag `-md` the MD simulation will be performed directly with the user given input structure.::
+By using the flag ``--md`` the MD simulation will be performed directly with the user given input structure.
+
+.. code:: bash
+
   > xtb coord --md
 
-It is strongly recommended to start the MD simulation from an xTB optimized structure. 
-Otherwise there may be instabilities during the MD and the equilibration will be severely hindered. 
+It is strongly recommended to start the MD simulation from an xTB
+optimized structure. 
+Otherwise there may be instabilities during the MD and the equilibration
+will be severely hindered. 
 
 Parameters
-----------
-In order to change the parameters of the MD simulation the `$md` block in the xcontrol/input file has to be modified.
-The adjustable parameters are::
-  $md
-       temp=real
-           MD thermostat/initial siman/GBSA temperature
-       time=real
-           MD run time in ps
-       dump=real
-           dump (=optimize) structure in siman every mddump fs
-       velo=int
-           set to 1 if dumps (trj file) should contain velocities
-       nvt=int
-           use thermostat (=1, =0 for NVE)
-       skip=int
-           skip interval in -mdav, -mdopt
-       step=real
-           MD time step in fs (automatically determined if < 0), could be 4-5 fs with shake =2, hmass=4
-       hmass=int
-           increase hydrogen mass to this value in amu (at const. tot. mass) allowing large time steps (=0 off)
-       shake=int
-           shake on (=0: off which is default) for X-H bonds only (=1), for all bonds (=2)
-       sccacc=real
-           SCC accuracy level in MD. Every 10th step the SCC is properly converged at sccconv=1.0. sccmd should be < 5 in critical cases, effects may show up as bad thermostating
-       mdrestart=bool
-            uses mdrestart file to restart MD simulation (=true)
-            
+==========
+
+In order to change the parameters of the MD simulation the ``$md`` block
+in the xcontrol/input file has to be modified.
+
+  +---------+---------+-----------+-----------------------------------------+
+  |  key    | value   | default   | description                             |
+  +=========+=========+===========+=========================================+
+  | dump    | real    | 50 fs     | interval for trajectory printout        |
+  +---------+---------+-----------+-----------------------------------------+
+  | hmass   | integer | 4 times   | mass of hydrogen atoms                  |
+  +---------+---------+-----------+-----------------------------------------+
+  | nvt     | boolean | true      | perform simulation in NVT ensemble      |
+  +---------+---------+-----------+-----------------------------------------+
+  | restart | boolean | false     | read velocities from ``mdrestart``      |
+  +---------+---------+-----------+-----------------------------------------+
+  | temp    | real    | 298.15 K  | thermostat temperature                  |
+  +---------+---------+-----------+-----------------------------------------+
+  | time    | real    | 50 ps     | total run time of simulation            |
+  +---------+---------+-----------+-----------------------------------------+
+  | sccacc  | real    | 2.0       | accuracy of xTB calculation in dynamics |
+  +---------+---------+-----------+-----------------------------------------+
+  | shake   | integer | all bonds | use SHAKE algorithm to constrain bonds  |
+  +---------+---------+-----------+-----------------------------------------+
+  | step    | real    | 4 fs      | time step for propagation               |
+  +---------+---------+-----------+-----------------------------------------+
+  | velo    | boolean | false     | also write out velocities               |
+  +---------+---------+-----------+-----------------------------------------+
+
+The above default setting should look like below in your input file
+
+.. code::
+
+   $md
+      temp=298.15 # in K
+      time= 50.0  # in ps
+      dump= 50.0  # in fs
+      step=  4.0  # in fs
+      velo=false
+      nvt =true
+      hmass=4
+      shake=2
+      sccacc=2.0
+   $end
+
+
 MD specific Files
------------------
-After the `xtb` program has performed the desired MD simulation the trajectory of the structures can be found in `xtb.trj`.
-Furthermore, files with the names `scoord.*` are generated. After every picosecond of simulation the structure at this point will be written into these files. After a successful completion of the MD simulation a `xtbmdok` file will be touched. The structure and velocities at the end of the simulation will be written into a `mdrestart` file.  
+=================
+
+After the ``xtb`` program has performed the desired MD simulation the trajectory of the structures can be found in ``xtb.trj``.
+Furthermore, files with the names ``scoord.*`` are generated. After every picosecond of simulation the structure at this point will be written into these files. After a successful completion of the MD simulation a ``xtbmdok`` file will be touched. The structure and velocities at the end of the simulation will be written into a ``mdrestart`` file.  
 
 Restart
 -------
-The `mdrestart` file can be used to restart an MD simulation. This can be very helpful for equilibration purposes. 
-In order to achive this, in the `$md` block the `mdrestart` parameter has to be set to `true`.::
+The ``mdrestart`` file can be used to restart an MD simulation. This can be very helpful for equilibration purposes. 
+In order to achive this, in the ``$md`` block the ``mdrestart`` parameter has to be set to ``true``.
+
+.. code::
+
    > cat xcontrol
    $md
     mdrestart=true
 
 Example/Case study
 ------------------
+
 To summarize the most important topics of this chapter we will perform an MD simulation of the ethane molecule with `xTB`.
-Make sure that `xtb` is properly set up and you have the following files in your working directory::
+Make sure that ``xtb`` is properly set up and you have the following files in your working directory
+
+.. code::
+
  > cat coord
  $coord
   1.82409443250962  -0.02380488009596  0.17250251620479  c
@@ -79,10 +123,13 @@ Make sure that `xtb` is properly set up and you have the following files in your
   temp=500
   shake=1
 
-As you can see, we will run the simulation for 10 ps with a timestep of 1 fs at a temperature of 500 Kelvin. Furthermore, all hydrogen-containing bonds will be constrained using the *SHAKE* algorithm. To start the simulation we call xtb as follows::
+As you can see, we will run the simulation for 10 ps with a timestep of 1 fs at a temperature of 500 Kelvin. Furthermore, all hydrogen-containing bonds will be constrained using the *SHAKE* algorithm. To start the simulation we call xtb as follows
+
+.. code:: bash
+
  > xtb coord --input xcontrol --omd
 
-In the file `xtb.trj` we can find our trajectory. We can analyze the structures now by displaying them in a molecular graphics editor (e.g., `MOLDEN`_, `VMD`_ etc. ) or a trajectory analyzer (e.g. `TRAVIS`_).
+In the file ``xtb.trj`` we can find our trajectory. We can analyze the structures now by displaying them in a molecular graphics editor (e.g., `MOLDEN`_, `VMD`_ etc. ) or a trajectory analyzer (e.g. `TRAVIS`_).
 
 .. _MOLDEN: http://cheminf.cmbi.ru.nl/molden/
 .. _VMD: https://www.ks.uiuc.edu/Research/vmd/
