@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Input using xcontrol &mdash; xtb doc 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Basic usage of xTB" href="basics.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="contents.html" class="icon icon-home"> xtb doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Basic usage of <cite>xTB</cite></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Input using <cite>xcontrol</cite></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fixing-constraining-and-confining">Fixing, Constraining and Confining</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Need Help</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">xtb doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="contents.html">Docs</a> &raquo;</li>
+        
+      <li>Input using <cite>xcontrol</cite></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/xcontrol.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="input-using-xcontrol">
+<h1>Input using <cite>xcontrol</cite><a class="headerlink" href="#input-using-xcontrol" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>xcontrol</cite> instruction set is inspired by the Turbomole <cite>control</cite>
+file syntax. I decided to call it <cite>xcontrol</cite> instructions back than,
+but here we will just call it (detailed) input for convenience.
+As a sitenote: The parser is actually not limited to this choice
+of syntax and could be without much effort extended to something more
+general like JSON or YAML.
+To read an input file called <cite>xtb.inp</cite> use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="o">--</span><span class="nb">input</span> <span class="n">xtb</span><span class="o">.</span><span class="n">inp</span> <span class="n">coord</span>
+</pre></div>
+</div>
+<p>In the detailed input you have control about almost very global
+variable in the program, some instructions even check your input, but
+most of the time you should know what you are doing.
+Developed as a feature for developers, this is incredible powerful
+and naturally way to complicated for the average application.
+So in most cases you can safely rely on the internal defaults or
+the shipped global configuration file (should usually be the same).</p>
+<p>I will walk you through some selected instructions you might find useful
+for your application.</p>
+<div class="section" id="fixing-constraining-and-confining">
+<h2>Fixing, Constraining and Confining<a class="headerlink" href="#fixing-constraining-and-confining" title="Permalink to this headline">¶</a></h2>
+<p>In <cite>xtb</cite> different concepts of constraints are implemented,
+so you should know which tool is best for you problem before you
+start writing the detailed input.</p>
+<p><strong>Exact Fixing</strong></p>
+<p>In the <em>exact fixing</em> approach the Cartesian position of the selected
+atom is fixed in space by setting its gradient to zero and the degrees
+of freedom are removed from the optimization procedure and therefore
+the atoms stay in place in geometry optimizations.</p>
+<p>For dynamics this exact fixing is <em>automatically deactivated</em>, since it
+usually leads to instabilities in the simulation.</p>
+<p>To activate the exact fixing for atoms 1–10 and atom 12 as well as for
+all oxygen atoms, add:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$fix
+ atoms: 1-10,12
+ elements: O
+$end
+</pre></div>
+</div>
+<p>to your detailed input, the atoms keyword refers to the numbering
+of the individual atoms in your input geometry.</p>
+<p><strong>Constraining Potentials</strong></p>
+<p>Almost absolute control about anything in your system is archived
+by applying <em>constraining potentials</em>. First of all the constraining
+potentials offer a weaker version of the exact fixing, which is
+invoked by the same syntax in the <cite>$contrain</cite> data group as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$constrain
+ atoms: 11
+ elements: C,N,8
+$end
+</pre></div>
+</div>
+<p>the program will not attempt to hold the Cartesian positions constant,
+but the distances between all selected atoms, here number 11 and all
+carbon, nitrogen and oxygen. For each atom pair a harmonic potential
+is generated to hold the distances at roughly the starting value, this even
+works without problems in dynamics.</p>
+<dl>
+<dt>To constrain the atoms more tightly the force constant can be adjusted::</dt><dd><dl class="simple">
+<dt>$constrain</dt><dd><p>force constant=1.0</p>
+</dd>
+</dl>
+<p>$end</p>
+</dd>
+</dl>
+<p>this variable goes directly into the constraining procedure and is given in
+Hartree, for very high force constants this becomes equivalent to the exact fixing.
+Note the difference in the syntax as you are required to use an equal-sign
+instead of a colon, as you are modifying a global variable.</p>
+<p>It is also possible to constrain selected internal coordinates, possible
+are distances, angles and dihedral angles as done here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$constrain
+   distance: 1, 2, 2.5
+   angle: 5, 7, 8, 120
+   dihedral: 3, 4, 1, 7, auto
+$end
+</pre></div>
+</div>
+<p>Distance constraints are given in Ångström, while angle constraints are given
+in degrees.
+The distances are defined by two atom number referring to the order in
+your coordinate input, angles are defined by three atom numbers and
+dihedral angles by four atoms, in any case the atoms do not have to
+be connected by bonds. The last argument is always the value which should
+be used in the constraining potential as reference, if you decide to
+use the current value <cite>auto</cite> can be passed. The constraints will be
+printed to the screen (the newer implementation may require the verbose mode,
+to trigger the printout of the constraint summary).</p>
+<p>If you are not quite sure which distances or angles you want to constrain,
+run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cat geosum.inp
+$write
+   distances=true
+   angles=true
+   torsions=true
+$end
+&gt; xtb --define --verbose --input geosum.inp coord
+</pre></div>
+</div>
+<p>and have a look at the geometry summary for your molecule. The <cite>$write</cite>
+data group toggles the printout in the property section and also some
+printouts in the input section.</p>
+<p><strong>Confining in a Cavity</strong></p>
+<p>If you are running dynamics for systems that are non-covalently bound,
+you may encounter dissociation in the dynamics. If you want to
+study the bound complex, you can try to <em>confine</em> the simulation
+in a little sphere, which keeps the molecules from escaping.
+The detailed input looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$wall
+   potential=logfermi
+   sphere: auto, all
+$end
+</pre></div>
+</div>
+<p>You can be more precise on the radius by giving the value in bohr instead
+of <cite>auto</cite>. I personally recommend to use the logfermi potential, since it
+is best suited for confinements, but yet not the default.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basics.html" class="btn btn-neutral float-left" title="Basic usage of xTB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Eike Caldeweyher
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

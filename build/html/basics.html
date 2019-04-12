@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basic usage of xTB &mdash; xtb doc 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Input using xcontrol" href="xcontrol.html" />
+    <link rel="prev" title="Introduction" href="contents.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="contents.html" class="icon icon-home"> xtb doc
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic usage of <cite>xTB</cite></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#control-by-command-line">Control by Command-line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#singlepoint-calculations">Singlepoint Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#geometry-optimizations">Geometry Optimizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#characterisation-of-stationary-points">Characterisation of Stationary Points</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xcontrol.html">Input using <cite>xcontrol</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Need Help</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">xtb doc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="contents.html">Docs</a> &raquo;</li>
+        
+      <li>Basic usage of <cite>xTB</cite></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/basics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="basic-usage-of-xtb">
+<h1>Basic usage of <cite>xTB</cite><a class="headerlink" href="#basic-usage-of-xtb" title="Permalink to this headline">¶</a></h1>
+<p>This chapter should serve as a tutorial guiding you through your first
+calculation with <cite>xTB</cite>. As an example, the equilibrium geometry of a water
+molecule is calculated.</p>
+<p>The description here is based on <cite>xTB</cite> version 6.1 RC2.</p>
+<div class="section" id="control-by-command-line">
+<h2>Control by Command-line<a class="headerlink" href="#control-by-command-line" title="Permalink to this headline">¶</a></h2>
+<p>The program can almost entirely controlled by the command-line, if you
+need more control you should resort to the detailed input file.
+There are four main run types in <cite>xtb</cite>, most other run types are
+composite types that try to provide convenient combinations from
+those main run types.</p>
+</div>
+<div class="section" id="singlepoint-calculations">
+<h2>Singlepoint Calculations<a class="headerlink" href="#singlepoint-calculations" title="Permalink to this headline">¶</a></h2>
+<p>Independent of all other commands, there will always be a singlepoint
+calculation carried out at the very beginning. To calculate something
+<cite>xtb</cite> needs information about the geometry of the atoms</p>
+<p>The default input format is either the Turbomole coordinate file
+as a <cite>$coord</cite> data group starting in the very first line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cat coord
+
+$coord
+ 0.00000000000000      0.00000000000000     -0.73578586109551      o
+ 1.44183152868459      0.00000000000000      0.36789293054775      h
+-1.44183152868459      0.00000000000000      0.36789293054775      h
+$end
+
+&gt; xtb coord
+</pre></div>
+</div>
+<p>Any valid Xmol file (<cite>xtb</cite> will actually count the lines and double check
+the number of atoms specified), here the suffix xyz is optional since <cite>xtb</cite>
+will auto detect the file type.
+<cite>xtb</cite> also supports structure-data files (sdf), if the corresponding suffix
+is encountered.</p>
+<p>By default <cite>xtb</cite> will search for <cite>.CHRG</cite> and <cite>.UHF</cite> files and obtain
+from these the molecular charge and the number of unpaired electrons,
+respectively. The molecular charge can also be specified by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="n">molecule</span><span class="o">.</span><span class="n">xyz</span> <span class="o">--</span><span class="n">chrg</span> <span class="o">+</span><span class="mi">1</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>which is equivalent to::</dt><dd><p>&gt; echo +1 &gt; .CHRG &amp;&amp; xtb molecule.xyz</p>
+</dd>
+<dt>This also works for the unpaired electrons as in::</dt><dd><p>&gt; xtb –uhf 2 input.sdf</p>
+</dd>
+</dl>
+<p>Note that the position of the input coordinates is totally unaffected
+by any command-line arguments, if you are not sure, whether <cite>xtb</cite> tries
+to interpret your filename as flag use <cite>–</cite> to stop the parsing
+as command-line options for all following arguments.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="o">--</span> <span class="o">-</span><span class="n">oh</span><span class="o">.</span><span class="n">xyz</span>
+</pre></div>
+</div>
+<p>To select the parametrization of the xTB method you can currently choose
+from three different geometry, frequency and non-covalent interactions (GFN)
+parametrization, which differ mostly in the cost–accuracy ratio,:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="o">--</span><span class="n">gfn</span> <span class="mi">2</span> <span class="n">coord</span>
+</pre></div>
+</div>
+<p>to choose GFN2-xTB, which is also the default parametrization. Also
+available are GFN1-xTB, and GFN0-xTB.</p>
+<p>Sometimes you might face difficulties converging the self consistent
+charge iterations, in this case it is usually a good idea to increase
+the electronic temperature and to restart at normal temperature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="o">--</span><span class="n">etemp</span> <span class="mf">1000.0</span> <span class="n">coord</span> <span class="o">&amp;&amp;</span> <span class="n">xtb</span> <span class="o">--</span><span class="n">restart</span> <span class="n">coord</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="geometry-optimizations">
+<h2>Geometry Optimizations<a class="headerlink" href="#geometry-optimizations" title="Permalink to this headline">¶</a></h2>
+<p>The main purpose of the xTB methods is to provide good geometries,
+so the <cite>xtb</cite> comes with a build-in geometry optimizer, which usually
+does a decent job. It is invoked by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="n">coord</span> <span class="o">--</span><span class="n">opt</span>
+<span class="o">&gt;</span> <span class="n">ls</span>
+<span class="n">coord</span>   <span class="n">xtbopt</span><span class="o">.</span><span class="n">coord</span>   <span class="n">xtbopt</span><span class="o">.</span><span class="n">log</span>   <span class="o">...</span>
+</pre></div>
+</div>
+<p>The optimized coordinates is written to a new file (<cite>xtbopt.coord</cite>), which is
+in the same format as the input geometry. You can view the geometry optimization
+by opening the <cite>xtbopt.log</cite> with your favorite molecule viewer.
+The log-file is in Xmol format and contains the current total energy
+and the gradient norm in the comment line, <cite>gmolden</cite> usually works fine
+for this.</p>
+<p>A successful geometry optimization will print
+<cite>*** GEOMETRY OPTIMIZATION CONVERGED AFTER 39 ITERATIONS ***</cite>
+after finishing the optimization procedures, while in all other cases
+that not exit in error
+<cite>*** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***</cite>
+will be printed, additionally a <cite>NOT_CONVERGED</cite> file is created in the
+working directory, which might become handy for bulk jobs.</p>
+<p>To get a geometry optimization to converge can be a hard job, usually
+the xTB methods can repair a lot, you might want to start from GFN0-xTB
+which does not have convergence issues and than improve with GFN2-xTB.
+Maybe you have to adjust the geometry by hand again, if even this fails.</p>
+<p><cite>xtb</cite> offers eight predefined levels for the geometry optimization,
+which can be chosen appending the level to the optimization flag as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="n">coord</span> <span class="o">--</span><span class="n">opt</span> <span class="n">tight</span>
+</pre></div>
+</div>
+<dl>
+<dt>The thresholds defined by simple keywords are given here::</dt><dd><table class="docutils align-center">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 23%" />
+<col style="width: 33%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>level</p></td>
+<td><p>Econv/Eh</p></td>
+<td><p>Gconv/Eh·α⁻¹</p></td>
+<td><p>Accuracy</p></td>
+</tr>
+<tr class="row-even"><td><p>crude</p></td>
+<td><p>5 × 10⁻⁴</p></td>
+<td><p>1 × 10⁻²</p></td>
+<td><p>3.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>sloppy</p></td>
+<td><p>1 × 10⁻⁴</p></td>
+<td><p>6 × 10⁻³</p></td>
+<td><p>3.00</p></td>
+</tr>
+<tr class="row-even"><td><p>loose</p></td>
+<td><p>5 × 10⁻⁵</p></td>
+<td><p>4 × 10⁻³</p></td>
+<td><p>2.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>lax</p></td>
+<td><p>2 × 10⁻⁵</p></td>
+<td><p>2 × 10⁻³</p></td>
+<td><p>2.00</p></td>
+</tr>
+<tr class="row-even"><td><p>normal</p></td>
+<td><p>5 × 10⁻⁶</p></td>
+<td><p>1 × 10⁻³</p></td>
+<td><p>1.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>tight</p></td>
+<td><p>1 × 10⁻⁶</p></td>
+<td><p>8 × 10⁻⁴</p></td>
+<td><p>0.20</p></td>
+</tr>
+<tr class="row-even"><td><p>vtight</p></td>
+<td><p>1 × 10⁻⁷</p></td>
+<td><p>2 × 10⁻⁴</p></td>
+<td><p>0.05</p></td>
+</tr>
+<tr class="row-odd"><td><p>extreme</p></td>
+<td><p>5 × 10⁻⁸</p></td>
+<td><p>5 × 10⁻⁵</p></td>
+<td><p>0.01</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>The energy convergence (Econv) is the allowed change in the total energy
+at convergence, while the gradient convergence (Gconv) is the
+allowed change in the gradient norm at convergence. The accuracy
+is handed to the singlepoint calculations for integral cutoffs and
+self consistent field convergence criteria and is adjusted to fit
+the geometry convergence thresholds automatically.</p>
+<p>The xTB methods are completely analytical, so you can in principle
+converge your results down to machine precision. Converging it
+down to the lower limit is more a development feature than a
+real life application but always possible.</p>
+</div>
+<div class="section" id="characterisation-of-stationary-points">
+<h2>Characterisation of Stationary Points<a class="headerlink" href="#characterisation-of-stationary-points" title="Permalink to this headline">¶</a></h2>
+<p>In <cite>xtb</cite> second derivatives are implemented by finite differences methods
+(numerical second derivatives). Normally you want to calculate the Hessian
+directly after a successful geometry optimization, this is done by using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="n">coord</span> <span class="o">--</span><span class="n">ohess</span>
+</pre></div>
+</div>
+<p>For the calculation on the input geometry use <cite>–hess</cite> instead.</p>
+<p><strong>Dealing with Small Imaginary Frequencies</strong></p>
+<p>For small imaginary modes <cite>xtb</cite> offers an automatic distortion feature
+of these modes, say you have optimized a geometry and performed
+a frequency calculation which leads to an imaginary frequency of
+14 wavenumbers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="n">coord</span> <span class="o">--</span><span class="n">ohess</span>
+</pre></div>
+</div>
+<p>In this case <cite>xtb</cite> will generate a distorted structure, you can continue to
+optimize with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xtb</span> <span class="n">xtbhess</span><span class="o">.</span><span class="n">coord</span> <span class="o">--</span><span class="n">ohess</span>
+</pre></div>
+</div>
+<p>The optimization will only take a few steps and the artifical imaginary
+frequency is gone after checking frequency calculation.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="xcontrol.html" class="btn btn-neutral float-right" title="Input using xcontrol" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="contents.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Eike Caldeweyher
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

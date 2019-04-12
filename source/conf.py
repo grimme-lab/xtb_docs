@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'xtb_docs'
+project = 'xtb doc'
 copyright = '2019, Eike Caldeweyher'
 author = 'Eike Caldeweyher'
 
