@@ -129,6 +129,10 @@ As you can see, we will run the simulation for 10 ps with a timestep of 1 fs at 
 
  > xtb coord --input xcontrol --omd
 
+The program will start with performing a geometry optimization,
+the optimized structure used to start the dynamic can be found
+and inspected in ``xtbopt.coord``.
+
 In the file ``xtb.trj`` we can find our trajectory. We can analyze the structures now by displaying them in a molecular graphics editor (e.g., `MOLDEN`_, `VMD`_ etc. ) or a trajectory analyzer (e.g. `TRAVIS`_).
 
 .. _MOLDEN: http://cheminf.cmbi.ru.nl/molden/

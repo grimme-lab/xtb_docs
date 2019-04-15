@@ -24,7 +24,8 @@ Singlepoint Calculations
 
 Independent of all other commands, there will always be a singlepoint
 calculation carried out at the very beginning. To calculate something
-``xtb`` needs information about the geometry of the atoms
+``xtb`` needs information about the molecular geometry and the kind
+of atoms present.
 
 The default input format is either the Turbomole coordinate file
 as a ``$coord`` data group starting in the very first line
@@ -41,29 +42,29 @@ as a ``$coord`` data group starting in the very first line
   > xtb coord
 
 Any valid Xmol file (``xtb`` will actually count the lines and double check
-the number of atoms specified), here the suffix xyz is optional since ``xtb``
+the number of atoms specified), here the suffix ``.xyz`` is optional since ``xtb``
 will auto detect the file type.
 ``xtb`` also supports structure-data files (sdf), if the corresponding suffix
 is encountered.
 
 By default ``xtb`` will search for ``.CHRG`` and ``.UHF`` files and obtain
 from these the molecular charge and the number of unpaired electrons,
-respectively. The molecular charge can also be specified byi
+respectively. The molecular charge can also be specified by
 
-.. code:: bash
+.. code:: sh
 
   > xtb molecule.xyz --chrg +1
 
 which is equivalent to
 
-.. code:: bash
+.. code:: sh
 
   > echo +1 > .CHRG && xtb molecule.xyz
 
 
 This also works for the unpaired electrons as in
 
-.. code:: bash
+.. code:: sh
 
   > xtb --uhf 2 input.sdf
 
@@ -72,7 +73,7 @@ by any command-line arguments, if you are not sure, whether ``xtb`` tries
 to interpret your filename as flag use ``--`` to stop the parsing
 as command-line options for all following arguments.
 
-.. code:: bash
+.. code:: sh
 
   > xtb -- -oh.xyz
 
@@ -80,7 +81,7 @@ To select the parametrization of the xTB method you can currently choose
 from three different geometry, frequency and non-covalent interactions (GFN)
 parametrization, which differ mostly in the cost--accuracy ratio,
 
-.. code:: bash
+.. code:: sh
 
   > xtb --gfn 2 coord
 
@@ -91,7 +92,7 @@ Sometimes you might face difficulties converging the self consistent
 charge iterations, in this case it is usually a good idea to increase
 the electronic temperature and to restart at normal temperature
 
-.. code:: bash
+.. code:: sh
 
   > xtb --etemp 1000.0 coord && xtb --restart coord
 
@@ -115,11 +116,24 @@ The log-file is in Xmol format and contains the current total energy
 and the gradient norm in the comment line, ``gmolden`` usually works fine
 for this.
 
-A successful geometry optimization will print
-``*** GEOMETRY OPTIMIZATION CONVERGED AFTER 39 ITERATIONS ***``
+A successful geometry optimization will print somewhere along the lines
+
+.. code::
+
+     *** GEOMETRY OPTIMIZATION CONVERGED AFTER 43 ITERATIONS ***
+
+   ------------------------------------------------------------------------
+    total energy gain :          -0.0094907 Eh       -5.9555 kcal/mol
+    total RMSD        :           0.7677834 α         0.4063 Å
+   ------------------------------------------------------------------------
+
 after finishing the optimization procedures, while in all other cases
 that not exit in error
-``*** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***``
+
+.. code::
+
+     *** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***
+
 will be printed, additionally a ``NOT_CONVERGED`` file is created in the
 working directory, which might become handy for bulk jobs.
 
@@ -129,7 +143,7 @@ which does not have convergence issues and than improve with GFN2-xTB.
 Maybe you have to adjust the geometry by hand again, if even this fails.
 
 ``xtb`` offers eight predefined levels for the geometry optimization,
-which can be chosen appending the level to the optimization flag as
+which can be chosen by appending the level to the optimization flag as in
 
 .. code:: bash
 
@@ -183,24 +197,47 @@ directly after a successful geometry optimization, this is done by using
 
 For the calculation on the input geometry use ``--hess`` instead.
 
-..
-  NOTE this needs some example output and more details as it used to have
+Dealing with Small Imaginary Frequencies
+----------------------------------------
 
-..
-  Dealing with Small Imaginary Frequencies
-  ----------------------------------------
-  
-  For small imaginary modes `xtb` offers an automatic distortion feature
-  of these modes, say you have optimized a geometry and performed
-  a frequency calculation which leads to an imaginary frequency of
-  14 wavenumbers::
-    > xtb coord --ohess
-  
-  In this case `xtb` will generate a distorted structure, you can continue to
-  optimize with
-  
-  .. code::
-    > xtb xtbhess.coord --ohess
-  
-  The optimization will only take a few steps and the artifical imaginary
-  frequency is gone after checking frequency calculation.
+For small imaginary modes ``xtb`` offers an automatic distortion feature
+of these modes, say you have optimized a geometry and performed
+a frequency calculation which leads to an imaginary frequency of
+14 wavenumbers:
+
+.. code::
+
+  > xtb coord --ohess
+   ...
+             -------------------------------------------------
+            |               Frequency Printout                |
+             -------------------------------------------------
+   projected vibrational frequencies (cm-1)
+  eigval :       -0.00    -0.00     0.00     0.00     0.00     0.00
+  eigval :      -14.26     8.12     9.26    12.09    15.85    17.73
+  eigval :       19.45    28.85    39.18    41.30    64.61    71.84
+   ...
+  imag cut-off (cm-1) :    5.00
+   found            1  significant imaginary frequency
+   writing imag mode distorted coords to <xtbhess.coord>
+   for further optimization.
+   ...
+
+In this case ``xtb`` will generate a distorted structure, you can continue to
+optimize with
+
+.. code::
+
+  > xtb xtbhess.coord --ohess
+   ...
+             -------------------------------------------------
+            |               Frequency Printout                |
+             -------------------------------------------------
+   projected vibrational frequencies (cm-1)
+  eigval :       -0.00    -0.00    -0.00    -0.00     0.00     0.00
+  eigval :        2.02     7.99    10.10    12.08    16.16    18.57
+  eigval :       23.88    28.93    38.35    42.18    64.86    73.76
+   ...
+
+The optimization will only take a few steps and the artifical imaginary
+frequency is gone after checking the frequency calculation.
