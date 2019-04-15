@@ -22,7 +22,7 @@ copyright = '2019, Eike Caldeweyher'
 author = 'Eike Caldeweyher'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '6.1'
 
 
 # -- General configuration ---------------------------------------------------
