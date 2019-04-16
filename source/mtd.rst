@@ -4,7 +4,9 @@
  Meta-Dynamics Simulations
 -------------------------------
 
-In this chapter, all necessary information will be given in order to perform meta-dynamics (MTD) simulations with `xTB`.
+In this chapter, all necessary information will be given in order to perform meta-dynamics (MTD, checkout the ChemRxiv `preprint`_) simulations with `xTB`.
+
+.. _preprint: https://doi.org/10.26434/chemrxiv.7660532.v1
 
 .. contents::
 
