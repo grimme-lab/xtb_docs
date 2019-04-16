@@ -1,6 +1,7 @@
 # GFN-xTB documentation
 
-Contributors: 
+Contributors (alphabetically sorted): 
 **Eike Caldeweyher,**
 **Sebastian Ehlert,**
 **Jakob Seibert** 
+**Sebastian Spicher**
