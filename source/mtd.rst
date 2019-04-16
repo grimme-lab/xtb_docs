@@ -156,7 +156,7 @@ Make sure that ``xtb`` is properly set up and you have the following files in yo
     atoms=1-3 
 
 As you can see, we will run the MTD simulation for 10 ps with a timestep of 1 fs at a temperature of 298 Kelvin. 
-Fot the meta-dynamics, only the structure of the second water molecule will be taken into account in the rmsd criteria. 
+For the meta-dynamics, only the structure of the second water molecule will be taken into account in the rmsd criteria. 
 To start the simulation we call xtb as follows
 
 .. code:: bash
