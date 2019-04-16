@@ -4,6 +4,8 @@
  Detailed Input
 ----------------
 
+.. contents::
+
 The ``xcontrol`` instruction set is inspired by the Turbomole ``control``
 file syntax. I decided to call it ``xcontrol`` instructions back than,
 but here we will just call it (detailed) input for convenience.
