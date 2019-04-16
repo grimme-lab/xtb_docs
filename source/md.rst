@@ -4,6 +4,8 @@
  Molecular Dyamics Simulations
 -------------------------------
 
+.. contents::
+
 In this chapter, all necessary information will be given in order
 to perform MD simulations with `xTB`. 
 The adjustable parameters will be discussed and a guide to how to change
