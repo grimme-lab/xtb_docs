@@ -3,5 +3,5 @@
 Contributors (alphabetically sorted): 
 **Eike Caldeweyher,**
 **Sebastian Ehlert,**
-**Jakob Seibert** 
+**Jakob Seibert**,
 **Sebastian Spicher**
