@@ -4,15 +4,12 @@
  Meta-Dynamics Simulations
 -------------------------------
 
-In this chapter, all necessary information will be given in order to perform meta-dynamics (`MTD`_) simulations with `xTB`. 
+In this chapter, all necessary information will be given in order to perform meta-dynamics (MTD) simulations with `xTB`.
 From a practical point of view the application of meta-dynamics is quite similar to molecular-dynamic simulations.
 In MTD simulations a biasing potential given as a sum of Gaussian functions is additionally expressed. 
 The root-mean-square deviation (RMSD) in Cartesian space is chosen as a metric for the collective variables.  
 
-.. _MTD: https://pubs.acs.org/doi/10.1021/acs.jctc.9b00143/
-
 All adjustable parameters will be discussed and a guide to how to change them will be given as well as an example.
-
 
 
 General command-line control
