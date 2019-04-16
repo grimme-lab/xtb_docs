@@ -21,6 +21,7 @@ insights into the theory used behind the scences.
 
    setup
    basics
+   sp
    xcontrol
    md
    mtd
