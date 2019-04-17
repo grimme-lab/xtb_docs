@@ -215,7 +215,7 @@ The electronic temperature *T\ :sub:`el`\* is used as an adjustable parameter, e
 smearing to achieve fractional occupations for systems with almost degenerate orbital levels. 
 This is mainly used to take static correlation into account or to e.g. investigate thermally forbidden reaction pathways.
 
-T :sub:`el` enters the GFNn-xTB Hamiltonian as
+:math: `T_{el}` enters the GFNn-xTB Hamiltonian as
 
 .. math::
 
