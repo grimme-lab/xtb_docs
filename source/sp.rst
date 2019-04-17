@@ -238,7 +238,7 @@ The default electronic temperature is * T\ :sub:`el`\ * = 300 K.
             
 The specified electronic temperature is documented in the output file in the *Self-Consistent Charge Iterations* section
 
- .. code:: sh           
+.. code:: bash           
             
              -------------------------------------------------
             |        Self-Consistent Charge Iterations        |
@@ -268,4 +268,4 @@ The specified electronic temperature is documented in the output file in the *Se
 Vertical Ionization Potentials (IP) and Electron Affinities (EA)
 ==================================================================================
 
-soon\ |trade|
+soon`\ |trade|`
