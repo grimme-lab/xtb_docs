@@ -16,7 +16,7 @@ This documentation is currently hosted at [readthedocs.org](https://xtb-docs.rea
 * Sebastian Ehlert
 * Hagen Neugebauer
 * Jakob Seibert
-* Sebastian Spiche
+* Sebastian Spicher
 
 ## Bugs
 
