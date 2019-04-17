@@ -134,8 +134,8 @@ The imported specifications are documented in the output file in the *Calculatio
           omp threads                :                     4
           number of atoms            :                     3
           number of electrons        :                     7
-          **charge                     :                     1    # Specified molecular charge**
-          **spin                       :                   1.0    # Specified number of unpaired electrons converted to a total spin (S=2*0.5=1)**
+          charge                     :                     1    # Specified molecular charge
+          spin                       :                   1.0    # Specified number of unpaired electrons converted to a total spin (S=2*0.5=1)
           first test random number   :      0.54680533077496
 
 
@@ -219,13 +219,13 @@ This is mainly used to take static correlation into account or to e.g. investiga
 
 .. math::
 
-   -T_{el}S_{el}
+   \\-T_{el}S_{el}
    
 and the orbital occupations for a spin orbital *|psgr|\ :sub:`i`\* are given by
 
 .. math::
 
-   n_{i}(T_{el})=\frac{1}{exp[(\epsilon _{i}- \epsilon _{F})/(k_{B}T_{el})]+1}
+   \\n_{i}(T_{el})=\frac{1}{exp[(\epsilon _{i}- \epsilon _{F})/(k_{B}T_{el})]+1}
 
 The default electronic temperature is *T\ :sub:`el`\* = 300 K.
 
@@ -248,7 +248,7 @@ The specified electronic temperature is documented in the output file in the *Se
       Nao        : 6
       Nshell     : 4
       Nel        : 8
-      **T(el)      :  5000.0   # Specified electronic temperature**
+      T(el)      :  5000.0   # Specified electronic temperature
       intcut     :    25.0
       scfconv/Eh :  0.100E-05
         qconv/e  :  0.100E-03
