@@ -25,7 +25,7 @@ Density-Dependent Dispersion Contributions* *J. Chem. Theory Comput.* **2019**, 
 Applications
 ==========================
 
-**NMR spectrum simulation:** Grimme, S.; Bannwarth, C.; Dohm, S.; Hansen, A.; Pisarek, J.; Pracht, P.; Seibert, J.; Neese, F.  *Fully Automated Quantum‐Chemistry‐Based Computation of Spin–Spin‐Coupled Nuclear Magnetic Resonance Spectra* *Angew. Chem. Int. Ed.* **2017**, *56 (20)*, 12485–12491
+**NMR Spectrum Simulation:** Grimme, S.; Bannwarth, C.; Dohm, S.; Hansen, A.; Pisarek, J.; Pracht, P.; Seibert, J.; Neese, F.  *Fully Automated Quantum‐Chemistry‐Based Computation of Spin–Spin‐Coupled Nuclear Magnetic Resonance Spectra* *Angew. Chem. Int. Ed.* **2017**, *56 (20)*, 12485–12491
 `DOI: 10.1002/anie.201708266 <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.201708266>`_
 
 **Geometry Optimization of Lanthanoid Complexes:** Bursch, M.; Hansen, A.; Grimme, S. *Fast and 
