@@ -106,7 +106,7 @@ An easy way to setup the environment variables is to use the distributed ``Confi
 For a ``bash`` shell this might be done locally for one session by sourcing the
 ``Config_xtb_env.bash`` script. To use this setup in every session include
 
-.. bash::
+.. code:: bash
 
    source $XTBHOME/Config_xtb_env.bash
 
