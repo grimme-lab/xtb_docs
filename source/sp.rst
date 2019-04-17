@@ -240,20 +240,20 @@ The specified electronic temperature is documented in the output file in the *Se
 
  .. code:: bash           
             
-                -------------------------------------------------
-               |        Self-Consistent Charge Iterations        |
-                -------------------------------------------------
-      
-      Ncao       : 6
-      Nao        : 6
-      Nshell     : 4
-      Nel        : 8
-      T(el)      :  5000.0   # Specified electronic temperature
-      intcut     :    25.0
-      scfconv/Eh :  0.100E-05
-        qconv/e  :  0.100E-03
-      intneglect :  0.100E-07
-      broydamp   :      0.400
+             -------------------------------------------------
+            |        Self-Consistent Charge Iterations        |
+             -------------------------------------------------
+   
+   Ncao       : 6
+   Nao        : 6
+   Nshell     : 4
+   Nel        : 8
+   T(el)      :  5000.0   # Specified electronic temperature
+   intcut     :    25.0
+   scfconv/Eh :  0.100E-05
+     qconv/e  :  0.100E-03
+   intneglect :  0.100E-07
+   broydamp   :      0.400
 
       
 .. note:: Sometimes you may face difficulties converging the self consistent
