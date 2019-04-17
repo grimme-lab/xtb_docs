@@ -279,7 +279,9 @@ parameter file.
   
           .. math::
 
-             vIP = E(M^{n+1})-E(M^{n})              vEA = E(M^{n-1})-E(M^{n})
+             vIP = E(M^{n+1})-E(M^{n})
+             
+             vEA = E(M^{n-1})-E(M^{n})
              
           Be aware that the sign of IP and EA can differ in the literature due to different definitions.   
 
