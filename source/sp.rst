@@ -135,7 +135,7 @@ The imported specifications are documented in the output file in the *Calculatio
           number of atoms            :                     3
           number of electrons        :                     7
           charge                     :                     1    # Specified molecular charge
-          spin                       :                   1.0    # Specified number of unpaired electrons converted to a total spin (S=2*0.5=1)
+          spin                       :                   1.0    # Total spin from number of unpaired electrons (S=2*0.5=1)
           first test random number   :      0.54680533077496
 
 
