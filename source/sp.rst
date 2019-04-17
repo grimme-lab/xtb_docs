@@ -219,17 +219,17 @@ This is mainly used to take static correlation into account or to e.g. investiga
 
 .. math::
 
-   `-T_{el}S_{el}`
+   -T_{el}S_{el}
    
 and the orbital occupations for a spin orbital *|psgr|\ :sub:`i`\* are given by
 
 .. math::
 
-   `n_{i}(T_{el})=\frac{1}{exp[(\epsilon _{i}- \epsilon _{F})/(k_{B}T_{el})]+1}`
+   n_{i}(T_{el})=\frac{1}{exp[(\epsilon _{i}- \epsilon _{F})/(k_{B}T_{el})]+1}
 
-The default electronic temperature is * T\ :sub:`el`\ * = 300 K.
+The default electronic temperature is *`T\ :sub:`el`\`* = 300 K.
 
-*T\ :sub:`el`\* can be adjusted by the command line:
+*`T\ :sub:`el`\`* can be adjusted by the command line:
 
 .. code:: sh
 
