@@ -276,12 +276,8 @@ parameter file.
 
 .. note:: The vertical ionization potential or electron affinity is obtained as the energy difference between the corresponding   
           molecule groundstate and its ionized species in the same geometry.
-  
-          .. math::
 
-             vIP = E(M^{n+1})-E(M^{n})
-             
-             vEA = E(M^{n-1})-E(M^{n})
+          :math:`vIP = E(M^{n+1})-E(M^{n})`         :math:`vEA = E(M^{n-1})-E(M^{n})`   
              
           Be aware that the sign of IP and EA can differ in the literature due to different definitions.   
 
