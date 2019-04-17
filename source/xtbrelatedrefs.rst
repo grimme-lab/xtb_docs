@@ -29,7 +29,7 @@ Applications
 ==========================
 
 **Protonation Site Determination:** Pracht, P.; Bauer, C.; Grimme, S. *Automated and efficient quantum chemical determination and energetic ranking of molecular protonation sites* *J. Comput. Chem.* **2017**, *38 (30)*, 2618-2631
-`DOI: 10.1002/jcc.24922<https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.24922>`_
+`DOI: 10.1002/jcc.24922 <https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.24922>`_
 
 **NMR Spectrum Simulation:** Grimme, S.; Bannwarth, C.; Dohm, S.; Hansen, A.; Pisarek, J.; Pracht, P.; Seibert, J.; Neese, F.  *Fully Automated Quantum Chemistry Based Computation of Spin–Spin Coupled Nuclear Magnetic Resonance Spectra* *Angew. Chem. Int. Ed.* **2017**, *56 (20)*, 12485–12491
 `DOI: 10.1002/anie.201708266 <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.201708266>`_
