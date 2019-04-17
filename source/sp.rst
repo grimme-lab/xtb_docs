@@ -300,8 +300,7 @@ The vertical IP and EA calculations can be evoked from the command line either s
   > xtb coord --vipea
 
 
-.. note:: To optimize the geometry prior to the vertical IP and/or EA calculation add an optimization flag prior to the vipea 
-          one.
+.. note:: It is recommended to optimize the molecule geometry prior to the vipea calculation.
           
           .. code:: sh
 
