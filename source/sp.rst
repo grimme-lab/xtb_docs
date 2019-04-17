@@ -264,10 +264,103 @@ The specified electronic temperature is documented in the output file in the *Se
 
           .. code:: sh
 
-            > xtb --etemp 1000.0 coord && xtb --restart coord
+            > xtb coord --etemp 1000.0&& xtb coord --restart
   
   
-Vertical Ionization Potentials (IP) and Electron Affinities (EA)
+Vertical Ionization Potentials and Electron Affinities
 ==================================================================================
 
-soon`\ |trade|`
+``xtb`` can be used to calculate vertical ionization potentials (IP) and electron affinities (EA) applying
+a specially reparameterized GFN1-xTB version. The special purpose parameters are documented in the ``.param_ipea.xtb``
+parameter file.
+
+.. note:: The vertical ionization potential or electron affinity is obtained as the energy difference between the corresponding   
+          molecule groundstate and its ionized species in the same geometry.
+  
+          .. math::
+
+             vIP = E(M^{n+1})-E(M^{n})              vEA = E(M^{n-1})-E(M^{n})
+             
+          Be aware that the sign of IP and EA can differ in the literature due to different definitions.   
+
+The vertical IP and EA calculations can be evoked from the command line either separately or combined.
+
+.. code:: sh
+
+  > xtb coord --vip
+  
+.. code:: sh
+
+  > xtb coord --vea
+
+.. code:: sh
+
+  > xtb coord --vipea
+
+
+.. note:: To optimize the geometry prior to the vertical IP and/or EA calculation add an optimization flag prior to the vipea 
+          one.
+          
+          .. code:: sh
+
+            > xtb coord --opt && xtb xtbopt.coord --vipea
+
+The calculated IP and/or EA are then corrected empirically, both the empirical shift and the final IP and/or EA are documented
+in the output in the *vertical delta SCC IP calculation* and *vertical delta SCC EA calculation* sections.
+
+Example output for the optimized Water molecule:
+
+.. code:: bash
+
+              -------------------------------------------------
+             |        vertical delta SCC IP calculation        |
+              -------------------------------------------------
+
+              *** removed SETUP and SCC detailes for clarity ***
+
+            :::::::::::::::::::::::::::::::::::::::::::::::::::::
+            ::                     SUMMARY                     ::
+            :::::::::::::::::::::::::::::::::::::::::::::::::::::
+            :: total energy               -5.141603209729 Eh   ::
+            :: gradient norm               0.051348781702 Eh/α ::
+            :: HOMO-LUMO gap               6.668725933430 eV   ::
+            ::.................................................::
+            :: SCC energy                 -5.189558706232 Eh   ::
+            :: -> electrostatic            0.159050410368 Eh   ::
+            :: repulsion energy            0.048093066315 Eh   ::
+            :: dispersion energy          -0.000137569813 Eh   ::
+            :: halogen bond corr.          0.000000000000 Eh   ::
+            :: add. restraining            0.000000000000 Eh   ::
+            :::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+   ------------------------------------------------------------------------
+   empirical IP shift (eV):    4.8455        # Empirical shift
+   delta SCC IP (eV):   13.7897              # Finally calculated vertical IP (Exp.: 12.6 eV)
+   ------------------------------------------------------------------------
+              -------------------------------------------------
+             |        vertical delta SCC EA calculation        |
+              -------------------------------------------------
+
+              *** removed SETUP and SCC detailes for clarity ***
+
+            :::::::::::::::::::::::::::::::::::::::::::::::::::::
+            ::                     SUMMARY                     ::
+            :::::::::::::::::::::::::::::::::::::::::::::::::::::
+            :: total energy               -5.929826433613 Eh   ::
+            :: gradient norm               0.016238133270 Eh/α ::
+            :: HOMO-LUMO gap               7.760066297206 eV   ::
+            ::.................................................::
+            :: SCC energy                 -5.977781930116 Eh   ::
+            :: -> electrostatic            0.169754616317 Eh   ::
+            :: repulsion energy            0.048093066315 Eh   ::
+            :: dispersion energy          -0.000137569813 Eh   ::
+            :: halogen bond corr.          0.000000000000 Eh   ::
+            :: add. restraining            0.000000000000 Eh   ::
+            :::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+   ------------------------------------------------------------------------
+   empirical EA shift (eV):    4.8455     # Empirical shift
+   delta SCC EA (eV):   -2.0320           # Finally calculated vertical EA
+   ------------------------------------------------------------------------
+
+
