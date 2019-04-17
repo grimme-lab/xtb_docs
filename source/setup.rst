@@ -10,7 +10,7 @@ program.
 Getting the Program
 ===================
 
-The `xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb/xtb>`_ program
+The `xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb/>`_ program
 is available for academic use free of charge on request
 from Stefan Grimme at the `xtb-mailing list <xtb@thch.uni-bonn.de>`_.
 It usually comes as a tarball with following content
@@ -102,17 +102,26 @@ variable and is used in the same manner. ``xtb`` will print the values
 of ``XTBPATH`` and ``XTBHOME`` at the beginning of each calculation
 if set to verbose mode.
 
-Getting Help inside ``xtb``
-===========================
+An easy way to setup the environment variables is to use the distributed ``Config_xtb_env``.
+For a ``bash`` shell this might be done locally for one session by sourcing the
+``Config_xtb_env.bash`` script. To use this setup in every session include
 
-Beside this manual you are almost on your own. You can check the
-in-program help by
+.. bash::
+
+   source $XTBHOME/Config_xtb_env.bash
+
+in your ``.bashrc`` (requires that ``XTBHOME`` is set to the appropiate directory).
+
+Getting Help from ``xtb``
+=========================
+
+Beside this manual you can check the in-program help by
 
 .. code:: bash
 
   > xtb --help
 
-Unfortunately, this might be outdated, since nobody feels responsible for it,
+Unfortunately, this might be outdated,
 therefore, you should refer to the man-pages distributed with the ``xtb`` program.
 Please check for the man-pages of ``xtb(1)`` and ``xcontrol(7)``.
 
