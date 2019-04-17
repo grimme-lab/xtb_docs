@@ -147,9 +147,9 @@ The imported specifications are documented in the output file in the *Calculatio
           to interpret your filename as flag use ``--`` to stop the parsing
           as command-line options for all following arguments.
 
-.. code:: sh
+          .. code:: sh
 
-  > xtb -- -oh.xyz
+            > xtb -- -oh.xyz
 
 To select the parametrization of the xTB method you can currently choose
 from three different geometry, frequency and non-covalent interactions (GFN)
@@ -176,27 +176,27 @@ The accuracy of the SCC calculation can be adjusted from the command line:
   
 By default the accuracy multiplier is set to 1 resulting in the following settings:
 
-+---------------------------+------------------------+
-| Accuracy                  |           1            |
-+===========================+========================+
-| Integral neglect          |     0.1000000E-07      |
-+---------------------------+------------------------+
++---------------------------+------------------------------------+
+| Accuracy                  |           1                        |
++===========================+====================================+
+| Integral neglect          |     0.1000000E-07                  |
++---------------------------+------------------------------------+
 | SCC convergence           |     0.1000000E-05 E\ :sub:`h`\     |
-+---------------------------+------------------------+
-| Wavefunction convergence  |     0.1000000E-03 e    |
-+---------------------------+------------------------+
++---------------------------+------------------------------------+
+| Wavefunction convergence  |     0.1000000E-03 e                |
++---------------------------+------------------------------------+
 
 Setting the accuracy level to 3 will result in:
 
-+---------------------------+------------------------+
-| Accuracy                  |           3            |
-+===========================+========================+
-| Integral neglect          |     0.3000000E-07      |
-+---------------------------+------------------------+
++---------------------------+------------------------------------+
+| Accuracy                  |           3                        |
++===========================+====================================+
+| Integral neglect          |     0.3000000E-07                  |
++---------------------------+------------------------------------+
 | SCC convergence           |     0.3000000E-05 E\ :sub:`h`\     |
-+---------------------------+------------------------+
-| Wavefunction convergence  |     0.3000000E-03 e    |
-+---------------------------+------------------------+
++---------------------------+------------------------------------+
+| Wavefunction convergence  |     0.3000000E-03 e                |
++---------------------------+------------------------------------+
 
 
 Iterations
