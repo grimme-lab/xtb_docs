@@ -274,12 +274,16 @@ Vertical Ionization Potentials and Electron Affinities
 a specially reparameterized GFN1-xTB version. The special purpose parameters are documented in the ``.param_ipea.xtb``
 parameter file.
 
-.. note:: The vertical ionization potential or electron affinity is obtained as the energy difference between the corresponding   
-          molecule groundstate and its ionized species in the same geometry.
+The vertical ionization potential or electron affinity is obtained as the energy difference between the corresponding   
+molecule groundstate and its ionized species in the same geometry.
 
-          :math:`vIP = E(M^{n+1})-E(M^{n})`         :math:`vEA = E(M^{n-1})-E(M^{n})`   
+.. math::
+   IP_{v} = E(M^{n+1})-E(M^{n})
+   
+.. math::
+   EA_{v} = E(M^{n-1})-E(M^{n}) 
              
-          Be aware that the sign of IP and EA can differ in the literature due to different definitions.   
+.. note::  The sign of the IP and EA can differ in the literature due to different definitions.   
 
 The vertical IP and EA calculations can be evoked from the command line either separately or combined.
 
