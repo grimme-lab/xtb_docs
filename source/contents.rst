@@ -26,5 +26,6 @@ insights into the theory used behind the scences.
    xcontrol
    md
    mtd
+   xtbrelatedrefs
    license
    help
