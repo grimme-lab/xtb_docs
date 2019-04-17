@@ -316,7 +316,7 @@ Example output for the optimized Water molecule:
              |        vertical delta SCC IP calculation        |
               -------------------------------------------------
 
-              *** removed SETUP and SCC detailes for clarity ***
+              *** removed SETUP and SCC details for clarity ***
 
             :::::::::::::::::::::::::::::::::::::::::::::::::::::
             ::                     SUMMARY                     ::
@@ -341,7 +341,7 @@ Example output for the optimized Water molecule:
              |        vertical delta SCC EA calculation        |
               -------------------------------------------------
 
-              *** removed SETUP and SCC detailes for clarity ***
+              *** removed SETUP and SCC details for clarity ***
 
             :::::::::::::::::::::::::::::::::::::::::::::::::::::
             ::                     SUMMARY                     ::
