@@ -16,24 +16,54 @@ General command-line control
 The generalized born (GB) model with solvent accessable surface area
 (SASA) termed GBSA is envoked with the flag ``--gbsa [Solvent]`` or 
 alternative ``-g [Solvent]``. As an example the single point calculation employing the 
-GBSA model for solvation in toluene would be started by
+GBSA model for solvation in water would be started by
 
 .. code:: bash
 
-  > xtb coord --gbsa toluene
+  > xtb coord --gbsa water
+
+As an example the energy printout of a singlepoint calculation
+of a H₂O molecule in implicit water is given.
+
+.. code:: bash
+
+ :::::::::::::::::::::::::::::::::::::::::::::::::::::
+ ::                     SUMMARY                     ::
+ :::::::::::::::::::::::::::::::::::::::::::::::::::::
+ :: total energy               -5.080052453799 Eh   ::
+ :: total w/o Gsasa/hb         -5.072629830168 Eh   ::
+ :: gradient norm               0.004391355361 Eh/α ::
+ :: HOMO-LUMO gap              14.784541887474 eV   ::
+ ::.................................................::
+ :: SCC energy                 -5.113963912352 Eh   ::
+ :: -> isotropic ES             0.042951967946 Eh   ::
+ :: -> anisotropic ES          -0.000414697277 Eh   ::
+ :: -> anisotropic XC          -0.000390138125 Eh   ::
+ :: -> dispersion              -0.000131341861 Eh   ::
+ :: -> Gsolv                   -0.011759733450 Eh   ::
+ ::    -> Gborn                -0.004337109820 Eh   ::
+ ::    -> Gsasa                 0.000220003644 Eh   ::
+ ::    -> Ghb                  -0.009500070401 Eh   ::
+ ::    -> Gshift                0.001857443127 Eh   ::
+ :: repulsion energy            0.033911458523 Eh   ::
+ :: add. restraining            0.000000000000 Eh   ::
+ :::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+The solvation free energy is printed as ``Gsolv`` and is also added
+to all total energy printouts.
 
 Optimizing a geometry with the GBSA model can be done with the following input
 
 .. code:: bash
 
-  > xtb coord --opt --gbsa toluene
+  > xtb coord --opt --gbsa water
 
 The order of the flags can be altered and the input
 is not case sensitive.
 Like in a optimization without GBSA the optimized coordinates are
 written to a new file (``xtbopt.coord``).
-In General the GBSA can be used in combination with all runtypes 
-implemented in the GFN-xTB.
+In General the GBSA can be used in combination with all available run types 
+implemented in the `xtb`.
 
 Parameterized Solvents
 ======================
@@ -43,37 +73,37 @@ GFN1-xTB and GFN2-xTB, but not for GFN0-xTB.
 Also some solvents were parameterized only for GFN1 or GFN2.
 Here is a list of the available solvents.
 
-+---------------+-------+-------+
-| solvents      | GFN1  | GFN2  |
-+===============+=======+=======+
-| Acetone       |   x   |   x   |
-+---------------+-------+-------+
-| Acetonitrile  |   x   |   x   |
-+---------------+-------+-------+
-| Benzene       |   x   |       |
-+---------------+-------+-------+
-| CH2Cl2        |   x   |   x   |
-+---------------+-------+-------+
-| CHCl3         |   x   |   x   |
-+---------------+-------+-------+
-| CS2           |   x   |   x   |
-+---------------+-------+-------+
-| DMF           |       |   x   |
-+---------------+-------+-------+
-| DMSO          |   x   |   x   |
-+---------------+-------+-------+
-| Ether         |   x   |   x   |
-+---------------+-------+-------+
-| Water (H2O)   |   x   |   x   |
-+---------------+-------+-------+
-| Methanol      |   x   |   x   |
-+---------------+-------+-------+
-| n-Hexan       |       |   x   |
-+---------------+-------+-------+
-| THF           |   x   |   x   |
-+---------------+-------+-------+
-| Toluene       |   x   |   x   |
-+---------------+-------+-------+
++------------------------+-------+-------+
+| solvents               | GFN1  | GFN2  |
++========================+=======+=======+
+| Acetone                |   x   |   x   |
++------------------------+-------+-------+
+| Acetonitrile           |   x   |   x   |
++------------------------+-------+-------+
+| Benzene                |   x   |       |
++------------------------+-------+-------+
+| CH₂Cl₂                 |   x   |   x   |
++------------------------+-------+-------+
+| CHCl₃                  |   x   |   x   |
++------------------------+-------+-------+
+| CS₂                    |   x   |   x   |
++------------------------+-------+-------+
+| DMF                    |       |   x   |
++------------------------+-------+-------+
+| DMSO                   |   x   |   x   |
++------------------------+-------+-------+
+| Ether                  |   x   |   x   |
++------------------------+-------+-------+
+| Water (H₂O)            |   x   |   x   |
++------------------------+-------+-------+
+| Methanol               |   x   |   x   |
++------------------------+-------+-------+
+| n-Hexan                |       |   x   |
++------------------------+-------+-------+
+| THF                    |   x   |   x   |
++------------------------+-------+-------+
+| Toluene                |   x   |   x   |
++------------------------+-------+-------+
 
 
 Available Grids
@@ -89,7 +119,7 @@ and are called as example like this
 
 The default grid level is ``normal``. 
 The available grid levels are given in the table below
-with the corresponding numer of gridpoints.
+with the corresponding number of gridpoints.
 
 +---------------+--------------+
 | Gridlevel     |   Gridpoints |
@@ -113,10 +143,10 @@ Reference States
  
 The default reference state option is ``bar1M`` which should not
 be changed for normal production runs.
-In order to compare the solvation free energy with COSMO-RS
-solvation free energies the reference state can be set to ``reference`` which corresponds
-to the same option in COSMO-RS. This could be done with
+In order to compare the solvation free energy with
+solvation free energies from COSMO-RS the reference state can be set to ``reference`` which corresponds
+to the same ``reference`` option as in COSMO-RS. This could be done with
 
 .. code:: bash
 
-  > xtb coord --opt --gbsa toluene reference
+  > xtb coord --opt --gbsa water reference
