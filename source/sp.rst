@@ -2,7 +2,7 @@
 Singlepoint Calculations
 ----------------------------
 
-*T :sub:`el`*
+*`T :sub:`el``*
 
 .. contents::
 
