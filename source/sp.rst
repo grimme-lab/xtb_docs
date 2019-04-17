@@ -2,6 +2,8 @@
 Singlepoint Calculations
 ----------------------------
 
+*\T\\ :sub:`el`\\\* 
+
 .. contents::
 
 .. note:: Generally, a singlepoint calculation will be carried out automatically before every other calculation done with ``xtb``.
@@ -227,7 +229,7 @@ and the orbital occupations for a spin orbital *|psgr|\ :sub:`i`\* are given by
 
    n_{i}(T_{el})=\frac{1}{exp[(\epsilon _{i}- \epsilon _{F})/(k_{B}T_{el})]+1}
 
-The default electronic temperature is *\T\ :sub:`el`\\* = 300 K.
+The default electronic temperature is *\T\\ :sub:`el`\\\* = 300 K.
 
 *T\ :sub:`el`\* can be adjusted by the command line:
 
