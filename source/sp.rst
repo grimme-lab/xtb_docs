@@ -1,4 +1,4 @@
-.._singlepoint:
+.. _singlepoint:
 
 ----------------------------
 Singlepoint Calculations
