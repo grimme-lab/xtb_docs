@@ -21,9 +21,10 @@ insights into the theory used behind the scences.
 
    setup
    basics
+   commandline
+   xcontrol
    sp
    gbsa
-   xcontrol
    md
    mtd
    xtbrelatedrefs
