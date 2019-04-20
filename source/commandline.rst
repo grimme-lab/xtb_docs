@@ -77,6 +77,20 @@ Fukui Indices
    :queue:
      setup, SP, SP, SP, properties
 
+Electrostatic Potential
+   :flag: ``--esp``
+   :description:
+     calculate electrostatic potential on VdW-grid
+   :queue:
+     setup, SP, properties (with ESP calculation)
+
+STM picture
+   :flag: ``--stm``
+   :description:
+     simulate a STM measurement (molecule should be aligned to xy-plane)
+   :queue:
+     setup, SP, properties (with STM calculation)
+
 Geometry optimization
    :flag: ``--opt``
    :description:
@@ -156,12 +170,6 @@ Options
 
 --etemp REAL
     electronic temperature (default = 300K)
-
---esp
-    calculate electrostatic potential on VdW-grid
-
---stm
-    calculate STM image
 
 -a, --acc REAL
     accuracy for SCC calculation, lower is better (default = 1.0)
