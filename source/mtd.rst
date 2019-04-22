@@ -4,9 +4,19 @@
  Meta-Dynamics Simulations
 -------------------------------
 
-In this chapter, all necessary information will be given in order to perform meta-dynamics (MTD, checkout the ChemRxiv `preprint`_) simulations with `xTB`.
+In this guide, all necessary information will be given in order to perform
+meta-dynamics (MTD) simulations with the ``xtb`` program.
+For the theory behind our MTD approach please refer to:
 
-.. _preprint: https://doi.org/10.26434/chemrxiv.7660532.v1
+    S. Grimme,
+    *Exploration of Chemical Compound, Conformer, and Reaction Space with
+    Meta-Dynamics Simulations Based on Tight-Binding Quantum Chemical
+    Calculations*,
+    *J. Chem. Theory Comput.*, Article ASAP
+    **DOI:** `10.1021/acs.jctc.9b00143`__
+    Publication Date (Web): April 3, 2019
+
+__ https://doi.org/10.1021/acs.jctc.9b00143
 
 .. contents::
 
@@ -16,61 +26,14 @@ The root-mean-square deviation (RMSD) in Cartesian space is chosen as a metric f
 
 All adjustable parameters will be discussed and a guide to how to change them will be given as well as an example.
 
+General MTD Setup
+=================
 
-General command-line control
-============================
-    
-By using the flag ``--metadyn`` the MD simulation will be performed directly with the user given input structure (coord).
-
-.. code:: bash
-
-  > xtb coord --metadyn
-
-It is strongly recommended to start the MTD simulation from an xTB
-optimized structure. 
-Otherwise there may be instabilities during the MD and the equilibration
-will be severely hindered. 
-
-
-General MD Parameters
-=====================
-
-Basic parameters for MTD simulations such as time and temperature are adjustable via the ``$md`` block.
-
-In order to change the parameters of the MTD simulation the ``$metadyn`` block
-in the xcontrol/input file has to be modified.
-
-  +---------+---------+-----------+-----------------------------------------+
-  |  key    | value   | default   | description                             |
-  +=========+=========+===========+=========================================+
-  | dump    | real    | 50 fs     | interval for trajectory printout        |
-  +---------+---------+-----------+-----------------------------------------+
-  | hmass   | integer | 4 times   | mass of hydrogen atoms                  |
-  +---------+---------+-----------+-----------------------------------------+
-  | nvt     | boolean | true      | perform simulation in NVT ensemble      |
-  +---------+---------+-----------+-----------------------------------------+
-  | restart | boolean | false     | read velocities from ``mdrestart``      |
-  +---------+---------+-----------+-----------------------------------------+
-  | temp    | real    | 298.15 K  | thermostat temperature                  |
-  +---------+---------+-----------+-----------------------------------------+
-  | time    | real    | 50 ps     | total run time of simulation            |
-  +---------+---------+-----------+-----------------------------------------+
-  | sccacc  | real    | 2.0       | accuracy of xTB calculation in dynamics |
-  +---------+---------+-----------+-----------------------------------------+
-  | shake   | integer | all bonds | use SHAKE algorithm to constrain bonds  |
-  +---------+---------+-----------+-----------------------------------------+
-  | step    | real    | 4 fs      | time step for propagation               |
-  +---------+---------+-----------+-----------------------------------------+
-  | velo    | boolean | false     | also write out velocities               |
-  +---------+---------+-----------+-----------------------------------------+
-
-Specific MTD Parameters
-=======================
-
-At this point it should be mentioned that the default settings are already optimized and there is no further need
-to change the MTD specific paramters.
-If one still wants to do so, the parameters of the MTD simulation the ``$metadyn`` block
-in the xcontrol/input file has to be modified.
+For any MTD calculation a :ref:`detailed-input` file is necessary to enter
+the correct calculation mode. The basic parameters for dynamics are taken
+from the ``$md`` block as described in the section regarding :ref:`md`.
+The ``$metadyn`` data group has to be present in the input file.
+All available instructions for this data group are shown here:
 
   +---------+---------+-----------------------------------------------------------+
   |  key    | value   | description                                               |
@@ -86,31 +49,34 @@ in the xcontrol/input file has to be modified.
   | atoms   | list    | atoms to include in the rmsd calculation (default: all)   |
   +---------+---------+-----------------------------------------------------------+
 
-By using the flag ``--metadyn integer``, the number of saved structures may also be entered via the command line.
-
-.. code:: bash
-
-  > xtb coord --metadyn 10
-
-
-The above xtb call with all other settings on default should look like below in your input file
+To avoid accidental activation of the bias potential conservative default values
+are chosen in the program. So you cannot simply use a commandline-only approach
+to perform a MTD calculation. First of all you want to create a ``metadyn.inp``
+file with this content
 
 .. code::
 
-   $md
-      temp=298.15 # in K
-      time= 50.0  # in ps
-      dump= 50.0  # in fs
-      step=  4.0  # in fs
-      velo=false
-      nvt =true
-      hmass=4
-      shake=2
-      sccacc=2.0
    $metadyn
       save=10
-      factor=0.000000000
+      kpush=1.0
+      alp=0.2
+   $end
 
+You can start the metadynamic calculation now by using the ``--md`` commandline
+flag as
+
+.. code:: bash
+
+   > xtb --md --input metadyn.inp coord
+
+
+By using the flag ``--metadyn integer``, the number of saved structures may
+also be entered via the commandline and need not to be present in the
+detailed input:
+
+.. code:: bash
+
+   > xtb --metadyn 10 --input metadyn.inp coord
 
 MTD specific Files
 ==================
