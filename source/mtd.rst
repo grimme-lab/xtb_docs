@@ -100,7 +100,7 @@ In order to achive this, in the ``$md`` block the ``mdrestart`` parameter has to
 Example/Case study
 ------------------
 
-To summarize the most important topics of this chapter we will perform an MD simulation of the water dimer molecule with `xTB`.
+To summarize the most important topics of this chapter we will perform an MTD simulation of the water dimer molecule with `xTB`.
 Make sure that ``xtb`` is properly set up and you have the following files in your working directory
 
 .. code::
@@ -115,13 +115,18 @@ Make sure that ``xtb`` is properly set up and you have the following files in yo
    -6.78373759577982     -3.28799737179945     -6.34039886662289       h
  $end
 
- > cat xcontrol
+ > cat metadyn.inp
  $md
     time=10
     step=1
     temp=298
+ $end   
  $metadyn
-    atoms=1-3 
+    atoms=1-3
+    save=10
+    kpush=0.02
+    alp=1.2
+ $end   
 
 As you can see, we will run the MTD simulation for 10 ps with a timestep of 1 fs at a temperature of 298 Kelvin. 
 For the meta-dynamics, only the structure of the second water molecule will be taken into account in the rmsd criteria. 
@@ -129,7 +134,7 @@ To start the simulation we call xtb as follows
 
 .. code:: bash
 
- > xtb coord --input xcontrol --metadyn
+ > xtb --md --input metadyn.inp coord
 
 In the file ``xtb.trj`` we can find our trajectory. 
 We can analyze the structures now by displaying them in a molecular graphics editor (e.g., `MOLDEN`_, `VMD`_ etc. ) 
