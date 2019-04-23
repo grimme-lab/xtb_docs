@@ -197,7 +197,7 @@ or a trajectory analyzer (e.g. `TRAVIS`_).
 Constrained MD/MTD simulations
 ==============================
 
-As you may have noticed in the example given above by checking the file xtb.trj, the water dimer dissociates within 
+As you may have noticed in the example given above by checking the file ``xtb.trj``, the water dimer dissociates within 
 the MTD simulation, due to the applied bias potential. If you run dynamics for systems that are non-covalently bound, 
 you may encounter this problem from time to time. To avoid dissociation you can try to confine the simulation in a sphere by 
 a repulsive potential. For further details check how to confine a cavity in :ref:`detailed-input`.
