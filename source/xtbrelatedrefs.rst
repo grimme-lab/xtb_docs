@@ -22,6 +22,10 @@ Self-Consistent Tight-Binding Quantum Chemical Method with Multipole Electrostat
 Density-Dependent Dispersion Contributions* *J. Chem. Theory Comput.* **2019**, *15 (3)*, 1652–1671
 `DOI: 10.1021/acs.jctc.8b01176 <https://pubs.acs.org/doi/10.1021/acs.jctc.8b01176>`_
 
+**DFT-D4:** Caldeweyher, E.; Ehlert, S.; Hansen, A.; Neugebauer, H.; Spicher, S.; Bannwarth, C.; Grimme, S.
+*A generally applicable atomic-charge dependent London dispersion correction* *J. Chem. Phys.* **2019**, *150*, 154122
+`DOI: 10.1063/1.5090222 <https://doi.org/10.1063/1.5090222>`_
+
 **sTDA-xTB:** Grimme, S.; Bannwarth, C.  *Ultra-fast computation of electronic spectra for large systems by tight-binding based simplified Tamm-Dancoff approximation (sTDA-xTB)* *J. Chem. Phys.* **2016**, *145*, 054103
 `DOI: 10.1063/1.4959605 <https://aip.scitation.org/doi/10.1063/1.4959605>`_
 
