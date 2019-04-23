@@ -79,7 +79,7 @@ detailed input:
    > xtb --metadyn 10 --input metadyn.inp coord
 
 MTD specific Files
-==================
+------------------
 
 After the ``xtb`` program has performed the desired MTD simulation the trajectory of the structures can be found in ``xtb.trj``.
 Furthermore, files with the names ``scoord.*`` are generated. After every picosecond of simulation the structure at this point 
@@ -98,7 +98,7 @@ In order to achive this, in the ``$md`` block the ``mdrestart`` parameter has to
     mdrestart=true
 
 Example/Case study
-------------------
+==================
 
 To summarize the most important topics of this chapter we will perform an MTD simulation of the water dimer molecule with `xTB`.
 Make sure that ``xtb`` is properly set up and you have the following files in your working directory
@@ -193,3 +193,43 @@ or a trajectory analyzer (e.g. `TRAVIS`_).
 .. _MOLDEN: http://cheminf.cmbi.ru.nl/molden/
 .. _VMD: https://www.ks.uiuc.edu/Research/vmd/
 .. _TRAVIS: https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/travis/travis
+
+Constrained MD/MTD simulations
+==============================
+
+As you may have noticed in the example given above by checking the file xtb.trj, the water dimer dissociates within 
+the MTD simulation, due to the applied bias potential. If you run dynamics for systems that are non-covalently bound, 
+you may encounter this problem from time to time. To avoid dissociation you can try to confine the simulation in a sphere by 
+a repulsive potential. For further details check how to confine a cavity in :ref:`detailed-input`.
+
+To avoid dissociation of the water dimer by a logfermi potential, the input file has to be modified:
+
+.. code::
+
+ > cat metadyn.inp
+ $md
+    time=10
+    step=1
+    temp=298
+ $end   
+ $metadyn
+    atoms=1-3
+    save=10
+    kpush=0.02
+    alp=1.2
+ $end
+ $wall
+    potential=logfermi
+    sphere: auto, all
+ $end   
+ 
+To start the constrained MTD simulation we call xtb as follows:
+
+.. code:: bash
+
+ > xtb --md --input metadyn.inp coord
+
+If you now check the trajectory file, you will see that the water molecules do not separate.
+
+.. note:: The wall potential does not only work for MD/MTD simulations.
+          It may also be applied in the same manner for single point calculations and geometry optimizations.
