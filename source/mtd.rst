@@ -135,6 +135,56 @@ To start the simulation we call xtb as follows
 .. code:: bash
 
  > xtb --md --input metadyn.inp coord
+ 
+The output for the example MTD simulation of the water dimer will look like this:
+
+.. code:: bash
+
+           -------------------------------------------------      
+          |                  Meta Dynamics                  |
+           ------------------------------------------------- 
+ trajectories on xtb.trj or xtb.trj.<n>
+ 
+ MD time /ps        :   10.00
+ dt /fs             :    1.00
+ SCC accuracy       :    1.00
+ temperature /K     :  298.00
+ max steps          : 10000
+ block length (av.) :  5000
+ dumpstep(trj) /fs  :  100.00   100
+ dumpstep(coords)/fs: 1000.00  1000
+ H atoms mass (amu) :     2
+ # deg. of freedom  :    14
+ SHAKE on. # bonds  :           4  all: T
+ Berendsen THERMOSTAT on
+ kpush  :    0.020
+ alpha  :    1.200
+ update :  10
+         time (ps)    <Epot>      Ekin   <T>   T     Etot
+      0    0.00      0.00000   0.0198    0.    0.   -10.10916
+ est. speed in wall clock h for 100 ps :  0.01
+    200    0.20    -10.09118   0.0116  559.  524.   -10.12881
+    400    0.40    -10.11436   0.0105  454.  471.   -10.13041
+    600    0.60    -10.12260   0.0070  431.  316.   -10.13157
+    800    0.80    -10.12671   0.0071  412.  321.   -10.13081
+    ...    ...      ...        ...     ...   ...     ...
+   4800    4.80    -10.13763   0.0084  469.  379.   -10.13198
+ block <Epot> / <T> :     -10.13978  465.     drift:  0.99D+02   Tbath : 298.
+   5000    5.00    -10.13775   0.0082  465.  368.   -10.13253
+   5200    5.20    -10.13783   0.0129  469.  582.   -10.12808
+   5400    5.40    -10.13794   0.0105  471.  474.   -10.13014
+   5600    5.60    -10.13804   0.0090  470.  407.   -10.13140
+   ...     ...      ...        ...     ...   ...     ...
+   9800    9.80    -10.13918   0.0083  462.  376.   -10.13258
+ average properties 
+ Epot               :  -10.1392169717059     
+ Epot (accurate SCC):  -10.1402473210558     
+ Ekin               :  1.019492766065306E-002
+ Etot               :  -10.1290220440452     
+ T                  :   459.900938472654     
+ thermostating problem
+ normal exit of md()
+              
 
 In the file ``xtb.trj`` we can find our trajectory. 
 We can analyze the structures now by displaying them in a molecular graphics editor (e.g., `MOLDEN`_, `VMD`_ etc. ) 
