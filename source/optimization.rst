@@ -12,33 +12,38 @@ Please check out the chapter 'Singlepoint Calculations' for options that are not
 Optimization levels
 ====================
 
-``xTB`` has a build-in geometry optimizer called ANCopt which uses the Lindh-Hessian. It is activated by the flag ``--opt [level]``. The following levels are available::
-  +---------+----------+--------------+----------+
-  |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
-  +=========+==========+==============+==========+
-  | crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
-  +---------+----------+--------------+----------+  
-  | sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
-  +---------+----------+--------------+----------+
-  | loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
-  +---------+----------+--------------+----------+
-  | lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
-  +---------+----------+--------------+----------+
-  | normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
-  +---------+----------+--------------+----------+
-  | tight   | 1 × 10⁻⁶ | 8 × 10⁻⁴     | 0.20     |
-  +---------+----------+--------------+----------+
-  | vtight  | 1 × 10⁻⁷ | 2 × 10⁻⁴     | 0.05     |
-  +---------+----------+--------------+----------+
-  | extreme | 5 × 10⁻⁸ | 5 × 10⁻⁵     | 0.01     |
-  +---------+----------+--------------+----------+
 
-Here, energy convergence (Econv) is the allowed change in the total energy at convergence and the gradient convergence (Gconv) is the allowed change in the gradient norm at convergence. The accuracy
-is handed to the singlepoint calculations for integral cutoffs and self consistent field convergence criteria and is adjusted to fit the geometry convergence thresholds automatically.
+``xTB`` has a build-in geometry optimizer called ANCopt which uses the Lindh-Hessian. It is activated by the flag ``--opt [level]``. The following levels are available:
+
+.. code:: bash
+
+   +---------+----------+--------------+----------+
+   |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
+   +=========+==========+==============+==========+
+   | crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
+   +---------+----------+--------------+----------+  
+   | sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
+   +---------+----------+--------------+----------+
+   | loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
+   +---------+----------+--------------+----------+
+   | lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
+   +---------+----------+--------------+----------+
+   | normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
+   +---------+----------+--------------+----------+
+   | tight   | 1 × 10⁻⁶ | 8 × 10⁻⁴     | 0.20     |
+   +---------+----------+--------------+----------+
+   | vtight  | 1 × 10⁻⁷ | 2 × 10⁻⁴     | 0.05     |
+   +---------+----------+--------------+----------+
+   | extreme | 5 × 10⁻⁸ | 5 × 10⁻⁵     | 0.01     |
+   +---------+----------+--------------+----------+
+
+Here, energy convergence (Econv) is the allowed change in the total energy at convergence and the gradient convergence (Gconv) the allowed change in the gradient norm at convergence. The accuracy
+is handed to the singlepoint calculations for integral cutoffs and self consistent field convergence criteria. It is adjusted to fit the geometry convergence thresholds automatically.
 The maximal number of optimization cycles can be defined by using the flag ``--cycles integer``. By default, the optimization level 'normal' is used and maximal 200 optimization cycles are performed. 
 
 Running a geometry optimization
 =================================
+
 
 Example 1: ethin
 ------------------
@@ -60,7 +65,7 @@ For running the geometry optimization using the defaults, call
 
    > xtb inp.xyz --opt
 
-Firstly, a singlepoint calculation is performed. Then, the optimization setup is printed:
+A singlepoint calculation is performed. Then, the optimization setup is printed:
 
 .. code:: bash
 
@@ -119,7 +124,7 @@ The convergence of the geometry optimization is confirmed by the printout
 
 	   *** GEOMETRY OPTIMIZATION CONVERGED AFTER 6 ITERATIONS ***
 
-Afterwards, a final singlepoint calculation is performed (including a property printout). The total energy and the file in which the optimized coordinates are written are printed at the end of the output:
+Afterwards, a final singlepoint calculation is performed (including a property printout). The total energy and the name of the file containing the optimized coordinates are printed at the end of the output:
 
 .. code:: bash
 
@@ -149,7 +154,7 @@ Further, a trajectory of the geometry optimization written in Xmol format (even 
 Example 2: Cp⁻
 ------------------
 
-The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in ``TURBOMOLE`` format as ``coord`` file
+The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in ``TURBOMOLE`` format as ``coord`` file.
 
 .. code:: bash
 
