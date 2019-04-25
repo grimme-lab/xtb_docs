@@ -15,8 +15,6 @@ Optimization levels
 
 ``xTB`` has a build-in geometry optimizer called ANCopt which uses the Lindh-Hessian. It is activated by the flag ``--opt [level]``. The following levels are available:
 
-.. code:: bash
-
    +---------+----------+--------------+----------+
    |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
    +=========+==========+==============+==========+
