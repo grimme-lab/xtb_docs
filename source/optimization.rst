@@ -40,14 +40,14 @@ The maximal number of optimization cycles can be defined by using the flag "--cy
 Running a geometry optimization
 ===============================
 
-Input structures in "TURBOMOLE" (coord) or Xmol coordinates can be optimized. An example xyz input for ethine is (e.g. inp.xyz)
-.. code:: bash
-    4
+Input structures in "TURBOMOLE" (coord) or Xmol coordinates can be optimized. An example xyz input for ethine is (e.g. inp.xyz):
 
-	H 0.00  0.00    0.00
-	C 0.00  0.00    1.00
-	C 0.00  0.00    2.00
-	H 0.00  0.00    3.00
+.. code:: bash
+   4
+   H 0.00  0.00 0.00
+   C 0.00  0.00 1.00
+   C 0.00  0.00 2.00
+   H 0.00  0.00 3.00
 
 For running the geometry optimization using the defaults, call:
 .. code:: bash
