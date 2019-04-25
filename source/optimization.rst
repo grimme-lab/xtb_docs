@@ -43,7 +43,7 @@ Running a geometry optimization
 =================================
 
 
-Example 1: ethin
+Example 1: ethyne
 ------------------
 
 Input structures in ``TURBOMOLE`` (coord) or Xmol coordinates can be optimized. An example xyz input for ethine is (e.g. inp.xyz):
@@ -149,7 +149,7 @@ The file ``xtbopt.xyz`` for this example looks like:
 
 Further, a trajectory of the geometry optimization written in Xmol format (even if the input was a ``coord`` file) is written to the file ``xtbopt.log``.  
 
-Example 2: Cp⁻
+Example 2: cyclopentadienyl anion
 ------------------
 
 The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in ``TURBOMOLE`` format as ``coord`` file.
