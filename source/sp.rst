@@ -413,7 +413,15 @@ The radical attack susceptibility is described by
    f_{0}(r) = 0.5*(\rho_{N+1}(r)-\rho_{N-1}(r))
   
 
-.. note:: As the Fukui indexes depend on occupation numbers and population analysis <LINK ZU POPULATIONSANALYSE JEROEN>, they are sensitive toward basis set changes. Therefore Fukui indexes should not be recognized as absolute numbers but as relative parameters in the same system.  
+.. note::   As the Fukui indexes depend on occupation numbers and population analysis <LINK ZU POPULATIONSANALYSE JEROEN>, they          
+            are sensitive toward basis set changes. Therefore Fukui indexes should not be recognized as absolute numbers but as  
+            relative parameters in the same system.  
+
+A Fukui index calculation can be evoked from the command line:
+
+.. code:: sh
+
+  > xtb coord --vfukui
 
 The calculated Fukui indexes are documented in the *Fukui index Calculation* section of the output.
 
