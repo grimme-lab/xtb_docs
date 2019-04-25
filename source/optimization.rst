@@ -297,7 +297,7 @@ Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence proble
 
 Examples Gas vs. GBSA
 
-.. figure:: ../figures/gas.gif
+.. figure:: ../figures/gas_slow.gif
    :scale: 50 %
    :alt: gas
    
