@@ -370,7 +370,7 @@ Global Electrophilicity Index
 ``xtb`` can be used for direct calculation of Global Electrophilicity Indexes (GEI) that can be used to estimate the electrophilicity or Lewis acidity of various compounds from vertical IPs and EAs. In  ``xtb`` the GEI is defined as:
   
 .. math::
-   GEI = \frac{(IP+EA)^{2}}{8*(IP-EA)}
+   GEI = \frac{(IP+EA)^{2}}{8(IP-EA)}
 
 The GEI calculation can be evoked from the command line:
 
@@ -410,7 +410,7 @@ representing the nucleophilicity (susceptibility of an electrophilic attack) of 
 The radical attack susceptibility is described by
 
 .. math::
-   f_{0}(r) = 0.5*(\rho_{N+1}(r)-\rho_{N-1}(r))
+   f_{0}(r) = 0.5(\rho_{N+1}(r)-\rho_{N-1}(r))
   
 
 .. note::   As the Fukui indexes depend on occupation numbers and population analysis <LINK ZU POPULATIONSANALYSE JEROEN>, they          
@@ -467,4 +467,4 @@ Example: BF\ :sub:`3`\
         3 F    -0.233   -0.335    0.051
         4 F    -0.233   -0.335    0.051
 
-The Fukui indexes for BF\ :sub:`3`\ indicate the most negative f(+) value and a positive value for f(-) at the boron atom. Thus, a nucleophilic attack can be expected at the boron atom.
+The Fukui indexes for BF\ :sub:`3`\  indicate the most negative f(+) value and a positive value for f(-) at the boron atom. Thus, a nucleophilic attack can be expected at the boron atom.
