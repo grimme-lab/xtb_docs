@@ -12,7 +12,7 @@ Please check out the chapter 'Singlepoint Calculations' for options that are not
 Optimization levels
 ====================
 
-``xTB`` has a build-in geometry optimizer called ANCopt which uses the Lindh-Hessian. It is activated by the flag ``--opt *level*``. The following levels are available::
+``xTB`` has a build-in geometry optimizer called ANCopt which uses the Lindh-Hessian. It is activated by the flag ``--opt [level]``. The following levels are available::
   +---------+----------+--------------+----------+
   |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
   +=========+==========+==============+==========+
@@ -35,10 +35,13 @@ Optimization levels
 
 Here, energy convergence (Econv) is the allowed change in the total energy at convergence and the gradient convergence (Gconv) is the allowed change in the gradient norm at convergence. The accuracy
 is handed to the singlepoint calculations for integral cutoffs and self consistent field convergence criteria and is adjusted to fit the geometry convergence thresholds automatically.
-The maximal number of optimization cycles can be defined by using the flag ``--cycles *integer*``. By default, the optimization level 'normal' is used and maximal 200 optimization cycles are performed. 
+The maximal number of optimization cycles can be defined by using the flag ``--cycles integer``. By default, the optimization level 'normal' is used and maximal 200 optimization cycles are performed. 
 
 Running a geometry optimization
-===============================
+=================================
+
+Example 1: ethin
+------------------
 
 Input structures in ``TURBOMOLE`` (coord) or Xmol coordinates can be optimized. An example xyz input for ethine is (e.g. inp.xyz):
 
@@ -143,7 +146,10 @@ The file ``xtbopt.xyz`` for this example looks like:
 
 Further, a trajectory of the geometry optimization written in Xmol format (even if the input was a ``coord`` file) is written to the file ``xtbopt.log``.  
 
-The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in ``TURBOMOLE`` format as "coord" file
+Example 2: Cp⁻
+------------------
+
+The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in ``TURBOMOLE`` format as ``coord`` file
 
 .. code:: bash
 
@@ -206,6 +212,9 @@ The geometry optimization is converged after 22 iterations. The optimized coordi
 	    3.58252077369211    0.70464340056577   -2.48621742790732      H 
 	   -1.07518151114132   -0.62376537124033   -1.06233682418088      H 
 	$end
+
+Example 3: *p*-benzyne in toluene
+------------------------------------
 
 As third example, the geometry optimization of *p*-benzyne in the triplet state solved in toluene is presented. The following input structure saved as inp.xyz is utilized:
 
