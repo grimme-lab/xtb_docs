@@ -364,4 +364,99 @@ Example output for the optimized Water molecule:
    delta SCC EA (eV):   -2.0320           # Finally calculated vertical EA
    ------------------------------------------------------------------------
 
+Global Electrophilicity Index
+==================================================================================
 
+``xtb`` can be used for direct calculation of Global Electrophilicity Indexes (GEI) that can be used to estimate the electrophilicity or Lewis acidity of various compounds from vertical IPs and EAs. In  ``xtb`` the GEI is defined as:
+  
+.. math::
+   GEI = \frac{(IP+EA)^{2}}{8*(IP-EA)}
+
+The GEI calculation can be evoked from the command line:
+
+.. code:: sh
+
+  > xtb coord --vomega
+
+The calculated GEI is documented in the output after the *vertical delta SCC EA calculation* section
+ 
+.. code:: bash
+
+   ------------------------------------------------------------------------
+   Calculation of global electrophilicity index (IP+EA)²/(8·(IP-EA))
+   Global electrophilicity index (eV):    1.0923   #GEI for water
+   ------------------------------------------------------------------------
+
+Fukui Index
+==================================================================================
+
+The Fukui indexes or condensed Fukui function can be calculated to estimate the most electrophilic or nucleophilic sites of a molecule.
+
+.. math::
+   f(r) = \frac{\delta p(r)}{\delta N_{electron}}
+
+The two finite representations of the Fukui function are defined as
+
+.. math::
+   f_{+}(r) = \rho_{N+1}(r)-\rho_{N}(r)
+  
+representing the electrophilicity (susceptibility of an nucleophilic attack) of an atom in a molecule with N electrons and
+
+.. math::
+   f_{-}(r) = \rho_{N}(r)-\rho_{N-1}(r)
+  
+representing the nucleophilicity (susceptibility of an electrophilic attack) of an atom.
+
+The radical attack susceptibility is described by
+
+.. math::
+   f_{0}(r) = 0.5*(\rho_{N+1}(r)-\rho_{N-1}(r))
+  
+
+.. note:: As the Fukui indexes depend on occupation numbers and population analysis <LINK ZU POPULATIONSANALYSE JEROEN>, they are sensitive toward basis set changes. Therefore Fukui indexes should not be recognized as absolute numbers but as relative parameters in the same system.  
+
+The calculated Fukui indexes are documented in the *Fukui index Calculation* section of the output.
+
+Example: BF\ :sub:`3`\
+---------------------------------
+
+.. code:: bash
+
+
+    Fukui index Calculation
+    1    -15.6290836 -0.156291E+02  0.930E+00   13.97       0.0  T
+    2    -15.6760982 -0.470146E-01  0.602E+00   13.47       1.0  T
+    3    -15.6767701 -0.671926E-03  0.146E+00   12.97       1.0  T
+    4    -15.6768916 -0.121490E-03  0.176E-01   12.86       1.0  T
+    5    -15.6768945 -0.296326E-05  0.215E-02   12.91       2.3  T
+    6    -15.6768958 -0.123411E-05  0.328E-03   12.91      15.2  T
+    7    -15.6768958  0.680493E-08  0.244E-03   12.91      20.5  T
+    8    -15.6768958 -0.128673E-07  0.262E-05   12.91    1907.5  T
+    9    -15.6768958 -0.114397E-11  0.103E-05   12.91    4846.9  T
+        SCC iter.                  ...        0 min,  0.001 sec
+        gradient                   ...        0 min,  0.000 sec
+    1    -14.8333177 -0.148333E+02  0.107E+01   10.36       0.0  T
+    2    -14.9066412 -0.733235E-01  0.659E+00    8.06       1.0  T
+    3    -14.9089121 -0.227091E-02  0.225E+00    8.49       1.0  T
+    4    -14.9081925  0.719606E-03  0.809E-01    8.18       1.0  T
+    5    -14.8859517  0.222408E-01  0.223E+00    8.15       1.0  T
+    6    -14.8887916 -0.283994E-02  0.205E+00    8.22       1.0  T
+    7    -14.9100210 -0.212294E-01  0.450E-01    8.24       1.0  T
+    8    -14.9108971 -0.876105E-03  0.155E-01    8.24       1.0  T
+    9    -14.9109523 -0.552637E-04  0.108E-01    8.24       1.0  T
+    10    -14.9110094 -0.570231E-04  0.209E-03    8.24      24.0  T
+    11    -14.9110094  0.127112E-07  0.250E-03    8.24      20.0  T
+    12    -14.9110094 -0.178396E-08  0.236E-03    8.24      21.2  T
+    13    -14.9110094 -0.213007E-07  0.114E-03    8.24      44.0  T
+    14    -14.9110094 -0.628652E-08  0.104E-04    8.24     481.1  T
+    15    -14.9110094 -0.256684E-10  0.752E-05    8.24     664.5  T
+        SCC iter.                  ...        0 min,  0.001 sec
+        gradient                   ...        0 min,  0.000 sec
+
+        #       f(+)     f(-)     f(0)      #Fukui indexes
+        1 B    -0.300    0.005   -0.152
+        2 F    -0.233   -0.335    0.051
+        3 F    -0.233   -0.335    0.051
+        4 F    -0.233   -0.335    0.051
+
+The Fukui indexes for BF\ :sub:`3`\ indicate the most negative f(+) value and a positive value for f(-) at the boron atom. Thus, a nucleophilic attack can be expected at the boron atom.
