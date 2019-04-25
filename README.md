@@ -15,6 +15,7 @@ This documentation is currently hosted at [readthedocs.org](https://xtb-docs.rea
 * Eike Caldeweyher
 * Sebastian Ehlert
 * Hagen Neugebauer
+* Karola Schmitz
 * Jakob Seibert
 * Sebastian Spicher
 
