@@ -43,7 +43,9 @@ Running a geometry optimization
 Input structures in "TURBOMOLE" (coord) or Xmol coordinates can be optimized. An example xyz input for ethine is (e.g. inp.xyz):
 
 .. code:: bash
+
    4
+   
    H 0.00  0.00 0.00
    C 0.00  0.00 1.00
    C 0.00  0.00 2.00
