@@ -295,4 +295,16 @@ The failure of the geometry convergence is indicated by the printout
     
 Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems occur, it is recommended to start with ``GFN0-xTB`` which does not have convergence issues. Then the geometry optimization can be improved using ``GFN2-xTB``. 
 
+Examples Gas vs. GBSA
 
+.. figure:: ../figures/gas.gif
+   :scale: 50 %
+   :alt: gas
+   
+   Gasphase optimized example
+   
+.. figure:: ../figures/gbsa.gif
+   :scale: 50 %
+   :alt: gbsa
+   
+   Chloroform optimized example
