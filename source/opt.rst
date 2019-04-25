@@ -1,0 +1,254 @@
+.. _geometry optimization:
+
+---------------------
+Geometry Optimization
+---------------------
+
+The basics of calculating geometry optimizations with "xTB" are presented in this chapter.
+Please check out the chapter 'Singlepoint Calculations' for options that are not optimization-specific, as the charge or the number of SCF iterations, for example. Solvation can be included easily by using GBSA. For this approach, please read the chapter 'GBSA'.
+
+.. contents::
+
+Optimization levels
+====================
+
+"xTB" has a build-in geometry optimizer called ANCopt which uses the Lindh-Hessian. It is activated by the flag "--opt *level*". The following levels are available::
+  +---------+----------+--------------+----------+
+  |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
+  +=========+==========+==============+==========+
+  | crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
+  +---------+----------+--------------+----------+  
+  | sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
+  +---------+----------+--------------+----------+
+  | loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
+  +---------+----------+--------------+----------+
+  | lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
+  +---------+----------+--------------+----------+
+  | normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
+  +---------+----------+--------------+----------+
+  | tight   | 1 × 10⁻⁶ | 8 × 10⁻⁴     | 0.20     |
+  +---------+----------+--------------+----------+
+  | vtight  | 1 × 10⁻⁷ | 2 × 10⁻⁴     | 0.05     |
+  +---------+----------+--------------+----------+
+  | extreme | 5 × 10⁻⁸ | 5 × 10⁻⁵     | 0.01     |
+  +---------+----------+--------------+----------+
+
+Here, energy convergence (Econv) is the allowed change in the total energy at convergence, while the gradient convergence (Gconv) is the allowed change in the gradient norm at convergence. The accuracy
+is handed to the singlepoint calculations for integral cutoffs and self consistent field convergence criteria and is adjusted to fit the geometry convergence thresholds automatically.
+The maximal number of optimization cycles can be defined by using the flag "--cycles *integer*". By default, the optimization level 'normal' is used and maximal 200 optimization cycles are performed. 
+
+Running a geometry optimization
+===============================
+
+Input structures in "TURBOMOLE" (coord) or Xmol coordinates can be optimized. An example xyz input for ethine is (e.g. inp.xyz)
+.. code:: bash
+    4
+
+	H 0.00  0.00    0.00
+	C 0.00  0.00    1.00
+	C 0.00  0.00    2.00
+	H 0.00  0.00    3.00
+
+For running the geometry optimization using the defaults, call:
+.. code:: bash
+    > xtb inp.xyz --opt
+
+Firstly, a singlepoint calculation is performed. Then, the optimization setup is printed:
+.. code:: bash
+      -----------------------------------------------------------
+     |                   =====================                   |
+     |                        A N C O P T                        |
+     |                   =====================                   |
+     |               Approximate Normal Coordinate               |
+     |                Rational Function Optimizer                |
+      -----------------------------------------------------------
+
+          ...................................................
+          :                      SETUP                      :
+          :.................................................:
+          :   optimization level            normal          :
+          :   max. optcycles                   200          :
+          :   ANC micro-cycles                  20          :
+          :   degrees of freedom                 7          :
+          :.................................................:
+          :   RF solver                      spevx          :
+          :   input Hessian                  false          :
+          :   write xtbopt.log                true          :
+          :   linear?                         true          :
+          :   energy convergence         0.5000000E-05 Eh   :
+          :   grad. convergence          0.1000000E-02 Eh/α :
+          :   maximium RF displ.         1.0000000          :
+          :   Hlow (freq-cutoff)         0.2000000E-01      :
+          :   Hmax (freq-cutoff)         5.0000000          :
+          :   S6 in model hess.         20.0000000          :
+          ...................................................
+
+This is followed by the printout of each optimization cycle:
+.. code:: bash
+    ........................................................................
+    .............................. CYCLE    1 ..............................
+    ........................................................................
+    ! iter      E             dE          RMSdq      gap    omega    full diag
+	   1     -5.5172337 -0.551723E+01  0.160E-07   11.16       0.0  T
+	   2     -5.5172337 -0.266454E-14  0.611E-08   11.16  100000.0  T
+	   3     -5.5172337  0.177636E-14  0.173E-08   11.16  100000.0  T
+	     SCC iter.                  ...        0 min,  0.000 sec
+         gradient                   ...        0 min,  0.000 sec
+	* total energy  :    -5.0806015 Eh     change        0.8185541E-10 Eh
+	  gradient norm :     1.0710691 Eh/α   predicted     0.0000000E+00 (-100.00%)
+   	  displ. norm   :     0.4065773 α      lambda       -0.3521146E+00
+   	  maximum displ.:     0.3123635 α      in ANC's #3, #7, #4, ...
+
+    ........................................................................
+    .............................. CYCLE    2 ..............................
+    ........................................................................
+
+The convergence of the geometry optimization is confirmed by the printout
+.. code:: bash
+   *** GEOMETRY OPTIMIZATION CONVERGED AFTER 6 ITERATIONS ***
+
+Afterwards, a final singlepoint calculation is performed (including a property printout). The total energy and the file in which the optimized coordinates are written are printed at the end of the output:
+.. code:: bash
+    optimized geometry written to: xtbopt.xyz
+
+
+           -------------------------------------------------
+          | TOTAL ENERGY               -5.206771946579 Eh   |
+          | GRADIENT NORM               0.000476954973 Eh/α |
+          | HOMO-LUMO GAP               7.289739001449 eV   |
+           -------------------------------------------------
+
+.. note: The input coordinates are not overwritten by "xTB". The optimized geometry can be found either in the file "xtbopt.xyz" or "xtbopt.coord" depending on the format of the input.
+The file "xtbopt.xyz" for this example looks like:
+..code:: bash
+	4
+	 SCF done         -5.206771946579          0.000476954973            ! total energy in Eh and gradient norm in Eh/α
+	H           0.00000000000000   -0.00000000000000   -0.14662251809779
+	C          -0.00000000000000    0.00000000000000    0.90317992211836
+	C          -0.00000000000000    0.00000000000000    2.09682010367354
+	H          -0.00000000000000    0.00000000000000    3.14662249230588
+
+Further, a trajectory of the geometry optimization written in Xmol format (even if the input was a "coord" file) is written to the file "xtbopt.log".  
+
+The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in "TURBOMOLE" format as "coord" file
+.. code:: bash
+    $coord
+        0.00000000000000      0.00000000000000      0.00000000000000       c
+        0.00000000000000      0.00000000000000      2.92151660144120       c
+        2.85226569757548      0.00000000000000      3.55384920112287       c
+        3.90292319184177      2.03158598395524      1.73614809006603       c
+        2.27186844120391      1.64373103353725     -0.65644172568502       c
+       -0.86886206083043      1.75686326793472      3.63081207733690       h
+        3.11610359107057      0.44206741371820      5.57363951455663       h
+        5.95582339684982      1.75824654746399      1.50061262486316       h
+        3.42008871625882      0.73590659929899     -2.14036617906866       h
+        0.31080892625410     -1.94044071311390     -0.69474836412474       h
+    $end
+
+Now, the optimization level "tight" and a maximal number of 50 optimization cycles is chosen. This is done for teaching purposes only.
+.. code:: bash
+    > xtb coord --opt tight --cycles 50 --charge -1
+
+The ANCopt setup is adjusted as follows:
+.. code:: bash
+          ...................................................
+          :                      SETUP                      :
+          :.................................................:
+          :   optimization level             tight          :
+          :   max. optcycles                    50          :
+          :   ANC micro-cycles                  20          :
+          :   degrees of freedom                24          :
+          :.................................................:
+          :   RF solver                      spevx          :
+          :   input Hessian                  false          :
+          :   write xtbopt.log                true          :
+          :   linear?                        false          :
+          :   energy convergence         0.1000000E-05 Eh   :
+          :   grad. convergence          0.8000000E-03 Eh/α :
+          :   maximium RF displ.         1.0000000          :
+          :   Hlow (freq-cutoff)         0.2000000E-01      :
+          :   Hmax (freq-cutoff)         5.0000000          :
+          :   S6 in model hess.         20.0000000          :
+          ...................................................
+
+The geometry optimization is converged after 22 iterations. The optimized coordinates are written to the file "xtbopt.coord". 
+.. code:: bash
+    $coord
+        0.44060378133749   -0.01412173647149    0.18353525110780      C 
+        0.29759599405780    0.20416105416311    2.80401942903450      C 
+        2.63965610424519    1.02998463758207    3.68100112364916      C 
+        4.22999048640210    1.32233525407718    1.60243658202142      C 
+        2.87122905430850    0.67587605428709   -0.55901102245842      C 
+       -1.35063614261944   -0.20020267370469    3.96194626404258      H 
+        3.13809667675910    1.38388439022398    5.64254720233117      H 
+        6.18714478803638    1.94516503130460    1.65710125099979      H 
+        3.58252079049324    0.70464324339290   -2.48621737723352      H 
+       -1.07518163279629   -0.62376512206030   -1.06233686298611      H 
+    $end
+
+As third example, the geometry optimization of *p*-benzyne in the triplet state solved in toluene is presented. The following input structure saved as inp.xyz is utilized:
+.. code:: bash
+	   10
+
+	 C     0.000000     0.000000     0.000000
+	 C     0.000000     0.000000     1.400000
+	 C     1.212436     0.000000     2.100000
+	 C     2.424871     0.000000     1.400000
+	 C     2.424871     0.000000     0.000000
+	 C     1.207822    -0.105671    -0.700000
+	 H    -0.910967     0.244093     1.944500
+	 H     1.219600     0.163768     3.176592
+	 H     3.367973     0.000000    -0.544500
+	 H     1.207822    -0.105671    -1.789000
+
+The number of unpaired electrons (uhf) and the solvent have to be specified. Further, the optimization level 'loose' is chosen here for teaching purposes.
+.. code:: bash
+	> xtb inp.xyz --opt loose --gbsa toluene --uhf 2
+
+The thresholds corresponding to the optimization level 'loose' can be found in the ANCopt setup. 
+.. code:: bash 
+          ...................................................
+          :                      SETUP                      :
+          :.................................................:
+          :   optimization level             loose          :
+          :   max. optcycles                   200          :
+          :   ANC micro-cycles                  20          :
+          :   degrees of freedom                24          :
+          :.................................................:
+          :   RF solver                      spevx          :
+          :   input Hessian                  false          :
+          :   write xtbopt.log                true          :
+          :   linear?                        false          :
+          :   energy convergence         0.5000000E-04 Eh   :
+          :   grad. convergence          0.4000000E-02 Eh/α :
+          :   maximium RF displ.         1.0000000          :
+          :   Hlow (freq-cutoff)         0.2000000E-01      :
+          :   Hmax (freq-cutoff)         5.0000000          :
+          :   S6 in model hess.         20.0000000          :
+          ...................................................
+
+The geometry optimization converges after five iterations, resulting in the following coordinates (written to the file "xtbopt.xyz"):
+.. code:: bash
+	10
+	 SCF done        -14.662320537665          0.001879475862            ! total energy in Eh and gradient norm in Eh/α
+	C           0.07867071152305    0.00730041248664    0.04608303752229
+	C           0.00150775744363    0.08123575674794    1.41160138347040
+	C           1.21188251791186    0.08194614686924    2.10875452439614
+	C           2.35260556407908    0.02986595253321    1.35144422933203
+	C           2.43040668441166   -0.03018610417618   -0.01499810496837
+	C           1.21898702608881   -0.05479836016580   -0.71052501252580
+	H          -0.94612623103426    0.13538712165891    1.93110285483949
+	H           1.23696707333528    0.12186857053414    3.18813400290200
+	H           3.37737604916301   -0.05932253738648   -0.53517807393770
+	H           1.19215084707789   -0.11677795910162   -1.78882684103049
+    
+Convergence problems
+====================
+
+The failure of the geometry convergence is indicated by the printout
+.. code:: bash
+    *** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***
+    
+Additionally, the empty file "NOT_CONVERGED" is written. If convergence problems occur, it is recommended to start with "GFN0-xTB" which does not have convergence issues. Then the geometry optimization can be improved using "GFN2-xTB". 
+
+
