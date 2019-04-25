@@ -24,6 +24,7 @@ insights into the theory used behind the scences.
    commandline
    xcontrol
    sp
+   optimization
    gbsa
    md
    mtd
