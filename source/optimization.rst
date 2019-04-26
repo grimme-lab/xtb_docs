@@ -295,13 +295,13 @@ The geometry optimization converges after five iterations, resulting in the foll
 	H           3.37737604916301   -0.05932253738648   -0.53517807393770
 	H           1.19215084707789   -0.11677795910162   -1.78882684103049
 	
-.. figure:: ../figures/optimize-ethyne.gif
+.. figure:: ../figures/optimize-benzyne.gif
    :scale: 25 %
    :alt: optimize-benzyne
   
     
 Convergence problems
-====================
+======================
 
 The failure of the geometry convergence is indicated by the printout
 
