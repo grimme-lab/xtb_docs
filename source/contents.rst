@@ -27,6 +27,7 @@ insights into the theory used behind the scences.
    properties
    optimization
    gbsa
+   hessian
    md
    mtd
    xtbrelatedrefs
