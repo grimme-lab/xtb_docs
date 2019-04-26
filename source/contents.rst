@@ -17,12 +17,17 @@ insights into the theory used behind the scences.
 
 .. toctree::
    :maxdepth: 3
-   :caption: Guides
+   :caption: Quickstart
 
    setup
    basics
    commandline
    xcontrol
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Guides
+
    sp
    properties
    optimization
@@ -31,6 +36,11 @@ insights into the theory used behind the scences.
    md
    mtd
    gsm
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Misc
+
    xtbrelatedrefs
    license
    help
