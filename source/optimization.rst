@@ -65,7 +65,7 @@ For running the geometry optimization using the defaults, call
 
 A singlepoint calculation is performed. Then, the optimization setup is printed:
 
-.. code:: bash
+.. code-block:: None
 
 	      -----------------------------------------------------------
 	     |                   =====================                   |
@@ -97,7 +97,7 @@ A singlepoint calculation is performed. Then, the optimization setup is printed:
 
 This is followed by the printout of each optimization cycle:
 
-.. code:: bash
+.. code-block:: None
 
 	........................................................................
 	.............................. CYCLE    1 ..............................
@@ -183,7 +183,7 @@ Now, the optimization level ``tight`` and a maximal number of 50 optimization cy
 
 The ANCopt setup is adjusted as follows:
 
-.. code:: bash
+.. code-block:: None
 
 		  ...................................................
 		  :                      SETUP                      :
@@ -256,7 +256,7 @@ The number of unpaired electrons (uhf) and the solvent have to be specified. Fur
 
 The thresholds corresponding to the optimization level 'loose' can be found in the ANCopt setup. 
 
-.. code:: bash 
+.. code-block:: None 
 
 		  ...................................................
 		  :                      SETUP                      :
