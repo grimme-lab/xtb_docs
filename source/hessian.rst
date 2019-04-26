@@ -12,7 +12,7 @@ Vibrational frequency calculations are available only through two-sided numerica
 
 Consider a simple example like the following hydrogen abstraction reaction:
 
-.. code:: bash
+.. code:: text
 
     7
 
@@ -26,13 +26,13 @@ Consider a simple example like the following hydrogen abstraction reaction:
 
 By invoking the ``--hess`` command line argument, xtb executes a calculation of the Hessian matrix. The  ``--ohess`` keyword may be used instead if a prior optimization of the structure is desired. 
 
-.. code:: bash
+.. code:: text
     
     xtb min.xyz --hess --uhf 1
 
 At the end of the frequency job you get an output like this:
 
-.. code:: bash
+.. code:: text
 
             -------------------------------------------------
             |               Frequency Printout                |
@@ -68,7 +68,7 @@ ________________________________________
 
 Each frequency job provides the thermochemical properties at 298.15 K. (for other temperatures, see below). No further user-input is required to obtain all important thermostatistical contributions. The contributions are calculated following a coupled rigid-rotor-harmonic-oscillator approach. If a molecular symmetry is detected, the resulting rotational number is automatically accounted for. The symmetry detection can be adjusted in the ``$symmetry`` block of the ``xcontrol`` file if necessary. 
 
-.. code:: bash
+.. code:: text
 
             -------------------------------------------------
             |             Thermodynamic Functions             |
@@ -131,7 +131,7 @@ _______________________________________________________
 
 If a frequency calculation is invoked using the ``--hess`` command line argument, xTB automatically checks the gradient norm for a non-zero value. For unoptimized structures with significant remaining grad. norm, a warning is printed. If you want xTB to exit with an error code instead of this warning, use the ``--strict`` command line argument. 
 
-.. code:: bash
+.. code:: text
 
     ########################################################################
     # WARNING! Some non-fatal runtime exceptions were caught, please check:
@@ -146,7 +146,7 @@ ________________
 
 Of course, the calculated frequencies depend on the masses used for each atom. Several options exist to modify/scale the default atomic masses in the ``$hess`` block of the ``xcontrol`` file.
 
-.. code:: bash
+.. code:: text
 
 
    $hess
@@ -170,7 +170,7 @@ Changes regarding ``sccacc``` or ```step``'' should be made with caution, as lar
 
 The thermostatistical calculations can be influenced by the ``$thermo`` block of the ``xcontrol`` file.
 
-.. code:: bash
+.. code:: text
 
    $thermo
        temp=real
