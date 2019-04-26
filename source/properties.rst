@@ -76,10 +76,11 @@ GFN2-xTB
 ________
 
 Default settings for GFN2-xTB first prints populations and coefficients.
-From left to right, these are the atomic number Z.
-Coordination number CN.
-Atomic partial charge q. 
-Dispersion coefficient C6 and the polarizability alpha:
+From left to right, these are the atomic number Z, 
+Coordination number CN,
+Atomic partial charge q, 
+Dispersion coefficient C6, 
+Polarizability alpha:   
 
 .. code-block:: none
 
