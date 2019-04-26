@@ -9,14 +9,17 @@ from Stefan Grimme at the [xtb-mailing list](mailto:xtb@thch.uni-bonn.de).
 This documentation is currently hosted at [readthedocs.org](https://xtb-docs.readthedocs.io/en/latest/contents.html)
 [![Documentation Status](https://readthedocs.org/projects/xtb-docs/badge/?version=latest)](https://xtb-docs.readthedocs.io/en/latest/?badge=latest)
 
-## Contributors (alphabetically sorted)
+## Contributors
 
+* Fabian Bohle
 * Markus Bursch
 * Eike Caldeweyher
+* Sebastian Dohm
 * Sebastian Ehlert
 * Jeroen Koopman
 * Hagen Neugebauer
 * Karola Schmitz
+* Sarah Schmitz
 * Jakob Seibert
 * Sebastian Spicher
 
