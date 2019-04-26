@@ -147,7 +147,7 @@ The two most important files are the reaction path in your *cwd/*, called *strin
    Inversion of cyclohexane
 
 .. figure:: ../figures/cyclohexan_conv.png
-   :scale: 25 %
+   :scale: 50 %
    :alt: cyclohexane
    
    Energy diagram of the inversion of cyclohexane
