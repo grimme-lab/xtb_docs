@@ -1,20 +1,20 @@
-.. _properties: 
+.. _properties:                                                                                                                                                                                                                                                       
 
 -------------------------------
  Property Printout
 -------------------------------
 
-In this chapter, all necessary information about the printout properties  
-of `xTB` will be given. Description of how to aquire different output informations will be 
-provided. 
+In this chapter, all necessary information about the printout properties
+of `xTB` will be given. Description of how to acquire different output information will be
+provided.
 
 .. contents::
 
 General printout
 ================
 
-First the orbital energies and occupation are printed, where the highest occupied 
-molecular orbital (HOMO) and the lowest unoccupied molecular orbital (LUMO) are marked. 
+First the orbital energies and occupation are printed, where the highest occupied
+molecular orbital (HOMO) and the lowest unoccupied molecular orbital (LUMO) are marked.
 The HOMO-LUMO gap and the Fermi-level are summed up.
 
 .. code-block:: none
@@ -38,12 +38,12 @@ The HOMO-LUMO gap and the Fermi-level are summed up.
              Fermi-level           -0.1818551 Eh           -4.9485 eV
 
 
-The default output is dependend on the xTB version used. 
+The default output is dependent on the xTB version used.
 
 GFN1-xTB
 _________
 
-Default settings for GFN1-xTB first prints the Mulliken and CM5 charges. n(x) denotes the 
+Default settings for GFN1-xTB first prints the Mulliken and CM5 charges. n(x) denotes the
 amount of electronic charge distributed along the x = s/p/d orbitals:
 
 .. code-block:: none
@@ -72,15 +72,14 @@ Dipol moment along the cartesian dimensions, calculated from the electron densit
        X       Y       Z   
      0.8659   0.0000   0.6123  total (Debye):    2.696
 
-
 GFN2-xTB
 ________
 
 Default settings for GFN2-xTB first prints populations and coefficients.
-From lft to right, these are the atomic number Z. 
+From left to right, these are the atomic number Z.
 Coordination number CN.
 Atomic partial charge q. 
-Dispersion coefficient C6 and the polarizability alpha: 
+Dispersion coefficient C6 and the polarizability alpha:
 
 .. code-block:: none
 
@@ -109,7 +108,7 @@ Wiberg bond orders:
       2  H   0.919        O    1 0.919
       3  H   0.919        O    1 0.919
 
-Molecular dipole and quadropole moments. The contributions are seperated into their respective cartesian dimensions. 
+Molecular dipole and quadropole moments. The contributions are seperated into their respective cartesian dimensions.
 'Full' represents the corresponding magnetic contributions of the molecular dipole or quadropole moments.
 
 
@@ -136,28 +135,18 @@ All is summed up in the end with both versions:
           | GRADIENT NORM               0.019484395925 Eh/α |
           | HOMO-LUMO GAP              14.652302902752 eV   |
            -------------------------------------------------
-
-
- 
-
 Detailed printout
 =================
 
-The information provided by the printout can be modified and extended. This can be done either by 
-using the options when calling the program, or by editing the input file. The kind of default information
-given is determend by the GFN-xTB version used. For more options see the correponding documentation.
+The information provided by the printout can be modified and extended. This can be done either by
+using the option-flags when calling the program (:ref:'commandline'), or by editing the input file (:ref:'xcontrol'). The kind of default information
+given is determined by the GFN-xTB version used. Here, the default values called by the program are given:
 
-
-  +----------+-----------+---------------------------------------------------+
-  |  key     |  default  | description                                       |
-  +==========+============+==================================================+
-  | --pop    |  GFN1     | requests printout of Mulliken population analysis |
-  +----------+------------+--------------------------------------------------+
-  | --molden |  ----     | requests printout of molden file                  |
-  +----------+------------+--------------------------------------------------+
-  | --dipole |  GFN1/2   | requests printout of dipole moments               |
-  +----------+------------+--------------------------------------------------+
-  | --wbo    |  GFN1/2   | requests Wiberg bond order printout               |
-  +----------+------------+--------------------------------------------------+
-
-
+--pop      
+    requests printout of Mulliken population analysis 
+--molden
+    requests printout of molden file
+--dipole   
+    requests printout of dipole moments
+--wbo
+    requests Wiberg bond order printout   
