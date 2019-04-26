@@ -294,17 +294,16 @@ The failure of the geometry convergence is indicated by the printout
    *** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***
     
 Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems occur, it is recommended to start with ``GFN0-xTB`` which does not have convergence issues. Then the geometry optimization can be improved using ``GFN2-xTB``. 
-
-Examples Gas vs. GBSA
+It can occur sometimes that a geometry does not converge correctly or at all if the calculation is carried out in the gas phase. It is recommended to use GBSA in this cases. An example for the difference made by using GBSA during the geometry optimization can be seen below. 
 
 .. figure:: ../figures/gas_slow.gif
    :scale: 50 %
    :alt: gas
    
-   Gasphase optimized example
+   optimized in the gasphase
    
 .. figure:: ../figures/gbsa.gif
    :scale: 50 %
    :alt: gbsa
    
-   Chloroform optimized example
+   optimized in chloroform
