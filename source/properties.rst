@@ -140,7 +140,7 @@ Detailed printout
 =================
 
 The information provided by the printout can be modified and extended. This can be done either by
-using the option-flags when calling the program (:ref:`commandline`), or by editing the input file (:ref:`xcontrol`). The kind of default information
+using the option-flags when calling the program (:ref:`commandline`), or by editing the input file (:ref:`detailed-input`). The kind of default information
 given is determined by the GFN-xTB version used. Here, the default values called by the program are given:
 
 --pop      
