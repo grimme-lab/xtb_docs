@@ -24,7 +24,7 @@ Consider a simple example like the following hydrogen abstraction reaction:
     O           2.45008586500521    0.26032015001761    0.01133571198248
     H           2.61210033905108    0.98358191645276    0.62026402303033
 
-By invoking the ``--hess`` command line argument, xtb executes a calculation of the Hessian matrix. The  ``--ohess`` keyword may be used instead if a prior optimization of the structure is desired. 
+By invoking the ``--hess`` command line argument, *xTB* executes a calculation of the Hessian matrix. The  ``--ohess`` keyword may be used instead if a prior optimization of the structure is desired. 
 
 .. code:: text
     
@@ -60,7 +60,7 @@ At the end of the frequency job you get an output like this:
    
 This output consists of the calculated vibrational frequencies and the vibrational modes. In the example above there are six frequencies which are identically zero. These frequencies correspond to the rotations and translations of the molecule. They have been projected out of the Hessian before the calculation of the frequencies and thus, the zero values do not tell you anything about the quality of the Hessian that has been diagonalized.
 
-Xtb writes an ``g98.out`` file in *GAUSSIAN*-format, which can be opened with the popular *MOLDEN* program to visualize the vibrational modes.
+*xTB* writes an ``g98.out`` file in *GAUSSIAN*-format, which can be opened with the popular *MOLDEN* program to visualize the vibrational modes.
 Further, a ``hessian`` file is written, containing the projected Hessian matrix in *turbomole* format.
 
 Calculation of thermochemical properties
@@ -129,7 +129,7 @@ Each frequency job provides the thermochemical properties at 298.15 K. (for othe
 Dealing with imaginary modes and non-minimum structures
 _______________________________________________________
 
-If a frequency calculation is invoked using the ``--hess`` command line argument, xTB automatically checks the gradient norm for a non-zero value. For unoptimized structures with significant remaining grad. norm, a warning is printed. If you want xTB to exit with an error code instead of this warning, use the ``--strict`` command line argument. 
+If a frequency calculation is invoked using the ``--hess`` command line argument, *xTB* automatically checks the gradient norm for a non-zero value. For unoptimized structures with significant remaining grad. norm, a warning is printed. If you want *xTB* to exit with an error code instead of this warning, use the ``--strict`` command line argument. 
 
 .. code:: text
 
