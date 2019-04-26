@@ -294,7 +294,7 @@ The failure of the geometry convergence is indicated by the printout
    *** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***
     
 Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems occur, it is recommended to start with ``GFN0-xTB`` which does not have convergence issues. Then the geometry optimization can be improved using ``GFN2-xTB``. 
-It can occur sometimes that a geometry does not converge correctly or at all if the calculation is carried out in the gas phase. It is recommended to use GBSA in this cases. An example for the difference made by using GBSA during the geometry optimization can be seen below. 
+It can occur sometimes that a geometry does not converge correctly or at all if the calculation is carried out in the gas phase. It is recommended to use GBSA in this cases. An example for the difference made by using GBSA during the geometry optimization can be seen below. If the system is optimized in chloroform, the chloride anion coordinates the cation while the neutral compounds are formed in the gas phase.
 
 .. figure:: ../figures/gas_slow.gif
    :scale: 50 %
