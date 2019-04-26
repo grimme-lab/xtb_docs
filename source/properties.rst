@@ -1,12 +1,12 @@
 .. _properties:                                                                                                                                                                                                                                                       
 
 -------------------------------
- Printout Properties
+ Properties
 -------------------------------
 
-In this chapter, all necessary information about the printout properties
-of `xTB` will be given. Description of how to acquire different output information will be
-provided.
+In this chapter, all necessary information about the properties
+of `xTB` will be given. Description of how to acquire different output information will be 
+provided. Calculation of FOD will be described.
 
 .. contents::
 
@@ -36,17 +36,28 @@ The HOMO-LUMO gap and the Fermi-level are summed up.
       -------------------------------------------------------------
                   HL-Gap            0.5290737 Eh           14.3968 eV
              Fermi-level           -0.1818551 Eh           -4.9485 eV
+    
 
-
-The default output is dependent on the xTB version used.
-
+The information provided by the printout can be modified and extended. This can be done either by using the option-flags when calling the program (:ref:`commandline`),
+or by editing the input file (:ref:`detailed-input`). The kind of default information given is determined by the GFN-xTB version used. The default values called by the program are given:
+    
+--pop     
+    requests printout of Mulliken population analysis
+--molden
+    requests printout of molden file                  
+--dipole
+    requests printout of dipole moments
+--wbo
+    requests Wiberg bond order printout
+    
+    
 GFN1-xTB
 _________
-
+    
 Default settings for GFN1-xTB first prints the Mulliken and CM5 charges. n(x) denotes the
 amount of electronic charge distributed along the x = s/p/d orbitals:
-
-.. code-block:: none
+    
+.. code-block:: none 
 
     Mulliken/CM5 charges        n(s)   n(p)   n(d)
        1 O   0.67569  0.33312   1.682  4.994  0.000
@@ -72,15 +83,16 @@ Dipol moment along the cartesian dimensions, calculated from the electron densit
        X       Y       Z   
      0.8659   0.0000   0.6123  total (Debye):    2.696
 
+
 GFN2-xTB
 ________
 
 Default settings for GFN2-xTB first prints populations and coefficients.
-From left to right, these are the atomic number Z, 
+From left to right, these are the atomic number Z,
 Coordination number CN,
 Atomic partial charge q, 
 Dispersion coefficient C6, 
-Polarizability alpha:   
+Polarizability alpha:
 
 .. code-block:: none
 
@@ -127,7 +139,7 @@ Molecular dipole and quadropole moments. The contributions are seperated into th
     full:        0.495      -0.000      -1.436      -0.632      -0.000       0.942
 
 
-Total energy, gradient and  HOMO-LUMO gap are summed up in the end:
+All is summed up in the end in both GFN-xTB versions:
 
 .. code-block:: none
 
@@ -136,18 +148,73 @@ Total energy, gradient and  HOMO-LUMO gap are summed up in the end:
           | GRADIENT NORM               0.019484395925 Eh/α |
           | HOMO-LUMO GAP              14.652302902752 eV   |
            -------------------------------------------------
-Detailed printout
-=================
+   
+   
+Properties
+===========                                                                                                                                                                                                                                                           
 
-The information provided by the printout can be modified and extended. This can be done either by
-using the option-flags when calling the program (:ref:`commandline`), or by editing the input file (:ref:`detailed-input`). The kind of default information
-given is determined by the GFN-xTB version used. Here, the default values called by the program are given:
+The xTB program is able to calculate the density, spin-density and the fractional occupation number weighted density (FOD) on 
+a cube grid. 
 
---pop      
-    requests printout of Mulliken population analysis 
---molden
-    requests printout of molden file
---dipole   
-    requests printout of dipole moments
---wbo
-    requests Wiberg bond order printout   
+Density and Spin-Density
+________________________
+
+To calculate the density or the spin denisty, the input (xcontrol) file has to be manipulated. Here, the bools ``density='bool'`` 
+or respectively ``spin density='bool'`` have to be set to ``'true'``. This will create a ``.cub`` cube file, where the corresponding information is gathered.
+Additionally, informations about the cube file creation are given:
+
+.. code-block:: none
+
+  cube file module (SG, 7/16)
+  cube_pthr     :   0.050
+  cube_step     :   0.400
+  non-zero P (%):  76.190   nmat:      16
+  Grid Boundaries (x y z) :
+    4.69257109135830        3.00000000000000        4.79524030780751     
+   -3.00000000000000       -3.00000000000000       -3.59840693802375     
+  Total # of points        6720
+  writing density.cub
+ cpu  time for cube    0.01 s
+ wall time for cube    0.01 s
+
+
+
+Fractional Occupation Density calculation
+_________________________________________
+
+To access the FOD analysis, simply use the flag ``--fod`` or set ``fod='true'`` in the input (xcontrol) file. This will calculate the FOD on a cube grid. In the proccess it will set the electronic 
+temperature to at least 12500 K. 
+
+.. code-block:: none
+
+  cube file module (SG, 7/16)
+  cube_pthr     :   0.050
+  cube_step     :   0.400
+  non-zero P (%):  76.190   nmat:      16
+  Grid Boundaries (x y z) :
+    4.69257109135830        3.00000000000000        4.79524030780751     
+   -3.00000000000000       -3.00000000000000       -3.59840693802375     
+  Total # of points        6720
+  writing fod.cub
+  N    (numint) :  5.937
+ cpu  time for cube    0.01 s
+ wall time for cube    0.01 s
+
+
+To analyse the FOD population, change the ``fod population ='bool'`` in the input (xcontrol) file to ``true``. This will display the fractional loewdin 
+population of the system. 
+
+
+.. code-block:: none
+
+  NFOD :     0.0000
+
+  Loewdin FODpop     n(s)   n(p)   n(d)
+      1 O   0.0000   0.000  0.000  0.000
+      2 H   0.0000   0.000  0.000  0.000
+      3 H   0.0000   0.000  0.000  0.000
+
+
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+
