@@ -30,6 +30,7 @@ insights into the theory used behind the scences.
    hessian
    md
    mtd
+   gsm
    xtbrelatedrefs
    license
    help
