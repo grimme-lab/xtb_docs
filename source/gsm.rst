@@ -138,7 +138,7 @@ Now, you have done everything to start the calculation.
 
     > gsm.orca
     
-The two most important files are the reaction path in your *cwd/*, called *stringfile.xyz0000*, and the transition state in *scratch/tsq0000.xyz*, both in a valid Xmol format. The reaction path of the Inversion of cyclohexane be seen below. 
+After the calculation, the two most important files are the reaction path in your *cwd/*, called *stringfile.xyz0000*, and the transition state in *scratch/tsq0000.xyz*, both in a valid Xmol format. The reaction path of the Inversion of cyclohexane be seen below. 
     
 .. figure:: ../figures/cyclohexane.gif
    :scale: 25 %
