@@ -127,7 +127,7 @@ Molecular dipole and quadropole moments. The contributions are seperated into th
     full:        0.495      -0.000      -1.436      -0.632      -0.000       0.942
 
 
-All is summed up in the end with both versions:
+Total energy, gradient and  HOMO-LUMO gap are summed up in the end:
 
 .. code-block:: none
 
