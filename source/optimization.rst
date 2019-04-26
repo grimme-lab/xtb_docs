@@ -46,7 +46,7 @@ Running a geometry optimization
 Example 1: ethyne
 ------------------
 
-Input structures in ``TURBOMOLE`` (coord) or Xmol coordinates can be optimized. An example xyz input for ethine is (e.g. inp.xyz):
+Input structures in ``TURBOMOLE`` (coord) or Xmol coordinates can be optimized. An example xyz input for ethyne is (e.g. inp.xyz):
 
 .. code:: bash
 
@@ -149,8 +149,14 @@ The file ``xtbopt.xyz`` for this example looks like:
 
 Further, a trajectory of the geometry optimization written in Xmol format (even if the input was a ``coord`` file) is written to the file ``xtbopt.log``.  
 
+
+.. figure:: ../figures/optimize-ethyne.gif
+   :scale: 25 %
+   :alt: optimize-ethyne
+   
+
 Example 2: cyclopentadienyl anion
-------------------
+------------------------------------
 
 The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in ``TURBOMOLE`` format as ``coord`` file.
 
@@ -215,7 +221,6 @@ The geometry optimization is converged after 22 iterations. The optimized coordi
 	    3.58252077369211    0.70464340056577   -2.48621742790732      H 
 	   -1.07518151114132   -0.62376537124033   -1.06233682418088      H 
 	$end
-The optimization path can be seen below:
 
 .. figure:: ../figures/optimize-cp.gif
    :scale: 25 %
@@ -289,6 +294,11 @@ The geometry optimization converges after five iterations, resulting in the foll
 	H           1.23696707333528    0.12186857053414    3.18813400290200
 	H           3.37737604916301   -0.05932253738648   -0.53517807393770
 	H           1.19215084707789   -0.11677795910162   -1.78882684103049
+	
+.. figure:: ../figures/optimize-ethyne.gif
+   :scale: 25 %
+   :alt: optimize-benzyne
+  
     
 Convergence problems
 ====================
