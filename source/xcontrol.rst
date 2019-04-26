@@ -4,8 +4,6 @@
  Detailed Input
 ----------------
 
-.. contents::
-
 The ``xcontrol`` instruction set is inspired by the Turbomole ``control``
 file syntax. I decided to call it ``xcontrol`` instructions back than,
 but here we will just call it (detailed) input for convenience.
@@ -55,7 +53,7 @@ usually leads to instabilities in the simulation.
 To activate the exact fixing for atoms 1--10 and atom 12 as well as for
 all oxygen atoms, add
 
-.. code::
+.. code:: text
 
   $fix
      atoms: 1-10,12
@@ -73,7 +71,7 @@ by applying *constraining potentials*. First of all the constraining
 potentials offer a weaker version of the exact fixing, which is
 invoked by the same syntax in the ``$contrain`` data group as
 
-.. code::
+.. code:: text
 
   $constrain
      atoms: 11
@@ -88,7 +86,7 @@ works without problems in dynamics.
 
 To constrain the atoms more tightly the force constant can be adjusted
 
-.. code::
+.. code:: text
 
   $constrain
      force constant=1.0
@@ -102,7 +100,7 @@ instead of a colon, as you are modifying a global variable.
 It is also possible to constrain selected internal coordinates, possible
 are distances, angles and dihedral angles as done here
 
-.. code::
+.. code:: text
 
   $constrain
      distance: 1, 2, 2.5
@@ -148,7 +146,7 @@ study the bound complex, you can try to *confine* the simulation
 in a little sphere, which keeps the molecules from escaping.
 The detailed input looks like
 
-.. code::
+.. code:: text
 
   $cma
   $wall
@@ -174,14 +172,14 @@ is best suited for confinements, but yet not the default.
 
 
 
-.. code::
+.. code:: bash
    
    > cat wall.inp
 
    $chrg -1
    $spin 0
    $wall
-      elipsoid: 13.5,11.1,8.6,all
+      ellipsoid: 13.5,11.1,8.6,all
    $end
 
    xtb input-geometry.xyz --input constrain.inp --sp > sp.out                                                                                                                                                    
@@ -190,7 +188,7 @@ is best suited for confinements, but yet not the default.
    :scale: 40 %
    :alt: confinement-example
 
-   The influence of the elipsoidal potential on the caffeine molecule in a single-point calculation is listed in the 'SUMMARY' output block. For visualization purposes the transparent-green dots are placed on 
+The influence of the ellipsoidal potential on the caffeine molecule in a single-point calculation is listed in the 'SUMMARY' output block. For visualization purposes the transparent-green dots are placed on 
 the surface of the potential.
 
 
@@ -218,7 +216,7 @@ and does not perform any calculation on the input coordinates.
 
 Have a look at the first lines of ``default.inp``:
 
-.. code::
+.. code:: text
 
    $cmd xtb --input default.inp --define --copy coord
    $date 2019/03/05 at 08:50:26.651
@@ -240,7 +238,7 @@ The rest of the file represent every accessable variable documented
 in the ``xcontrol(7)`` man page with its current setting, this should be
 quite a lot. So lets focus say on the ``$wall`` group:
 
-.. code::
+.. code:: text
 
    ...
    $wall

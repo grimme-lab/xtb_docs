@@ -4,8 +4,8 @@
 Geometry Optimization
 ---------------------
 
-The basics of calculating geometry optimizations with ``xTB`` are presented in this chapter.
-Please check out the chapter 'Singlepoint Calculations' for options that are not optimization-specific, as the charge or the number of SCF iterations, for example. Solvation can be included easily by using GBSA. For this approach, please read the chapter 'GBSA'.
+The basics of calculating geometry optimizations with ``xtb`` are presented in this chapter.
+Please check out the chapter :ref:`sp` for options that are not optimization-specific, as the charge or the number of SCF iterations, for example. Solvation can be included easily by using GBSA. For this approach, please read the chapter :ref:`gbsa`.
 
 .. contents::
 
@@ -13,31 +13,32 @@ Optimization levels
 ====================
 
 
-``xTB`` has a build-in geometry optimizer called ANCopt which uses the Lindh-Hessian. It is activated by the flag ``--opt [level]``. The following levels are available:
+``xtb`` has a build-in geometry optimizer called approximate normal coordinate rational function optimizer (ANCopt) which uses a Lindh-type model Hessian to generate an approximate normal coordinate system. It is activated by the flag ``--opt [level]``. The following levels are available:
 
-   +---------+----------+--------------+----------+
-   |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
-   +=========+==========+==============+==========+
-   | crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
-   +---------+----------+--------------+----------+  
-   | sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
-   +---------+----------+--------------+----------+
-   | loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
-   +---------+----------+--------------+----------+
-   | lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
-   +---------+----------+--------------+----------+
-   | normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
-   +---------+----------+--------------+----------+
-   | tight   | 1 × 10⁻⁶ | 8 × 10⁻⁴     | 0.20     |
-   +---------+----------+--------------+----------+
-   | vtight  | 1 × 10⁻⁷ | 2 × 10⁻⁴     | 0.05     |
-   +---------+----------+--------------+----------+
-   | extreme | 5 × 10⁻⁸ | 5 × 10⁻⁵     | 0.01     |
-   +---------+----------+--------------+----------+
++---------+----------+--------------+----------+
+|  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
++=========+==========+==============+==========+
+| crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
++---------+----------+--------------+----------+  
+| sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
++---------+----------+--------------+----------+
+| loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
++---------+----------+--------------+----------+
+| lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
++---------+----------+--------------+----------+
+| normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
++---------+----------+--------------+----------+
+| tight   | 1 × 10⁻⁶ | 8 × 10⁻⁴     | 0.20     |
++---------+----------+--------------+----------+
+| vtight  | 1 × 10⁻⁷ | 2 × 10⁻⁴     | 0.05     |
++---------+----------+--------------+----------+
+| extreme | 5 × 10⁻⁸ | 5 × 10⁻⁵     | 0.01     |
++---------+----------+--------------+----------+
 
 Here, energy convergence (Econv) is the allowed change in the total energy at convergence and the gradient convergence (Gconv) the allowed change in the gradient norm at convergence. The accuracy
 is handed to the singlepoint calculations for integral cutoffs and self consistent field convergence criteria. It is adjusted to fit the geometry convergence thresholds automatically.
-The maximal number of optimization cycles can be defined by using the flag ``--cycles integer``. By default, the optimization level 'normal' is used and maximal 200 optimization cycles are performed. 
+The maximal number of optimization cycles can be defined by using the flag ``--cycles integer``. By default, the optimization level 'normal' is used.
+The maximum number of optimization cycles is usually automatically determined at runtime from the total degrees of freedoms and is at least 200 and at most 10000.
 
 Running a geometry optimization
 =================================
@@ -46,9 +47,9 @@ Running a geometry optimization
 Example 1: ethyne
 ------------------
 
-Input structures in ``TURBOMOLE`` (coord) or Xmol coordinates can be optimized. An example xyz input for ethyne is (e.g. inp.xyz):
+Input structures in *TURBOMOLE* (coord) or Xmol coordinates can be optimized. An example xyz input for ethyne is (e.g. inp.xyz):
 
-.. code:: bash
+.. code:: text
 
    4
    
@@ -65,7 +66,7 @@ For running the geometry optimization using the defaults, call
 
 A singlepoint calculation is performed. Then, the optimization setup is printed:
 
-.. code-block:: None
+.. code-block:: text
 
 	      -----------------------------------------------------------
 	     |                   =====================                   |
@@ -95,9 +96,11 @@ A singlepoint calculation is performed. Then, the optimization setup is printed:
 		  :   S6 in model hess.         20.0000000          :
 		  ...................................................
 
-This is followed by the printout of each optimization cycle:
+This is followed by the printout of the optimization cycles. Here every 20 cycles
+the ANC coordinate system will be reset and an additional short summary
+block regarding the progress in the last few cycles will be shown.
 
-.. code-block:: None
+.. code-block:: text
 
 	........................................................................
 	.............................. CYCLE    1 ..............................
@@ -116,6 +119,12 @@ This is followed by the printout of each optimization cycle:
 	.............................. CYCLE    2 ..............................
 	........................................................................
 
+.. tip:: you can find information about the accuracy of the BFGS model of the PES
+         at each optimization step and the error between predicted and actual
+         change in energy.
+
+.. note:: the displacement summary at each step refers always to the *next* optimization cycle.
+
 The convergence of the geometry optimization is confirmed by the printout
 
 .. code:: bash
@@ -124,7 +133,7 @@ The convergence of the geometry optimization is confirmed by the printout
 
 Afterwards, a final singlepoint calculation is performed (including a property printout). The total energy and the name of the file containing the optimized coordinates are printed at the end of the output:
 
-.. code:: bash
+.. code:: text
 
 	optimized geometry written to: xtbopt.xyz
 
@@ -135,7 +144,8 @@ Afterwards, a final singlepoint calculation is performed (including a property p
 		  | HOMO-LUMO GAP               7.289739001449 eV   |
 		   -------------------------------------------------
 
-.. note:: The input coordinates are not overwritten by ``xTB``. The optimized geometry can be found either in the file ``xtbopt.xyz``  or ``xtbopt.coord`` depending on the format of the input.
+.. note:: The input coordinates are not overwritten by ``xtb``. The optimized geometry can be found either in the file ``xtbopt.xyz``  or ``xtbopt.coord`` depending on the format of the input.
+
 The file ``xtbopt.xyz`` for this example looks like:
 
 .. code:: bash
@@ -158,9 +168,9 @@ Further, a trajectory of the geometry optimization written in Xmol format (even 
 Example 2: cyclopentadienyl anion
 ------------------------------------
 
-The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in ``TURBOMOLE`` format as ``coord`` file.
+The second example is a geometry optimization of Cp⁻. The input coordinates are far from a planar structure and are given in *TURBOMOLE* format as ``coord`` file.
 
-.. code:: bash
+.. code:: text
 
 	$coord
 	    0.00000000000000      0.00000000000000      0.00000000000000       c
@@ -183,7 +193,7 @@ Now, the optimization level ``tight`` and a maximal number of 50 optimization cy
 
 The ANCopt setup is adjusted as follows:
 
-.. code-block:: None
+.. code-block:: text
 
 		  ...................................................
 		  :                      SETUP                      :
@@ -232,7 +242,7 @@ Example 3: *p*-benzyne in toluene
 
 As third example, the geometry optimization of *p*-benzyne in the triplet state solved in toluene is presented. The following input structure saved as inp.xyz is utilized:
 
-.. code:: bash
+.. code:: text
 
 	   10
 	
@@ -256,7 +266,7 @@ The number of unpaired electrons (uhf) and the solvent have to be specified. Fur
 
 The thresholds corresponding to the optimization level 'loose' can be found in the ANCopt setup. 
 
-.. code-block:: None 
+.. code-block:: text
 
 		  ...................................................
 		  :                      SETUP                      :
@@ -280,7 +290,7 @@ The thresholds corresponding to the optimization level 'loose' can be found in t
 
 The geometry optimization converges after five iterations, resulting in the following coordinates (written to the file ``xtbopt.xyz``):
 
-.. code:: bash
+.. code:: text
 
 	10
 	 SCF done        -14.662320537665          0.001879475862            ! total energy in Eh and gradient norm in Eh/α
@@ -309,7 +319,7 @@ The failure of the geometry convergence is indicated by the printout
 
    *** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***
     
-Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems occur, it is recommended to start with ``GFN0-xTB`` which does not have convergence issues. Then the geometry optimization can be improved using ``GFN2-xTB``. 
+Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems in the SCC occur, it is recommended to start with *GFN0-xTB* which does not have to perform SCC iterations. Then the geometry optimization can be improved using *GFN2-xTB*. 
 It can occur sometimes that a geometry does not converge correctly or at all if the calculation is carried out in the gas phase. It is recommended to use GBSA in this cases. An example for the difference made by using GBSA during the geometry optimization can be seen below. If the system is optimized in chloroform, the chloride anion coordinates the cation while the neutral compounds are formed in the gas phase.
 
 .. figure:: ../figures/gas_slow.gif

@@ -1,3 +1,5 @@
+.. _frequencies:
+
 Calculation of Vibrational Frequencies
 ======================================
 
@@ -165,7 +167,7 @@ Of course, the calculated frequencies depend on the masses used for each atom. S
        scale mass: int,real
            scale mass of atom number int by real
 
-Changes regarding ``sccacc``` or ```step``'' should be made with caution, as large displacements or loose SCC accuracy can lead to unreliable frequencies due to excessive numerical noise in the calculations.   
+Changes regarding ``sccacc`` or ``step`` should be made with caution, as large displacements or loose SCC accuracy can lead to unreliable frequencies due to excessive numerical noise in the calculations.   
 
 
 The thermostatistical calculations can be influenced by the ``$thermo`` block of the ``xcontrol`` file.

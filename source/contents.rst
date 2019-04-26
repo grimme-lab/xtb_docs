@@ -34,4 +34,4 @@ insights into the theory used behind the scences.
    xtbrelatedrefs
    license
    help
-   test-hidden
+
