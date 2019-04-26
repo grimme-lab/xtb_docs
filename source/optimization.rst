@@ -215,6 +215,10 @@ The geometry optimization is converged after 22 iterations. The optimized coordi
 	    3.58252077369211    0.70464340056577   -2.48621742790732      H 
 	   -1.07518151114132   -0.62376537124033   -1.06233682418088      H 
 	$end
+The optimization path can be seen below:
+.. figure:: ../figures/optimize-cp.gif
+   :scale: 50 %
+   :alt: gbsa
 
 Example 3: *p*-benzyne in toluene
 ------------------------------------
