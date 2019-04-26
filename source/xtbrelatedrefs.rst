@@ -47,3 +47,7 @@ __ https://doi.org/10.1021/acs.jctc.9b00143
 Reasonable Geometry Optimization of Lanthanoid Complexes with an Extended Tight Binding Quantum 
 Chemical Method* *Inorg. Chem.* **2017**, *56 (20)*, 12485–12491
 `DOI: 10.1021/acs.inorgchem.7b01950 <https://pubs.acs.org/doi/abs/10.1021/acs.inorgchem.7b01950>`_
+
+**ECD spectra calculation for entire proteins:** Seibert, J.; Bannwarth, C.; Grimme, S.  *Biomolecular structure information from high-speed quantum mechanical electronic spectra calculation.*  *J. Am. Chem. Soc.* **2017**, jacs.7b05833 `DOI: 10.1021/jacs.7b05833 <https://doi.org/10.1021/jacs.7b05833>`_
+
+**Extension of the sTDA-xTB parameter set:** Seibert, J., Pisarek, J., Schmitz, S., Bannwarth, C., Grimme, S.  *Extension of the element parameter set for ultra-fast excitation spectra calculation (sTDA-xTB)* *Mol. Phys.* **2018**, *0(0)*, 1–13 `DOI: 10.1080/00268976.2018.1510141 <https://doi.org/10.1080/00268976.2018.1510141>`_
