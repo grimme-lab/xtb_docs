@@ -51,3 +51,7 @@ Chemical Method* *Inorg. Chem.* **2017**, *56 (20)*, 12485–12491
 **ECD spectra calculation for entire proteins:** Seibert, J.; Bannwarth, C.; Grimme, S.  *Biomolecular structure information from high-speed quantum mechanical electronic spectra calculation.*  *J. Am. Chem. Soc.* **2017**, jacs.7b05833 `DOI: 10.1021/jacs.7b05833 <https://doi.org/10.1021/jacs.7b05833>`_
 
 **Extension of the sTDA-xTB parameter set:** Seibert, J., Pisarek, J., Schmitz, S., Bannwarth, C., Grimme, S.  *Extension of the element parameter set for ultra-fast excitation spectra calculation (sTDA-xTB)* *Mol. Phys.* **2018**, *0(0)*, 1–13 `DOI: 10.1080/00268976.2018.1510141 <https://doi.org/10.1080/00268976.2018.1510141>`_
+
+**Nonlinear optical properties with sTD-DFT-xTB:** De Wergifosse, M., Grimme, S.  *Nonlinear-response properties in a simplified time-dependent density functional theory (sTD-DFT) framework: Evaluation of the first hyperpolarizability* *J. Chem. Phys* **2018**, *149(2)*, 024108. `DOI:10.1063/1.5037665 <https://doi.org/10.1063/1.5037665>`_
+
+**Excited state absorption spectra with sTD-DFT-xTB:** De Wergifosse, M., Grimme, S. *Nonlinear-response properties in a simplified time-dependent density functional theory (sTD-DFT) framework: Evaluation of excited-state absorption spectra* *J. Chem. Phys.* **2019** , *150(9)*,  094112 `DOI: 10.1063/1.5080199  <https://doi.org/10.1063/1.5080199>`_
