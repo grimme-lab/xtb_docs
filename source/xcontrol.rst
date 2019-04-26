@@ -215,7 +215,7 @@ is best suited for confinements, but yet not the default.
 
    xtb input-geometry.xyz --input constrain.inp --sp > sp.out                                                                                                                                                    
 
-.. figure:: figures/wall.png
+.. figure:: ../figures/wall.png
    :scale: 40 %
    :alt: confinement-example
 
