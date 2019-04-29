@@ -160,7 +160,7 @@ The file ``xtbopt.xyz`` for this example looks like:
 Further, a trajectory of the geometry optimization written in Xmol format (even if the input was a ``coord`` file) is written to the file ``xtbopt.log``.  
 
 
-.. figure:: ../figures/optimize-ethyne.gif
+.. figure:: ../figures/optimize-ethyne-infinity.gif
    :scale: 25 %
    :alt: optimize-ethyne
    
@@ -232,7 +232,7 @@ The geometry optimization is converged after 22 iterations. The optimized coordi
 	   -1.07518151114132   -0.62376537124033   -1.06233682418088      H 
 	$end
 
-.. figure:: ../figures/optimize-cp.gif
+.. figure:: ../figures/optimize-cp-infinity.gif
    :scale: 25 %
    :alt: optimize-cp
    
@@ -305,7 +305,7 @@ The geometry optimization converges after five iterations, resulting in the foll
 	H           3.37737604916301   -0.05932253738648   -0.53517807393770
 	H           1.19215084707789   -0.11677795910162   -1.78882684103049
 	
-.. figure:: ../figures/optimize-benzyne.gif
+.. figure:: ../figures/optimize-benzyne-infinity.gif
    :scale: 25 %
    :alt: optimize-benzyne
   
@@ -328,7 +328,7 @@ It can occur sometimes that a geometry does not converge correctly or at all if 
    
    optimized in the gasphase
    
-.. figure:: ../figures/gbsa.gif
+.. figure:: ../figures/gbsa-infinity.gif
    :scale: 50 %
    :alt: gbsa
    
