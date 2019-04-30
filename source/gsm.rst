@@ -269,7 +269,7 @@ The resulting path as well as the energy diagram is shown below.
    :scale: 25 %
    :alt: wrongclaisen_conv
    
-   Energy diagram of a wrong reaction path 
+   Example of an energy diagram of a wrong reaction path 
    
 
 
