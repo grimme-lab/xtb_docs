@@ -138,7 +138,7 @@ Now, you have done everything to start the calculation.
 
     > gsm.orca
     
-After the calculation, the two most important files are the reaction path in your *cwd/*, called *stringfile.xyz0000*, and the transition state in *scratch/tsq0000.xyz*, both in a valid Xmol format. The reaction path of the Inversion of cyclohexane be seen below. 
+After the calculation, the two most important files are the reaction path in your *cwd/*, called *stringfile.xyz0000*, and the transition state in *scratch/tsq0000.xyz*, both in a valid Xmol format. The reaction path of the Inversion of cyclohexane can be seen below. 
     
 .. figure:: ../figures/cyclohexane.gif
    :scale: 25 %
@@ -155,3 +155,121 @@ After the calculation, the two most important files are the reaction path in you
 
 Bond breaking
 ===============
+
+The next example is a simple Claisen rearrangement of an allyl vinyl ether and consequently includes a bond breaking and building. The *initial0000.xyz* is build as described above by writing the converged start and end structure on after the other. 
+
+.. code:: bash
+
+    > cat start.xyz end.xyz > scratch/initial0000.xyz
+    > cat scratch/initial0000.xyz
+    14
+
+    C       0.34045581      -0.40506398       0.07097230 
+    C       0.11887830      -0.26450745       1.37067084 
+    H       1.33494198      -0.62381082      -0.28316830 
+    H      -0.42796661      -0.30487940      -0.67945703 
+    O      -1.06263702      -0.00257270       1.98945599 
+    H       0.91489299      -0.35650127       2.10610317 
+    C      -2.25344277       0.07943851       1.21679236 
+    H      -2.32305178      -0.77460066       0.52867746
+    C      -2.39137043       1.36931973       0.45116271
+    H      -3.07877280      -0.00237677       1.93509856
+    H      -3.21809081       1.37439708      -0.25142133 
+    C      -1.61901537       2.43132664       0.60779946 
+    H      -0.79235365       2.45051429       1.30599753                                                                                                                        
+    H      -1.77447485       3.33495880       0.03620927                                                                                                                        
+    14                                                                                                                                                                          
+                                                                                                                                                                                
+    C       0.05083404       0.47756955       0.03067754                                                                                                                        
+    C       0.22099793      -0.53384083       1.12248949                                                                                                                        
+    H       1.00063556       0.99546491      -0.11008883                                                                                                                        
+    H      -0.23550427      -0.01507412      -0.90051555                                                                                                                        
+    O      -0.06214314      -1.70052772       1.01406801 
+    H       0.61484477      -0.11647527       2.06863484 
+    C      -3.09105601       0.69502179       1.56213016 
+    H      -4.07672239       0.25168355       1.53446340 
+    C      -2.38605593       0.89986170       0.46164886 
+    H      -2.72406577       0.97143579       2.54163695 
+    H      -2.77578741       0.61350077      -0.51143129 
+    C      -1.01585926       1.51412664       0.44531292 
+    H      -0.76139644       1.92312285       1.42742393 
+    H      -0.99072867       2.32977240      -0.28155745
+
+Next, the *inpfileq* is modified. As we are now dealing with a bond breaking, the *TS_FINAL_TYPE* has to be adapted. The *NNODES* is also changed to a higher value to give a more detailed reaction path. This is not necessary and was just done for a nicer movie and a nicer energy diagram. 
+
+.. code:: bash
+    
+    TS_FINAL_TYPE           1      # any/delta bond: 0/1
+    NNODES                  20     # including endpoints
+    
+    
+At the end, the *ograd\** has to be modified. As Claisen rearrangements are often done in polar solvents, and a water / ethanol mixture accelerates the reaction, the calculcation was done using *gbsa(water)*. 
+
+.. code:: bash 
+
+    xtb $ofile.xyz --grad --chrg 0 --gbsa h2o > $ofile.xtbout
+    tm2orca.py $basename
+
+Now, the ``gsm`` calculation is done
+
+.. code:: bash
+
+    >gsm.orca 
+
+The reaction path as well as the energy diagram are given below. 
+
+   
+.. figure:: ../figures/claisen.gif
+   :scale: 25 %
+   :alt: claisen
+
+   Reaction path of a claisen rearrangement
+   
+.. figure:: ../figures/claisen_conv.png
+   :scale: 25 %
+   :alt: claisen_conv
+   
+   Energy diagram of a wrong reaction path 
+
+
+
+Wrong atomic order
+===================
+
+The following is an example that shows how important a proper atom order is. It deals with the same Claisen rearrangement as shown above, but with a different atom order in the start and end structure file, as shown below. 
+
+.. figure:: ../figures/vimdiffstartend.png
+   :scale: 25 %
+   :alt: vimdiffstartend
+   
+   vimdiff of different atomic order in the start (left) and end (right) file
+   
+Except for the different atom order the same as above was done. Both structures are written to the *initial0000.xyz* in the *scratch/** directory. In the inpfileq the *TS_FINAL_TYPE* is *1*, and the *NNODES* is set to *20*. The ``xtb`` call in *ograd\** is given below:
+
+.. code:: bash
+
+    xtb $ofile.xyz --grad --chrg 0 --gbsa h2o > $ofile.xtbout
+
+Now ``gsm`` is just started as already shown.
+
+.. code:: bash
+
+    > gsm.orca
+    
+The resulting path as well as the energy diagram is shown below. 
+
+   
+.. figure:: ../figures/wrongclaisen.gif
+   :scale: 25 %
+   :alt: wrongclaisen
+
+   Reaction path of a claisen rearrangement with wrong atom order 
+   
+.. figure:: ../figures/wrongclaisen_conv.png
+   :scale: 25 %
+   :alt: wrongclaisen_conv
+   
+   Energy diagram of a wrong reaction path 
+   
+
+
