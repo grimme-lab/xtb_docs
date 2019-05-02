@@ -1,10 +1,10 @@
-.. _properties:                                                                                                                                                                                                                                                       
+.. _properties: 
 
 -------------------------------
  Properties
 -------------------------------
 
-In this chapter, all necessary information about the properties
+In this chapter, all necessary information about the properties  
 of `xTB` will be given. Description of how to acquire different output information will be 
 provided. Calculation of FOD will be described.
 
@@ -13,8 +13,8 @@ provided. Calculation of FOD will be described.
 General printout
 ================
 
-First the orbital energies and occupation are printed, where the highest occupied
-molecular orbital (HOMO) and the lowest unoccupied molecular orbital (LUMO) are marked.
+First the orbital energies and occupation are printed, where the highest occupied 
+molecular orbital (HOMO) and the lowest unoccupied molecular orbital (LUMO) are marked. 
 The HOMO-LUMO gap and the Fermi-level are summed up.
 
 .. code-block:: none
@@ -36,28 +36,27 @@ The HOMO-LUMO gap and the Fermi-level are summed up.
       -------------------------------------------------------------
                   HL-Gap            0.5290737 Eh           14.3968 eV
              Fermi-level           -0.1818551 Eh           -4.9485 eV
-    
 
-The information provided by the printout can be modified and extended. This can be done either by using the option-flags when calling the program (:ref:`commandline`),
+
+The information provided by the printout can be modified and extended. This can be done either by using the option-flags when calling the program (:ref:`commandline`), 
 or by editing the input file (:ref:`detailed-input`). The kind of default information given is determined by the GFN-xTB version used. The default values called by the program are given:
-    
---pop     
-    requests printout of Mulliken population analysis
+
+--pop      
+    requests printout of Mulliken population analysis 
 --molden
     requests printout of molden file                  
---dipole
+--dipole   
     requests printout of dipole moments
 --wbo
-    requests Wiberg bond order printout
-    
-    
+    requests Wiberg bond order printout              
+
 GFN1-xTB
 _________
-    
-Default settings for GFN1-xTB first prints the Mulliken and CM5 charges. n(x) denotes the
+
+Default settings for GFN1-xTB first prints the Mulliken and CM5 charges. n(x) denotes the 
 amount of electronic charge distributed along the x = s/p/d orbitals:
-    
-.. code-block:: none 
+
+.. code-block:: none
 
     Mulliken/CM5 charges        n(s)   n(p)   n(d)
        1 O   0.67569  0.33312   1.682  4.994  0.000
@@ -88,7 +87,7 @@ GFN2-xTB
 ________
 
 Default settings for GFN2-xTB first prints populations and coefficients.
-From left to right, these are the atomic number Z,
+From left to right, these are the atomic number Z, 
 Coordination number CN,
 Atomic partial charge q, 
 Dispersion coefficient C6, 
@@ -121,7 +120,7 @@ Wiberg bond orders:
       2  H   0.919        O    1 0.919
       3  H   0.919        O    1 0.919
 
-Molecular dipole and quadropole moments. The contributions are seperated into their respective cartesian dimensions.
+Molecular dipole and quadropole moments. The contributions are seperated into their respective cartesian dimensions. 
 'Full' represents the corresponding magnetic contributions of the molecular dipole or quadropole moments.
 
 
@@ -148,20 +147,18 @@ All is summed up in the end in both GFN-xTB versions:
           | GRADIENT NORM               0.019484395925 Eh/α |
           | HOMO-LUMO GAP              14.652302902752 eV   |
            -------------------------------------------------
-   
-   
-Properties
-===========                                                                                                                                                                                                                                                           
 
-The xTB program is able to calculate the density, spin-density and the fractional occupation number weighted density (FOD) on 
-a cube grid. 
 
-Density and Spin-Density
-________________________
+ 
+Density Properties
+===================
 
-To calculate the density or the spin denisty, the input (xcontrol) file has to be manipulated. Here, the bools ``density='bool'`` 
-or respectively ``spin density='bool'`` have to be set to ``'true'``. This will create a ``.cub`` cube file, where the corresponding information is gathered.
-Additionally, informations about the cube file creation are given:
+Cube Files
+__________
+
+The xTB program is able to calculate the density, spin-density and the fractional occupation number weighted density (FOD). 
+For these caclualtions, the program first creates a proper cube grid. The corresponding file is created in your working directory and marked as ``.cub`` file. 
+It provides density and step size informations. An overview is already given in the printout:
 
 .. code-block:: none
 
@@ -177,44 +174,50 @@ Additionally, informations about the cube file creation are given:
  cpu  time for cube    0.01 s
  wall time for cube    0.01 s
 
+Here, various information are provided, like the density matrix neglect threshold ``cube_pthr`` and the grid step size ``cube_step`` (in Bohr). These values can be changed in the input (xcontrol) file (:ref:`detailed-input`). 
 
+For visualization, programs like chimera can be used, for which the ``.cub`` file can be loaded as volume data. 
 
-Fractional Occupation Density calculation
-_________________________________________
+Density and Spin-Density
+________________________
 
-To access the FOD analysis, simply use the flag ``--fod`` or set ``fod='true'`` in the input (xcontrol) file. This will calculate the FOD on a cube grid. In the proccess it will set the electronic 
-temperature to at least 12500 K. 
+To calculate the density or the spin denisty, the input (xcontrol) file has to be manipulated. Here, the bools ``density='bool'`` 
+or respectively ``spin density='bool'`` have to be set to ``'true'``. This will create a ``.cub`` cube file, where the corresponding information is gathered.
 
-.. code-block:: none
+For visualization, programs like chimera can be used, for which the ``.cub`` file can be loaded as volume data. 
 
-  cube file module (SG, 7/16)
-  cube_pthr     :   0.050
-  cube_step     :   0.400
-  non-zero P (%):  76.190   nmat:      16
-  Grid Boundaries (x y z) :
-    4.69257109135830        3.00000000000000        4.79524030780751     
-   -3.00000000000000       -3.00000000000000       -3.59840693802375     
-  Total # of points        6720
-  writing fod.cub
-  N    (numint) :  5.937
- cpu  time for cube    0.01 s
- wall time for cube    0.01 s
+Fractional Occupation Density (FOD) calculation
+________________________________________________
 
+The fractional occupation density analysis (FOD) is a diagnostic scheme that displays the static electron correlation localized on a molecule.
+The density is hereby obtained by performing a computationally cheap Finite-Temperature DFT computation. 
+The electrons are therefore self-consistenly smeared over the molecular orbitals according to a Fermi-Dirac distribution. For a more detailed insight and the theory behind 
+the FOD analytics, please see the `original publication`_. To use FOD for selecting active spaces in CASSCF calculations, refer to our `later work`_ on this topic.
 
-To analyse the FOD population, change the ``fod population ='bool'`` in the input (xcontrol) file to ``true``. This will display the fractional loewdin 
-population of the system. 
+.. _original publication: https://onlinelibrary.wiley.com/doi/full/10.1002/anie.201501887
+.. _later work: https://onlinelibrary.wiley.com/doi/full/10.1002/chem.201604682
 
+To access the FOD analysis, simply use the flag ``--fod`` or set ``fod='true'`` in the input (xcontrol) file. This will create a ``fod.cub`` file and calculate the FOD on the cube grid. 
+Be sure to set the electronic temperature to a higher value, e.g. 5000 K (``--etemp 5000``). The FOD population will be displayed in the printout section as:
 
 .. code-block:: none
 
-  NFOD :     0.0000
+ NFOD :     0.6698
 
-  Loewdin FODpop     n(s)   n(p)   n(d)
-      1 O   0.0000   0.000  0.000  0.000
-      2 H   0.0000   0.000  0.000  0.000
-      3 H   0.0000   0.000  0.000  0.000
+ Loewdin FODpop     n(s)   n(p)   n(d)
+    1 C   0.1924   0.018  0.175  0.000
+    2 C   0.0673   0.003  0.064  0.000
+    3 C   0.0673   0.003  0.064  0.000
+    4 C   0.1924   0.018  0.175  0.000
+    5 C   0.0673   0.003  0.064  0.000
+    6 C   0.0673   0.003  0.064  0.000
+    7 H   0.0039   0.004  0.000  0.000
+    8 H   0.0039   0.004  0.000  0.000
+    9 H   0.0039   0.004  0.000  0.000
+   10 H   0.0039   0.004  0.000  0.000
+
+The NFOD number indicates the static electon correlation 
 
 
-                                                                                                                                                                                                                                                                      
-                                                                                                                                                                                                                                                                      
-
+If you do not want to write a ``fod.cub`` file, but still want to analyse the FOD population, change the ``fod population ='bool'`` in the input (xcontrol) file to ``true``. This will display the fractional loewdin 
+population of the system (see above) and only writes the ``fod`` file, where this information is stored.
