@@ -6,7 +6,7 @@ Growing String Method
 
 .. contents::
 
-.. note:: ``GSM`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without wwarranty of completness or correctness. We are using version *5e12e14d30faaf084b47bc491d62e49a81dad3b2* of ``GSM``. ``GSM`` is not able to communiacte with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values. To run a GSM calculation, the following programs are needed. All of them are available upon personal request. 
+.. note:: ``GSM`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without warranty of completness or correctness. We are using version *5e12e14d30faaf084b47bc491d62e49a81dad3b2* of ``GSM``. ``GSM`` is not able to communiacte with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values. To run a GSM calculation, the following programs are needed. All of them are available upon personal request. 
    1) gsm.orca          *in any valid path, e.g. your bin*
    2) inpfileq          *in the directory, where you want to execute your calculation*
    3) modified ograd    *in the directory, where you want to execute your calculation*
