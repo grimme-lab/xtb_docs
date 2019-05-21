@@ -74,7 +74,7 @@ Which methods you want to use is up to you, as they are doing exactly the same.
 
 Now you are ready to start the calculation.
 
-..code:: bash
+.. code:: bash
 
     > xtb inp.xyz --opt --input xcontrol
     
