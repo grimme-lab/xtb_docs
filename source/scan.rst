@@ -16,7 +16,8 @@ Input
 
 Both will do exactly the same within your calculation. Lastly you have to run an optimization. 
 
-.. note:: ``xtb`` uses force constants to constrain the geometry. Therefore the geometry data you use for the scan can deviate from your given input during the optimization. It is **not** possible to scan the potential energy surface without doing an optimization. In consequence, it is always a relaxed surface scan. 
+.. note:: 
+    ``xtb`` uses force constants to constrain the geometry. Therefore the geometry data you use for the scan can deviate from your given input during the optimization. It is **not** possible to scan the potential energy surface without doing an optimization. In consequence, it is always a relaxed surface scan. 
 
 Dihedral angle scan
 =====================
