@@ -31,6 +31,7 @@ insights into the theory used behind the scences.
    sp
    properties
    optimization
+   scan
    gbsa
    hessian
    md
