@@ -152,13 +152,13 @@ The calculation gives the usual files described in the other chapters, and an ex
 The resulting scan as well as the resulting energy curve are shown.
 
 .. figure:: ../figures/ethane.gif
-   :scale: 25 %
+   :scale: 50 %
    :alt: ethanegif
    
    Dihedral scan of ethane.
 
 .. figure:: ../figures/ethane.png
-   :scale: 50 %
+   :scale: 25 %
    :alt: ethanepng
    
    Energy diagram of the dihedral scan of ethane.
@@ -186,7 +186,7 @@ The resulting scan as well as the resulting energy curve are shown.
 
 Now, the *xcontrol* can be modified. The modification shown below are only for training purposes, so they don't have to make any sense. 
 
-.. code :: bash 
+.. code:: bash 
 
     $constrain
        distance: 1,5,auto
@@ -200,13 +200,13 @@ Now, the *xcontrol* can be modified. The modification shown below are only for t
 I chose to firstly set the constrains and then the scanning part. The constrains are written one after another. The first constrain keeps the distance of atom 1 and atom 5 (both carbons) to their actual value, whereas the second one constrains the dihedral angle of atoms 8, 5, 1 and 4 to 60.0°. In the scan block, the **second** constrain is changed from 60.0° to 780.0° in 100 steps. The maximum cycle of the optimization is set in the *\$opt* part to 5. Consequently the optimization has not much steps to shift the constrained atoms. All in all, the chosen settings results in the following.
 
 .. figure:: ../figures/bromochloroethane.gif
-   :scale: 25 %
+   :scale: 50 %
    :alt: bromochloroethangif
    
    Scan of the dihedral angle between chloride and bromide of the disubstituted ethane.
 
 .. figure:: ../figures/bromochloroethane.png
-   :scale: 50 %
+   :scale: 25 %
    :alt: bromochloroethanepng
    
    Energy diagram of the dihedral scan.
@@ -278,7 +278,7 @@ If you have this error message, than simply adjust your step size.
 The resulting path can be seen in the following movie. 
 
 .. figure:: ../figures/concertedscan.gif
-   :scale: 25 %
+   :scale: 50 %
    :alt: concertedgif
    
    
@@ -304,7 +304,7 @@ Another way to scan would be without the *concerted* mode. ``xtb`` will then sca
 The *mode=concerted* flag is not read in, different step sizes are therefore possible. I chose to firstly scan along the angle and then along the distance. The resulting path can be seen below.
 
 .. figure:: ../figures/notconcertedscan.gif
-   :scale: 25 %
+   :scale: 50 %
    :alt: notconcertedgif
 
 
