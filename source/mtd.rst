@@ -122,7 +122,7 @@ Make sure that ``xtb`` is properly set up and you have the following files in yo
     temp=298
  $end   
  $metadyn
-    atoms=1-3
+    atoms: 1-3
     save=10
     kpush=0.02
     alp=1.2
@@ -213,7 +213,7 @@ To avoid dissociation of the water dimer by a logfermi potential, the input file
     temp=298
  $end   
  $metadyn
-    atoms=1-3
+    atoms: 1-3
     save=10
     kpush=0.02
     alp=1.2
