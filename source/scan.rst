@@ -30,7 +30,7 @@ Let's start with an easy example. You all know the potential energy surface of a
 
 .. code:: bash
 
-    > cat inp.xyz
+    > cat ethane.xyz
         8
             -7.46994680
     C          -0.01503441120750    0.04820403778911   -0.01075686629161
@@ -42,12 +42,13 @@ Let's start with an easy example. You all know the potential energy surface of a
     H          -0.67543548798470   -1.32088660386766   -1.54947400918083
     H          -0.08161812386697   -2.11204925365809   -0.08140067223057
     
-To scan the dihedral angle I choose the atoms 1 (first carbon), 5 (second carbon), 4 (hydrogen at first carbon) and 8 (hydrogen at second carbon). The dihedral angle is therefore between 8, 5, 1, 4 or vice versa. Now you have to modify your *xcontrol*. As I already said, there are two different ways to scan the PES. 
+To scan the dihedral angle I choose the atoms 1 (first carbon), 5 (second carbon), 4 (hydrogen at first carbon) and 8 (hydrogen at second carbon). The dihedral angle is therefore between 8, 5, 1, 4 or vice versa. Now you have to modify your *input*. As I already said, there are two different ways to scan the PES. 
 
 1) Constrain and scan in two steps
 
-.. code:: bash
+.. code:: text
 
+    > cat scan.inp
     $constrain
      force constant=0.05
      dihedral: 8,5,1,4,60.0
@@ -55,22 +56,23 @@ To scan the dihedral angle I choose the atoms 1 (first carbon), 5 (second carbon
      1: 60.0,420.0,72
     $end
      
-The *\$constrain* will fix the *dihedral* between atom 8, 5, 1 and 4 to 60.0 degrees. It is also possible to change the force constant used to constrain the geometry. For further hints see chapter `Detailed Input: Fixing, Constraining and Confining - Constraining Potentials`__. Afterwards a scan is conducted with the 1. constrain (in this case the dihedral) from 60.0 to 420.0 degrees in 72 steps. 
+The *\$constrain* will fix the *dihedral* between atom 8, 5, 1 and 4 to 60.0 degrees. It is also possible to change the force constant used to constrain the geometry. For further hints see chapter `Detailed Input: Fixing, Constraining and Confining - Constraining Potentials`__. Afterwards a scan is conducted with the 1. constraint (in this case the dihedral) from 60.0 to 420.0 degrees in 72 steps. 
 
 __ https://xtb-docs.readthedocs.io/en/latest/xcontrol.html#constraining-potentials
 
 
 
-2) The constrain can also be done on-the-fly
+2) The constraint can also be done on-the-fly
 
-.. code:: bash
+.. code:: text
 
+    $constain
+     force constant=0.05
     $scan
-     mode=concerted
-     dihedral: 8,5,1,4,60.0;60.0,420.0,72
+     dihedral: 8,5,1,4,60.0; 60.0,420.0,72
     $end     
 
-The part up to the semicolon (*dihedral: 8,5,1,4,60.0*) is passed to the *\$constrain* instruction and evaluated there, and afterwards a scan with this constrain is conducted from 60.0 to 420.0 degrees in 72 steps. 
+The part up to the semicolon (*dihedral: 8,5,1,4,60.0*) is passed to the *\$constrain* instruction and evaluated there, and afterwards a scan with this constraint is conducted from 60.0 to 420.0 degrees in 72 steps. 
 
 Which methods you want to use is up to you, as they are doing exactly the same. 
 
@@ -78,7 +80,7 @@ Now you are ready to start the calculation.
 
 .. code:: bash
 
-    > xtb inp.xyz --opt --input xcontrol
+    > xtb ethane.xyz --opt --input scan.inp
     
 The calculation gives the usual files described in the other chapters, and an extra file called *xtbscan.log*. This is a file in XMol format, which can be read by e.g. ``molden``. All optimized structures of the scan and their energy are written to that file, so it contains in our case 72 structures, starting and ending like this: 
 
@@ -184,7 +186,7 @@ The resulting scan as well as the resulting energy curve are shown.
     BR          0.20555042720700   -2.80743824603485    0.15129132992284
 
 
-Now, the *xcontrol* can be modified. The modification shown below are only for training purposes, so they don't have to make any sense. 
+Now, the *input* can be modified. The modification shown below are only for training purposes, so they don't have to make any sense. 
 
 .. code:: bash 
 
@@ -197,7 +199,7 @@ Now, the *xcontrol* can be modified. The modification shown below are only for t
        maxcycle=5
     $end
 
-I chose to firstly set the constrains and then the scanning part. The constrains are written one after another. The first constrain keeps the distance of atom 1 and atom 5 (both carbons) to their actual value, whereas the second one constrains the dihedral angle of atoms 8, 5, 1 and 4 to 60.0°. In the scan block, the **second** constrain is changed from 60.0° to 780.0° in 100 steps. The maximum cycle of the optimization is set in the *\$opt* part to 5. Consequently the optimization has not much steps to shift the constrained atoms. All in all, the chosen settings results in the following.
+I chose to firstly set the constraints and then the scanning part. The constraints are written one after another. The first constraint keeps the distance of atom 1 and atom 5 (both carbons) to their actual value, whereas the second one constrains the dihedral angle of atoms 8, 5, 1 and 4 to 60.0°. In the scan block, the **second** constraint is changed from 60.0° to 780.0° in 100 steps. The maximum cycle of the optimization is set in the *\$opt* part to 5. Consequently the optimization has not much steps to shift the constrained atoms. All in all, the chosen settings results in the following.
 
 .. figure:: ../figures/bromochloroethane.gif
    :scale: 40 %
@@ -226,7 +228,7 @@ The optimized input geometry is written below.
 
 .. code:: bash
 
-    > cat start.xyz
+    > cat ammonia.xyz
     4
     
     N          -0.00990404770994   -0.01698500657667   -0.00712107610609
@@ -234,9 +236,9 @@ The optimized input geometry is written below.
     H           0.94901246801925    0.00720047578638   -0.33083175918033
     H          -0.46827248708413    0.82547620563705   -0.33095427178668
     
-Now, the constrains and the scanning options are set in the *xcontrol* file.
+Now, the constraining and the scanning options are set in the input file.
 
-.. code:: bash 
+.. code:: text 
 
     $constrain
        force constant=0.5
@@ -245,22 +247,24 @@ Now, the constrains and the scanning options are set in the *xcontrol* file.
        dihedral: 2, 1, 3, 4, auto
     $scan
        mode=concerted
+       # different steps for each constraint!
        1: 0.5, 1.4, 50
        2: 150.0, 90.0, 60
     $opt
        maxcycle=5
     $end
 
-The constrain of the dihedral angle between all given atoms to their actual value was set, since otherwise the first optimization would lead to a planar molecule. As you can see, I chose *mode=concerted*, but different number of steps for the scan. Therefore, ``xtb`` exits in error, printing the message:
+The constraint of the dihedral angle between all given atoms to their actual value was set, since otherwise the first optimization would lead to a planar molecule. As you can see, I chose *mode=concerted*, but different number of steps for the scan. Since a concerted scan can only performed if all scans are performed with the same number of steps, ``xtb`` should exits in error, of course it does printing the message:
 
-.. code:: bash 
+.. code:: text 
 
-    > tail -1 output.out
     #ERROR! Wrong setup for concerted scan, aborting...
 
-If you have this error message, than simply adjust your step size. 
+.. note:: A concerted scan can only carried out if all constraints are scanned with the same number of steps.
 
-.. code:: bash 
+The correct input is given below.
+
+.. code:: text 
 
     $constrain
        force constant=0.5
@@ -269,7 +273,7 @@ If you have this error message, than simply adjust your step size.
        dihedral: 2, 1, 3, 4, auto
     $scan
        mode=concerted
-       1: 0.5, 1.4, 60
+       1:   0.5,  1.4, 60
        2: 150.0, 90.0, 60
     $opt
        maxcycle=5
@@ -280,14 +284,15 @@ The resulting path can be seen in the following movie.
 .. figure:: ../figures/concertedscan.gif
    :scale: 60 %
    :alt: concertedgif
-   
-   
-Not Concerted Scan
-^^^^^^^^^^^^^^^^^^^
-   
-Another way to scan would be without the *concerted* mode. ``xtb`` will then scan along all constrains one after the other. An example *xcontrol* can look like this, using the ammonia example from above. 
 
-.. code:: bash 
+.. note:: Nobody stops you from scanning the same constraint twice, this usually does not make much sense for concerted scans, but is not catched by the parser.
+   
+Sequential Scan
+^^^^^^^^^^^^^^^
+   
+Another way to scan would be in *sequential* mode. ``xtb`` will then scan along all constraints one after the other, always leaving the last scanned constraint at it last value. An example *input* can look like this, using the ammonia example from above. 
+
+.. code:: text 
 
     $constrain
        force constant=0.5
@@ -295,19 +300,23 @@ Another way to scan would be without the *concerted* mode. ``xtb`` will then sca
        angle: 4, 1, 3, 140.0
        dihedral: 2, 1, 3, 4, auto
     $scan
-    #   mode=concerted
+       mode=sequential
        2: 140.0, 90.0, 40
        1: 0.5, 2.0, 60
     $opt
        maxcycle=5
 
-The *mode=concerted* flag is not read in, different step sizes are therefore possible. I chose to firstly scan along the angle and then along the distance. The resulting path can be seen below.
+The *mode=sequential* flag is the default value for scans, due to the nature of the scan different step sizes are possible here. 
+
+.. note:: There is no multidimensional scan supported on purpose since they tend to be expensive on high-dimensional potential energy surfaces and are difficult to visualize. But they can be easily constructed, by repeatly scanning the same constraint.
+
+I chose to firstly scan along the angle and then along the distance. The resulting path can be seen below.
 
 .. figure:: ../figures/notconcertedscan.gif
    :scale: 60 %
    :alt: notconcertedgif
 
 
-.. note::
+.. tip::
 
     If your resulting path oscillates at some point, try to increase the number of maximum cycles *maxcycle* in your *\$opt* block. Sometimes ``xtb`` just needs more steps to properly converge your structure. 
