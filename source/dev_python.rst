@@ -6,6 +6,12 @@
 
 .. warning:: ``peeq`` is still work in progress!
 
+This section describes the workaround to use the periodic electronegativity equalibration (PEEQ) method. 
+This method is currently under development and includes periodic boundary conditions for systems containing 
+elements up to radon. The method is currently being finalized, so the following tutorial is especially for 
+our alpha testers. If you are interested in being listed as an alpha tester please send a request to the
+`xtb-mailing list <xtb@thch.uni-bonn.de>`_.
+
 .. contents::
 
 Setting up ASE
