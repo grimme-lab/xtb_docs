@@ -37,6 +37,7 @@ insights into the theory used behind the scences.
    md
    mtd
    gsm
+   periodic_boundary_conditions
 
 .. toctree::
    :maxdepth: 3
