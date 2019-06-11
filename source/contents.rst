@@ -40,6 +40,12 @@ insights into the theory used behind the scences.
 
 .. toctree::
    :maxdepth: 3
+   :caption: API
+
+   dev_python
+
+.. toctree::
+   :maxdepth: 3
    :caption: Misc
 
    xtbrelatedrefs
