@@ -27,6 +27,7 @@ Singlepoint
    :flag: ``--scc``
    :description:
      just self-consistent charge (SCC) calculation.
+     See :ref:`sp` for details.
    :queue:
      setup, SP, properties
 
@@ -96,6 +97,7 @@ Geometry optimization
    :description:
      approximate normal coordinate optimization, performs an initial singlepoint
      calculation and a final singlepoint calculation on the optimized structure.
+     See :ref:`geometry optimization` for details.
    :queue:
      setup, SP, ANCopt, SP, properties
 
@@ -118,7 +120,7 @@ Guided Path Finder
 Modefollowing
    :flag: ``--modef mode``
    :description:
-     follow `mode` which specifies the nth eigenmode from a previously done
+     follow ``mode`` which specifies the nth eigenmode from a previously done
      frequency calculation.
    :queue:
      setup, SP, properties, ANCopt, ...
@@ -126,14 +128,14 @@ Modefollowing
 Frequency calculation
    :flag: ``--[o]hess``
    :description:
-     plain second derivative calculation
+     second derivative calculation, see :ref:`frequencies`
    :queue:
      setup, SP, [ANCopt, SP,] SP, Hessian, properties
 
 Molecular dynamics
    :flag: ``--[o]md``
    :description:
-     plain molecular dynamics simulation
+     molecular dynamics simulation, see :ref:`md` for details
    :queue:
      setup, SP, [ANCopt, SP,] properties, MD
 
@@ -141,8 +143,9 @@ Metadynamics
    :flag: ``--metadyn [snapshots]``
    :description:
      activates metadynamics simulation on start geometry, where
-     `snapshots` is the number of structures from the trajectory
-     should be used in the biasing potential
+     ``snapshots`` is the number of structures from the trajectory
+     should be used in the biasing potential.
+     See :ref:`mtd` for details.
    :queue:
      setup, SP, properties, MD
 

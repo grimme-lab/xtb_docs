@@ -153,7 +153,7 @@ The imported specifications are documented in the output file in the *Calculatio
 
 To select the parametrization of the xTB method you can currently choose
 from three different geometry, frequency and non-covalent interactions (GFN)
-parametrization, which differ mostly in the cost--accuracy ratio,
+parametrizations, which differ mostly in the cost--accuracy ratio,
 
 .. code:: sh
 
@@ -163,12 +163,16 @@ to choose GFN2-xTB, which is also the default parametrization. Also
 available are GFN1-xTB, and GFN0-xTB.
 
 Accuracy and Iterations
-=================================
+=======================
 
 Accuracy
----------
+--------
 
-The accuracy of the SCC calculation can be adjusted from the command line:
+The accuracy of the xTB calculation can be adjusted by the commandline option
+``--acc``. The accuracy determines the integral screening thresholds and the
+SCC convergence criteria and can be adjusted continuous in a range from
+0.0001 to 1000, where tighter criteria are set for lower values of accuracy.
+To change the calculation accuracy call ``xtb`` with
 
 .. code:: sh
 
@@ -200,7 +204,7 @@ Setting the accuracy level to 3 will result in:
 
 
 Iterations
-------------
+----------
 
 The number of iterations allowed for the SCC calculation can be adjusted from the command line:
 
@@ -211,7 +215,7 @@ The number of iterations allowed for the SCC calculation can be adjusted from th
 The default number of iterations in the SCC is set to 250.
 
 Fermi-smearing
-=================================
+==============
 
 The electronic temperature :math:`T_{el}` is used as an adjustable parameter, employing so-called Fermi 
 smearing to achieve fractional occupations for systems with almost degenerate orbital levels. 
@@ -240,35 +244,45 @@ The default electronic temperature is :math:`T_{el}` = 300 K.
             
 The specified electronic temperature is documented in the output file in the *Self-Consistent Charge Iterations* section
 
-.. code:: bash           
-            
-             -------------------------------------------------
-            |        Self-Consistent Charge Iterations        |
-             -------------------------------------------------
-   
-   Ncao       : 6
-   Nao        : 6
-   Nshell     : 4
-   Nel        : 8
-   T(el)      :  5000.0   # Specified electronic temperature
-   intcut     :    25.0
-   scfconv/Eh :  0.100E-05
-     qconv/e  :  0.100E-03
-   intneglect :  0.100E-07
-   broydamp   :      0.400
+.. code:: text
 
-      
+           ------------------------------------------------- 
+          |        Self-Consistent Charge Iterations        |
+           ------------------------------------------------- 
+
+          ...................................................
+          :                      SETUP                      :
+          :.................................................:
+          :  # basis functions                  12          :
+          :  # atomic orbitals                  12          :
+          :  # shells                            8          :
+          :  # electrons                        16          :
+          :  max. iterations                   250          :
+          :  Hamiltonian                  GFN2-xTB          :
+          :  restarted?                      false          :
+          :  GBSA solvation                  false          :
+          :  PC potential                    false          :
+          :  electronic temp.         5000.0000000     K    :
+          :  accuracy                    1.0000000          :
+          :  -> integral cutoff          0.2500000E+02      :
+          :  -> integral neglect         0.1000000E-07      :
+          :  -> SCF convergence          0.1000000E-05 Eh   :
+          :  -> wf. convergence          0.1000000E-03 e    :
+          :  Broyden damping             0.4000000          :
+          ...................................................
+
+
 .. note:: Sometimes you may face difficulties converging the self consistent
           charge iterations. In this case increasing the electronic temperature 
           and restarting at the converged calculation with normal temperature can help.
 
           .. code:: sh
 
-            > xtb coord --etemp 1000.0&& xtb coord --restart
+            > xtb coord --etemp 1000.0 && xtb coord --restart
   
   
 Vertical Ionization Potentials and Electron Affinities
-==================================================================================
+======================================================
 
 ``xtb`` can be used to calculate vertical ionization potentials (IP) and electron affinities (EA) applying
 a specially reparameterized GFN1-xTB version. The special purpose parameters are documented in the ``.param_ipea.xtb``
@@ -365,7 +379,7 @@ Example output for the optimized Water molecule:
    ------------------------------------------------------------------------
 
 Global Electrophilicity Index
-==================================================================================
+=============================
 
 ``xtb`` can be used for direct calculation of Global Electrophilicity Indexes (GEI) that can be used to estimate the electrophilicity or Lewis acidity of various compounds from vertical IPs and EAs. In  ``xtb`` the GEI is defined as:
   
@@ -388,7 +402,7 @@ The calculated GEI is documented in the output after the *vertical delta SCC EA 
    ------------------------------------------------------------------------
 
 Fukui Index
-==================================================================================
+===========
 
 The Fukui indexes or condensed Fukui function can be calculated to estimate the most electrophilic or nucleophilic sites of a molecule.
 
@@ -413,7 +427,7 @@ The radical attack susceptibility is described by
    f_{0}(r) = 0.5(\rho_{N+1}(r)-\rho_{N-1}(r))
   
 
-.. note::   As the Fukui indexes depend on occupation numbers and population analysis <LINK ZU POPULATIONSANALYSE JEROEN>, they          
+.. note::   As the Fukui indexes depend on occupation numbers and population analysis (see :ref:`properties`), they          
             are sensitive toward basis set changes. Therefore Fukui indexes should not be recognized as absolute numbers but as  
             relative parameters in the same system.  
 

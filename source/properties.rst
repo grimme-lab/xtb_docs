@@ -38,7 +38,8 @@ The HOMO-LUMO gap and the Fermi-level are summed up.
              Fermi-level           -0.1818551 Eh           -4.9485 eV
 
 
-The information provided by the printout can be modified and extended. This can be done either by using the option-flags when calling the program (:ref:`commandline`), 
+The information provided by the printout can be modified and extended.
+This can be done either by using the option-flags when calling the program (:ref:`commandline`), 
 or by editing the input file (:ref:`detailed-input`). The kind of default information given is determined by the GFN-xTB version used. The default values called by the program are given:
 
 --pop      
@@ -54,7 +55,7 @@ GFN1-xTB
 _________
 
 Default settings for GFN1-xTB first prints the Mulliken and CM5 charges. n(x) denotes the 
-amount of electronic charge distributed along the x = s/p/d orbitals:
+population partioned to the x = s/p/d shells:
 
 .. code-block:: none
 
@@ -74,7 +75,8 @@ Wiberg bond orders describe the partial bond orders and their disposition onto t
      2  H   0.892        O    1 0.891
      3  H   0.892        O    1 0.891
 
-Dipol moment along the cartesian dimensions, calculated from the electron density in a.u.:
+The molecular dipole moment and its cartesian components calculated from the electron density.
+The components are given in atomic units while the total dipole moment is given in Debye, to convert from atomic units to Debye multiply by 2.5417 D/au.
 
 .. code-block:: none
 
@@ -121,7 +123,7 @@ Wiberg bond orders:
       3  H   0.919        O    1 0.919
 
 Molecular dipole and quadropole moments. The contributions are seperated into their respective cartesian dimensions. 
-'Full' represents the corresponding magnetic contributions of the molecular dipole or quadropole moments.
+'Full' represents the corresponding contributions of the molecular dipole or quadropole moments.
 
 
 .. code-block:: none
@@ -156,7 +158,7 @@ Density Properties
 Cube Files
 __________
 
-The xTB program is able to calculate the density, spin-density and the fractional occupation number weighted density (FOD). 
+The ``xtb`` program is able to calculate the density, spin-density and the fractional occupation number weighted density (FOD). 
 For these caclualtions, the program first creates a proper cube grid. The corresponding file is created in your working directory and marked as ``.cub`` file. 
 It provides density and step size informations. An overview is already given in the printout:
 
@@ -184,7 +186,7 @@ ________________________
 To calculate the density or the spin denisty, the input (xcontrol) file has to be manipulated. Here, the bools ``density='bool'`` 
 or respectively ``spin density='bool'`` have to be set to ``'true'``. This will create a ``.cub`` cube file, where the corresponding information is gathered.
 
-For visualization, programs like chimera can be used, for which the ``.cub`` file can be loaded as volume data. 
+For visualization, programs like *chimera* can be used, for which the ``.cub`` file can be loaded as volume data. 
 
 Fractional Occupation Density (FOD) calculation
 ________________________________________________
@@ -218,6 +220,21 @@ Be sure to set the electronic temperature to a higher value, e.g. 5000 K (``--et
 
 The NFOD number indicates the static electon correlation 
 
-
-If you do not want to write a ``fod.cub`` file, but still want to analyse the FOD population, change the ``fod population ='bool'`` in the input (xcontrol) file to ``true``. This will display the fractional loewdin 
+If you do not want to write a full ``fod.cub`` file, but still want to analyse the FOD population at least qualitatively, change the ``fod population ='bool'`` in the input (xcontrol) file to ``true``. This will display the fractional loewdin 
 population of the system (see above) and only writes the ``fod`` file, where this information is stored.
+
+Machine Readable Data Dump
+==========================
+
+``xtb`` is able to dump parts of the calculated data in a machine-readable way
+using the json-format. To activate the dump into a json file use the input
+
+.. code:: text
+
+   $write
+      json=true
+
+which will write a ``xtbout.json`` file containing partial charges,
+cumulative atomic multipole moments, occupation number and orbtial energies
+for single point calculations or frequencies, reduced masses and IR intensities
+from hessian calculations.

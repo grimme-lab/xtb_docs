@@ -333,3 +333,35 @@ It can occur sometimes that a geometry does not converge correctly or at all if 
    :alt: gbsa
    
    optimized in chloroform
+
+Optimization Engines
+====================
+
+.. note:: feature implemented in version 6.1.4
+
+``xtb`` offers different optimizers which can be switched using the detailed
+input with
+
+.. code:: text
+
+    $opt
+        engine=<name>
+
+possible optimizers are
+
+Approximate Normal Coordinate Rational Function optimizer (ANCopt)
+    - ``engine=rf`` (default)
+    - rational function for optimal step
+    - BFGS update of Hessian
+    - approximate normal coordinate system
+
+L-BFGS Approximate Normal Coordinate optimizer (L-ANCopt)
+    - ``engine=lbfgs``
+    - L-BFGS step and update of Hessian
+    - approximate normal coordinate system
+
+Fast Inertial Relaxation Engine (FIRE)
+    - ``engine=inertial``
+    - MD propagation with preconditioning
+    - BFGS update of Hessian
+    - cartesian coordinate system
