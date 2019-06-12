@@ -12,7 +12,7 @@ For the theory behind our MTD approach please refer to:
     *Exploration of Chemical Compound, Conformer, and Reaction Space with
     Meta-Dynamics Simulations Based on Tight-Binding Quantum Chemical
     Calculations*,
-    *J. Chem. Theory Comput.*,**2019**, *155*, 2847-2862.
+    *J. Chem. Theory Comput.*, **2019**, *155*, 2847-2862.
     **DOI:** `10.1021/acs.jctc.9b00143`__
     Publication Date (Web): April 3, 2019
 
