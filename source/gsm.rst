@@ -6,12 +6,12 @@ Growing String Method
 
 .. contents::
 
-.. note:: ``GSM`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without warranty of completness or correctness. We are using version *5e12e14d30faaf084b47bc491d62e49a81dad3b2* of ``GSM``. ``GSM`` is not able to communiacte with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values. To run a ``GSM`` calculation, the following programs are needed. All of them are available upon personal request. 
+.. note:: ``gsm`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without warranty of completness or correctness. We are using version *5e12e14d30faaf084b47bc491d62e49a81dad3b2* of ``gsm``. ``gsm`` is not able to communicate with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values. To run a ``gsm`` calculation, the following programs are needed. All of them are available upon personal request. 
      1) gsm.orca          *in any valid path, e.g. your bin*
      2) inpfileq          *in the directory, where you want to execute your calculation*
      3) modified ograd    *in the directory, where you want to execute your calculation*
      4) tm2orca.py        *in any valid path, e.g. your bin* 
-   For further information and a detailed description on ``GSM``, see `ZimmermanGroup`_ and their `orca`_ interface.
+   For further information and a detailed description on ``gsm``, see `ZimmermanGroup`_ and their `orca`_ interface.
 
 .. _ZimmermanGroup: https://github.com/ZimmermanGroup/molecularGSM/wiki 
 .. _orca: https://zimmermangroup.github.io/molecularGSM/classORCA.html
@@ -21,9 +21,9 @@ Growing String Method
 Input
 ======
 
-``GSM`` is a method to find a reaction path and a transition state. In the following, we are going to work with the Double-ended Growing String Method (DE-GSM), therefore a converged start and end structure is needed. The atomic order needs to be the same in both files otherwise the ``GSM`` calculation won't give the transition state you are looking for. 
+``gsm`` is a method to find a reaction path and a transition state. In the following, we are going to work with the Double-ended Growing String Method (DE-GSM), therefore a converged start and end structure is needed. The atomic order needs to be the same in both files otherwise the ``gsm`` calculation will not give the transition state you are looking for. 
 
-Let's first have a look at the structure needed. The files are explained later in detail. Let's call the directory, where you want to execute your calculations, *cwd/* (current working directory). In *cwd/* you need to have the directory *scratch/*. Here, all files created and needed during the calculation are saved, but in the beginning, there is only one file in *scratch/*, named *initial0000.xyz*. The file *initial0000.xyz* contains the start and the end structure in any valid Xmol format. The next two files needed are in the directory, where you want to carry out your calculation. Both are available upon personal request or from the *ZimmermanGroup* (see links attached). With the *inpfileq* the user is able to set specific parameters for the ``GSM`` calculation, whereas the *ograd* allows the ``GSM`` to communicate with ``orca`` (??????????). This is necessary, as ``GSM`` can read ``orca`` output but not ``xtb`` output. To use ``GSM`` with ``xtb``, we therefore have to fake an ``orca`` output, which is done using the ``tm2orca`` script. Furthermore, you need two directories, where you optimize your start and end structure, namley *start/* and *end/*. 
+Lets first have a look at the structure needed. The files are explained later in detail. Let' call the directory, where you want to execute your calculations, *cwd/* (current working directory). In *cwd/* you need to have the directory *scratch/*. Here, all files created and needed during the calculation are saved, but in the beginning, there is only one file in *scratch/*, named *initial0000.xyz*. The file *initial0000.xyz* contains the start and the end structure in any valid Xmol format. The next two files needed are in the directory, where you want to carry out your calculation. Both are available upon personal request or from the *ZimmermanGroup* (see links attached). With the *inpfileq* the user is able to set specific parameters for the ``gsm`` calculation, whereas the *ograd* wraps ``xtb`` and converts input and output for ``gsm``. This is necessary, as ``gsm`` can read ``orca`` output but not ``xtb`` output. To use ``gsm`` with ``xtb``, we therefore have to fake an ``orca`` output, which is done using the ``tm2orca`` script. Furthermore, you need two directories, where you optimize your start and end structure, namley *start/* and *end/*. 
 
 
 .. code:: bash
@@ -68,7 +68,7 @@ This example deals with the inversion of cyclohexane from the chair to the boat 
     
     
 Obviously, the xtb calculation can be done using all flags explained in this documentation, e.g. *--chrg*, *--uhf*, *--gbsa* and so on. 
-The same has to be done with the end structure. It is advisable to take the optimized start structure and change, whatever you want to change, using a graphical program, which **does not** change your atomic order, e.g. ``avogadro``, as a change in the atomic order will definitively cause problems during the ``GSM`` calculation!
+The same has to be done with the end structure. It is advisable to take the optimized start structure and change, whatever you want to change, using a graphical program, which **does not** change your atomic order, e.g. ``avogadro``, as a change in the atomic order will definitively cause problems during the DE-GSM calculation!
 
 Before you can start the calculation, a couple of other things have to be done. First, you have to generate your *initial0000.xyz*.
 
@@ -118,7 +118,7 @@ Before you can start the calculation, a couple of other things have to be done. 
     H       2.42887838      -0.07183163      -0.28926209
 
 
-Then you have to modify your *inpfileq*. Normally, all default values can be used, and you only have to care about the last two entries *TS_FINAL_TYPE* and *NNODES*. *TS_FINAL_TYPE* can be *0* or *1*. *0* means no bond breaking and is used for a inversion, whereas you have to use *1* for a bond breaking. If you use the wrong setting here, so e.g. *1* for the inversion of cyclohexane, ``GSM`` tries to break a bond leading to a wrong path. *NNODES* is the maximum number of nodes for the ``GSM`` calculation and should be set to 15 for ``xtb``. 
+Then you have to modify your *inpfileq*. Normally, all default values can be used, and you only have to care about the last two entries *TS_FINAL_TYPE* and *NNODES*. *TS_FINAL_TYPE* can be *0* or *1*. *0* means no bond breaking and is used for a inversion, whereas you have to use *1* for a bond breaking. If you use the wrong setting here, so e.g. *1* for the inversion of cyclohexane, ``gsm`` tries to break a bond leading to a wrong path. *NNODES* is the maximum number of nodes for the DE-GSM calculation and should be set to 15 for ``xtb``. 
 
 .. code:: bash
 
