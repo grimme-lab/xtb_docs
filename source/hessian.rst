@@ -104,18 +104,9 @@ Each frequency job provides the thermochemical properties at 298.15 K. (for othe
             TR   0.184E+27             1481.254      4.968     36.401
             TOT                        3871.8331    17.4344    66.7050   279.0936
 
-    temp. (K)  partition function   enthalpy   heat capacity  entropy
-                                    cal/mol     cal/K/mol   cal/K/mol   J/K/mol
-    298.15  VIB   13.7                 1501.827      9.485      9.210
-            ROT  0.909E+04              888.752      2.981     21.094
-            INT  0.125E+06             2390.579     12.466     30.304
-            TR   0.184E+27             1481.254      4.968     36.401
-            TOT                        3871.8331    17.4344    66.7050   279.0936
-
         T/K    H(0)-H(T)+PV         H(T)/Eh          T*S/Eh         G(T)/Eh
     ------------------------------------------------------------------------
         298.15    0.617016E-02    0.583013E-01    0.316937E-01    0.266076E-01
-        298.15    0.617016E-02    0.583013E-01    0.316937E-01    0.266076E-01 (used)
     ------------------------------------------------------------------------
 
             :::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -127,6 +118,30 @@ Each frequency job provides the thermochemical properties at 298.15 K. (for othe
             :: zero point energy           0.052131167146 Eh   ::
             :: G(RRHO) contrib.           -0.025523531193 Eh   ::
             :::::::::::::::::::::::::::::::::::::::::::::::::::::
+            
+Multiple temperatures can be calculated using the build in thermodynamic functions
+calculator by using a input file similar to this
+
+.. code:: text
+
+    $thermo
+        temp=150.0,200.0,250.0,273.15,298.15
+        
+The final summary looks like
+
+.. code:: text
+
+       T/K    H(0)-H(T)+PV         H(T)/Eh          T*S/Eh         G(T)/Eh
+   ------------------------------------------------------------------------
+    150.00    0.250495E-02    0.546739E-01    0.135034E-01    0.411705E-01
+    200.00    0.361203E-02    0.557809E-01    0.192424E-01    0.365386E-01
+    250.00    0.484240E-02    0.570113E-01    0.253913E-01    0.316200E-01
+    273.15    0.545010E-02    0.576190E-01    0.283634E-01    0.292557E-01
+    298.15    0.617016E-02    0.583013E-01    0.316937E-01    0.266076E-01 (used)
+   ------------------------------------------------------------------------
+   
+``xtb`` will always use the last entry from the temperature list for all
+further calculations and printouts.
 
 Dealing with imaginary modes and non-minimum structures
 _______________________________________________________
