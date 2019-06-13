@@ -194,6 +194,7 @@ Now, the optimization level ``tight`` and a maximal number of 50 optimization cy
 The ANCopt setup is adjusted as follows:
 
 .. code-block:: text
+   :emphasize-lines: 13,14
 
 		  ...................................................
 		  :                      SETUP                      :
@@ -267,6 +268,7 @@ The number of unpaired electrons (uhf) and the solvent have to be specified. Fur
 The thresholds corresponding to the optimization level 'loose' can be found in the ANCopt setup. 
 
 .. code-block:: text
+   :emphasize-lines: 13,14
 
 		  ...................................................
 		  :                      SETUP                      :
