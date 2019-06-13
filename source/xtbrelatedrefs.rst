@@ -32,7 +32,8 @@ Density-Dependent Dispersion Contributions* *J. Chem. Theory Comput.* **2019**, 
 Applications
 ==========================
 
-**Meta-Dynamics Simulations:** Grimme, S. *Exploration of Chemical Compound, Conformer, and Reaction Space with Meta-Dynamics Simulations Based on Tight-Binding Quantum Chemical Calculations*, *J. Chem. Theory Comput.*, Article ASAP `DOI: 10.1021/acs.jctc.9b00143`__ Publication Date (Web): April 3, 2019 
+**Meta-Dynamics Simulations:** Grimme, S. *Exploration of Chemical Compound, Conformer, and Reaction Space with Meta-Dynamics Simulations Based on Tight-Binding Quantum Chemical Calculations*, *J. Chem. Theory Comput.*, **2019**, *155*, 2847-2862. `DOI: 10.1021/acs.jctc.9b00143`__ Publication Date (Web): April 3, 2019 
+       
 
 __ https://doi.org/10.1021/acs.jctc.9b00143
 
