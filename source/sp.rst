@@ -123,7 +123,7 @@ Example for a +1 charged molecule with 2 unpaired electrons:
    
 The imported specifications are documented in the output file in the *Calculation Setup* section.
 
-.. code-block:: bash
+.. code-block:: none
    :emphasize-lines: 11,12
    
            -------------------------------------------------
@@ -244,7 +244,7 @@ The default electronic temperature is :math:`T_{el}` = 300 K.
             
 The specified electronic temperature is documented in the output file in the *Self-Consistent Charge Iterations* section
 
-.. code-block:: text
+.. code-block:: none
    :emphasize-lines: 17
 
            ------------------------------------------------- 
@@ -326,7 +326,7 @@ in the output in the *vertical delta SCC IP calculation* and *vertical delta SCC
 
 Example output for the optimized Water molecule:
 
-.. code-block:: bash
+.. code-block:: none
    :emphasize-lines: 24,49
 
               -------------------------------------------------
@@ -444,7 +444,7 @@ The calculated Fukui indexes are documented in the *Fukui index Calculation* sec
 Example: BF\ :sub:`3`\
 ---------------------------------
 
-.. code-block:: text
+.. code-block:: none
 
  Fukui index Calculation
     1    -15.6291014 -0.156291E+02  0.835E+00   13.96       0.0  T
