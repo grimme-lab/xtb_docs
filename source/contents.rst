@@ -49,6 +49,7 @@ insights into the theory used behind the scences.
    :maxdepth: 3
    :caption: Misc
 
+   versions
    xtbrelatedrefs
    license
    help
