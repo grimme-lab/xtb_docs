@@ -4,11 +4,14 @@
  Using PEEQ in Python
 ----------------------
 
-
-This section describes the workaround to use the periodic electronegativity equilibration (PEEQ) method. 
-This method is currently under development and includes periodic boundary conditions for systems containing 
-elements up to radon. The parametrization is currently being finalized, so the following tutorial is especially for 
-our alpha testers. If you are interested in being listed as an alpha tester please send a request to the
+In this section the application programmable interface (API) of the
+``peeq`` program package is described.
+It is currently the most convenient way to use GFN0-xTB under periodic
+boundary conditions, while we are developing the missing infrastructure
+in the ``xtb`` program.
+This guide should provide our alpha testers a reference for using
+the ``peeq`` program package from Python
+If you are interested in being listed as an alpha tester please send a request to the
 `xtb-mailing list <xtb@thch.uni-bonn.de>`_.
 
 .. warning:: ``peeq`` is still work in progress!
@@ -31,9 +34,8 @@ Loading the Shared Library
 
 .. note:: This is the basic approach to include an interface to a C-API
           in ``python``, in most circumstances you can skip this section
-          since I already did the dirty work for you and wrapped everything
-          up nicely.
-          If you plan to work on the C-API and the ``python`` wrappers,
+          since I already wrapped up everything nicely.
+          If you plan to modify the C-API and the ``python`` wrappers,
           this section is *important* for everything you do.
 
 The ``peeq`` program package contains a shared object which has to be included
