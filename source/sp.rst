@@ -178,30 +178,23 @@ To change the calculation accuracy call ``xtb`` with
 
   > xtb coord --acc <REAL>
   
-By default the accuracy multiplier is set to 1 resulting in the following settings:
+By default the accuracy multiplier is set to 1, for a few accuracy settings
+the resulting numerical thresholds are shown below:
 
-+---------------------------+------------------------------------+
-| Accuracy                  |           1                        |
-+===========================+====================================+
-| Integral neglect          |     0.1000000E-07                  |
-+---------------------------+------------------------------------+
-| SCC convergence           |     0.1000000E-05 E\ :sub:`h`\     |
-+---------------------------+------------------------------------+
-| Wavefunction convergence  |     0.1000000E-03 e                |
-+---------------------------+------------------------------------+
++--------------------------------+------------+------------+------------+
+| Accuracy                       |         30 |          1 |        0.2 |
++================================+============+============+============+
+| Integral cutoff                |       20.0 |       25.0 |       32.0 |
++--------------------------------+------------+------------+------------+
+| Integral neglect               | 3.0 · 10⁻⁷ | 1.0 · 10⁻⁸ | 2.0 · 10⁻⁹ |
++--------------------------------+------------+------------+------------+
+| SCC convergence / E\ :sub:`h`\ | 3.0 · 10⁻⁵ | 1.0 · 10⁻⁶ | 2.0 · 10⁻⁷ |
++--------------------------------+------------+------------+------------+
+| Wavefunction convergence / e   | 3.0 · 10⁻³ | 1.0 · 10⁻⁴ | 2.0 · 10⁻⁵ |
++--------------------------------+------------+------------+------------+
 
-Setting the accuracy level to 3 will result in:
-
-+---------------------------+------------------------------------+
-| Accuracy                  |           3                        |
-+===========================+====================================+
-| Integral neglect          |     0.3000000E-07                  |
-+---------------------------+------------------------------------+
-| SCC convergence           |     0.3000000E-05 E\ :sub:`h`\     |
-+---------------------------+------------------------------------+
-| Wavefunction convergence  |     0.3000000E-03 e                |
-+---------------------------+------------------------------------+
-
+.. note:: The wavefunction convergence in GFN2-xTB is chosen automatically
+          a bit tighter than for GFN1-xTB.
 
 Iterations
 ----------
@@ -210,7 +203,7 @@ The number of iterations allowed for the SCC calculation can be adjusted from th
 
 .. code:: sh
 
-  > xtb coord --iteration <INTEGER>
+  > xtb coord --iterations <INTEGER>
   
 The default number of iterations in the SCC is set to 250.
 
@@ -225,7 +218,7 @@ This is mainly used to take static correlation into account or to e.g. investiga
 
 .. math::
 
-   -T_{el}S_{el}
+   G_{fermi} = -T_{el}S_{el}
    
 and the orbital occupations for a spin orbital :math:`\psi_{i}` are given by
 
