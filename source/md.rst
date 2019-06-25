@@ -57,7 +57,9 @@ in the xcontrol/input file has to be modified.
   +---------+---------+-----------+-----------------------------------------+
   | sccacc  | real    | 2.0       | accuracy of xTB calculation in dynamics |
   +---------+---------+-----------+-----------------------------------------+
-  | shake   | integer | all bonds | use SHAKE algorithm to constrain bonds  |
+  | shake   | integer | 2         | use SHAKE algorithm to constrain bonds  |
+  +         +         +           +                                         +
+  |         |         |           | 0 = off, 1 = X-H only, 2 = all bonds    |   
   +---------+---------+-----------+-----------------------------------------+
   | step    | real    | 4 fs      | time step for propagation               |
   +---------+---------+-----------+-----------------------------------------+
