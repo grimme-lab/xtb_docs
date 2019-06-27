@@ -150,3 +150,60 @@ to the same ``reference`` option as in COSMO-RS. This could be done with
 .. code:: bash
 
   > xtb coord --opt --gbsa water reference
+
+Extended Functionality
+======================
+
+Solvent Accessable Surface Area
+-------------------------------
+
+.. note:: feature implemented in version 6.2
+
+To get more insights and diagnostics for a GBSA calculation the Born radii
+and the solvent accessable surface area can be printed by toggling the
+property-printout with
+
+.. code-block:: none
+
+   $write
+      gbsa=true
+
+The printout for a branched octane isomer using GBSA(Water) looks like
+
+.. code-block:: none
+
+    * generalized Born model for continuum solvation
+
+      #   Z   Born rad/Å    SASA/Å²    H-bond
+      1   6 C      3.761     0.000     0.000
+      2   6 C      3.761     0.000     0.000
+      3   6 C      2.741     1.820    -0.000
+      4   6 C      2.741     1.839    -0.000
+      5   6 C      2.741     1.817    -0.000
+      6   6 C      2.741     1.820    -0.000
+      7   6 C      2.741     1.839    -0.000
+      8   6 C      2.741     1.817    -0.000
+      9   1 H      2.136    11.404    -0.015
+     10   1 H      2.130    12.571    -0.017
+     11   1 H      2.098    14.966    -0.020
+     12   1 H      2.130    12.563    -0.017
+     13   1 H      2.098    14.979    -0.020
+     14   1 H      2.136    11.403    -0.015
+     15   1 H      2.136    11.412    -0.015
+     16   1 H      2.130    12.524    -0.017
+     17   1 H      2.098    14.948    -0.020
+     18   1 H      2.136    11.404    -0.015
+     19   1 H      2.130    12.571    -0.017
+     20   1 H      2.098    14.966    -0.020
+     21   1 H      2.130    12.563    -0.017
+     22   1 H      2.098    14.979    -0.020
+     23   1 H      2.136    11.403    -0.015
+     24   1 H      2.136    11.412    -0.015
+     25   1 H      2.130    12.524    -0.017
+     26   1 H      2.098    14.948    -0.020
+
+    total SASA / Å² :      244.491
+
+The quartary carbon atoms are shown with no solvent accessable surface area,
+which means they are completely buried in the molecule leading to large
+Born radii.

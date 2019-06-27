@@ -50,8 +50,10 @@ Version 6.1.2
 Version 6.1.3
    - added FIRE and L-ANCopt as optimization engines
    - Bugfix: FOD calculation was using wrong density
+
+Version 6.1.4
    - Bugfix: parallisation error in GBSA
 
-Version 6.2
-   - coming soon
+Version 6.2 (coming soon)
+   - GBSA for GFN0-xTB
    - Bugfix: Fukui index calculation

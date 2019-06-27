@@ -223,6 +223,34 @@ The NFOD number indicates the static electon correlation
 If you do not want to write a full ``fod.cub`` file, but still want to analyse the FOD population at least qualitatively, change the ``fod population ='bool'`` in the input (xcontrol) file to ``true``. This will display the fractional loewdin 
 population of the system (see above) and only writes the ``fod`` file, where this information is stored.
 
+Redirecting Property Printout
+=============================
+
+For large systems the property printout can become quite lenghty and will
+clutter maybe thousands of lines in the standard output.
+One possibility is to rigourously deactivate all printouts using the
+``$write`` instruction in the input file,
+but if one might need this information later it is hard to recover,
+as an alternative the property printout can be redirected.
+Simply add
+
+.. code-block:: text
+
+   $write
+      output file=properties.out
+
+to your input and specify the name for the redirection.
+The calculations of the properties are performed as usual but the
+standard output will show something like
+
+.. code-block:: text
+
+   Property printout bound to 'properties.out'
+
+instead of the header, the usual printout can be found in ``properties.out``.
+In the file the command line call and current time is saved additionally to
+ensure that the printout is reproducable.
+
 Machine Readable Data Dump
 ==========================
 
