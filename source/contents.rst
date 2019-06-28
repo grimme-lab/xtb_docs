@@ -2,9 +2,9 @@
  An User Guide to Semiempirical Tight Binding
 ==============================================
 
-This user guide focuses on the semiempirical quantum mechanical (SQM) method
-which is called extended tight binding (xTB) as it is implemented in the
-`xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb/xtb>`_ program package.
+This user guide focuses on the semiempirical quantum mechanical methods GFNn-xTB, their
+descendants, and corresponding composite schemes  as implemented in the
+`xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb/xtb>`_ (extended tight binding ) program package.
 
 We provide a number of detailed guides dealing with common task that can
 be performed easily with the ``xtb`` program.
