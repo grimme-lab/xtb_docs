@@ -18,6 +18,7 @@ This documentation is currently hosted at [readthedocs.org](https://xtb-docs.rea
 * Sebastian Ehlert
 * Jeroen Koopman
 * Hagen Neugebauer
+* Philipp Pracht
 * Karola Schmitz
 * Sarah Schmitz
 * Jakob Seibert
