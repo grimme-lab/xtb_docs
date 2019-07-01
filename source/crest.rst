@@ -9,16 +9,16 @@ Introduction to CREST
 What is CREST ?
 ========================
 
-``CREST`` is a small utility/driver program for the ``xtb`` program.
+``CREST`` is an utility/driver program for the ``xtb`` program.
 Originally it was designed as conformer samling program, hence the abbreviation **C**\onformer--**R**\otamer **E**\nsemble **S**\ampling **T**\ool, 
 but now offers also some utility functions for calculations with the GFN\ `n`--xTB methods.
 The key procedures implemented in ``CREST`` are two different conformational search workflows abbreviated as MF-MD-GC (V1) and MTD-GC (V2). 
-The first of these procedures, MF-MD-GC, combines a mode following (MF), molecular dynamics sampling (MD), and genetic z-matrix
+The older of these procedures, MF-MD-GC, combines a mode following (MF), molecular dynamics sampling (MD), and genetic z-matrix
 crossing (GC) approach for the generation of conformer/rotamer ensembles (CREs).
 The newer workflow, MTD-GC, makes use of extensive metadynamic sampling (MTD), with an additional GC step at the end.
-Of the two algorithms, MTD-GC showed significant improvements while being slighlty more expensive compared to MF-MD-GC.
-Other functionalities that are included in ``CREST`` are two parallel optimization (MDOPT) and screening (SCREEN) functions for GFN\ `n`--xTB, 
-a z-matrix sorting function (ZSORT) and a function to sort (e.g. for NMR equivalencies) externally created CREs (CREGEN).
+Of the two algorithms, MTD-GC showed significant improvements while being slighlty more expensive compared to MF-MD-GC for large cases.
+Other functionalities that are included in ``CREST`` are parallel optimization (MDOPT) and screening (SCREEN) functions for GFN\ `n`--xTB, 
+a Z-matrix sorting function (ZSORT) and a function to sort (e.g. for NMR equivalencies) externally created CREs (CREGEN).
 Following verison 2.7 of ``CREST``, the program also includes some automated procedures for the protonation, deprotonation and tautomerization of structures.
 
 
@@ -28,11 +28,12 @@ Conformers and Rotamers
 =================================
 
 The thermally accessible ensemble of minimum-energy structures generally consists of conformers as well as rotamers, and hence can be called a conformer/rotamer ensemble (CRE). 
-Many physical observables are obtained only for the timely average of the different low energy conformations of a molecule.
+Many physical observables are obtained as time average over the different low energy conformations of a molecule.
 Hence, in computational chemistry, it can be important to perform calculations on the favored conformation or an ensemble of conformations. 
 Some examples for macroscopic observables that are depending on the conformation are pKa values, CD spectra, NMR spectra, IR spectra, etc.. 
 While calculations have generally only to be performed for different conformers (each having a distinct energy minimum, see figure below), 
-rotamers can become important, e.g. for the calculation of NMR spectra where they represent the rapid (sub-experiment time scale) nuclei interchange leading to an average of NMR parameters.
+rotamers can become important, e.g., for the calculation of NMR spectra where they represent the rapid (sub-experiment time scale) nuclei
+interchange leading to an average of NMR parameters.
 
 .. figure:: ../figures/cre-pes.png
    :scale: 100 %
@@ -53,10 +54,11 @@ where :math:`R` is the molar gas constant and the sum runs over all populations 
 The ensemble entropy :math:`S_{CR}` is also linked to the ensemble free energy (at :math:`T =298` K) :math:`G_{CR} = -T S_{CR}`, which has to be minimized for a complete CRE.
 
 In practice we use three descriptors to distinguish between conformers and rotamers: The energy, the rotational constant of the molecule and the RMSD between two molecules. 
-If two structures have completely different energies they are conformers. If they have the same energy (within a defined threshold) they could be either two different 
+If two structures have completely different energies they are conformers. If they have the same energy (within a chosen threshold) they could be either two different 
 conformers with similar energies, two rotamers of the same molecule or a duplicate of the same rotamer. In the first case (two conformers with similar energies) the RMSD will 
-be high and the rotational constant will be different. For two rotamers the RMSD will be high, but the rotational constant should be the same. Enantiomers (mirrored molecules) 
-are a special case of rotamers matching the same criterium. Only for duplicates of same rotamer (that have to be sorted out) the RMSD will be low and the rotational constants and the energies will be the same.
+be high and the rotational constant will be different. For two rotamers the RMSD will be high, but the rotational constant is the same (within a chosen threshold). 
+Enantiomers (mirror image molecules) are a special case of rotamers matching the same criterium. Only for duplicates of the same rotamer (that have to be sorted out) 
+the RMSD,the rotational constants, and the energies will be the same.
 
 
 Conformational Search Algorithms
@@ -119,21 +121,21 @@ In the last step the GC is performed with the CRE that was found up to this poin
 MTD-GC (V2) / iMTD-GC (V2i)
 ---------------------------
 The MTD-GC workflow was designed to find low lying conformers more efficiently and more safely than the older MF-MD-GC algorithm. 
-Furthermore this new algorithem is more robust and general applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
-MTD-GC is centered around the basic idea to combine GFN\ *n*--xTB calculations with root-mean-square-deviation (RMSD) based meta-dynamics (see section :ref:`mtd`). 
+Furthermore this new algorithm is more robust and general applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
+MTD-GC is rooted in the basic idea to combine GFN\ *n*--xTB calculations with root-mean-square-deviation (RMSD) based meta-dynamics (see section :ref:`mtd`). 
 In practice a history-dependent biasing potential is applied, where the collective variables (CVs) for the meta-dynamics are previous minima on the PES, expressed as RMSD between the structures.
-The biasing contribution is given in the shape of a Gaussian potential by
+The biasing contribution is given by Gaussian-type potential as
 
 .. math::
    V_{bias} = \sum^n_i k_i \exp ( -\alpha \Delta_i^2)~,
 
-where the RMSDs enter as collective variables :math:`\Delta_i`, :math:`n` is the number of reference structures, :math:`k_i` are the pushing strengths and the parameter :math:`\alpha` determines the potentials' shape. 
+where the RMSD entera as collective variables :math:`\Delta_i`, :math:`n` is the number of reference structures, :math:`k_i` are the pushing strengths and the parameter :math:`\alpha` determines the potentials' shape. 
 From this energy expression atomic forces are derived that enter as additional forces in the MTD simulations (in the context of meta-dynamics also sometimes refered to as *guiding forces*).
 Since the addition of each bias Gaussian drives the structure further away from previous geometries this allows otherwise unlikely high-barrier crossings where all atoms collectively explore huge regions of the potential energy surface.
 
 The GC was included in the MTD-GC procedure for the same reasons it was included in the MF-MD-GC workflow.
-Rotamers can efficiently be created by the z-matrix crossing of a given ensemble.
-This effect is best visible for linear molecules with a number of rotateable bonds, e.g. alkanes, but in principle it also works for more complicated cases, such as macrocyclic systems.
+The ensemble can be improved regarding the rotamers efficiently by the Z-matrix crossing.
+This effect is best visible for acyclic chains with a number of rotateable bonds, e.g., alkanes, but in principle it also works for more complicated cases, such as macrocyclic systems.
 
 In practice the MTD simulation length is determined automatically by a flexibility measure of the molecule (typically :math:`t = 0.3-0.4 \times N` ps per MTD). 
 Several independent MTDs (at 300 K) are performed with different setings for :math:`\alpha` (in Bohr\ :math:`^{-1}`) and :math:`k_i/N` (in :math:`mE_h`). 
@@ -153,7 +155,7 @@ In this slightly different scheme a fewer number of MTDs is conducted, but if a 
 The process is also restarted if a better conformer is found after the normal MD sampling around the lowest conformers or the GC.
 Compared to the regular MTD-GC workflow the optimization thresholds are set differently.
 Hence, for typical drug sized molecules the total CPU time of the iMTD-GC workflow is approximately the same as with MTD-GC, while better CREs are produced.
-All CREs that a found within the iterations are included in the conformer/rotamer ranking process.
+All CREs that are found within the iterations are included in the conformer/rotamer ranking process.
 The iMTD-GC worflow is outlined graphically in the figure below.
 
 .. figure:: ../figures/crest-v2i.png
