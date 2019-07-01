@@ -1,7 +1,7 @@
 .. _crest:
 
 ----------------------------
-Introduction
+Introduction to CREST
 ----------------------------
 
 .. contents::
