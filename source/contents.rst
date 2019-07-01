@@ -41,6 +41,14 @@ insights into the theory used behind the scences.
 
 .. toctree::
    :maxdepth: 3
+   :caption: CREST
+
+   crest
+   crestcmd
+   crestxmpl
+
+.. toctree::
+   :maxdepth: 3
    :caption: API
 
    dev_python
