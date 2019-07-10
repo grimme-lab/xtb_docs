@@ -103,10 +103,12 @@ General Options
     specify :math:`N_{\alpha}-N_{\beta}` as *INT*, overrides ``.UHF`` file
 
 -gfn0 
-    use GFN0-xTB
+  use GFN0-xTB
+
 
 -gfn1
-    use GFN1-xTB
+  use GFN1-xTB
+
 
 -gfn2 ``[DEFAULT]``
     use GFN2-xTB, which is the default.
@@ -127,7 +129,7 @@ General Options
     perform z-matrix sorting (i.e. ZSORT) for the input coordinate file.
 
 -nozs
-    do not perform z-matrix sorting of the input file.
+  do not perform z-matrix sorting of the input file.
 
 -ewin REAL
     set the energy threshold to *REAL* kcal/mol. This affects several runtypes and
@@ -140,7 +142,7 @@ General Options
     sould be used as *BIN*. The ``[DEFAULT]`` is *xtb*.
 
 -prsc
-     create a scoord.`*` file for each conformer in the ``TURBOMOLE`` format.
+  create a scoord.`*` file for each conformer in the ``TURBOMOLE`` format.
 
 -niceprint
      in-line progress bar printout for optimizations.
@@ -155,10 +157,10 @@ General Options
 Options for MF-MD-GC
 -------------------------
 -nomf
-    skip modefollowing
+  skip modefollowing
     
 -nomd
-    skip MD part
+  skip MD part
 
 -nocross            
     skip genetic crossing part.
@@ -300,6 +302,9 @@ Options for other modes
 -iter INT
      Number of Protonation/Deprotonation Iterations for ``-tautomerize`` mode. The ``[DEFAULT]``
      is 2 iterations.
+     
+-swel STR
+     Change H\ :math:`^+` in the protonation tool to some other ion *STR*, e.g. Na
 
 
 
