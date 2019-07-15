@@ -1,5 +1,5 @@
 ==============================================
- An User Guide to Semiempirical Tight Binding
+ User Guide to Semiempirical Tight Binding
 ==============================================
 
 This user guide focuses on the semiempirical quantum mechanical methods GFNn-xTB, their
