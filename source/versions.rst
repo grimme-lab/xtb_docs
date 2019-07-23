@@ -53,7 +53,14 @@ Version 6.1.3
 
 Version 6.1.4
    - Bugfix: parallisation error in GBSA
+   
+Version 6.1.5
+   - Bugfix: Fukui index calculation
+   - Bugfix: wrong forces in FIRE optimizer
+   - Bugfix: cube file was not read
+   - Bugfix: Input error for ``$gbsa`` data group
+   - GFN0-xTB Hamiltonian consistent with ChemRxiv preprint
 
 Version 6.2 (coming soon)
-   - GBSA for GFN0-xTB
-   - Bugfix: Fukui index calculation
+   - periodic boundary conditions for GFN0-xTB
+   - implicit solvation model GBSA for GFN0-xTB
