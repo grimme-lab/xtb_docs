@@ -1,20 +1,14 @@
 .. _python:
 
-----------------------
- Using PEEQ in Python
-----------------------
+-------------------------
+ Using ``xtb`` in Python
+-------------------------
 
 In this section the application programmable interface (API) of the
-``peeq`` program package is described.
-It is currently the most convenient way to use GFN0-xTB under periodic
-boundary conditions, while we are developing the missing infrastructure
-in the ``xtb`` program.
-This guide should provide our alpha testers a reference for using
-the ``peeq`` program package from Python
-If you are interested in being listed as an alpha tester please send a request to the
-`xtb-mailing list <xtb@thch.uni-bonn.de>`_.
+``xtb`` program package is described.
 
-.. warning:: ``peeq`` is still work in progress!
+This section targets mainly developers trying to interface their (Python) scripts
+with ``xtb``.
 
 .. contents::
 
@@ -33,17 +27,21 @@ Loading the Shared Library
 ==========================
 
 .. note:: This is the basic approach to include an interface to a C-API
-          in ``python``, in most circumstances you can skip this section
+          in Python, in most circumstances you can skip this section
           since I already wrapped up everything nicely.
-          If you plan to modify the C-API and the ``python`` wrappers,
+          If you plan to modify the C-API and the Python wrappers,
           this section is *important* for everything you do.
 
-The ``peeq`` program package contains a shared object which has to be included
+The ``xtb`` program package contains a shared object which has to be included
 in your ``LD_LIBRARY_PATH``, you can simply do this by using
 
 .. code:: bash
 
-   > export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/peeq/build
+   > export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/xtb/build
+
+.. warning:: (Ab)using your ``LD_LIBRARY_PATH`` this way is generally
+             not recommended, unless I have figured out how to do it
+             correctly in Python this might be your best choice.
 
 to allow loading of the shared library.
 Test this by running:
@@ -54,12 +52,12 @@ Test this by running:
    from ctypes import cdll
 
    try:
-      peeq = cdll.LoadLibrary('libpeeq.so')
+      xtb = cdll.LoadLibrary('libxtb.so')
    except OSError:
-      print("PEEQ library was not found in your LD_LIBRARY_PATH")
+      print("xtb library was not found in your LD_LIBRARY_PATH")
 
 If you can successfully load the shared object, specify the necessary interface
-for calling PEEQ by defining the PEEQ_options structure and argument types
+for calling ``xtb`` by defining the PEEQ_options structure and argument types
 as in:
 
 .. code:: python
@@ -67,7 +65,7 @@ as in:
    import ctypes
    from ctypes import cdll, Structure, c_int, c_double, c_bool, c_char_p, POINTER
 
-   peeq = cdll.LoadLibrary('libpeeq.so')
+   xtb = cdll.LoadLibrary('libxtb.so')
 
    class PEEQ_options(Structure):
        _fields_ = [('prlevel',c_int),
@@ -78,32 +76,32 @@ as in:
    c_int_p = POINTER(c_int)
    c_bool_p = POINTER(c_bool)
    c_double_p = POINTER(c_double)
-   peeq.PEEQ_calculation.argtypes = [c_int_p, c_int_p,
+   peeq.GFN0_PBC_calculation.argtypes = [c_int_p, c_int_p,
            c_double_p, c_double_p, c_double_p,
            c_bool_p, POINTER(PEEQ_options), c_char_p,
            c_double_p, c_double_p, c_double_p]
 
-now ``python`` knows how to call PEEQ from the shared object. Remember that
-``peeq`` is a Fortran program, so we prefer passing by reference over passing by
+now Python knows how to call ``xtb`` from the shared object. Remember that
+``xtb`` is a Fortran program, so we prefer passing by reference over passing by
 value.
 
-.. tip:: You can always check the header definitions in ``include/peeq.h``.
+.. tip:: You can always check the header definitions in ``include/xtb.h``.
 
 Using as ASE Calculator
 =======================
 
-To perform a calculation with the ASE we not only need ``python`` bindings
+To perform a calculation with the ASE we not only need Python bindings
 but also an abstract interface to other ASE functions.
 The easiest way to provide such an interface is by creating an ASE ``Calculator``
 class. My current approach is to have an abstract class performing all
 the nasty interfacing stuff (loading the library, storing default values and
 stuff like that) and specific instances of this class for every
-available method from ``peeq``, namely GFN2-xTB (as ``GFN2``),
-GFN1-xTB (as ``GFN1``) and GFN0-xTB (as ``GFN0`` and ``PEEQ`` for molecular
+available method from ``xtb``, namely GFN2-xTB (as ``GFN2``),
+GFN1-xTB (as ``GFN1``) and GFN0-xTB (as ``GFN0`` and ``GFN0_PBC`` for molecular
 and periodic calculations, respectively).
-An complete implementation of this setup is shipped with ``peeq`` at
-``python/peeq.py`` and should be ready-to-use with some minor tweaking.
-To make it available for scripting in ``python`` use
+An complete implementation of this setup is shipped with ``xtb`` at
+``python/xtb.py`` and should be ready-to-use with some minor tweaking.
+To make it available for scripting in Python use
 
 .. code:: bash
 
@@ -132,8 +130,8 @@ code snippet:
 
 .. code:: python
 
-   import peeq
-   from peeq import PEEQ
+   import xtb
+   from xtb import GFN0_PBC
 
    import ase
    from ase.io import read, write
@@ -145,7 +143,7 @@ code snippet:
    mol = read("POSCAR", format = 'vasp')
 
    # create the calculator for GFN0-xTB under periodic boundary conditions
-   calc = PEEQ(print_level = 3)
+   calc = GFN0_PBC(print_level = 3)
    mol.set_calculator(calc)
 
    # initial single point calculation
@@ -165,7 +163,7 @@ code snippet:
    print("Final energy:   eV, Eh", e, e/Hartree)
 
    # write final geometry to file
-   write("peeqopt.POSCAR", mol, format = 'vasp')
+   write("xtbopt.POSCAR", mol, format = 'vasp')
 
 running this script with the input for rutile we should find something similar
 to this output (maybe including some warnings from the ASE).
@@ -194,12 +192,12 @@ to this output (maybe including some warnings from the ASE).
    PreconFIRE:  18  09:28:10     -441.656933       0.0242       0.0212
    Final energy:   eV, Eh -441.65702130913525 -16.230596299418206
 
-The final geometry can be found in ``peeqopt.POSCAR`` and can be viewed
+The final geometry can be found in ``xtbopt.POSCAR`` and can be viewed
 with *e.g.*
 
 .. code:: bash
 
-   > ase gui peeqopt.POSCAR
+   > ase gui xtbopt.POSCAR
 
 The optimization log is kept in a ``pickle`` trajectory and can also be
 viewed with the ``ase gui``.
