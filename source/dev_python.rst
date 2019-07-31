@@ -9,6 +9,8 @@ In this section the application programmable interface (API) of the
 
 This section targets mainly developers trying to interface their (Python) scripts
 with ``xtb``.
+The necessary files are currently *not* distributed in the main version of ``xtb``,
+but are available upon request.
 
 .. contents::
 
