@@ -23,7 +23,9 @@ First of all, get a version of the atomic simulation environment (ASE), usually
 
    > pip3 install ase [--user]
 
-works fine on most machines. For more details refer to the ASE documentation.
+works fine on most machines. For more details refer to the `ASE`_ documentation.
+
+.. _ASE: https://wiki.fysik.dtu.dk/ase/
 
 Loading the Shared Library
 ==========================
@@ -71,9 +73,11 @@ as in:
 
    class PEEQ_options(Structure):
        _fields_ = [('prlevel',c_int),
+                   ('parallel',c_int),
                    ('acc',    c_double),
                    ('etemp',  c_double),
-                   ('grad',   c_bool)]
+                   ('grad',    c_bool),
+                   ('ccm',     c_bool)]
 
    c_int_p = POINTER(c_int)
    c_bool_p = POINTER(c_bool)
