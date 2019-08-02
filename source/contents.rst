@@ -51,6 +51,7 @@ insights into the theory used behind the scences.
    :maxdepth: 3
    :caption: API
 
+   dev_interface
    dev_python
 
 .. toctree::
