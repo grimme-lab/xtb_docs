@@ -76,12 +76,6 @@ parts of it are included here.
          double* energy, double* grad, double* dipole, double* q,
          double* dipm, double* qp, double* wbo);
    
-   extern int
-   GFN2_QMMM_calculation(const int* natoms, const int* attyp, const double* charge,
-         const double* coord, const SCC_options* opt, const char* output,
-         const int* npc, const double* pc_q, const int* pc_at, const double* pc_gam,
-         const double* pc_coord, double* energy, double* grad, double* pc_grad);
-   
    /* skip... */
    
    #ifdef __cplusplus
