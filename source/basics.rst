@@ -124,7 +124,7 @@ A successful geometry optimization will print somewhere along the lines
 
    ------------------------------------------------------------------------
     total energy gain :          -0.0094907 Eh       -5.9555 kcal/mol
-    total RMSD        :           0.7677834 α         0.4063 Å
+    total RMSD        :           0.7677834 a0        0.4063 Å
    ------------------------------------------------------------------------
 
 after finishing the optimization procedures, while in all other cases

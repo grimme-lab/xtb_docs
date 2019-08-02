@@ -19,7 +19,7 @@ Optimization levels
 |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
 +=========+==========+==============+==========+
 | crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
-+---------+----------+--------------+----------+  
++---------+----------+--------------+----------+
 | sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
 +---------+----------+--------------+----------+
 | loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
@@ -52,7 +52,7 @@ Input structures in *TURBOMOLE* (coord) or Xmol coordinates can be optimized. An
 .. code:: text
 
    4
-   
+
    H  0.00  0.00  0.00
    C  0.00  0.00  1.00
    C  0.00  0.00  2.00
@@ -157,13 +157,13 @@ The file ``xtbopt.xyz`` for this example looks like:
 	C          -0.00000000000000    0.00000000000000    2.09682010367354
 	H          -0.00000000000000    0.00000000000000    3.14662249230588
 
-Further, a trajectory of the geometry optimization written in Xmol format (even if the input was a ``coord`` file) is written to the file ``xtbopt.log``.  
+Further, a trajectory of the geometry optimization written in Xmol format (even if the input was a ``coord`` file) is written to the file ``xtbopt.log``.
 
 
 .. figure:: ../figures/optimize-ethyne-infinity.gif
    :scale: 25 %
    :alt: optimize-ethyne
-   
+
 
 Example 2: cyclopentadienyl anion
 ------------------------------------
@@ -216,27 +216,27 @@ The ANCopt setup is adjusted as follows:
 		  :   S6 in model hess.         20.0000000          :
 		  ...................................................
 
-The geometry optimization is converged after 22 iterations. The optimized coordinates are written to the file ``xtbopt.coord``. 
+The geometry optimization is converged after 22 iterations. The optimized coordinates are written to the file ``xtbopt.coord``.
 
 .. code:: bash
 
 	$coord
-	    0.44060377782450   -0.01412168126920    0.18353526062450      C 
-	    0.29759594746033    0.20416120151187    2.80401943168676      C 
-	    2.63965610517835    1.02998458234760    3.68100113536889      C 
-	    4.22999047646770    1.32233523397087    1.60243655937779      C 
-	    2.87122906158385    0.67587612191465   -0.55901104575941      C 
-	   -1.35063621036312   -0.20020256016136    3.96194626998985      H 
-	    3.13809669169362    1.38388424380555    5.64254720998168      H 
-	    6.18714478782806    1.94516496134903    1.65710127132652      H 
-	    3.58252077369211    0.70464340056577   -2.48621742790732      H 
-	   -1.07518151114132   -0.62376537124033   -1.06233682418088      H 
+	    0.44060377782450   -0.01412168126920    0.18353526062450      C
+	    0.29759594746033    0.20416120151187    2.80401943168676      C
+	    2.63965610517835    1.02998458234760    3.68100113536889      C
+	    4.22999047646770    1.32233523397087    1.60243655937779      C
+	    2.87122906158385    0.67587612191465   -0.55901104575941      C
+	   -1.35063621036312   -0.20020256016136    3.96194626998985      H
+	    3.13809669169362    1.38388424380555    5.64254720998168      H
+	    6.18714478782806    1.94516496134903    1.65710127132652      H
+	    3.58252077369211    0.70464340056577   -2.48621742790732      H
+	   -1.07518151114132   -0.62376537124033   -1.06233682418088      H
 	$end
 
 .. figure:: ../figures/optimize-cp-infinity.gif
    :scale: 25 %
    :alt: optimize-cp
-   
+
 
 Example 3: *p*-benzyne in toluene
 ------------------------------------
@@ -246,7 +246,7 @@ As third example, the geometry optimization of *p*-benzyne in the triplet state 
 .. code:: text
 
 	   10
-	
+
 	 C     0.000000     0.000000     0.000000
 	 C     0.000000     0.000000     1.400000
 	 C     1.212436     0.000000     2.100000
@@ -265,7 +265,7 @@ The number of unpaired electrons (uhf) and the solvent have to be specified. Fur
 
    > xtb inp.xyz --opt loose --gbsa toluene --uhf 2
 
-The thresholds corresponding to the optimization level 'loose' can be found in the ANCopt setup. 
+The thresholds corresponding to the optimization level 'loose' can be found in the ANCopt setup.
 
 .. code-block:: text
    :emphasize-lines: 13,14
@@ -306,12 +306,12 @@ The geometry optimization converges after five iterations, resulting in the foll
 	H           1.23696707333528    0.12186857053414    3.18813400290200
 	H           3.37737604916301   -0.05932253738648   -0.53517807393770
 	H           1.19215084707789   -0.11677795910162   -1.78882684103049
-	
+
 .. figure:: ../figures/optimize-benzyne-infinity.gif
    :scale: 25 %
    :alt: optimize-benzyne
-  
-    
+
+
 Convergence problems
 ======================
 
@@ -320,20 +320,20 @@ The failure of the geometry convergence is indicated by the printout
 .. code:: bash
 
    *** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***
-    
-Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems in the SCC occur, it is recommended to start with *GFN0-xTB* which does not have to perform SCC iterations. Then the geometry optimization can be improved using *GFN2-xTB*. 
+
+Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems in the SCC occur, it is recommended to start with *GFN0-xTB* which does not have to perform SCC iterations. Then the geometry optimization can be improved using *GFN2-xTB*.
 It can occur sometimes that a geometry does not converge correctly or at all if the calculation is carried out in the gas phase. It is recommended to use GBSA in this cases. An example for the difference made by using GBSA during the geometry optimization can be seen below. If the system is optimized in chloroform, the chloride anion coordinates the cation while the neutral compounds are formed in the gas phase.
 
 .. figure:: ../figures/gas_slow.gif
    :scale: 50 %
    :alt: gas
-   
+
    optimized in the gasphase
-   
+
 .. figure:: ../figures/gbsa-infinity.gif
    :scale: 50 %
    :alt: gbsa
-   
+
    optimized in chloroform
 
 Optimization Engines

@@ -154,8 +154,9 @@ Simulated annealing
    :description:
      performs a number of simulated annealing steps on the input
      coordinates and tries to find a conformer ensemble.
-     We recommend the ``CREST`` workflow instead of this runtyp
+     We recommend the CREST workflow (see :ref:`crest`) instead of this runtyp
      since it is faster and more reliable in finding the lowest conformer.
+     **This runtyp has been deprecated in version 6.2!**
    :queue:
      setup, SP, properties, MD, ANCopt, ...
 
@@ -183,13 +184,15 @@ Options
 --xparam FILE
     Parameter file for xTB calculation (not used)
 
--g, --gbsa SOLVENT
+-g, --gbsa SOLVENT [reference] [grid]
     generalized born (GB) model with solvent accessable surface (SASA) model,
     available solvents are *acetone*, *acetonitrile*, *benzene* (only GFN1-xTB),
     *CH2Cl2*, *CHCl3*, *CS2*, *DMF* (only GFN2-xTB), *DMSO*, *ether*, *H2O*,
     *methanol*, *n-hexane* (only GFN2-xTB), *THF* and *toluene*.
     The solvent input is not case-sensitive.
     The Gsolv reference state can be chosen as *reference* or *bar1M* (default).
+    The SASA grid can be specified with *normal* (default), *tight*, *verytight* and
+    *extreme*.
 
 --cma 
     shifts molecule to center of mass and transforms cartesian coordinates
@@ -197,16 +200,16 @@ Options
     ``isotopes``-file).
 
 --pop
-    requests printout of Mulliken population analysis
+    requests printout of Mulliken population analysis (done by default)
 
 --molden
     requests printout of molden file
 
 --dipole
-    requests dipole printout
+    requests dipole printout (done by default)
 
 --wbo
-    requests Wiberg bond order printout
+    requests Wiberg bond order printout (done by default)
 
 --lmo
     requests localization of orbitals

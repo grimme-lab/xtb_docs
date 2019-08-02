@@ -173,7 +173,7 @@ is best suited for confinements, but yet not the default.
 
 
 .. code:: bash
-   
+
    > cat wall.inp
 
    $chrg -1
@@ -182,15 +182,36 @@ is best suited for confinements, but yet not the default.
       ellipsoid: 13.5,11.1,8.6,all
    $end
 
-   xtb input-geometry.xyz --input constrain.inp --sp > sp.out                                                                                                                                                    
+   xtb input-geometry.xyz --input constrain.inp --sp > sp.out
+
+For visualization purposes the transparent-green dots are placed on
+the surface of the potential.
 
 .. figure:: ../figures/wall.png
    :scale: 40 %
    :alt: confinement-example
 
-The influence of the ellipsoidal potential on the caffeine molecule in a single-point calculation is listed in the 'SUMMARY' output block. For visualization purposes the transparent-green dots are placed on 
-the surface of the potential.
+The influence of the ellipsoidal potential on the caffeine molecule
+in a single-point calculation is listed in the *summary* output block:
 
+.. code-block:: none
+   :emphasize-lines: 14
+
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+         ::                     SUMMARY                     ::
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+         :: total energy             -42.277068245167 Eh    ::
+         :: gradient norm              0.125348812811 Eh/a0 ::
+         :: HOMO-LUMO gap              0.387517637701 eV    ::
+         ::.................................................::
+         :: SCC energy               -42.804281029385 Eh    ::
+         :: -> isotropic ES            0.200135046318 Eh    ::
+         :: -> anisotropic ES          0.005440996407 Eh    ::
+         :: -> anisotropic XC          0.010691562913 Eh    ::
+         :: -> dispersion             -0.024921224966 Eh    ::
+         :: repulsion energy           0.492228803150 Eh    ::
+         :: add. restraining           0.034887396892 Eh    ::
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 Absolute Control
@@ -270,3 +291,14 @@ of interest.
 
 .. tip:: If you are happy with all this setting you can just use this file as
          your ``.xtbrc`` and place it somewhere in your ``XTBPATH``.
+
+Global Configuration File
+-------------------------
+
+The global configuration file called ``.xtbrc`` has to be around somewhere
+in your ``XTBPATH`` so ``xtb`` is able to find it and uses the very same
+syntax as the detailed input. Every instruction (``key=value``) you can
+use in your detailed input file can be present in your global configuration
+file. Systemspecific instructions (``key: value``) will not work, of course.
+To check which ``.xtbrc`` is read, start the program in verbose mode and
+check the *Calculation Setup* section in the output.
