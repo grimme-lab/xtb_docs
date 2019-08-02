@@ -60,7 +60,7 @@ xTB Hamiltonian.
 
 The read in point charges are shown in the setup block of the SCC as
 
-.. code-block::
+.. code-block:: none
    :emphasize-lines: 18-20
 
    ... skip ...
