@@ -22,7 +22,7 @@ copyright = '2019, Grimme group'
 author = 'Grimme group'
 
 # The full version, including alpha/beta/rc tags
-release = '6.1'
+release = '6.2'
 
 
 # -- General configuration ---------------------------------------------------
