@@ -4,8 +4,8 @@
  Setup and Installation
 ------------------------
 
-This guide deal with the general setup and local installation of the ``xtb`` 
-program. 
+This guide deal with the general setup and local installation of the ``xtb``
+program.
 
 .. contents::
 
@@ -17,9 +17,14 @@ is available for academic use free of charge on request
 from Stefan Grimme at the `xtb-mailing list <xtb@thch.uni-bonn.de>`_.
 It usually comes as a tarball with following content
 
-::
+.. code-block:: none
 
   bin/xtb
+  lib/libxtb.so     -> libxtb.so.6
+  lib/libxtb.so.6   -> libxtb.so.6.2
+  lib/libxtb.so.6.2
+  include/xtb.h
+  python/xtb.py
   .xtbrc
   Config_xtb_env.bash
   Config_xtb_env.csh
@@ -34,6 +39,11 @@ It usually comes as a tarball with following content
 
 The binary is usually compiled with the Intel Fortran compiler and statically
 linked against Intel's Math Kernel Library (Intel MKL).
+Newer versions of ``xtb`` (6.2 and newer) additionally include a shared library,
+the header specification of the C-API and a Python wrapper to use the API
+within the Atomic Simulation Environment (`ASE`_).
+
+.. _ASE: https://wiki.fysik.dtu.dk/ase/
 
 First check the version by
 
@@ -114,6 +124,47 @@ For a ``bash`` shell this might be done locally for one session by sourcing the
 
 in your ``.bashrc`` (requires that ``XTBHOME`` is set to the appropiate directory).
 
+Configuration Script
+--------------------
+
+The “configuration” scripts ``Config_xtb_env.*`` hardly deserve to be called
+that way, in fact they contains the lines you would manually write to your
+``.bashrc`` or ``.cshrc`` if you would “install” ``xtb`` locally by hand.
+If you prefer to do it by hand or differently, just ignore the script.
+
+Just take a look into one, there is some neat trick included found in
+a Turbomole “configuration” script to find the location of the script
+and the most probable location of the content of the tarball, but that's it.
+Here is the contents of the one shipped with 6.2 for quick reference:
+
+.. code:: bash
+
+   #!/bin/bash
+   # run this script to set up a xtb environment
+   # requirements: $XTBHOME is set to `pwd`
+   if [ -z "${XTBHOME}" ]; then
+      XTBHOME="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+   fi
+
+   # set up path for xtb, using the xtb directory and the users home directory
+   XTBPATH=${XTBHOME}:${HOME}
+
+   # to include the documentation we include our man pages in the users manpath
+   MANPATH=${MANPATH}:${XTBHOME}/man
+
+   # finally we have to make the binaries and scripts accessable
+   PATH=${PATH}:${XTBHOME}/bin:${XTBHOME}/python
+   LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${XTBHOME}/lib
+   PYTHONPATH=${PYTHONPATH}:${XTBHOME}/python
+
+   export PATH XTBPATH MANPATH LD_LIBRARY_PATH PYTHONPATH
+
+It will set ``XTBHOME`` to the location of the script if you have not
+set it already and just assumes that ``XTBHOME`` contains the content
+of shipped tarball, then it will append the directories ``bin/`` and ``python/``
+to your ``PATH`` variable, ``man/`` to your ``MANPATH``,
+``lib/`` to your ``LD_LIBRARY_PATH`` and ``python/`` to your ``PYTHONPATH``.
+
 Getting Help from ``xtb``
 =========================
 
@@ -126,6 +177,7 @@ Beside this manual you can check the in-program help by
 Unfortunately, this might be outdated,
 therefore, you should refer to the man-pages distributed with the ``xtb`` program.
 Please check for the man-pages of ``xtb(1)`` and ``xcontrol(7)``.
+There is also an online documentation, but you already now that one, of course.
 
 The Verbose Mode
 ----------------
