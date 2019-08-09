@@ -9,8 +9,8 @@ In this section the application programmable interface (API) of the
 
 This section targets mainly developers trying to interface their (Python) scripts
 with ``xtb``.
-The necessary files are currently *not* distributed in the main version of ``xtb``,
-but are available upon request.
+The necessary files are included from version 6.2 RC2 in the distributed
+tarball.
 
 .. contents::
 
@@ -43,11 +43,12 @@ in your ``LD_LIBRARY_PATH``, you can simply do this by using
 
    > export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/xtb/build
 
+to allow loading of the shared library.
+
 .. warning:: (Ab)using your ``LD_LIBRARY_PATH`` this way is generally
              not recommended, unless I have figured out how to do it
              correctly in Python this might be your best choice.
 
-to allow loading of the shared library.
 Test this by running:
 
 .. code:: python
@@ -111,7 +112,7 @@ To make it available for scripting in Python use
 
 .. code:: bash
 
-   > export PYTHONPATH=$PYTHONPATH:/path/to/peeq/python
+   > export PYTHONPATH=$PYTHONPATH:/path/to/xtb/python
 
 Here is an example with rutile using this VASP geometry input:
 
