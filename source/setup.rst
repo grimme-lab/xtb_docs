@@ -201,13 +201,13 @@ The binaries of Orca will call an executable called ``otool_xtb``, which
 should be placed in the directory containing the Orca binaries.
 We recommend to create a symbolic link to your local ``xtb`` binary by
 
-.. code:: bash
+.. code-block:: bash
 
    > ln -s $(which xtb) otool_xtb
 
 You can invoke xTB calculations in Orca by using one of the simple keywords
 
-.. code:: none
+.. code-block:: none
 
    ! XTB1 # for GFN1-xTB
    ! XTB2 # for GFN2-xTB
