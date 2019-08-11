@@ -221,5 +221,5 @@ gradient from the program output.
 Of course you should setup the ``xtb`` related environment variables,
 such that ``xtb`` can find its parameter files and configuration files.
 The ``.xtbrc`` is still read if it is contained in ``XTBPATH`` and can
-be used to change the behaviour of xTB calculation in Orca, *e.g.* for
+be used to change the behaviour of xTB calculations in Orca, *e.g.* for
 setting the electronic temperature.
