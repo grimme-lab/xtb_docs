@@ -190,3 +190,36 @@ that might be interesting for your current calculation.
 
 Overall this can be an awful lot of information, so it is not recommended
 as a default option.
+
+Using xTB with Orca
+===================
+
+Orca 4.2 implements support for xTB calculations using an IO based interface
+calling the ``xtb`` binary and parsing its output.
+
+The binaries of Orca will call an executable called ``otool_xtb``, which
+should be placed in the directory containing the Orca binaries.
+We recommend to create a symbolic link to your local ``xtb`` binary by
+
+.. code:: bash
+
+   > ln -s $(which xtb) otool_xtb
+
+You can invoke xTB calculations in Orca by using one of the simple keywords
+
+.. code:: none
+
+   ! XTB1 # for GFN1-xTB
+   ! XTB2 # for GFN2-xTB
+
+in your Orca input file, for more details refer to the Orca manual.
+
+Orca will communicate with ``xtb`` mainly by using commandline arguments,
+requesting singlepoint calculations and parsing the total energy and
+gradient from the program output.
+
+Of course you should setup the ``xtb`` related environment variables,
+such that ``xtb`` can find its parameter files and configuration files.
+The ``.xtbrc`` is still read if it is contained in ``XTBPATH`` and can
+be used to change the behaviour of xTB calculation in Orca, *e.g.* for
+setting the electronic temperature.
