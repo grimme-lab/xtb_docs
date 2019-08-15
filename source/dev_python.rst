@@ -158,9 +158,9 @@ code snippet:
    print("Initial energy: eV, Eh", e, e/Hartree)
 
    # setup optimization of cell parameters
-   ecf = ExpCellFiler(mol)
+   ecf = ExpCellFilter(mol)
    precon = Exp(A = 3)
-   relax = preconFire(ecf, precon = precon, trajectory = 'peeqopt.traj')
+   relax = PreconFIRE(ecf, precon = precon, trajectory = 'xtbopt.traj')
 
    # do the optimization
    relax.run(fmax = 5e-2)
