@@ -184,6 +184,7 @@ is best suited for confinements, but yet not the default.
 
    xtb input-geometry.xyz --input constrain.inp --sp > sp.out
 
+The values for *elliposid* are radii in Bohr.
 For visualization purposes the transparent-green dots are placed on
 the surface of the potential.
 
