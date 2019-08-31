@@ -4,7 +4,7 @@
 
 This user guide focuses on the semiempirical quantum mechanical methods GFNn-xTB, their
 descendants, and corresponding composite schemes  as implemented in the
-`xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb/xtb>`_ (extended tight binding ) program package.
+`xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb>`_ (extended tight binding) program package.
 
 We provide a number of detailed guides dealing with common task that can
 be performed easily with the ``xtb`` program.
