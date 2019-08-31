@@ -385,6 +385,43 @@ the molecule to its principal axes of inertia.
 
    The caffeine molecule is now shifted correctly inside the potential.
 
+Different Potential Shapes
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Currently two different potential shapes are implemented and can be
+selected with the ``potential`` instruction.
+
+The logfermi potential shape is given by the expression
+
+.. math::
+   V = \sum_\text{A} k_B T \log\Bigl\{1 + \exp\bigl[
+   \beta(|\mathbf R_\text{A} - \mathbf O|- R_\text{sphere})\bigr] \Bigr\}
+
+where
+*k*\ :sub:`B` is the Boltzmann constant,
+*T* is formally the temperature but can be used to scale
+the strength of the potential (adjustable by ``temp=<real>``),
+*β* is the steepness of the potential (adjustable by ``beta=<real>``),
+**R**\ :sub:`A` are the cartesian coordinates of atom A,
+**O** is the origin (0,0,0) and
+*R*\ :sub:`sphere` is the radius of the sphere used for confining.
+
+The *default* potential shape is a simple polynomial to the power *α*
+(adjustable by ``alpha=<int>``).
+The formula that is evaluated in the program is
+
+.. math::
+   V = \sum_\text{A}
+   \left(\frac{|\mathbf R_\text{A} - \mathbf O|}{R_\text{sphere}}\right)^\alpha
+
+The main (dis)advantage of this shape is that the radius of the sphere
+is a *relative* quantity compared to the size of the molecule.
+The ``auto`` generator of the sphere radius takes this into account,
+by rescaling the largest distance in the molecule instead of adding
+a constant shift.
+A clear disadvantage of this potential shape it that the gradient does
+not vanish inside the sphere and can compress a molecule artifically.
+
 **Example for using wall potentials:**
 
 .. code:: bash
