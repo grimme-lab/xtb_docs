@@ -345,29 +345,33 @@ The detailed input looks like
 
 .. code:: text
 
-  $cma
   $wall
      potential=logfermi
      sphere: auto, all
   $end
 
-You can be more precise on the radius by giving the value in bohr instead
-of ``auto``. I personally recommend to use the logfermi potential, since it
-is best suited for confinements, but yet not the default.
+You can be more precise on the radius by giving the value in Bohr instead
+of ``auto``. The automatically determined radius is based on the largest
+distance in the structure plus some offset.
+The logfermi potential is best suited for confinements, but not yet the
+default potential.
 
-.. note:: When using a confining potential for confining you should make
-          sure the origin is close to the center of geometry or center of mass
-          of the molecule,
-          since all confining potentials are centered at the origin (0,0,0),
-          which is rather a limitation of the current input than the underlying
-          implementation.
-          To avoid problems with misplaced confining potentials the ``$cma``
-          logical instruction should be included to shift the molecule back
-          to the center of mass and align it to its principal axes of inertia.
+When using this input with the caffeine molecule the automatically
+determined radius is about 5.6 Å, which should be large enough to contain
+a molecule of its size.
+At first it might be surprising to find that the confining energy
+is about 84 kcal/mol, but there is a subtile problem we did not account for
+in the first place: the aufpunkt of the spherical logfermi-potential
+is set at the origin (0,0,0) and the center of mass of the caffeine molecule
+is about 4.4 Å away from it, so our molecule is half stuck into the wall
+we just created.
+
+To cope with this we should shift the caffeine molecule back to the center
+of mass, this can be done by adding the ``$cma`` instruction to the input
+file, which will shifts the coordinates with the center of mass and aligns
+the molecule to its principal axes of inertia.
 
 **Example for using wall potentials:**
-
-
 
 .. code:: bash
 
