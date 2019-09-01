@@ -424,7 +424,7 @@ The ``auto`` generator of the sphere radius takes this into account,
 by rescaling the largest distance in the molecule instead of adding
 a constant shift.
 A clear disadvantage of this potential shape it that the gradient does
-not vanish inside the sphere and can compress a molecule artifically.
+not vanish inside the sphere and can compress a molecule artificially.
 
 .. figure:: ../figures/potential_shapes.png
    :width: 450px
@@ -432,50 +432,44 @@ not vanish inside the sphere and can compress a molecule artifically.
 
    Available potential shapes with energy and gradient contribution.
 
-**Example for using wall potentials:**
+Anisotropic Potentials
+~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: bash
+For some molecules an isotropic spherical cavity is not suitable for confinement,
+since the shape of the molecule might have a rod-like or oblate shape.
+Instead of sphere we can use an ellipsoid to construct an anisotropic cavity,
+there is no limitation for the potential shape since we use a simple rescaling
+to introduce anisotropy.
 
-   > cat wall.inp
+The input file for an anisotropic potential would like
 
-   $chrg -1
-   $spin 0
+.. code-block:: text
+
    $wall
-      ellipsoid: 13.5,11.1,8.6,all
+      potential=logfermi
+      ellipsoid: 13.5,11.1,8.6,all # values in Bohr
    $end
 
-   xtb input-geometry.xyz --input constrain.inp --sp > sp.out
+As before we have to deal with the issue that the center of mass of our caffeine
+molecule and the origin do not coincident, this time we use a Python interpreter
+with ASE support for this job
 
-The values for *ellipsoid:* are radii in Bohr.
-For visualization purposes the transparent-green dots are placed on
-the surface of the potential.
+.. code-block:: python
 
-.. figure:: ../figures/wall.png
-   :scale: 40 %
-   :alt: confinement-example
+   >>> from ase.io import read, write
+   >>> mol = read('caffeine.xyz')
+   >>> mol.set_positions(mol.get_positions() - mol.get_center_of_mass())
+   >>> write('caffeine_shifted.xyz', mol)
 
-The influence of the ellipsoidal potential on the caffeine molecule
-in a single-point calculation is listed in the *summary* output block:
+Finally we can check ``xtb`` with the new coordinates and the above input file and
+we find that the confining energy is zero in the initial geometry.
 
-.. code-block:: none
-   :emphasize-lines: 14
+.. figure:: ../figures/confining_anisotropic.png
+   :width: 450px
+   :align: center
 
-         :::::::::::::::::::::::::::::::::::::::::::::::::::::
-         ::                     SUMMARY                     ::
-         :::::::::::::::::::::::::::::::::::::::::::::::::::::
-         :: total energy             -42.277068245167 Eh    ::
-         :: gradient norm              0.125348812811 Eh/a0 ::
-         :: HOMO-LUMO gap              0.387517637701 eV    ::
-         ::.................................................::
-         :: SCC energy               -42.804281029385 Eh    ::
-         :: -> isotropic ES            0.200135046318 Eh    ::
-         :: -> anisotropic ES          0.005440996407 Eh    ::
-         :: -> anisotropic XC          0.010691562913 Eh    ::
-         :: -> dispersion             -0.024921224966 Eh    ::
-         :: repulsion energy           0.492228803150 Eh    ::
-         :: add. restraining           0.034887396892 Eh    ::
-         :::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+   Shifted caffeine molecule in an anisotropic potential,
+   note that the structure is not rotated this time.
 
 Absolute Control
 ================
