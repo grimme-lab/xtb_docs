@@ -426,6 +426,12 @@ a constant shift.
 A clear disadvantage of this potential shape it that the gradient does
 not vanish inside the sphere and can compress a molecule artifically.
 
+.. figure:: ../figures/potential_shapes.png
+   :width: 450px
+   :align: center
+
+   Available potential shapes with energy and gradient contribution.
+
 **Example for using wall potentials:**
 
 .. code:: bash
