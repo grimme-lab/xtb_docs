@@ -360,10 +360,10 @@ When using this input with the caffeine molecule the automatically
 determined radius is about 5.6 Å, which should be large enough to contain
 a molecule of its size.
 At first it might be surprising to find that the confining energy
-is about 84 kcal/mol, but there is a subtle problem we did not account for
+is about +84 kcal/mol, but there is a subtle problem we did not account for
 in the first place: the aufpunkt of the spherical logfermi-potential
 is set at the origin (0,0,0) and the center of mass of the caffeine molecule
-is about 4.4 Å away from it, so our molecule is half stuck into the wall
+is about 4.4 Å away from it, so our molecule is stuck halfway in the wall
 we just created.
 
 .. figure:: ../figures/confining_misplaced.png
@@ -374,9 +374,9 @@ we just created.
    transparent green dots placed on a 110 Lebedev grid.
    Visual inspection suggests that the potential is misplaced.
 
-To cope with this we should shift the caffeine molecule back to the center
-of mass, this can be done by adding the ``$cma`` instruction to the input
-file, which will shifts the coordinates with the center of mass and aligns
+To cope with this we should put the center of mass of the caffeine molecule
+at the origin, this can be done by adding the ``$cma`` instruction to the input
+file, which shifts the coordinates with the center of mass and aligns
 the molecule to its principal axes of inertia.
 
 .. figure:: ../figures/confining_shifted.png
@@ -384,6 +384,10 @@ the molecule to its principal axes of inertia.
    :align: center
 
    The caffeine molecule is now shifted correctly inside the potential.
+
+.. note:: The aufpunkt for all wall potentials is always placed at the origin,
+          which cannot be changed with the currently available input options.
+          Therefore, we resort to modifying our input coordinates here.
 
 Different Potential Shapes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
