@@ -436,12 +436,12 @@ Anisotropic Potentials
 ~~~~~~~~~~~~~~~~~~~~~~
 
 For some molecules an isotropic spherical cavity is not suitable for confinement,
-since the shape of the molecule might have a rod-like or oblate shape.
+since the molecule might have a rod-like or oblate shape.
 Instead of sphere we can use an ellipsoid to construct an anisotropic cavity,
 there is no limitation for the potential shape since we use a simple rescaling
 to introduce anisotropy.
 
-The input file for an anisotropic potential would like
+The input file for an anisotropic potential would look like
 
 .. code-block:: text
 
@@ -450,16 +450,21 @@ The input file for an anisotropic potential would like
       ellipsoid: 13.5,11.1,8.6,all # values in Bohr
    $end
 
+As for the isotropic one can use the ``auto`` keyword to replace any of the
+the three radii with an automatically determined value.
+The automatic determined value is the automatic isotropic sphere radius,
+so letting all three values be autodetermined results in an isotropic potential.
+
 As before we have to deal with the issue that the center of mass of our caffeine
 molecule and the origin do not coincident, this time we use a Python interpreter
 with ASE support for this job
 
 .. code-block:: python
 
-   >>> from ase.io import read, write
-   >>> mol = read('caffeine.xyz')
-   >>> mol.set_positions(mol.get_positions() - mol.get_center_of_mass())
-   >>> write('caffeine_shifted.xyz', mol)
+   from ase.io import read, write
+   mol = read('caffeine.xyz')
+   mol.set_positions(mol.get_positions() - mol.get_center_of_mass())
+   write('caffeine_shifted.xyz', mol)
 
 Finally we can check ``xtb`` with the new coordinates and the above input file and
 we find that the confining energy is zero in the initial geometry.
@@ -470,6 +475,24 @@ we find that the confining energy is zero in the initial geometry.
 
    Shifted caffeine molecule in an anisotropic potential,
    note that the structure is not rotated this time.
+
+Using Multiple Potentials
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Since version 6.0 an arbitrary number of wall potentials is supported.
+Similiar to the constraint keywords one could create multiple wall potentials
+by repeating ``sphere`` and/or ``ellipsoid`` instructions like
+
+.. code-block:: none
+
+   $wall
+      potential=logfermi
+      sphere: auto, all
+      ellipsoid: 13.5,11.1,8.6,all # values in Bohr
+   $end
+
+This could be used to confine different fragments in different sized spheres.
+The only restriction is that the potential shape is global.
 
 Absolute Control
 ================
