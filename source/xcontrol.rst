@@ -482,7 +482,7 @@ Using Multiple Potentials
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since version 6.0 an arbitrary number of wall potentials is supported.
-Similiar to the constraint keywords one could create multiple wall potentials
+Similar to the constraint keywords one could create multiple wall potentials
 by repeating ``sphere`` and/or ``ellipsoid`` instructions like
 
 .. code-block:: none
@@ -584,3 +584,32 @@ use in your detailed input file can be present in your global configuration
 file. System specific instructions (``key: value``) will not work, of course.
 To check which ``.xtbrc`` is read, start the program in verbose mode and
 check the *Calculation Setup* section in the output.
+
+Rules for Control
+=================
+
+This section is intended to briefly explain the currently applied
+rules to parse the detailed input file.
+
+Every instruction is started by a flag (``$``) and terminated by the next flag.
+An instruction is only valid if the flag is in the first letter, the
+instruction name is the rest of the register (line).
+A valid instruction opens its block with its own options, every option
+is a key-value pair. Invalid instructions are ignored without further warning.
+
+There are two kind of instructions, logical and groups.
+Logical instructions toggle a specific operation and cannot contain a option
+block while group instructions only open the option block without any
+further actions.
+
+Groups with the same name can occur multiple times and are merged before parsing.
+There are two kind of options, ``key=value`` pairs set global variables and
+can only be used *once*, they are locked at the *first encounter* of the key,
+regardless of the value, in case an invalid value is given the default is used
+as fallback and cannot be modified by subsequent options with the same key.
+
+Options of the kind ``key: values,...`` can be present multiple times and
+are handled differently depending on the context they are used in.
+For example the ``atoms:`` instruction usually appends atoms to an list,
+while ``distance:`` in ``$constrain`` applies a quadratic potential to
+the atom pair specified.
