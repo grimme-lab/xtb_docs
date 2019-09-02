@@ -360,8 +360,9 @@ When using this input with the caffeine molecule the automatically
 determined radius is about 5.6 Å, which should be large enough to contain
 a molecule of its size.
 At first it might be surprising to find that the confining energy
-is about +84 kcal/mol, but there is a subtle problem we did not account for
-in the first place: the aufpunkt of the spherical logfermi-potential
+is about +84 kcal/mol, but we did we did not account for the correct
+placement of the aufpunkt of the potential within our chosen input.
+Currently, the aufpunkt of the spherical logfermi-potential
 is set at the origin (0,0,0) and the center of mass of the caffeine molecule
 is about 4.4 Å away from it, so our molecule is stuck halfway in the wall
 we just created.
@@ -384,6 +385,7 @@ the molecule to its principal axes of inertia.
    :align: center
 
    The caffeine molecule is now shifted correctly inside the potential.
+   The confining energy, for the correctly placed potential is now 0 kcal/mol.
 
 .. note:: The aufpunkt for all wall potentials is always placed at the origin,
           which cannot be changed with the currently available input options.
@@ -404,7 +406,7 @@ The logfermi potential shape is given by the expression
 where
 *k*\ :sub:`B` is the Boltzmann constant,
 *T* is formally the temperature but can be used to scale
-the strength of the potential (adjustable by ``temp=<real>``),
+the strength of the potential (adjustable by ``temp=<real>``, within the ``$wall`` group),
 *β* is the steepness of the potential (adjustable by ``beta=<real>``),
 **R**\ :sub:`A` are the cartesian coordinates of atom A,
 **O** is the origin (0,0,0) and
@@ -427,7 +429,7 @@ A clear disadvantage of this potential shape it that the gradient does
 not vanish inside the sphere and can compress a molecule artificially.
 
 .. figure:: ../figures/potential_shapes.png
-   :width: 400px
+   :width: 550px
    :align: center
 
    Available potential shapes with energy and gradient contribution.
