@@ -371,7 +371,7 @@ we just created.
    :align: center
 
    The sphere used to construct the potential is represented by the
-   transparent green dots placed on a 110 Lebedev grid.
+   transparent teal dots placed on a fine Lebedev grid.
    Visual inspection suggests that the potential is misplaced.
 
 To cope with this we should put the center of mass of the caffeine molecule
@@ -380,7 +380,7 @@ file, which shifts the coordinates with the center of mass and aligns
 the molecule to its principal axes of inertia.
 
 .. figure:: ../figures/confining_shifted.png
-   :width: 450px
+   :width: 400px
    :align: center
 
    The caffeine molecule is now shifted correctly inside the potential.
@@ -427,7 +427,7 @@ A clear disadvantage of this potential shape it that the gradient does
 not vanish inside the sphere and can compress a molecule artificially.
 
 .. figure:: ../figures/potential_shapes.png
-   :width: 450px
+   :width: 400px
    :align: center
 
    Available potential shapes with energy and gradient contribution.
