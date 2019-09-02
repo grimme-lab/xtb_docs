@@ -352,7 +352,7 @@ The detailed input looks like
 
 You can be more precise on the radius by giving the value in Bohr instead
 of ``auto``. The automatically determined radius is based on the largest
-distance in the structure plus some offset.
+interatomic distance in the structure plus some offset.
 The logfermi potential is best suited for confinements, but not yet the
 default potential.
 
