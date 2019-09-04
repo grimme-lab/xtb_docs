@@ -56,3 +56,6 @@ Chemical Method* *Inorg. Chem.* **2017**, *56 (20)*, 12485–12491
 **Nonlinear optical properties with sTD-DFT-xTB:** De Wergifosse, M., Grimme, S.  *Nonlinear-response properties in a simplified time-dependent density functional theory (sTD-DFT) framework: Evaluation of the first hyperpolarizability* *J. Chem. Phys* **2018**, *149(2)*, 024108. `DOI:10.1063/1.5037665 <https://doi.org/10.1063/1.5037665>`_
 
 **Excited state absorption spectra with sTD-DFT-xTB:** De Wergifosse, M., Grimme, S. *Nonlinear-response properties in a simplified time-dependent density functional theory (sTD-DFT) framework: Evaluation of excited-state absorption spectra* *J. Chem. Phys.* **2019** , *150(9)*,  094112 `DOI: 10.1063/1.5080199  <https://doi.org/10.1063/1.5080199>`_
+
+**Supramolecular Chemistry with GFN2-xTB:** Bohle, F. Grimme, S. *Efficient structural and energetic screening of fullerene
+encapsulation in a large supramolecular double decker macrocycle* *J. Serb. Chem. Soc* **2019**, *84(8)*, 837-844 `DOI:10.2298/JSC190701079B <https://doi.org/10.2298/JSC190701079B>`_
