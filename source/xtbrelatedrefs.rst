@@ -44,10 +44,22 @@ __ https://doi.org/10.1021/acs.jctc.9b00143
 **NMR Spectrum Simulation:** Grimme, S.; Bannwarth, C.; Dohm, S.; Hansen, A.; Pisarek, J.; Pracht, P.; Seibert, J.; Neese, F.  *Fully Automated Quantum Chemistry Based Computation of Spin–Spin Coupled Nuclear Magnetic Resonance Spectra* *Angew. Chem. Int. Ed.* **2017**, *56 (20)*, 12485–12491
 `DOI: 10.1002/anie.201708266 <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.201708266>`_
 
+**Geometry Optimization of Transition-Metal Complexes:**
+Bursch, M.; Neugebauer, H.; Grimme, S.
+*Structure Optimisation of Large Transition‐Metal Complexes with Extended Tight‐Binding Methods*,
+*Angew. Chem. Int. Ed.* **2019**, 58, 11078.
+`DOI: 10.1002/anie.201904021 <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.201904021>`_
+
 **Geometry Optimization of Lanthanoid Complexes:** Bursch, M.; Hansen, A.; Grimme, S. *Fast and 
 Reasonable Geometry Optimization of Lanthanoid Complexes with an Extended Tight Binding Quantum 
 Chemical Method* *Inorg. Chem.* **2017**, *56 (20)*, 12485–12491
 `DOI: 10.1021/acs.inorgchem.7b01950 <https://pubs.acs.org/doi/abs/10.1021/acs.inorgchem.7b01950>`_
+
+**Electron Ionization Mass Spectra:**
+Koopman, J.; Grimme, S.
+*Calculation of Electron Ionization Mass Spectra with Semiempirical GFNn-xTB Methods*,
+*ACS Omega* **2019**.
+`DOI: 10.1021/acsomega.9b02011 <https://pubs.acs.org/doi/10.1021/acsomega.9b02011>`_
 
 **ECD spectra calculation for entire proteins:** Seibert, J.; Bannwarth, C.; Grimme, S.  *Biomolecular structure information from high-speed quantum mechanical electronic spectra calculation.*  *J. Am. Chem. Soc.* **2017**, jacs.7b05833 `DOI: 10.1021/jacs.7b05833 <https://doi.org/10.1021/jacs.7b05833>`_
 
