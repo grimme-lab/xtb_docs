@@ -165,6 +165,11 @@ of shipped tarball, then it will append the directories ``bin/`` and ``python/``
 to your ``PATH`` variable, ``man/`` to your ``MANPATH``,
 ``lib/`` to your ``LD_LIBRARY_PATH`` and ``python/`` to your ``PYTHONPATH``.
 
+Installing Python Package
+=========================
+
+.. note:: the xtb-python package will be added in version 6.3
+
 Getting Help from ``xtb``
 =========================
 
