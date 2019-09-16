@@ -174,10 +174,10 @@ Of course, the calculated frequencies depend on the masses used for each atom. S
            Cartesian displacement increment for numerical Hessian
 
        isotope: int,real
-           set mass of atom type int to real
+           set mass of atom number int to real (synonym to modify mass)
 
        modify mass: int,real
-           set mass of atom number int to real
+           set mass of atom number int to real (synonym to isotope)
 
        scale mass: int,real
            scale mass of atom number int by real
