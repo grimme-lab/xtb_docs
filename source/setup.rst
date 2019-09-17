@@ -98,6 +98,13 @@ You might want to deactivate nested OMP constructs by
 .. code:: bash
 
   > export OMP_MAX_ACTIVE_LEVELS=1
+  
+The default linear algebra backend of `xtb` is the Math Kernel Library,
+to make the linear algebra run in parallel export
+
+.. code:: bash
+
+  > export MKL_NUM_THREADS=<ncores>
 
 Environment Variables for ``xtb``
 ---------------------------------
