@@ -58,7 +58,7 @@ Chemical Method* *Inorg. Chem.* **2017**, *56 (20)*, 12485–12491
 **Electron Ionization Mass Spectra:**
 Koopman, J.; Grimme, S.
 *Calculation of Electron Ionization Mass Spectra with Semiempirical GFNn-xTB Methods*,
-*ACS Omega* **2019**.
+*ACS Omega* **2019**, *4 (12)*, 15120-15133.
 `DOI: 10.1021/acsomega.9b02011 <https://pubs.acs.org/doi/10.1021/acsomega.9b02011>`_
 
 **ECD spectra calculation for entire proteins:** Seibert, J.; Bannwarth, C.; Grimme, S.  *Biomolecular structure information from high-speed quantum mechanical electronic spectra calculation.*  *J. Am. Chem. Soc.* **2017**, jacs.7b05833 `DOI: 10.1021/jacs.7b05833 <https://doi.org/10.1021/jacs.7b05833>`_
