@@ -9,7 +9,9 @@ Introduction to ENSO
 What is ENSO ?
 ==============
 
-``ENSO`` is a utility program to create and refine Conformer, Rotamer-Ensembles and finally prepare all files necessary to generate NMR spectra using the ``ANMR`` program. ``ENSO`` and additional necessary resources can be found at xxxxx.  The Workflow to get the final spectrum is detailed in the following graphic.
+``ENSO`` is a utility program to create and refine Conformer, Rotamer-Ensembles and finally prepare all files necessary to generate NMR spectra using the ``ANMR`` program. ``ENSO`` and additional necessary resources can be found at [latest release page](https://github.com/grimme-lab/enso/releases/latest) and [latest release page](https://github.com/grimme-lab/cefine/releases/latest).  
+
+The Workflow to get the final spectrum is detailed in the following graphic.
 
 .. figure:: ../../figures/enso/enso_get_spectrum.png
 	:scale: 25%
