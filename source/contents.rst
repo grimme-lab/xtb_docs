@@ -68,6 +68,16 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
 
 .. toctree::
    :maxdepth: 3
+   :caption: ENSO
+   
+   enso_doc/enso
+   enso_doc/enso_setup
+   enso_doc/enso_usage
+   enso_doc/enso_anmr
+   enso_doc/plotting
+
+.. toctree::
+   :maxdepth: 3
    :caption: API
 
    dev_interface
