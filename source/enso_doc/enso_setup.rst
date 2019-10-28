@@ -27,7 +27,7 @@ This creates the file *ensorc_new* which you then have to move to your home dire
 
     > mv ensorc_new ~/.ensorc
 
-It is mandatory for ``ENSO`` to find the correct paths to your programs within your  global configuration file *.ensorc*:
+It is mandatory for `enso` to find the correct paths to your programs within your  global configuration file *.ensorc*:
 
 .. code-block:: text
   
@@ -110,7 +110,7 @@ External programs which are required:
 
   - `cefine`
   - the TURBOMOLE program package
-  - cosmotherm
+  - `cosmotherm`
 
 * in case of TURBOMOLE
 
@@ -123,8 +123,8 @@ External programs which are required:
 
 For the final spectrum generation:
 
-* anmr version 3.5 or above
-* nmrplot.py  (needs python3, numpy, matplotlib)
+* `anmr` version 3.5 or above
+* `nmrplot.py`  (needs python3, numpy, matplotlib)
 * or any other plotting tool (e.g. GNUPLOT)
 
 
@@ -139,7 +139,7 @@ Detailed information
    *ENSO* detailed flowchart.
 
 
-Files written by ``ENSO``:
+Files written by `enso`:
 ==========================
 
 ========================  ===========
