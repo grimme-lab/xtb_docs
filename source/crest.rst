@@ -64,8 +64,10 @@ the RMSD,the rotational constants, and the energies will be the same.
 Conformational Search Algorithms
 ================================
 
-MF-MD-GC (V1)
--------------
+MF-MD-GC
+---------
+
+.. warning:: The MF-MD-GC workflow is outdated! The newer iMTD-GC workflow is the default (see below)
 
 The MF-MD-GC workflow is a composite procedure consisting out of mode following, molecular dynamics
 sampling and  genetic z-matrix crossing.
@@ -118,8 +120,8 @@ In the last step the GC is performed with the CRE that was found up to this poin
    :scale: 90 %
    :alt: cre-pes
 
-MTD-GC (V2) / iMTD-GC (V2i)
----------------------------
+MTD-GC / iMTD-GC 
+-----------------
 The MTD-GC workflow was designed to find low lying conformers more efficiently and more safely than the older MF-MD-GC algorithm. 
 Furthermore this new algorithm is more robust and general applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
 MTD-GC is rooted in the basic idea to combine GFN\ *n*--xTB calculations with root-mean-square-deviation (RMSD) based meta-dynamics (see section :ref:`mtd`). 

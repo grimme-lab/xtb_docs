@@ -402,7 +402,9 @@ that are conducted by ``CREST``. To do this one has to create a file called
 ``.constrains`` (or ``.xcontrol``, both is valid) in the working directory, which contains the constraints
 in the exact same syntax as used by the ``xtb`` (see section :ref:`detailed-input`)
 Constraints that are included via the ``.constrains`` file will be included in *ALL* calculations
-of the conformer search run. 
+of the conformer search run.
+To circumvent name conventions a constrainement file under arbitrary name can directly be provided
+by the ``-cinp <FILE>`` option.
 Since this can overwrite settings created by ``CREST`` it should only be used very cautiously!
 
 The main application for the additional constraints is the constrainment (fixing) of atoms,
@@ -428,6 +430,53 @@ The content of the ``.xcontrol`` file for fixing atoms should look like the foll
 
 This should ensure correct constrainment (as far as possible) in the MTD, as well as in the GFN\ *n*-xTB geometry
 optimization within a ``CREST`` run.
+
+It is also possible to let ``CREST`` generate such a file automatically.
+To do this the list of atoms has to be provided with the flag ``--constrain <atom list>``, i.e.,
+
+.. code:: bash
+
+    > crest coord --constrain <atom list>
+
+which will **not** start any calculation but instead write a file ``.xcontrol.sample`` that could subsequentially be used.
+Furthermore the file ``coord.ref`` will be created. (e.g. for a molecule with 65 atoms):
+
+.. code:: text
+
+    > crest coord --constrain 1,2,3,26-30
+     
+           ==============================================
+           |                                            |
+           |                 C R E S T                  |
+           |                                            |
+           |  Conformer-Rotamer Ensemble Sampling Tool  |
+           |        based on the GFN-xTB method         |
+           |             P.Pracht, S.Grimme             |
+           |          Universitaet Bonn, MCTC           |
+           ==============================================
+           Version 2.8, Fri 25. Oct 12:04:52 CEST 2019
+           Using the GFN-xTB code.
+           Compatible with XTB version 6.1 and later.
+    
+     Command line input:
+     > crest --constrain 1,2,3,26-30
+    
+     Input list of atoms: 1,2,3,26-30
+     8 of 65 atoms will be constrained.
+     A reference coord file coord.ref was created.
+     The following will be written to <.xcontrol.sample>:
+    
+     > $constrain
+     >   atoms: 1-3,26-30
+     >   force constant=0.5
+     >   reference=coord.ref
+     > $metadyn
+     >   atoms: 4-25,31-65
+     > $end
+     
+    <.xcontrol.sample> written. exit.
+
+.. note:: Important: <atom list> must not contain any blanks and atoms must be seperated by comma. Ranges (e.g. 26-30) are allowed.
 
 
 Sampling of noncovalent complexes and aggregates (NCI mode)
@@ -829,4 +878,117 @@ As can be seen from the output, the entire procedure is constructed from the pro
 The first protonation step yields the same three protomers that are also obtained by the standalone application, which are then
 automatically deprotonated. Two protonation/deprotonation cycles are performed.
 The final tautomer ensemble consists of 19 structures (within 30 kcal/mol) and is written to the file ``tautomers.xyz``.
+
+
+Property calculations on final ensemble
+=======================================
+
+It is possible to (automatically) perform further calculations on the final conformer ensemble
+by the usage of the ``-prop`` option:
+
+.. code:: bash
+
+    > crest [input] [options] -prop [property option]
+
+Currently there are only some few options available but we plan to implement more.
+
+A useful type of this mode, e.g. is the the reoptimization of the conformer ensemble with
+very tight convergence thresholds. In combination with crude conformational search settings
+such as ``-qucik``, ``-squick`` or ``-mquick`` this helps to ensure the ensemble convergence,
+i.e., the minimization of artificial structural differences for the same conformer due to
+too loose geometry optimizations.
+This reoptimization can be requested by
+
+.. code:: bash
+    
+    > crest coord -mquick -prop reopt
+
+Updated geometries will generally be written to a new ensemble file called ``crest_property.xyz``.
+
+Another useful runtype of this mode is the calculation of frequencies and reweighting
+of the conformers on the resulting free energies. E.g.:
+
+.. code:: bash
+
+    > crest coord -prop hess
+
+The property mode can also directly be applied to a given ensemble:
+
+.. code:: bash
+
+    > crest -forall <ensemble>.xyz -prop [property option]
+
+
+Dry run to check settings prior to calculations
+===============================================
+
+A dry run can be performed by ``CREST`` to verify the settings that would be applied in the
+calculation. To do this, simply add the ``-dry`` flag to the cmd-input line.
+
+.. code:: bash
+
+    > crest [input] [options] -dry
+
+Whit this option nothing will be actually be calculated but instead the settings are printed.
+E.g. for some random setting:
+
+.. code:: text
+
+    > crest coord -ewin 3.2 -temp 999 -gfn1 -nozs -chrg 1 -cinp .xcontrol.sample -dry
+
+    <....>
+    <....>
+    *******************************************************************************************
+    **                                  D R Y    R U N                                       **
+    *******************************************************************************************
+     Dry run was requested.
+     Running CREST with the chosen cmd arguments will result in the following settings:
+    
+     Input file : coord
+    
+     Job type :
+      1.  Conformational search via the iMTD-GC algo
+    
+     Job settings
+      sort Z-matrix        :      F
+    
+     CRE settings
+      energy window         (-ewin) :    3.2000
+      RMSD threshold        (-rthr) :    0.1250
+      energy threshold      (-ethr) :    0.1000
+      rot. const. threshold (-bthr) :    0.0200
+      T (for boltz. weight) (-temp) :    999.00
+    
+     General MD/MTD settings
+      simulation length [ps]    (-len) : <system dependent>
+      time step [fs]          (-tstep) :       5.0
+      shake mode              (-shake) :         2
+      MTD temperature [K]    (-mdtemp) :    300.00
+      trj dump step  [fs]    (-mddump) :       100
+      MTD Vbias dump [ps]    (-vbdump) :       1.0
+    
+     Constrainment info
+      applying constraints?  :       T
+      constraining file      : .xcontrol.sample
+      file content :
+      > $constrain
+      >   atoms: 1-3,26-30
+      >   force constant=0.5
+      >   reference=coord.ref
+      > $metadyn
+      >   atoms: 4-25,31-65
+      > $end
+    
+     XTB settings
+      binary name        (-xnam) : xtb
+      GFN method         (-gfn)  : --gfn1
+      (final) opt level  (-opt)  : 2
+      Molecular charge   (-chrg) : 1
+    
+     Technical settings
+      working directory : /home/philipp/calculations/cresttest
+      CPUs (threads)     (-T) : 4
+    
+    
+    normal dry run termination.
 

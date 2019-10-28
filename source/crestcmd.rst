@@ -8,8 +8,8 @@
 
 
 ``CREST`` is usually invoked via commandline, and requires only a coordinate input file.
-The program supports the ``TURBOMOLE`` coordinates (coord) and Xmol (`*`.xyz) format and can
-be called via
+The program supports the ``TURBOMOLE`` coordinates (coord, Bohr) and Xmol (`*`.xyz, Angstroem) format 
+and can be called via
 
 .. code:: bash
 
@@ -94,155 +94,167 @@ General Options
 ---------------
 
 -h, -help
-     show help page
+    Show help page
 
 -chrg INT
-    specify molecular charge as *INT*, overrides ``.CHRG`` file
+    Specify molecular charge as *INT*, overrides ``.CHRG`` file
 
 -uhf INT
-    specify :math:`N_{\alpha}-N_{\beta}` as *INT*, overrides ``.UHF`` file
+    Specify :math:`N_{\alpha}-N_{\beta}` as *INT*, overrides ``.UHF`` file
 
 -gfn0 
-  use GFN0-xTB
+    Use GFN0-xTB
 
 
 -gfn1
-  use GFN1-xTB
+    Use GFN1-xTB
 
 
 -gfn2 ``[DEFAULT]``
-    use GFN2-xTB, which is the default.
+    Use GFN2-xTB, which is the default.
 
 -g, -gbsa SOLVENT
-    generalized born (GB) model with solvent accessable surface (SASA) model,
+    Generalized born (GB) model with solvent accessable surface (SASA) model,
     available solvents are *acetone*, *acetonitrile*, *benzene* (only GFN1-xTB),
     *CH2Cl2*, *CHCl3*, *CS2*, *DMF* (only GFN2-xTB), *DMSO*, *ether*, *H2O*,
     *methanol*, *n-hexane* (only GFN2-xTB), *THF* and *toluene*.
     The solvent input is not case-sensitive.
 
 -opt LEVEL
-    set the optimization accuracy for final GFN\ *n*--xTB optimizations.
+    Set the optimization accuracy for final GFN\ *n*--xTB optimizations.
     See :ref:`geometry optimization` for valid *LEVEL* arguments.
     The ``[DEFAULT]`` is *vtight*.
 
 -zs ``[DEFAULT]``
-    perform z-matrix sorting (i.e. ZSORT) for the input coordinate file.
+    Perform z-matrix sorting (i.e. ZSORT) for the input coordinate file.
 
 -nozs
-  do not perform z-matrix sorting of the input file.
+    Do not perform z-matrix sorting of the input file.
 
 -ewin REAL
-    set the energy threshold to *REAL* kcal/mol. This affects several runtypes and
+    Set the energy threshold to *REAL* kcal/mol. This affects several runtypes and
     the ``[DEFAULT]`` is depending on the application (6 kcal/mol conformational searches,
     30 kcal/mol screening tools).
 
 
 -xnam BIN
-    specify the name (and path) of the ``xtb`` binary that
+    Specify the name (and path) of the ``xtb`` binary that
     sould be used as *BIN*. The ``[DEFAULT]`` is *xtb*.
 
 -prsc
-  create a scoord.`*` file for each conformer in the ``TURBOMOLE`` format.
+    Create a scoord.`*` file for each conformer in the ``TURBOMOLE`` format.
 
 -niceprint
-     in-line progress bar printout for optimizations.
+    In-line progress bar printout for optimizations.
 
+-scratch <DIR>
+    Performs the entire calculation in the specified <DIR>. If <DIR> is not existing it will be created.
 
 -T INT
-    specify the number of CPU threads *INT* that shall be used.
+    Specify the number of CPU threads *INT* that shall be used.
     ``CREST`` automatically adjusts the number of processes according to this variable
     in each step, in order to achieve optimal parallelization of the calculations.
+
+-dry
+    Perfrom a "dry" run, i.e., nothing is actually done but instead an overview of the 
+    settings that would be applied in the calculation is given.
 
 
 Options for MF-MD-GC
 -------------------------
+
+.. warning:: The MF-MD-GC workflow is outdated
+
 -nomf
-  skip modefollowing
+    Skip modefollowing
     
 -nomd
-  skip MD part
+    Skip MD part
 
 -nocross            
-    skip genetic crossing part.
+    Skip genetic crossing part.
 
 -loose              
-    decrease used number of selected modes
+    Decrease used number of selected modes
 
 -vloose             
-    decrease used number of selected modes a lot
+    Decrease used number of selected modes a lot
 
 -tight              
-    increase used number of selected modes
+    Increase used number of selected modes
 
 -mdlen, -len REAL
-    set length of the molecular dynamics simulation to *REAL* ps.
+    Set length of the molecular dynamics simulation to *REAL* ps.
     The ``[DEFAULT]`` is 40 ps.
 
 -shake INT        
-    set SHAKE mode for MD. *INT* can be 0(= off), 1(= H-only), 2(= all bonds)
+    Set SHAKE mode for MD. *INT* can be 0(= off), 1(= H-only), 2(= all bonds)
     The ``[DEFAULT]`` is 2.
 
 -quick              
-    conduct only one MF/MD (no GC) run to obtain a crude conformer ensemble.
+    Conduct only one MF/MD (no GC) run to obtain a crude conformer ensemble.
 
 
 Options for iMTD-GC
 -----------------------------
 -cross ``[DEFAULT]``
-   do the genetic structure crossing (GC) part.
+    Do the genetic structure crossing (GC) part.
 
 -nocross
-   don´t do the GC part.
+    Don´t do the GC part.
 
 -mrest INT
-    maximum number of MTD restarts in iMTD-GC algorithm. The ``[DEFAULT]`` is 5 cycles.
+    Maximum number of MTD restarts in iMTD-GC algorithm. The ``[DEFAULT]`` is 5 cycles.
 
 -shake INT
-    set SHAKE mode for MD. *INT* can be 0(= off), 1(= H-only), 2(= all bonds)
+    Set SHAKE mode for MD. *INT* can be 0(= off), 1(= H-only), 2(= all bonds)
     The ``[DEFAULT]`` is 2.
 
 -tstep INT
-    set MD time step to *INT* fs. The ``[DEFAULT]`` is 5 fs.
+    Set MD time step to *INT* fs. The ``[DEFAULT]`` is 5 fs.
 
 -mdlen, -len REAL
-    set length of the meta-dynamics simulations (MTD) to *REAL* ps.
+    Set length of the meta-dynamics simulations (MTD) to *REAL* ps.
     The ``[DEFAULT]`` is depending on the size and flexibility of the system.
 
 -mddump INT
-    set dumpstep in which coordinates are written to the trajectory file to *INT* fs.
+    Set dumpstep in which coordinates are written to the trajectory file to *INT* fs.
     The ``[DEFAULT]`` is 100 fs.
 
 -vbdump REAL 
-    set dump frequency in which a new reference structure is taken for :math:`V_{bias}` to *REAL* ps.
+    Set dump frequency in which a new reference structure is taken for :math:`V_{bias}` to *REAL* ps.
     The ``[DEFAULT]`` is 1.0 ps.
                      
 -tnmd REAL
-    set temperature for the additional normal MDs on the lowest conformers after the MTD step.
+    Set temperature for the additional normal MDs on the lowest conformers after the MTD step.
     The ``[DEFAULT]`` is 400 K.
 
 -norotmd           
-    don´t do the additional  MDs on the lowest conformers after the MTD step.
+    Don´t do the additional  MDs on the lowest conformers after the MTD step.
 
 -quick
-    perform a search with reduced settings for a crude conformer ensemble.
+    Perform a search with reduced settings for a crude conformer ensemble.
 
 -squick, -superquick
-    perform an even more crude conformational search than with ``-quick``.
+    Perform an even more crude conformational search than with ``-quick``.
+
+-mquick
+    Perform an even more crude conformational search than with ``-quick`` or ``-squick``.
 
 -origin ``[DEFAULT]``           
-    track the step of generation for each conformer/rotamer.
+    Track the step of generation for each conformer/rotamer.
 
 -keepdir
-    keep sub-directories of the conformer production run.
+    Keep sub-directories of the conformer production run.
 
 -nci
-    specialized NCI mode that can be used to find aggregates of NCI complexes.
+    Specialized NCI mode that can be used to find aggregates of NCI complexes.
     The option generates an ellipsoide potential around the input structure and adds it to the MTD simulation.
     Also, settings for :math:`k` and :math:`\alpha` are adjusted and some settings are reduced,
     in order to achieve lower computation times.
 
 -wscal REAL
-    scale the ellipsoide potential axes in the NCI mode  by factor *REAL*.
+    Scale the ellipsoide potential axes in the NCI mode  by factor *REAL*.
 
 
 
@@ -253,16 +265,16 @@ Options for CREGEN
           Therefore the following options also affect the performance of the two conformer algorithms.
 
 -rthr REAL
-     set RMSD threshold in Ångström. The ``[DEFAULT]`` is 0.125 Å.
+     Set RMSD threshold in Ångström. The ``[DEFAULT]`` is 0.125 Å.
 
 -ethr REAL
-     set energy threshold between conformer pairs in kcal/mol. The ``[DEFAULT]`` is 0.10 kcal/mol.
+     Set energy threshold between conformer pairs in kcal/mol. The ``[DEFAULT]`` is 0.10 kcal/mol.
 
 -bthr REAL
-     set Rotational constant threshold to *REAL*. The ``[DEFAULT]`` is 0.02.
+     Set Rotational constant threshold to *REAL*. The ``[DEFAULT]`` is 0.02.
 
 -athr REAL
-     similarity threshold to determine internal rotation equal atoms for NMR.
+     Similarity threshold to determine internal rotation equal atoms for NMR.
      The ``[DEFAULT]`` is 0.04.
 
 -pthr REAL
@@ -270,29 +282,33 @@ Options for CREGEN
 
 
 -temp REAL
-     set temperature for the calculation of Boltzmann weights. The ``[DEFAULT]`` is 298.15 K.
+     Set temperature for the calculation of Boltzmann weights. The ``[DEFAULT]`` is 298.15 K.
 
 -nmr, -eqv               
-      activate determination and printout of NMR-equivalencies. Writes the files
+      Activate determination and printout of NMR-equivalencies. Writes the files
       ``anmr_rotamer`` and ``anmr_nucinfo``, which are required by the ``ENSO`` python script.
 
 -metac 
-      automatic methyl group rotamer equivalence correction. 
+      Automatic methyl group rotamer equivalence correction. 
 
 -esort
-      sort only based on energy (i.e., no RMSD and rotational constant comparison)
+     Sort only based on energy (i.e., no RMSD and rotational constant comparison)
 
 -nowr 
-      don´t write new ensemble files (crest_rotamers_`*`.xyz, crest_conformers.xyz)
+     Don´t write new ensemble files (crest_rotamers_`*`.xyz, crest_conformers.xyz)
 
 -rot
-      use only rotational constant for checks (and no RMSD)
+     Use only rotational constant for checks (and no RMSD)
+
+-subrmsd
+     Compare only those parts of the structure that were also included in the metadynamics bias potential.
+     Can be important for constrained conformational searches. 
 
 
 Options for other modes
 -----------------------
 -compare <FILE1> <FILE2>
-     compare two ensembles *<FILE1>* and *<FILE2>*. Both ensembles must have the same
+     Compare two ensembles *<FILE1>* and *<FILE2>*. Both ensembles must have the same
      order of atoms of the molecule and should contain rotamers.
 
 -maxcomp INT
@@ -304,7 +320,41 @@ Options for other modes
      is 2 iterations.
      
 -swel STR
-     Change H\ :math:`^+` in the protonation tool to some other ion *STR*, e.g. Na
+     Change H\ :math:`^+` in the protonation tool to some other ion specified by *STR*.
+     *STR* has to contain the element symbol AND charge, e.g. ``Na+``
 
 
+Options related to constrainment
+--------------------------------
+-cinp <FILE>
+    Specify a <FILE> with additional constraints in the xTB syntax.
+    This file will be used instead of any ``.xcontrol`` or ``.constrains`` file.
+
+--constrain <atom list>
+    Set up an example file in which the atoms in <atom list> shall be constrained.
+    The file will be called ``.xcontrol.sample``. No calculations will be performed
+    and the run is aborted after this sample is wirtten.
+
+Options for the PROPERTY mode
+-----------------------------
+
+.. note:: The PROPERTY mode automatically performs additional calculations on the final
+          conformer ensemble after the iMTD-GC (or a given input ensemble, see flag ``-forall``)
+
+
+-prop STR
+     This initializes the usage of the "property" mode.
+     *STR* defines what shall be done with the ensemble.
+     Valid options for *STR* are currently (case sensitive!):
+
+``hess``   - performs a hessian calculation for all conformers and re-weights the ensemble on free energies
+
+``reopt``  - reoptimization of the ensemble with vtight thresholds (usefull for "quick" runs)
+
+``autoIR`` - calculate vib. modes for all conformers and average them (weighted by Boltzmann populations) in a single "crest.vibspectum" file.
+
+
+-forall <FILE>
+      Instead of starting the property calculation on the final conformer ensemble file after iMTD-GC
+      the property mode can directly be started for a given input ensemble <FILE> in the Xmol (`*`.xyz) format.
 
