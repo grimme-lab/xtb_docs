@@ -29,7 +29,7 @@ This creates the file *ensorc_new* which you then have to move to your home dire
 
 It is mandatory for ``ENSO`` to find the correct paths to your programs within your  global configuration file *.ensorc*:
 
-.. code-block:: sh
+.. code-block:: text
   
     > cat ~/.ensorc
     .ENSORC
@@ -104,17 +104,17 @@ Requirements
 
 External programs which are required:
 
-* ``xTB`` program  version 6.2 or above
-* ``CREST`` version 2.6.2 or above
+* `xtb` program  version 6.2 or above
+* `crest` version 2.6.2 or above
 * in case of COSMO-RS:
 
-  - cefine
+  - `cefine`
   - the TURBOMOLE program package
   - cosmotherm
 
 * in case of TURBOMOLE
 
-  - cefine
+  - `cefine`
   - the TURBOMOLE program package
 
 * in case of ORCA
@@ -136,7 +136,7 @@ Detailed information
    :align: center
    :alt: detailed ENSO description
 
-   ``ENSO`` program detailed flowchart.
+   *ENSO* detailed flowchart.
 
 
 Files written by ``ENSO``:
@@ -176,7 +176,7 @@ nconf               | number of conformers considered in this ENSO-run,
                     | taken from the *crest_conformers.xyz* file 
                     | [e.g. 10 or all]
 charge              | molecular charge 
-unpaired            number of unpaired electrons
+unpaired            | number of unpaired electrons
 solvent             | solvents that are available: gas (if no solvent is required),
                     | [options: gas, acetone, chcl3, ch2cl2, dmso, h2o, methanol, thf, toluene]
 prog                | program- used for calculating parts 1,2 and 3
@@ -293,7 +293,7 @@ Information about the basis sets employed (default) for NMR property calculation
 * def2-TZVP (TURBOMOLE)
 
 For user convenience shielding values of the reference molecules (TMS, DSS ...) were precalculated
-and stored within the ``ENSO`` program. The reference shielding values are used in the ``ANMR``
+and stored within the `enso` program. The reference shielding values are used in the `anmr`
 program to calculate the shifts and the reference values are written to the file *.anmrrc*.
 
 To be consistent with your calculation, the reference shielding values were calculated on the
@@ -302,10 +302,10 @@ TPSS-D3/def2-TZVP / B97-3c, (gas phase or solvent)}. The shieldings were then ca
 TPSS or PBE0 and depending on ORCA (gas or CPCM and pcSseg-2 Jensen basis set) or TURBOMOLE (gas or
 COSMO with the def2-TZVP basis set). At the end of part4 the file *.anmrrc* is written into the
 calculation folder and stores the reference shielding values of your settings for the subsequent
-ANMR calculation.
+*ANMR* calculation.
 
-.. note:: The ``ENSO`` program only writes the reference shielding values to the file .anmrrc but 
-      does not do anything with it. Hence, no results of the ``ENSO`` program are influenced 
+.. note:: The `enso` program only writes the reference shielding values to the file '.anmrrc' but 
+      does not do anything with it. Hence, no results of `enso` are influenced 
       by a non-matching reference value. If you want to change the reference shielding values, 
-      you can simply modify the file .anmrrc before calling the ``ANMR`` program. 
+      you can simply modify the file '.anmrrc' before calling `anmr` program. 
 
