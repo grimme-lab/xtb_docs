@@ -44,19 +44,32 @@ Example SDF input for H\ :sub:`2`\ O (e.g. h2o.sdf)
 .. code:: bash
 
    Water
-   Comment Line 1
-   Comment Line 2
-     3  2  0  0  0               999 V2000
-       0.0021   -0.0041    0.0020 H   0  0  0  0  0  0  0  0  0  0  0  0
-      -0.0110    0.9628    0.0073 O   0  0  0  0  0  0  0  0  0  0  0  0
-       0.8669    1.3681    0.0011 H   0  0  0  0  0  0  0  0  0  0  0  0
+     xtb     11041909383D
+   Comment line
+     3  2  0     0  0            999 V2000
+      -0.2191   -0.3098    0.0000  O  0  0  0  0  0  0  0  0  0  0  0  0
+       0.7400   -0.2909   -0.0000  H  0  0  0  0  0  0  0  0  0  0  0  0
+      -0.5210    0.6007    0.0000  H  0  0  0  0  0  0  0  0  0  0  0  0
      1  2  1  0  0  0  0
-     2  3  1  0  0  0  0
+     1  3  1  0  0  0  0
    M  END
+   > <Formula>
+   H2 O
+
+   > <Mw>
+   18.01528
+
+   > <SMILES>
+   O([H])[H]
+
+   > <CSID>
+   937
+
    $$$$
 
+
 .. note:: To use input coordinates in SDF format the .sdf suffix is required.     
-   
+
 
 Charge and Multiplicity
 =================================
