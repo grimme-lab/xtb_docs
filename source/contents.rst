@@ -43,6 +43,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    basics
    commandline
    xcontrol
+   development
 
 .. toctree::
    :maxdepth: 3

@@ -12,30 +12,41 @@ program.
 Getting the Program
 ===================
 
-The `xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb/>`_ program
-is available for academic use free of charge on request
-from Stefan Grimme at the `xtb-mailing list <xtb@thch.uni-bonn.de>`_.
-It usually comes as a tarball with following content
+The `xtb <https://github.com/grimme-lab/xtb/releases/latest>`_ program
+is *now open source* and available free of charge on GitHub.
+
+At the release page you find the a compressed tarball (``tar xf xtb*.tar.xz``)
+usually containing the following content:
 
 .. code-block:: none
 
-  bin/xtb
-  lib/libxtb.so     -> libxtb.so.6
-  lib/libxtb.so.6   -> libxtb.so.6.2
-  lib/libxtb.so.6.2
-  include/xtb.h
-  python/xtb.py
-  .xtbrc
-  Config_xtb_env.bash
-  Config_xtb_env.csh
-  man/xtb.1.html
-  man/xtb.1.pdf
-  man/man1/xtb.1
-  man/xcontrol.7.html
-  man/xcontrol.7.pdf
-  man/man7/xcontrol.7
-  info/RELEASE_NOTES.html
-  info/RELEASE_NOTES.pdf
+   .
+   ├── CHANGELOG.md
+   ├── bin
+   │   └── xtb
+   ├── include
+   │   └── xtb.h
+   ├── lib
+   │   ├── libxtb.so -> libxtb.so.6
+   │   ├── libxtb.so.6 -> libxtb.so.6.2.1
+   │   └── libxtb.so.6.2.1
+   ├── python
+   │   ├── setup.py
+   │   └── xtb
+   │       ├── __init__.py
+   │       ├── calculators.py
+   │       ├── interface.py
+   │       └── solvation.py
+   └── share
+       ├── man
+       │   ├── man1
+       │   │   └── xtb.1
+       │   └── man7
+       │       └── xcontrol.7
+       └── xtb
+           ├── .param_gfn0.xtb
+           ├── .param_gfn2.xtb
+           └── .param_gfn.xtb
 
 The binary is usually compiled with the Intel Fortran compiler and statically
 linked against Intel's Math Kernel Library (Intel MKL).
@@ -50,11 +61,32 @@ First check the version by
 .. code:: bash
 
   > xtb --version
+        -----------------------------------------------------------      
+       |                   =====================                   |     
+       |                           x T B                           |     
+       |                   =====================                   |     
+       |                         S. Grimme                         |     
+       |          Mulliken Center for Theoretical Chemistry        |     
+       |                    University of Bonn                     |     
+        -----------------------------------------------------------      
+  
+     * xtb version 6.2.1 (bf8695d) compiled by 'ehlert@majestix' on 2019-10-25
+  
+  normal termination of xtb
 
-This should print some fancy banner, the version number, say 6.1 RC1, the
-last programmer worked on the project (usually ``SAW``, meaning Sebastian Ehlert)
-and the date the program was last compiled and tested by this programmer,
-as ``YYMMDD``.
+This should print some fancy banner, the version number, say 6.2.1, the
+git commit hash, the user and host name of the programmer compiled the
+program and at date.
+Make sure the version is matching the version from the release page and
+the commit hash is the actual commit hash of the release, also the date
+of the compilation should match.
+We compile the program on our clusters in Bonn, so the host name is usually
+``majestix`` (or ``hedy20`` for the old-kernel version).
+You get also the user name of the programmer drafting the release,
+testing the binary and packing the tarball.
+
+This line is very important when reporting a bug to us, because we can
+validate the binary you were using and easier reproduce it.
 
 Setting up ``xtb``
 ==================
@@ -121,46 +153,25 @@ variable and is used in the same manner. ``xtb`` will print the values
 of ``XTBPATH`` and ``XTBHOME`` at the beginning of each calculation
 if set to verbose mode.
 
-An easy way to setup the environment variables is to use the distributed ``Config_xtb_env``.
-For a ``bash`` shell this might be done locally for one session by sourcing the
-``Config_xtb_env.bash`` script. To use this setup in every session include
+A configuration script to be sourced in your ``.bashrc`` is provided here
 
 .. code:: bash
 
-   source $XTBHOME/Config_xtb_env.bash
-
-in your ``.bashrc`` (requires that ``XTBHOME`` is set to the appropiate directory).
-
-Configuration Script
---------------------
-
-The “configuration” scripts ``Config_xtb_env.*`` hardly deserve to be called
-that way, in fact they contains the lines you would manually write to your
-``.bashrc`` or ``.cshrc`` if you would “install” ``xtb`` locally by hand.
-If you prefer to do it by hand or differently, just ignore the script.
-
-Just take a look into one, there is some neat trick included found in
-a Turbomole “configuration” script to find the location of the script
-and the most probable location of the content of the tarball, but that's it.
-Here is the contents of the one shipped with 6.2 for quick reference:
-
-.. code:: bash
-
-   #!/bin/bash
-   # run this script to set up a xtb environment
-   # requirements: $XTBHOME is set to `pwd`
+   #!/usr/bin/env bash
+   # requirements: $XTBHOME is set to `xtb` root directory
+   # otherwise the script will find the location of itself here:
    if [ -z "${XTBHOME}" ]; then
       XTBHOME="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
    fi
 
    # set up path for xtb, using the xtb directory and the users home directory
-   XTBPATH=${XTBHOME}:${HOME}
+   XTBPATH=${XTBHOME}/share/xtb:${XTBHOME}:${HOME}
 
    # to include the documentation we include our man pages in the users manpath
-   MANPATH=${MANPATH}:${XTBHOME}/man
+   MANPATH=${MANPATH}:${XTBHOME}/share/man
 
    # finally we have to make the binaries and scripts accessable
-   PATH=${PATH}:${XTBHOME}/bin:${XTBHOME}/python
+   PATH=${PATH}:${XTBHOME}/bin
    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${XTBHOME}/lib
    PYTHONPATH=${PYTHONPATH}:${XTBHOME}/python
 
@@ -168,8 +179,8 @@ Here is the contents of the one shipped with 6.2 for quick reference:
 
 It will set ``XTBHOME`` to the location of the script if you have not
 set it already and just assumes that ``XTBHOME`` contains the content
-of shipped tarball, then it will append the directories ``bin/`` and ``python/``
-to your ``PATH`` variable, ``man/`` to your ``MANPATH``,
+of shipped tarball, then it will append the directories ``bin/``
+to your ``PATH`` variable, ``share/man/`` to your ``MANPATH``,
 ``lib/`` to your ``LD_LIBRARY_PATH`` and ``python/`` to your ``PYTHONPATH``.
 
 Getting Help from ``xtb``
