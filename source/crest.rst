@@ -123,7 +123,7 @@ In the last step the GC is performed with the CRE that was found up to this poin
 MTD-GC / iMTD-GC 
 -----------------
 The MTD-GC workflow was designed to find low lying conformers more efficiently and more safely than the older MF-MD-GC algorithm. 
-Furthermore this new algorithm is more robust and general applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
+Furthermore this new algorithm is more robust and generally applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
 MTD-GC is rooted in the basic idea to combine GFN\ *n*--xTB calculations with root-mean-square-deviation (RMSD) based meta-dynamics (see section :ref:`mtd`). 
 In practice a history-dependent biasing potential is applied, where the collective variables (CVs) for the meta-dynamics are previous minima on the PES, expressed as RMSD between the structures.
 The biasing contribution is given by Gaussian-type potential as
