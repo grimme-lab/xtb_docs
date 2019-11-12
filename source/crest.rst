@@ -10,13 +10,13 @@ What is CREST ?
 ========================
 
 ``CREST`` is an utility/driver program for the ``xtb`` program.
-Originally it was designed as conformer samling program, hence the abbreviation **C**\onformer--**R**\otamer **E**\nsemble **S**\ampling **T**\ool, 
+Originally it was designed as conformer sampling program, hence the abbreviation **C**\onformer--**R**\otamer **E**\nsemble **S**\ampling **T**\ool, 
 but now offers also some utility functions for calculations with the GFN\ `n`--xTB methods.
 The key procedures implemented in ``CREST`` are two different conformational search workflows abbreviated as MF-MD-GC (V1) and MTD-GC (V2). 
 The older of these procedures, MF-MD-GC, combines a mode following (MF), molecular dynamics sampling (MD), and genetic z-matrix
 crossing (GC) approach for the generation of conformer/rotamer ensembles (CREs).
 The newer workflow, MTD-GC, makes use of extensive metadynamic sampling (MTD), with an additional GC step at the end.
-Of the two algorithms, MTD-GC showed significant improvements while being slighlty more expensive compared to MF-MD-GC for large cases.
+Of the two algorithms, MTD-GC showed significant improvements while being slightly more expensive compared to MF-MD-GC for large cases.
 Other functionalities that are included in ``CREST`` are parallel optimization (MDOPT) and screening (SCREEN) functions for GFN\ `n`--xTB, 
 a Z-matrix sorting function (ZSORT) and a function to sort (e.g. for NMR equivalencies) externally created CREs (CREGEN).
 Following verison 2.7 of ``CREST``, the program also includes some automated procedures for the protonation, deprotonation and tautomerization of structures.
@@ -123,7 +123,7 @@ In the last step the GC is performed with the CRE that was found up to this poin
 MTD-GC / iMTD-GC 
 -----------------
 The MTD-GC workflow was designed to find low lying conformers more efficiently and more safely than the older MF-MD-GC algorithm. 
-Furthermore this new algorithm is more robust and general applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
+Furthermore this new algorithm is more robust and generally applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
 MTD-GC is rooted in the basic idea to combine GFN\ *n*--xTB calculations with root-mean-square-deviation (RMSD) based meta-dynamics (see section :ref:`mtd`). 
 In practice a history-dependent biasing potential is applied, where the collective variables (CVs) for the meta-dynamics are previous minima on the PES, expressed as RMSD between the structures.
 The biasing contribution is given by Gaussian-type potential as
