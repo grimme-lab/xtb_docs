@@ -11,7 +11,7 @@ Recent binaries can be found on `GitHub <https://github.com/grimme-lab/xtb/relea
 
 Version 2.8.1
    - Minor bug fixes e.g. in ``-scratch``, ``-gbsa``
-   - property mode now distinguished between ``hess`` and ``ohess`
+   - property mode now distinguished between ``hess`` and ``ohess``
    - GFN-FF interface (requires xtb 6.3 or newer, currently prone to errors since bias potentials have not been adjusted to the force field PES yet)
 
 
