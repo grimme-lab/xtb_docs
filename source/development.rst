@@ -49,10 +49,11 @@ a significant performance gain.
 Compilier Choice
 ----------------
 
-We tested so far different versions of the Intel compilers.
+We tested so far different versions of the Intel and GNU compilers.
 We found that ``xtb`` can be compiled with
 
 * ``ifort`` and ``icc`` version 17 or newer
+* ``gfortran`` and ``gcc`` version 8 or newer
 
 Building with ``meson``
 -----------------------
@@ -61,9 +62,16 @@ After having setup all the infrastructure run
 
 .. code:: bash
 
-   > export FC=ifort CC=icc CXX=icpc
+   > export FC=ifort CC=icc
    > meson setup build_intel [-Dla_backend='mkl'] --optimization=2
    > ninja -C build_intel test
 
 For a production build with the Intel compilers and the MKL as backend.
 To repeat the build you now only need to call ``ninja``.
+
+To install the ``xtb`` binaries to ``/usr/local`` use (might require ``sudo``)
+
+.. code:: bash
+
+   ninja -C build_intel install
+

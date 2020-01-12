@@ -7,7 +7,7 @@
 This chapter should serve as a quickstart tutorial guiding you through your first
 calculation employing the xTB methods. 
 As an example, the equilibrium geometry of a water molecule is calculated.
-The description here is based on ``xtb`` version 6.1 RC2.
+The description here is based on ``xtb`` version 6.2.2.
 
 .. contents::
 
@@ -28,7 +28,7 @@ calculation carried out at the very beginning. To calculate something
 of atoms present.
 
 The default input format is either the Turbomole coordinate file
-as a ``$coord`` data group starting in the very first line
+as a ``$coord`` data group.
 
 .. code:: bash
 
@@ -41,11 +41,34 @@ as a ``$coord`` data group starting in the very first line
 
   > xtb coord
 
-Any valid Xmol file (``xtb`` will actually count the lines and double check
-the number of atoms specified), here the suffix ``.xyz`` is optional since ``xtb``
-will auto detect the file type.
-``xtb`` also supports structure-data files (sdf), if the corresponding suffix
-is encountered.
+Like in Turbomole the coordinates can be given in Bohr (default)
+or Ångström (``$coord angs``) or fractional coordinates (``$coord frac``).
+Optional data groups like the systems periodicity (``$periodic``),
+lattice parameters (``$lattice [bohr|angs]``) and cell parameters
+(``$cell [bohr|angs]``) can be provided as well.
+
+The following input for a MgO crystal utilize this data groups:
+
+.. code:: text
+
+   $coord frac
+       0.00      0.00      0.00      mg
+       0.50      0.50      0.50      o
+   $periodic 3
+   $cell
+    5.798338236 5.798338236 5.798338236 60. 60. 60.
+   $end
+
+.. note:: In previous version the coord data group had to start in the
+          first line, this constraint has been relaxed by now.
+
+Any valid xyz file can be used to provide coordinates and requires the
+file extension ``.xyz``. This format does not support periodic boundary conditions.
+
+``xtb`` also supports DFTB+ genFormat files (``.gen``), protein database files (``.pdb``)
+mol-files (``.mol``) and structure-data files (``.sdf``), if the corresponding suffix
+is encountered. Note that you cannot provide a mol file with the extension sdf.
+Vasp's POSCAR or CONTCAR files are read if the file is named as such.
 
 By default ``xtb`` will search for ``.CHRG`` and ``.UHF`` files and obtain
 from these the molecular charge and the number of unpaired electrons,
@@ -151,25 +174,25 @@ which can be chosen by appending the level to the optimization flag as in
 
 The thresholds defined by simple keywords are given here
 
-  +---------+----------+--------------+----------+
-  |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
-  +---------+----------+--------------+----------+
-  | crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
-  +---------+----------+--------------+----------+  
-  | sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
-  +---------+----------+--------------+----------+
-  | loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
-  +---------+----------+--------------+----------+
-  | lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
-  +---------+----------+--------------+----------+
-  | normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
-  +---------+----------+--------------+----------+
-  | tight   | 1 × 10⁻⁶ | 8 × 10⁻⁴     | 0.20     |
-  +---------+----------+--------------+----------+
-  | vtight  | 1 × 10⁻⁷ | 2 × 10⁻⁴     | 0.05     |
-  +---------+----------+--------------+----------+
-  | extreme | 5 × 10⁻⁸ | 5 × 10⁻⁵     | 0.01     |
-  +---------+----------+--------------+----------+
++---------+----------+--------------+----------+
+|  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
++---------+----------+--------------+----------+
+| crude   | 5 × 10⁻⁴ | 1 × 10⁻²     | 3.00     |
++---------+----------+--------------+----------+  
+| sloppy  | 1 × 10⁻⁴ | 6 × 10⁻³     | 3.00     |
++---------+----------+--------------+----------+
+| loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
++---------+----------+--------------+----------+
+| lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
++---------+----------+--------------+----------+
+| normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
++---------+----------+--------------+----------+
+| tight   | 1 × 10⁻⁶ | 8 × 10⁻⁴     | 0.20     |
++---------+----------+--------------+----------+
+| vtight  | 1 × 10⁻⁷ | 2 × 10⁻⁴     | 0.05     |
++---------+----------+--------------+----------+
+| extreme | 5 × 10⁻⁸ | 5 × 10⁻⁵     | 0.01     |
++---------+----------+--------------+----------+
 
 
 The energy convergence (Econv) is the allowed change in the total energy

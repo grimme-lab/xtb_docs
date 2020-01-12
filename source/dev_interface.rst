@@ -13,31 +13,26 @@ shipped with the shared library version of ``xtb``.
 This section targets mainly developers trying to interface their programs
 with ``xtb``.
 
-.. warning:: The current state of the C-API is still somewhat experimental,
-             this means the API definitions might change in the future
-             without prior announcement, but this also means suggestions
-             and feature request regarding the API are welcome and likely
-             to be included.
-
 .. contents::
 
 General Comments
 ================
 
-Remember that ``xtb`` is written in Fortran, since modern Fortran usually
-makes massive uses of name globbing and the automatically generated headers
-(module files) tend to be compiler specific and incompatible,
-the only two viable options are to write the interface without using
-modules or to use ISO-C compatible bindings to create the API.
-It turns out that we did both, we have an interface layer using
-module-free Fortran subroutines which setups all datatypes and does the
-actual calculation and an ISO-C compatible layer, which will eventually
-call this Fortran layer.
+We provide a multilayered API for ``xtb`` starting from the Fortran
+side with a set of standalone calculator subroutines in ``xtb/calculator.f90``,
+these calculators are exposed by using the ``iso_c_binding`` module as C-API
+(see ``xtb/c_api.f90`` and ``include/xtb.h``).
+All non-Fortran compatible languages (that makes all languages except for Fortran),
+should use this C-API to interface with ``xtb``.
 
 Since we are not planning to let you directly interface with our Fortran layer
 for now, we will focus on the ISO-C compatible layer, the C-API, here.
 The header definitions are found in ``include/xtb.h``, for easy reference
 parts of it are included here.
+
+.. warning:: The code blocks below are slightly outdated, but still serve well
+             how to use the C-API, please check the header file before starting
+             to interface with ``xtb``.
 
 .. code-block:: c
 

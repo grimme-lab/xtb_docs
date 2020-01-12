@@ -5,7 +5,7 @@
 --------------------
 
 In this chapter, all neccessary information will be given in order
-to use the implicit solvent model GBSA in `xTB` calculations.
+to use the implicit solvent model GBSA in xTB calculations.
 Parameterized solvents and available grids are given as well.
 
 .. contents::

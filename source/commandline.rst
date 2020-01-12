@@ -156,7 +156,7 @@ Simulated annealing
      coordinates and tries to find a conformer ensemble.
      We recommend the CREST workflow (see :ref:`crest`) instead of this runtyp
      since it is faster and more reliable in finding the lowest conformer.
-     **This runtyp has been deprecated in version 6.2!**
+     **This runtyp has been deprecated and removed in version 6.2!**
    :queue:
      setup, SP, properties, MD, ANCopt, ...
 
@@ -180,9 +180,6 @@ Options
 
 --vparam FILE
     Parameter file for vTB calculation
-
---xparam FILE
-    Parameter file for xTB calculation (not used)
 
 -g, --gbsa SOLVENT [reference] [grid]
     generalized born (GB) model with solvent accessable surface (SASA) model,
@@ -222,10 +219,10 @@ Options
 
 --namespace STRING
      give this ``xtb(1)`` run a namespace. All files, even temporary
-     ones, will be named according to *STRING* (might not work everywhere).
+     ones, will be named according to *STRING*.
 
 --copy, --nocopy
-     copies the ``xcontrol`` file at startup (default = true)
+     copies the ``xcontrol`` file at startup (default = false)
 
 --restart, --norestart
      restarts calculation from ``xtbrestart`` (default = true)

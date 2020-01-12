@@ -89,13 +89,13 @@ The structure and velocities at the end of the simulation will be written into a
 Restart
 -------
 The ``mdrestart`` file can be used to restart an MTD simulation. This can be very helpful for equilibration purposes. 
-In order to achive this, in the ``$md`` block the ``mdrestart`` parameter has to be set to ``true``.
+In order to achive this, in the ``$md`` block the ``restart`` parameter has to be set to ``true``.
 
 .. code::
 
    > cat xcontrol
    $md
-    mdrestart=true
+    restart=true
 
 Example/Case study
 ==================

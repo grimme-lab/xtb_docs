@@ -5,7 +5,7 @@
 -------------------------------
 
 In this chapter, all necessary information will be given in order
-to perform MD simulations with `xTB`. 
+to perform MD simulations with xTB. 
 The adjustable parameters will be discussed and a guide to how to change
 them will be given.
 
@@ -38,7 +38,7 @@ Parameters
 ==========
 
 In order to change the parameters of the MD simulation the ``$md`` block
-in the xcontrol/input file has to be modified.
+in the input file has to be modified.
 
   +---------+---------+-----------+-----------------------------------------+
   |  key    | value   | default   | description                             |
@@ -92,13 +92,13 @@ Furthermore, files with the names ``scoord.*`` are generated. After every picose
 Restart
 -------
 The ``mdrestart`` file can be used to restart an MD simulation. This can be very helpful for equilibration purposes. 
-In order to achive this, in the ``$md`` block the ``mdrestart`` parameter has to be set to ``true``.
+In order to achive this, in the ``$md`` block the ``restart`` parameter has to be set to ``true``.
 
 .. code::
 
-   > cat xcontrol
+   > cat restart.inp
    $md
-    mdrestart=true
+    restart=true
 
 Example/Case study
 ------------------
@@ -119,7 +119,7 @@ Make sure that ``xtb`` is properly set up and you have the following files in yo
   5.40760212939767  -0.43090215583466 -1.71998734115020  h
   5.40760175145245  -1.45920097741449  1.47130486226824  h
  $end
- > cat xcontrol
+ > cat md.inp
  $md
   time=10
   step=1
@@ -130,7 +130,7 @@ As you can see, we will run the simulation for 10 ps with a timestep of 1 fs at 
 
 .. code:: bash
 
- > xtb coord --input xcontrol --omd
+ > xtb coord --input md.inp --omd
 
 The program will start with performing a geometry optimization,
 the optimized structure used to start the dynamic can be found
