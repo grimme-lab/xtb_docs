@@ -9,6 +9,11 @@ Recent binaries can be found on `GitHub <https://github.com/grimme-lab/xtb/relea
 
 .. note:: Release candidates and beta versions are not listed here.
 
+Version 2.9 (19th Feb. 2020)
+   - Version consistent with main publication at `PCCP <https://pubs.rsc.org/en/content/articlelanding/2020/CP/C9CP06869D>`_
+   - Literature references added, can be shown with ``--cite``
+
+
 Version 2.8.1
    - Minor bug fixes e.g. in ``-scratch``, ``-gbsa``
    - property mode now distinguished between ``hess`` and ``ohess``
