@@ -13,8 +13,9 @@ Input
 
 
 To start a singlepoint calculation with ``xtb`` only a molecular geometry is needed. ``xtb`` supports the ``TURBOMOLE`` coordinates (.coord/.tmol), any valid Xmol (e.g. .xyz), mol files (.mol), Structure-Data files (.sdf), Protein Database Files (.pdb), Vasp's POSCAR and CONTCAR files (.poscar/.contcar/.vasp) and DFTB+ genFormat files (.gen).
+For a detailed overview over all geometry input formats see :ref:`geometry`
 
-Example ``TURBOMOLE`` input coordinates for H\ :sub:`2`\ O (e.g. coord):
+Example ``TURBOMOLE`` input coordinates for H\ :sub:`2`\ O (*e.g.* ``coord``):
 
 .. code:: bash
 
@@ -24,7 +25,7 @@ Example ``TURBOMOLE`` input coordinates for H\ :sub:`2`\ O (e.g. coord):
      -1.44183152868459      0.00000000000000      0.36789293054775      h
    $end
 
-Example Xmol input coordinates for H\ :sub:`2`\ O (e.g. h2o.xyz):   
+Example Xmol input coordinates for H\ :sub:`2`\ O (*e.g.* ``h2o.xyz``):   
 
 .. code:: bash
 
@@ -34,7 +35,7 @@ Example Xmol input coordinates for H\ :sub:`2`\ O (e.g. h2o.xyz):
    H     0.7629844    0.0000000    0.1946806 
    H    -0.7629844    0.0000000    0.1946806
    
-Example SDF input for H\ :sub:`2`\ O (e.g. h2o.sdf)
+Example SDF input for H\ :sub:`2`\ O (*e.g.* ``h2o.sdf``)
 
 .. code:: bash
 

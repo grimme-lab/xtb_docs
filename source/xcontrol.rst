@@ -68,7 +68,7 @@ We will go through this sections using the caffeine molecule
    H          7.14802       -0.32076       -0.96953
    H          2.86501       -5.02316       -0.05833
    H          4.40233       -5.15920        0.82837
-   H          4.40017       -5.16929       -0.94780`
+   H          4.40017       -5.16929       -0.94780
 
 Exact Fixing
 ------------
