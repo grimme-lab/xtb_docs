@@ -26,8 +26,8 @@ Currently the following input formats are supported by ``xtb``.
 
 .. note:: The default format is always Turbomole.
 
-Turbomole Coordinates
----------------------
+Turbomole Coordinate Input
+--------------------------
 
 The default input format is the Turbomole coordinate file as a ``$coord`` data
 group.
@@ -60,26 +60,87 @@ The following input for a MgO crystal utilize this data groups:
     5.798338236 5.798338236 5.798338236 60. 60. 60.
    $end
 
-xyz Files
+xyz Input
 ---------
 
-mol Files
----------
-
-Structure-Data file
--------------------
-
-Protein Database file
----------------------
-
-Vasp's POSCAR/CONTCAR
----------------------
-
-genFormat
----------
-
-Gaussian External
+mol and sdf Input
 -----------------
+
+The mol and sdf format of the `ct-file`_ formats are partly supported in ``xtb``.
+Some limitations apply to those input formats are applied to those formats to
+make them play nicely together with QM nature of the xTB methods.
+This means not any mol or sdf input will be accepted as geometry input.
+
+.. _ct-file: http://c4.cabrillo.edu/404/ctfile.pdf
+
+A valid sdf input is given for the water molecule with
+
+.. code-code:: text
+   :caption: h2o.sdf
+
+   Water
+     xtb     11041909383D
+   Comment line
+     3  2  0     0  0            999 V2000
+      -0.2191   -0.3098    0.0000  O  0  0  0  0  0  0  0  0  0  0  0  0
+       0.7400   -0.2909   -0.0000  H  0  0  0  0  0  0  0  0  0  0  0  0
+      -0.5210    0.6007    0.0000  H  0  0  0  0  0  0  0  0  0  0  0  0
+     1  2  1  0  0  0  0
+     1  3  1  0  0  0  0
+   M  END
+   > <Formula>
+   H2 O
+
+   > <Mw>
+   18.01528
+
+   > <SMILES>
+   O([H])[H]
+
+   > <CSID>
+   937
+
+   $$$$
+
+The input reader is strict in differentiating mol and sdf input, mol input with
+the sdf extension will be rejected by the reader. The topology and the sdf
+key-value pairs will be preserved and printed again in the final optimizated
+geometry.
+
+Multiple entries in an sdf input will be ignored by the reader.
+
+Protein Database Input
+----------------------
+
+The input reader supports parts of the `pdb-format`_ for reading single PDB
+file. Minimal sanity checks on the PDB input will be performed, *i.e.* the
+reader will outright reject any geometry without hydrogen atoms.
+
+.. _pdb-format: http://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
+
+Vasp's POSCAR/CONTCAR Input
+---------------------------
+
+For periodic input Vasp's POSCAR / CONTCAR input files are supported, for more
+information on the format visit the `vasp-wiki`_.
+
+.. _vasp-wiki: https://www.vasp.at/wiki/index.php/POSCAR
+
+genFormat Input
+---------------
+
+The DFTB+ `genFormat`_ is supported for molecular and 3D periodic systems.
+
+.. _genFormat: http://www.dftbplus.org/fileadmin/DFTBPLUS/public/dftbplus/latest/manual.pdf
+
+Gaussian External Input
+-----------------------
+
+The `Gaussian`_ external format is supported to use ``xtb`` with the Gaussian
+program. A thin wrapper around the ``xtb`` binary is required to convert the
+external call to a valid ``xtb`` program call.
+
+.. _Gaussian: https://gaussian.com/external/
 
 Custom Annotations in Geometries
 ================================
