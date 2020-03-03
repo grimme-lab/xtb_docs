@@ -21,7 +21,7 @@ Other functionalities that are included in ``CREST`` are parallel optimization (
 a Z-matrix sorting function (ZSORT) and a function to sort (e.g. for NMR equivalencies) externally created CREs (CREGEN).
 Following verison 2.7 of ``CREST``, the program also includes some automated procedures for the protonation, deprotonation and tautomerization of structures.
 
-
+The main publication for the ``CREST`` program can be found at: `PCCP <https://pubs.rsc.org/en/content/articlelanding/2020/CP/C9CP06869D>`_.
    
 
 Conformers and Rotamers

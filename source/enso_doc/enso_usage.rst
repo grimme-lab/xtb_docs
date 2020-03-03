@@ -3,6 +3,8 @@
 Usage
 =====
 
+.. contents::
+
 cis-4-hexen-1-ol
 ================
 
@@ -12,25 +14,25 @@ Example of calculating the 1H-NMR spectrum of cis-4-hexen-1-ol in CHCl3 at 400 M
 
     > cat coord
     $coord
-           -4.5787202885           -0.8553740252            1.3686940377   C 
-           -3.4023148672           -0.1930996279           -1.1104654057   C 
-           -1.3502307141            1.1896725766           -1.5219716436   C 
-            0.3006494795            2.4620980359            0.3955352829   C 
-            0.2362191223            4.5001215909            0.0503890823   H 
-            3.0642161355            1.6025835718            0.2096773622   C 
-            3.4178595291           -1.1774351958            0.9222138508   C 
-            2.5415191057           -2.8708599609           -0.9480135970   O 
-            0.8099880164           -2.4078504756           -1.3346662145   H 
-            5.4277591776           -1.6058314070            1.1410607567   H 
-            2.4658368243           -1.5681688895            2.7281288136   H 
-            4.2123967195            2.7454371194            1.4856132673   H 
-            3.7614131313            1.8836292778           -1.7127605110   H 
-           -0.3830548458            2.1258051759            2.3091187341   H 
-           -0.7518930894            1.4941446048           -3.4579714157   H 
-           -4.3910561682           -0.9675515200           -2.7291675973   H 
-           -3.5318795176           -0.1003881407            2.9630921609   H 
-           -6.5027613245           -0.1227486813            1.4413316443   H 
-           -4.6902514935           -2.9039535570            1.5605291206   H 
+       -4.5787202885           -0.8553740252            1.3686940377   C 
+       -3.4023148672           -0.1930996279           -1.1104654057   C 
+       -1.3502307141            1.1896725766           -1.5219716436   C 
+        0.3006494795            2.4620980359            0.3955352829   C 
+        0.2362191223            4.5001215909            0.0503890823   H 
+        3.0642161355            1.6025835718            0.2096773622   C 
+        3.4178595291           -1.1774351958            0.9222138508   C 
+        2.5415191057           -2.8708599609           -0.9480135970   O 
+        0.8099880164           -2.4078504756           -1.3346662145   H 
+        5.4277591776           -1.6058314070            1.1410607567   H 
+        2.4658368243           -1.5681688895            2.7281288136   H 
+        4.2123967195            2.7454371194            1.4856132673   H 
+        3.7614131313            1.8836292778           -1.7127605110   H 
+       -0.3830548458            2.1258051759            2.3091187341   H 
+       -0.7518930894            1.4941446048           -3.4579714157   H 
+       -4.3910561682           -0.9675515200           -2.7291675973   H 
+       -3.5318795176           -0.1003881407            2.9630921609   H 
+       -6.5027613245           -0.1227486813            1.4413316443   H 
+       -4.6902514935           -2.9039535570            1.5605291206   H 
   $end
 
 
@@ -42,13 +44,15 @@ Example of calculating the 1H-NMR spectrum of cis-4-hexen-1-ol in CHCl3 at 400 M
    
    Input structure.
 
-Start with your (at best already optimized) input structure and create the conformers and rotamers for the ``ENSO`` and ``ANMR`` calculation.
+Start with your (at best already optimized) input structure and create the conformers
+and rotamers for the ``ENSO`` and ``ANMR`` calculation.
 
 .. code:: bash
 
     > crest coord -gfn2 -g chcl3 -T 4 -nmr > crest.out
 
-In our case ``CREST`` found 51 conformers within an energy window of 6 kcal/mol. We then create a new folder for the ``ENSO`` reranking and copy the necessary files:
+In our case ``CREST`` found 51 conformers within an energy window of 6 kcal/mol. 
+We then create a new folder for the ``ENSO`` reranking and copy the necessary files:
 
 .. code-block:: sh
 
@@ -56,15 +60,20 @@ In our case ``CREST`` found 51 conformers within an energy window of 6 kcal/mol.
     cp crest_conformers.xyz coord anmr_nucinfo anmr_rotamer enso/
     cd enso/
 
-``ENSO`` requires only the file crest_conformers.xyz, but ``ANMR`` needs the last three files.
-In the new folder we create the file flags.dat and adapt it to our choosing. Here we want to calculate everything with TURBOMOLE using PBEh-3c and DCOSMO-RS for geometry optimization:
+``ENSO`` requires only the file crest_conformers.xyz, but ``ANMR`` needs the last 
+three files. In the new folder we create the file flags.dat and adapt it to our 
+choosing. Here we want to calculate everything with TURBOMOLE using PBEh-3c and 
+DCOSMO-RS for geometry optimization:
 
 .. code-block:: bash
 
     enso.py --solvent chcl3 --program tm --programpart4 tm --gfnversion gfn2 
         --ancoptoptimization on --functional pbeh-3c --solventmodel dcosmors
 
-.. tip:: You don't need to give all information using the commandline input and can simply run enso.py without any arguments. This will create the file *flags.dat*      and you can change all information there. But using the commandline input reassures that you don't have any typos.
+.. tip:: You don't need to give all information using the commandline input and 
+    can simply run enso.py without any arguments. This will create the file *flags.dat*
+    and you can change all information there. But using the commandline input reassures 
+    that you don't have any typos.
 
 .. code-block:: text
 
@@ -74,7 +83,7 @@ In the new folder we create the file flags.dat and adapt it to our choosing. Her
     nconf: all                                 # all or integer between 0 and total number of conformers
     charge: 0                                  # integer
     unpaired: 0                                # integer
-    solvent: chcl3                             # acetone, chcl3, ch2cl2, dmso, h2o, methanol, thf, toluene, gas 
+    solvent: chcl3                             # acetone, acetonitrile, chcl3, ch2cl2, dmso, h2o, methanol, thf, toluene, gas 
     prog: tm                                   # tm, orca
     ancopt: on                                 # on, off
     prog_rrho: xtb                             # xtb, prog
@@ -118,7 +127,10 @@ In the new folder we create the file flags.dat and adapt it to our choosing. Her
 
 
 
-Information on each setting can be found in :ref:`flags_settings`. Once you have adapted your *flags.dat* file we can run an input check, testing if the information in flags.dat is correct (no typos and settings combinations are ok {eg. TURBOMOLE doesn't work with the solvent model SMD}). To do so run:
+Information on each setting can be found in :ref:`flags_settings`. Once you have 
+adapted your *flags.dat* file we can run an input check, testing if the information 
+in flags.dat is correct (no typos and settings combinations are ok {eg. TURBOMOLE 
+doesn't work with the solvent model SMD}). To do so run:
 
 .. code-block:: text
 
@@ -209,9 +221,24 @@ Information on each setting can be found in :ref:`flags_settings`. Once you have
     END of parameters
     Input check is finished. The ENSO program can be executed with the flag -run.
 
-Please read possible errors at the beginning of the output carefully, they will hint if your external programs are set up correctly. If you run the ``ENSO`` calculation on a cluster, make sure that all programs are setup correctly in your jobscript.
+Please read possible errors at the beginning of the output carefully, they will 
+hint if your external programs are set up correctly. If you run the ``ENSO``
+calculation on a cluster, make sure that all programs are setup correctly in
+your jobscript (see :ref:`run_cluster`).
 
-Before starting the ``ENSO`` calculation, we have to set the number of threads (=*maxthreads*) (individual calculations e.g. single-points) and number of cores each thread should have (=*omp*). The total number of cores (*maxthreads* * *omp*) available on your computer is not to be exceeded! These settings can be written to the global configuration file (if you calculate always on the same machines) or can be adapted for the individual calculation in the local configuration file *flags.dat*.
+Before starting the ``ENSO`` calculation, we have to set the number of threads 
+(**maxthreads**) (individual calculations e.g. single-points) and number of cores 
+each thread should have (**omp**). The **total number of cores** (*maxthreads* * *omp*) 
+available on your computer is not to be exceeded! 
+These settings can be written to the global configuration file (if you calculate 
+always on the same machines) or can be adapted for the individual calculation in 
+the local configuration file *flags.dat*.
+
+.. tip::
+    
+    When running `enso` on a cluster it is necessary to source and/or export 
+    paths for all employed programs!
+
 
 Now enso can be run with:
 
@@ -219,9 +246,31 @@ Now enso can be run with:
 
     > enso.py -run > enso.out 2> error.enso &
 
-In the following, only parts of the output are shown to highlight important information. During this run in *part1* (crude optimization) 49 conformers are within an energy threshold of 4 kcal/mol. These conformers are considered for the full optimization in part2. The two remaining conformers are between 4 and 6 kcal/mol and are considered as 'backup-confomers'. Information of backup conformers is stored in the file enso.json. Since the potential hypersurface between GFNn-xTB and DFT needs not to be parallel, in some cases conformers can be high lying at GFNn-xTB level and low lying at DFT level. To have an automated way of including conformers which would otherwise be disgarded, the 'backup' function is introduced and can be activated (after the first enso-run, if it is apparent that dominant conformers are missing) in the local configuration file *flags.dat*.
+.. _backup:
 
-In *part2* first the full DFT optimization is performed and thermostatistical and solvation contributions are calculated to obtain low-level free energies. All conformers below a free energy threshold of 2 kcal/mol are considered further. In this run 35 conformers are considered for part3 and 14 conformers are marked as backup conformers of *part2*. After the full optimization at DFT level it is possible that some conformers could have become rotamers or identical conformers. This would influence the Boltzmann weights and increase computational cost unnecessary. To identify them the ``CREST`` program is called:
+In the following, only parts of the output are shown to highlight important information. 
+During this run in *part1* (crude optimization) 49 conformers are within an energy threshold 
+of 4 kcal/mol. These conformers are considered for the full optimization in part2. 
+The two remaining conformers are between 4 and 6 kcal/mol and are considered as 
+**backup-confomers**. Information of backup conformers is stored in the file enso.json. 
+Since the potential hypersurface between GFNn-xTB and DFT needs not to be parallel, 
+in some cases conformers can be high lying at GFNn-xTB level and low lying at DFT level. 
+To have an automated way of including conformers which would otherwise be disgarded, the 'backup' 
+function is introduced and can be activated (after the first enso-run, if it is apparent 
+that dominant conformers are missing) in the local configuration file *flags.dat*.
+For this purpose simply restart your enso calculation in the same folder and only 
+change *backup: on* in the file *flags.dat*. Then all conformers which are denoted 
+backup-conformers (this information is saved in the file enso.json) will be optimized 
+and evaluated in the sorting procedure.
+
+In *part2* first the full DFT optimization is performed and thermostatistical and 
+solvation contributions are calculated to obtain low-level free energies. 
+All conformers below a free energy threshold of 2 kcal/mol are considered further. 
+In this run 35 conformers are considered for part3 and 14 conformers are marked as 
+backup conformers of *part2*. After the full optimization at DFT level it is possible 
+that some conformers could have become rotamers or identical conformers. 
+This would influence the Boltzmann weights and increase computational cost 
+unnecessary. To identify them the ``CREST`` program is called:
 
 .. code-block:: text
 
@@ -237,9 +286,15 @@ In *part2* first the full DFT optimization is performed and thermostatistical an
     CONF39 -310.39260  1.08 <--> CONF38 -310.39269  0.96
     CONF46 -310.39195  1.70 <--> CONF13 -310.39196  2.03
 
-Since the crestcheck flag is switched off, the conformers are not automatically sorted out and the user has to visually inspect the molecules and sort the conformers as described in :ref:`ensosortout`.
+Since the crestcheck flag is switched off, the conformers are not automatically 
+sorted out and the user has to visually inspect the molecules and sort the conformers 
+as described in :ref:`ensosortout`. We advise you to sort out conformers manually.
 
-In *part3* high level DFT single-points are calculated on the 35 conformers passed from *part2*. The boltzmann weights are calculated and 24 conformers are considered for the NMR property calculations in *part4*. The file 'trj-part3.xyz' is written at the end of *part3* and contains all populated conformers. The file 'anmr_enso' is written which is read from ``ANMR`` and informs it on which conformers are populated (Boltzmann weights). 
+In *part3* high level DFT single-points are calculated on the 35 conformers passed 
+from *part2*. The boltzmann weights are calculated and 24 conformers are considered 
+for the NMR property calculations in *part4*. The 'file populated-conf-part3.xyz' is written at 
+the end of *part3* and contains all populated conformers. The file 'anmr_enso' is written 
+which is read from ``ANMR`` and provides the Boltzmann weights of the populated conformers. 
 
 In *part4* the couplings and shielding calculations were performed. Finally the file .anmrrc file is written.
 
@@ -262,15 +317,21 @@ At the very end ENSO checks if possible rotamers of each other are in the popula
 
     ENSO all done!
 
-After inspecting the conformers CONF39 is removed from the ensemble (details on how to do that are shown in :ref:`ensosortout`), because I considered it to be identical to CONF38. After removing the identical conformer we can restart enso.
+After inspecting the conformers CONF39 is removed from the ensemble (details on 
+how to do that are shown in :ref:`ensosortout`), because I considered it to be 
+identical to CONF38. After removing the identical conformer we can restart enso.
 
 .. code:: sh
 
     > enso.py -run > enso.out 2> error.enso &
 
-This time enso will read all necessary information from the file enso.json and operate with this data. At the end of part3 the Boltzmann weight is recalculated and two conformers are now additionally populated. For them couplings and shieldings are calculated in *part4*. All files for ``ANMR`` are updated.
+This time enso will read all necessary information from the file enso.json and 
+operate with this data. At the end of part3 the Boltzmann weight is recalculated 
+and two conformers are now additionally populated. For them coupling and shielding  
+constants are calculated in *part4*. All files for ``ANMR`` are updated.
 
-Now all information is present and ``ANMR`` can be called to calculate the full NMR spectrum:
+Now all information is present and ``ANMR`` can be called to calculate the full 
+NMR spectrum:
 
 .. code:: sh
 
@@ -348,7 +409,8 @@ Now all information is present and ``ANMR`` can be called to calculate the full 
      All done.
 
 
-After ``ANMR`` finished computing, the file anmr.dat is written and it contains the spectrum (intensity vs shift) the user can plot:
+After ``ANMR`` finished computing, the file anmr.dat is written and it contains 
+the spectrum (intensity vs shift) the user can plot:
 
 
 .. code:: sh
@@ -361,7 +423,9 @@ After ``ANMR`` finished computing, the file anmr.dat is written and it contains 
    :align: center
    :alt: 1H NMR spectrum
    
-   1H NMR spectrum of *cis*-4-hexen-1-ol in chloroform at 400 MHz, comparing calculated and experimental spectrum. Exp taken from [SDBSWeb : https://sdbs.db.aist.go.jp (National Institute of Advanced Industrial Science and Technology,16-10-2019) (SDBSNo. 11748)].
+   1H NMR spectrum of *cis*-4-hexen-1-ol in chloroform at 400 MHz, comparing 
+   calculated and experimental spectrum. Exp taken from [SDBSWeb : https://sdbs.db.aist.go.jp 
+   (National Institute of Advanced Industrial Science and Technology,16-10-2019) (SDBSNo. 11748)].
 
 
 2-methyl-1-pentene
@@ -373,24 +437,24 @@ Example of calculating the 1H-NMR spectrum of 2-methyl-1-pentene in CHCl3 at 400
     
     > cat coord
     $coord
-               -5.1134989926            0.0445408597            0.0007215195   C 
-               -2.3988260553            0.1202192416            0.9598504570   C 
-               -2.0426150350            1.9467776447            1.8509773297   H 
-               -0.4955528936           -0.3025973506           -1.1852527430   C 
-                2.1853738985           -0.2583887206           -0.2367582425   C 
-                3.4286190716           -2.3618737092            0.3005853656   C 
-                2.5901373582           -4.2004809628            0.0485727882   H 
-                5.3374488734           -2.3390838060            1.0097369787   H 
-                3.3398174602            2.3079102171            0.0825121447   C 
-                5.2234930962            2.1788391495            0.8913733279   H 
-                2.1708137054            3.4751040066            1.3098219746   H 
-                3.4682822356            3.2543034689           -1.7427970988   H 
-               -0.7536049204            1.1708293724           -2.6081830586   H 
-               -0.8901990516           -2.1258718566           -2.0673390015   H 
-               -2.1284937554           -1.3401645088            2.3937954454   H 
-               -6.4334377217            0.3509962700            1.5473865797   H 
-               -5.4204111085            1.5054637513           -1.4143993805   H 
-               -5.5276306722           -1.7796998127           -0.8540259276   H 
+           -5.1134989926            0.0445408597            0.0007215195   C 
+           -2.3988260553            0.1202192416            0.9598504570   C 
+           -2.0426150350            1.9467776447            1.8509773297   H 
+           -0.4955528936           -0.3025973506           -1.1852527430   C 
+            2.1853738985           -0.2583887206           -0.2367582425   C 
+            3.4286190716           -2.3618737092            0.3005853656   C 
+            2.5901373582           -4.2004809628            0.0485727882   H 
+            5.3374488734           -2.3390838060            1.0097369787   H 
+            3.3398174602            2.3079102171            0.0825121447   C 
+            5.2234930962            2.1788391495            0.8913733279   H 
+            2.1708137054            3.4751040066            1.3098219746   H 
+            3.4682822356            3.2543034689           -1.7427970988   H 
+           -0.7536049204            1.1708293724           -2.6081830586   H 
+           -0.8901990516           -2.1258718566           -2.0673390015   H 
+           -2.1284937554           -1.3401645088            2.3937954454   H 
+           -6.4334377217            0.3509962700            1.5473865797   H 
+           -5.4204111085            1.5054637513           -1.4143993805   H 
+           -5.5276306722           -1.7796998127           -0.8540259276   H 
     $end
 
 .. figure:: ../../figures/enso/enso_2-methly1pentene.png
@@ -400,13 +464,15 @@ Example of calculating the 1H-NMR spectrum of 2-methyl-1-pentene in CHCl3 at 400
    
    Input structure.
 
-Start with your (at best already optimized) input structure and create the conformers and rotamers for the ``ENSO`` and ``ANMR`` calculation.
+Start with your (at best already optimized) input structure and create the conformers 
+and rotamers for the ``ENSO`` and ``ANMR`` calculation.
 
 .. code:: bash
 
     > crest coord -gfn2 -g chcl3 -T 4 -nmr > crest.out
 
-In our case ``CREST`` found 6 conformers within an energy window of 6 kcal/mol. We then create a new folder for the ``ENSO`` reranking and copy the necessary files:
+In our case ``CREST`` found 6 conformers within an energy window of 6 kcal/mol. 
+We then create a new folder for the ``ENSO`` reranking and copy the necessary files:
 
 .. code-block:: sh
 
@@ -414,8 +480,10 @@ In our case ``CREST`` found 6 conformers within an energy window of 6 kcal/mol. 
     cp crest_conformers.xyz coord anmr_nucinfo anmr_rotamer enso/
     cd enso/
 
-``ENSO`` requires only the file crest_conformers.xyz, but ``ANMR`` needs the last three files.
-In the new folder we create the file flags.dat and adapt it to our choosing. Here we want to calculate everything with ORCA using PBEh-3c and SMD for geometry optimization:
+``ENSO`` requires only the file crest_conformers.xyz, but ``ANMR`` needs the last 
+three files. In the new folder we create the file flags.dat and adapt it to our 
+choosing. Here we want to calculate everything with ORCA using PBEh-3c and SMD for 
+geometry optimization:
 
 .. code-block:: bash
 
@@ -431,7 +499,7 @@ In the new folder we create the file flags.dat and adapt it to our choosing. Her
     nconf: all                                 # all or integer between 0 and total number of conformers
     charge: 0                                  # integer
     unpaired: 0                                # integer
-    solvent: chcl3                             # acetone, chcl3, ch2cl2, dmso, h2o, methanol, thf, toluene, gas 
+    solvent: chcl3                             # acetone, acetonitrile, chcl3, ch2cl2, dmso, h2o, methanol, thf, toluene, gas 
     prog: orca                                 # tm, orca
     ancopt: on                                 # on, off
     prog_rrho: xtb                             # xtb, prog
@@ -473,7 +541,8 @@ In the new folder we create the file flags.dat and adapt it to our choosing. Her
     resonance frequency: 400                   # integer
     end
 
-After ``ANMR`` finished computing, the file anmr.dat is written and it contains the spectrum (intensity vs shift) the user can plot:
+After ``ANMR`` finished computing, the file anmr.dat is written and it contains 
+the spectrum (intensity vs shift) the user can plot:
 
 
 .. code:: sh
@@ -486,14 +555,21 @@ After ``ANMR`` finished computing, the file anmr.dat is written and it contains 
    :align: center
    :alt: 1H NMR spectrum
    
-   1H NMR spectrum of 2-methly-1-pentene in chloroform at 400 MHz, comparing calculated and experimental spectrum. Exp taken from [SDBSWeb : https://sdbs.db.aist.go.jp (National Institute of Advanced Industrial Science and Technology,16-10-2019) (SDBSNo. 225)].
+   1H NMR spectrum of 2-methly-1-pentene in chloroform at 400 MHz, comparing 
+   calculated and experimental spectrum. Exp taken from [SDBSWeb : https://sdbs.db.aist.go.jp 
+   (National Institute of Advanced Industrial Science and Technology,16-10-2019) (SDBSNo. 225)].
 
 
 Manually restarting calculations and modifying enso.json
 ========================================================
 
 
-In the event that an optimization failes, ``ENSO`` discardes the geometry and will not try to reoptimize the structure. The user can optimize the geometry manually and add the information on convergence (success) and energy (at the same level as all other calculations) to the file enso.json. When restarting ``ENSO`` the information on the conformers of the previous run is read from the file *enso.json* and the manually corrected conformer is further evaluated within the ongoing enso-run.
+In the event that an optimization failes, ``ENSO`` discardes the geometry and will not 
+try to reoptimize the structure. The user can optimize the geometry manually and add the 
+information on convergence (success) and energy (at the same level as all other calculations) 
+to the file enso.json. When restarting ``ENSO`` the information on the conformers of the previous 
+run is read from the file *enso.json* and the manually corrected conformer is further evaluated 
+within the ongoing enso-run.
 
 Here we show an example on how to manually restart an optimization (part1):
 
@@ -534,7 +610,8 @@ Here we show an example on how to manually restart an optimization (part1):
 
    after convergence convert the optimized geometry back to the coord file!
 
-If the optimization is converged the information has to be written to the enso.json file (to be on the save side, first make a copy of your enso.json file).
+If the optimization is converged the information has to be written to the enso.json 
+file (to be on the save side, first make a copy of your enso.json file).
 *enso.json* contains data on each conformer in the following form:
 
 .. code:: text
@@ -605,21 +682,26 @@ If the optimization is converged the information has to be written to the enso.j
     },
 
 
-Now to change the information on the converged crude optimization (for the conformer CONFX), you have to change:
+Now to change the information on the converged crude optimization (for the conformer 
+CONFX), you have to change:
 
 .. code::
     
     crude_opt: calculated
     energy_crude_opt: eg: -1034.780801227157
 
-Using the updated information, restart your enso-run and the program will automatically evaluate how to proceed with the new information(e.g. sort out this conformer or calculate a full optimization...). You can restart your ENSO-run with:
+Using the updated information, restart your enso-run and the program will automatically 
+evaluate how to proceed with the new information(e.g. sort out this conformer or 
+calculate a full optimization...). You can restart your ENSO-run with:
 
 .. code:: sh
 
    > enso.py -run > enso.out 2> error.enso &
 
 .. note:: This procedure is not limited to optimizations, but every failed 
-    calculation can be manually performed. Then the result has to be written to the file *enso.json* in the same manner. Then ``ENSO`` can restart on the introduced information.
+    calculation can be manually performed. Then the result has to be written to 
+    the file *enso.json* in the same manner. Then ``ENSO`` can restart on the 
+    introduced information.
 
 
 .. _ensosortout:
@@ -627,13 +709,19 @@ Using the updated information, restart your enso-run and the program will automa
 Sorting out rotamers at DFT level detected by CREST
 ===================================================
 
-In *part2* the conformers are fully optimized at DFT level. It is possible that during optimization conformers can become rotamers or identical. To identify these the ``CREST`` program is called. If rotamers are found, then ``ENSO`` can sort them out if the *crestcheck* flag is set. Or the user is simply informed on the possible existence of these conformers and has to visually inspect the geometries, decide and adjust the necessary information in the file *enso.json* (which we recommend).
+In *part2* the conformers are fully optimized at DFT level. It is possible that 
+during optimization conformers can become rotamers or identical. To identify 
+these the ``CREST`` program is called. If rotamers are found, then ``ENSO`` can 
+sort them out if the *crestcheck* flag is set. Or the user is simply informed on 
+the possible existence of these conformers and has to visually inspect the geometries, 
+decide and adjust the necessary information in the file *enso.json* (which we recommend).
 Here we show which entries to change in the file *enso.json*:
 
 
-.. note:: CREST evaluates conformers to be rotamers or identical based on thresholds concerning
-          the electronic energy, rotational constant and RMSD on the geometries. Visual inspection of
-          possible conformers is encouraged for molecules which show very similar conformers.
+.. note:: CREST evaluates conformers to be rotamers or identical based on thresholds 
+          concerning the electronic energy, rotational constant and RMSD on the 
+          geometries. Visual inspection of possible conformers is encouraged for
+          molecules which show very similar conformers.
 
 
 To sort out conformers, change the flag *consider_for_part3* to false:
@@ -660,5 +748,136 @@ Or you can simply set:
     ...}
 
 This will sort out the conformer.
+
+
+.. _run_cluster:
+
+Running on a cluster
+====================
+
+When submitting an enso calculation with a jobscript on a computer cluster it is
+necessary to source and export all programs or paths needed for the enso 
+calculation! An example jobscript looks like:
+
+.. code-block:: text
+
+    #!/bin/bash
+    # PBS Job
+    #PBS -V
+    #PBS -N ENSO-Calculation
+    #PBS -m ae
+    #PBS -q batch
+    #PBS -l nodes=1:ppn=14
+    # 
+    cd $PBS_O_WORKDIR
+
+    ### setup programs
+    ## XTB
+    export OMP_NUM_THREADS=1
+    export MKL_NUM_THREADS=1
+    ulimit -s unlimited
+    export OMP_STACKSIZE=1000m
+    export XTBHOME=/home/$USER/.XTBPARAM/
+
+    ## TM
+    export PARA_ARCH=SMP
+    source /home/path/TURBOMOLE.7.2.1/turbo721
+    export PARNODES=4  
+    export TM_PAR_FORK=1
+
+    ## ORCA4.2.1
+    ORCAPATH="/tmp1/orca_4_2_1_linux_x86-64_openmpi216";
+    MPIPATH="/software/openmpi-2.1.5/bin";
+    MPILIB="/software/openmpi-2.1.5/lib64";
+    PATH=${ORCAPATH}:${MPIPATH}:$PATH 
+    export LD_LIBRARY_PATH=${ORCAPATH}:${MPILIB}:$LD_LIBRARY_PATH
+    
+    # PATH
+    PATH=/home/$USER/bin:$PATH
+    export PATH
+    ### end programs + PATH
+
+    export HOSTS_FILE=$PBS_NODEFILE
+    cat $HOSTS_FILE>hosts_file
+    TMP_DIR=/tmp1/$USER
+    DIR1=$PWD
+    mkdir -p $TMP_DIR/$PBS_JOBID
+    rsync -q --bwlimit=5000 $DIR1/* $TMP_DIR/$PBS_JOBID/
+    rsync -q --bwlimit=5000 $DIR1/.* $TMP_DIR/$PBS_JOBID/
+    rsync -rq --ignore-missing-args --bwlimit=5000 $DIR1/CONF* $TMP_DIR/$PBS_JOBID/
+    rsync -rq --ignore-missing-args --bwlimit=5000 $DIR1/NMR* $TMP_DIR/$PBS_JOBID/
+    cd $TMP_DIR/$PBS_JOBID
+    ####################################################################################
+    #jobs start here (if you have no idea what this script does, only edit this part...)
+
+    export PYTHONUNBUFFERED=1
+    ./enso.py -run > enso.out 2> error.enso
+
+    #end of job      (....and stop editing here.)
+    #####################################################################################
+    #copy everything back that is smaller than 5 gbytes
+    rsync -rq --bwlimit=5000 --max-size=5G $TMP_DIR/$PBS_JOBID/* $DIR1/
+    rsync -q --bwlimit=5000 --max-size=5G $TMP_DIR/$PBS_JOBID/.* $DIR1/
+    rsync -rq --bwlimit=5000 --include="*/" --include="mos" --include="alpha" --include="beta" --exclude=* $TMP_DIR/$PBS_JOBID/* $DIR1/
+    cd $DIR1
+    rm -r $TMP_DIR/$PBS_JOBID
+
+
+Tipps
+======
+
+* Using the def2-QZVP(-gf) basis (only possible with TURBOMOLE and the latest cefine version)!
+  When calculating the high level single-point in part3 the basis def2-QZVP(-gf) basis set can be used.
+  Here all f functions are deleted from hydrogen and all g functions from everything else.
+  This is only supposed to speed up the calculation.
+
+* Optimization and sorting the CRE only based on the energy (and not free energy).
+  It is possible to not calculate thermostatistical contributions to free energy, by simply setting
+  the programm for **prog_rrho** to off. This way all calculations for :math:`G_{RRHO}` will be skipped.
+
+
+
+Troubleshooting
+===============
+
+Handling of missing conformers:
+############################### 
+
+* Use the backup functionallity and make sure that 
+  you are not missing a conformer which is high lying in energy at GFNn-xTB level. (See :ref:`backup <flags_settings>`)
+* The conformer might be wrongly sorted into a different conformer group by CREST and counted as a rotamer.
+  To check this you can resort the complete CRE (including all rotamers and conformers) and check if the 
+  thresholds employed in the CREGEN sorting routine changes the CRE (See :ref:`crestxmpl` )
+
+  .. code-block:: bash
+      
+      crest coord -cregen crest_rotamers_6.xyz -bthr 12 -nmr > cregen.out
+   
+  Here you have to inspect the printout and check if grouping/sorting of conformers is correct.
+  If you find that there were conformers wrongly grouped because of sorting-thresholds not 
+  suitable for the investigated system. You have to rerun the ENSO calculation on the new ensemble file.
+
+Unparallel hypersurfaces between the functional for optimization and high level free energy
+###########################################################################################
+
+* It is possible that the sorting between the functional/basis used for geometry optimization and
+  the method combination (functional/basis set) for the high level free energy is not parallel.
+  One option is to use a larger basis set for the high level free energy calculation. The default 
+  basis set for the single-point calculation in part3 is the def2-TZVP basis. It can be necessary
+  to use a larger basis set. To to so, after the previous run, simply change the **basis3** to the 
+  basis you desire in the file flags.dat and restart your enso calculation. Be advised that doing so
+  results in the recalculation of all previously calculated single-points in part3!
+
+Influence of the Boltzmann population on the final spectrum
+############################################################
+
+* The influence of the Boltzmann population on the final spectrum can be checked either by
+  manually adjusting the populations in the file .anmrrc
+* or by employing different functionals/basis sets 
+* or by checking different solvation models. A quick test, when comparing to additive solvation models (like COSMO-RS)
+  is to use the flag gbsa_gsolv which will calculate a solvation contribution to free energy and performs rather fast.
+* by verifying that no conformers have become rotamers or identical to each other during 
+  DFT optimization (ENSO will inform you on possible cases, but the evaluation should be performed manually)
+
 
 

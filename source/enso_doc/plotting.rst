@@ -2,9 +2,12 @@
 Spectra Plotting
 ================
 
-The NMR spectrum can be plotted from the file `anmr.dat`. It contains the information ppm vs intensity and can be plotted with any plotting tool (e.g GNUPLOT ...).
+The NMR spectrum can be plotted from the file `anmr.dat`. It contains the 
+information ppm vs intensity and can be plotted with any plotting tool 
+(e.g GNUPLOT ...).
 
-The provided `nmrplot.py` plotting tool uses `matplotlib` for plotting. Information on all possible commandline arguments is documented:
+The provided `nmrplot.py` plotting tool uses `matplotlib` for plotting. 
+Information on all possible commandline arguments is documented:
 
 .. code-block:: text
 
