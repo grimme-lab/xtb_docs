@@ -24,10 +24,12 @@ The xTB-methods are now officially available in other quantum chemistry programs
 - in `Orca`_ 4.2 an IO-based interface to the ``xtb`` binary is available
 - `AMS`_ 2019 implements GFN1-xTB in their DFTB module
 - the `entos`_ program implements GFN1-xTB (also available in the webinterface)
+- the computational chemistry framework `cuby4`_ supports ``xtb``
 
 .. _Orca: https://orcaforum.kofo.mpg.de
 .. _AMS: https://www.scm.com/product/dftb/
 .. _entos: https://www.entos.info/
+.. _cuby4: http://cuby4.molecular.cz/interface_xtb.html
 
 We missed your project here?
 No problem, just give us hint at the mailing list or open an issue at `github`_.
