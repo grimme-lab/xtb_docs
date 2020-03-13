@@ -13,8 +13,9 @@ Input
 
 
 To start a singlepoint calculation with ``xtb`` only a molecular geometry is needed. ``xtb`` supports the ``TURBOMOLE`` coordinates (.coord/.tmol), any valid Xmol (e.g. .xyz), mol files (.mol), Structure-Data files (.sdf), Protein Database Files (.pdb), Vasp's POSCAR and CONTCAR files (.poscar/.contcar/.vasp) and DFTB+ genFormat files (.gen).
+For a detailed overview over all geometry input formats see :ref:`geometry`
 
-Example ``TURBOMOLE`` input coordinates for H\ :sub:`2`\ O (e.g. coord):
+Example ``TURBOMOLE`` input coordinates for H\ :sub:`2`\ O (*e.g.* ``coord``):
 
 .. code:: bash
 
@@ -24,17 +25,17 @@ Example ``TURBOMOLE`` input coordinates for H\ :sub:`2`\ O (e.g. coord):
      -1.44183152868459      0.00000000000000      0.36789293054775      h
    $end
 
-Example Xmol input coordinates for H\ :sub:`2`\ O (e.g. h2o.xyz):   
+Example Xmol input coordinates for H\ :sub:`2`\ O (*e.g.* ``h2o.xyz``):
 
 .. code:: bash
 
    3
    Comment Line
-   O     0.0000000    0.0000000   -0.3893611 
-   H     0.7629844    0.0000000    0.1946806 
+   O     0.0000000    0.0000000   -0.3893611
+   H     0.7629844    0.0000000    0.1946806
    H    -0.7629844    0.0000000    0.1946806
-   
-Example SDF input for H\ :sub:`2`\ O (e.g. h2o.sdf)
+
+Example SDF input for H\ :sub:`2`\ O (*e.g.* ``h2o.sdf``)
 
 .. code:: bash
 
@@ -63,13 +64,13 @@ Example SDF input for H\ :sub:`2`\ O (e.g. h2o.sdf)
    $$$$
 
 
-.. note:: To use input coordinates in SDF format the .sdf suffix is required.     
+.. note:: To use input coordinates in SDF format the .sdf suffix is required.
 
 
 Charge and Multiplicity
 =================================
 
-By default ``xtb`` will search for ``.CHRG`` and ``.UHF`` files which contain the molecular charge 
+By default ``xtb`` will search for ``.CHRG`` and ``.UHF`` files which contain the molecular charge
 and the number of unpaired electrons as an integer, respectively.
 
 Example ``.CHRG`` file for a molecule with a molecular charge of +1:
@@ -79,15 +80,15 @@ Example ``.CHRG`` file for a molecule with a molecular charge of +1:
    > cat .CHRG
    1
 
-Example ``.CHRG`` file for a molecule with a molecular charge of -2:   
-   
+Example ``.CHRG`` file for a molecule with a molecular charge of -2:
+
 .. code:: bash
-   
+
    > cat .CHRG
    -2
 
-Example ``.UHF`` file for a molecule with two unpaired electrons:   
-   
+Example ``.UHF`` file for a molecule with two unpaired electrons:
+
 .. code:: bash
 
    > cat .UHF
@@ -98,7 +99,7 @@ The molecular charge can also be specified directly from the command line:
 .. code:: sh
 
   > xtb coord --chrg <INTEGER>
-  
+
 which is equivalent to
 
 .. code:: sh
@@ -117,23 +118,23 @@ being equivalent to
 .. code:: sh
 
   > echo <INTEGER> > .UHF && xtb molecule.xyz
-  
+
 Example for a +1 charged molecule with 2 unpaired electrons:
 
-   
+
 .. code:: bash
 
   > xtb --chrg 1 --uhf 2
 
 
-.. note:: The molecular charge or number of unpaired electrons specified from the command line will override specifications provided by ``.CHRG``, ``.UHF`` and the ``xcontrol`` input!    
-   
-   
+.. note:: The molecular charge or number of unpaired electrons specified from the command line will override specifications provided by ``.CHRG``, ``.UHF`` and the ``xcontrol`` input!
+
+
 The imported specifications are documented in the output file in the *Calculation Setup* section.
 
 .. code-block:: none
    :emphasize-lines: 11,12
-   
+
            -------------------------------------------------
           |                Calculation Setup                |
            -------------------------------------------------
@@ -185,7 +186,7 @@ To change the calculation accuracy call ``xtb`` with
 .. code:: sh
 
   > xtb coord --acc <REAL>
-  
+
 By default the accuracy multiplier is set to 1, for a few accuracy settings
 the resulting numerical thresholds are shown below:
 
@@ -212,14 +213,14 @@ The number of iterations allowed for the SCC calculation can be adjusted from th
 .. code:: sh
 
   > xtb coord --iterations <INTEGER>
-  
+
 The default number of iterations in the SCC is set to 250.
 
 Fermi-smearing
 ==============
 
-The electronic temperature :math:`T_{el}` is used as an adjustable parameter, employing so-called Fermi 
-smearing to achieve fractional occupations for systems with almost degenerate orbital levels. 
+The electronic temperature :math:`T_{el}` is used as an adjustable parameter, employing so-called Fermi
+smearing to achieve fractional occupations for systems with almost degenerate orbital levels.
 This is mainly used to take static correlation into account or to e.g. investigate thermally forbidden reaction pathways.
 
 :math:`T_{el}` enters the GFNn-xTB Hamiltonian as
@@ -227,7 +228,7 @@ This is mainly used to take static correlation into account or to e.g. investiga
 .. math::
 
    G_{fermi} = -T_{el}S_{el}
-   
+
 and the orbital occupations for a spin orbital :math:`\psi_{i}` are given by
 
 .. math::
@@ -242,15 +243,15 @@ The default electronic temperature is :math:`T_{el}` = 300 K.
 
   > xtb --etemp <REAL> molecule.xyz
 
-            
+
 The specified electronic temperature is documented in the output file in the *Self-Consistent Charge Iterations* section
 
 .. code-block:: none
    :emphasize-lines: 17
 
-           ------------------------------------------------- 
+           -------------------------------------------------
           |        Self-Consistent Charge Iterations        |
-           ------------------------------------------------- 
+           -------------------------------------------------
 
           ...................................................
           :                      SETUP                      :
@@ -275,14 +276,14 @@ The specified electronic temperature is documented in the output file in the *Se
 
 
 .. note:: Sometimes you may face difficulties converging the self consistent
-          charge iterations. In this case increasing the electronic temperature 
+          charge iterations. In this case increasing the electronic temperature
           and restarting at the converged calculation with normal temperature can help.
 
           .. code:: sh
 
             > xtb coord --etemp 1000.0 && xtb coord --restart
-  
-  
+
+
 Vertical Ionization Potentials and Electron Affinities
 ======================================================
 
@@ -290,23 +291,23 @@ Vertical Ionization Potentials and Electron Affinities
 a specially reparameterized GFN1-xTB version. The special purpose parameters are documented in the ``.param_ipea.xtb``
 parameter file.
 
-The vertical ionization potential or electron affinity is obtained as the energy difference between the corresponding   
+The vertical ionization potential or electron affinity is obtained as the energy difference between the corresponding
 molecule groundstate and its ionized species in the same geometry.
 
 .. math::
    IP_{v} = E(M^{n+1})-E(M^{n})
-   
+
 .. math::
-   EA_{v} = E(M^{n-1})-E(M^{n}) 
-             
-.. note::  The sign of the IP and EA can differ in the literature due to different definitions.   
+   EA_{v} = E(M^{n-1})-E(M^{n})
+
+.. note::  The sign of the IP and EA can differ in the literature due to different definitions.
 
 The vertical IP and EA calculations can be evoked from the command line either separately or combined.
 
 .. code:: sh
 
   > xtb coord --vip
-  
+
 .. code:: sh
 
   > xtb coord --vea
@@ -317,7 +318,7 @@ The vertical IP and EA calculations can be evoked from the command line either s
 
 
 .. note:: It is recommended to optimize the molecule geometry prior to the vipea calculation.
-          
+
           .. code:: sh
 
             > xtb coord --opt && xtb xtbopt.coord --vipea
@@ -385,7 +386,7 @@ Global Electrophilicity Index
 =============================
 
 ``xtb`` can be used for direct calculation of Global Electrophilicity Indexes (GEI) that can be used to estimate the electrophilicity or Lewis acidity of various compounds from vertical IPs and EAs. In  ``xtb`` the GEI is defined as:
-  
+
 .. math::
    GEI = \frac{(IP+EA)^{2}}{8(IP-EA)}
 
@@ -396,7 +397,7 @@ The GEI calculation can be evoked from the command line:
   > xtb coord --vomega
 
 The calculated GEI is documented in the output after the *vertical delta SCC EA calculation* section
- 
+
 .. code:: bash
 
    ------------------------------------------------------------------------
@@ -416,23 +417,23 @@ The two finite representations of the Fukui function are defined as
 
 .. math::
    f_{+}(r) = \rho_{N+1}(r)-\rho_{N}(r)
-  
+
 representing the electrophilicity (susceptibility of an nucleophilic attack) of an atom in a molecule with N electrons and
 
 .. math::
    f_{-}(r) = \rho_{N}(r)-\rho_{N-1}(r)
-  
+
 representing the nucleophilicity (susceptibility of an electrophilic attack) of an atom.
 
 The radical attack susceptibility is described by
 
 .. math::
    f_{0}(r) = 0.5(\rho_{N+1}(r)-\rho_{N-1}(r))
-  
 
-.. note::   As the Fukui indexes depend on occupation numbers and population analysis (see :ref:`properties`), they          
-            are sensitive toward basis set changes. Therefore Fukui indexes should not be recognized as absolute numbers but as  
-            relative parameters in the same system.  
+
+.. note::   As the Fukui indexes depend on occupation numbers and population analysis (see :ref:`properties`), they
+            are sensitive toward basis set changes. Therefore Fukui indexes should not be recognized as absolute numbers but as
+            relative parameters in the same system.
 
 A Fukui index calculation can be evoked from the command line:
 
@@ -473,11 +474,11 @@ Example: BF\ :sub:`3`\
    12    -14.9109673 -0.493735E-09  0.682E-05    8.23     733.6  T
       SCC iter.                  ...        0 min,  0.001 sec
       gradient                   ...        0 min,  0.000 sec
- 
+
       #       f(+)     f(-)     f(0)    #Fukui indexes
       1 B    -0.300    0.005   -0.148
       2 F    -0.233   -0.335   -0.284
       3 F    -0.233   -0.335   -0.284
       4 F    -0.233   -0.335   -0.284
- 
+
 The Fukui indexes for BF\ :sub:`3`\  indicate the most negative f(+) value and a positive value for f(-) at the boron atom. Thus, a nucleophilic attack can be expected at the boron atom.

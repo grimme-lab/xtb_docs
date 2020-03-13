@@ -44,6 +44,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    setup
    basics
    commandline
+   geometry
    xcontrol
    development
 
