@@ -143,7 +143,7 @@ A valid sdf input is given for the water molecule with
 
 The input reader is strict in differentiating mol and sdf input, mol input with
 the sdf extension will be rejected by the reader. The topology and the sdf
-key-value pairs will be preserved and printed again in the final optimizated
+key-value pairs will be preserved and printed again in the final optimized
 geometry.
 
 Multiple entries in an sdf input will be ignored by the reader.
@@ -256,6 +256,7 @@ information on the format visit the `vasp-wiki`_.
 
 .. _vasp-wiki: https://www.vasp.at/wiki/index.php/POSCAR
 
+For a molecular crystal of ammonia the input would look like:
 
 .. code-block::
    :caption: ammonia.poscar
