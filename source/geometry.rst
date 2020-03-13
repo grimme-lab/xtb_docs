@@ -11,20 +11,20 @@ Supported Geometry Formats
 
 Currently the following input formats are supported by ``xtb``.
 
-======================= ================= ======================= =========== ========== ===========
- Format                  Basename          Suffix                  molecular   periodic   ``crest``
-======================= ================= ======================= =========== ========== ===========
- Turbomole               coord             coord, tmol             x           3D         partly
- xyz file                                  xyz                     x                      x
- mol file                                  mol                     x                      x
- Structure-Data file                       sdf                     x                      x
+======================= ================= ======================= =========== ==========
+ Format                  Basename          Suffix                  molecular   periodic
+======================= ================= ======================= =========== ==========
+ Turbomole               coord             coord, tmol             x           3D
+ xyz file                                  xyz                     x
+ mol file                                  mol                     x
+ Structure-Data file                       sdf                     x
  Protein Database file                     pdb                     x
  Vasp's POSCAR/CONTCAR   poscar, contcar   vasp, poscar, contcar               3D
  genFormat                                 gen                     x           3D
  Gaussian external                         ein                     x
-======================= ================= ======================= =========== ========== ===========
+======================= ================= ======================= =========== ==========
 
-.. note:: The default format is always Turbomole and the suffix nor the
+.. note:: The default format is always Turbomole and neither the suffix nor the
           base name is case-sensitive for file type detection.
 
 Turbomole Coordinate Input
@@ -73,6 +73,7 @@ coordinates in Ångström.
 An example for caffeine is given with:
 
 .. code-block:: text
+   :caption: caffeine.xyz
 
    24
 
@@ -160,7 +161,7 @@ reader will outright reject any geometry without hydrogen atoms.
 An valid example input (with hydrogen atoms and partial occupied sides removed)
 is given here:
 
-.. code-block::
+.. code-block:: text
    :caption: 4qxx.pdb
 
    ATOM      1  N   GLY Z   1      -0.821  -2.072  16.609  1.00  9.93           N
@@ -258,7 +259,7 @@ information on the format visit the `vasp-wiki`_.
 
 For a molecular crystal of ammonia the input would look like:
 
-.. code-block::
+.. code-block:: text
    :caption: ammonia.poscar
 
     H  N
@@ -294,7 +295,7 @@ The DFTB+ `genFormat`_ is supported for molecular and 3D periodic systems.
 
 A valid input file for a molecular system is given here:
 
-.. code-block::
+.. code-block:: text
    :caption: 1,4-bromomethaneformaldehyde.gen
 
    9 C
@@ -311,7 +312,7 @@ A valid input file for a molecular system is given here:
 
 For a periodic system the input would look like
 
-.. code-block::
+.. code-block:: text
    :caption: GaAs.gen
 
    2  F
@@ -334,7 +335,7 @@ external call to a valid ``xtb`` program call.
 
 An example input file is given here:
 
-.. code-block::
+.. code-block:: text
    :caption: nh3.EIn
 
             4         1         0         1
