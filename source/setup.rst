@@ -222,6 +222,13 @@ We recommend to create a symbolic link to your local ``xtb`` binary by
 .. code-block:: bash
 
    > ln -s $(which xtb) otool_xtb
+   
+.. important:: ``xtb`` version 6.2.3 produces an energy printout which cannot
+               be processes by the reader in Orca, to fix this issue, use
+               the provided `script`_ to wrap the ``xtb`` binary instead
+               of creating a symbolic link.
+
+               .. _script: https://github.com/grimme-lab/xtb/releases/download/v6.2.3/otool_xtb
 
 You can invoke xTB calculations in Orca by using one of the simple keywords
 
