@@ -32,6 +32,8 @@ Density-Dependent Dispersion Contributions* *J. Chem. Theory Comput.* **2019**, 
 Applications
 ==========================
 
+**CREST:** Pracht, P.; Bohle, F.; Grimme, S. *Automated exploration of the low-energy chemical space with fast quantum chemical methods*, *Phys. Chem. Chem. Phys.*, **2020**, *22*, 7169-7192. `DOI: 10.1039/c9cp06869d`__ Publication Date (Web): February 12, 2020
+
 **Meta-Dynamics Simulations:** Grimme, S. *Exploration of Chemical Compound, Conformer, and Reaction Space with Meta-Dynamics Simulations Based on Tight-Binding Quantum Chemical Calculations*, *J. Chem. Theory Comput.*, **2019**, *155*, 2847-2862. `DOI: 10.1021/acs.jctc.9b00143`__ Publication Date (Web): April 3, 2019 
        
 
@@ -54,6 +56,9 @@ Bursch, M.; Neugebauer, H.; Grimme, S.
 Reasonable Geometry Optimization of Lanthanoid Complexes with an Extended Tight Binding Quantum 
 Chemical Method* *Inorg. Chem.* **2017**, *56 (20)*, 12485–12491
 `DOI: 10.1021/acs.inorgchem.7b01950 <https://pubs.acs.org/doi/abs/10.1021/acs.inorgchem.7b01950>`_
+
+**Transition State Localization in Organometallic Complexes:** Dohm, S.; Bursch, M.; Hansen, A.; Grimme, S. *Semiautomated Transition State Localization for Organometallic Complexes with Semiempirical Quantum Chemical Methods*, *J. Chem. Theory Comput.*, **2020**, *16*, 2002–2012 
+`DOI: 10.1021/acs.jctc.9b01266 <https://pubs.acs.org/doi/10.1021/acs.jctc.9b01266>`_ 
 
 **Electron Ionization Mass Spectra:**
 Koopman, J.; Grimme, S.
