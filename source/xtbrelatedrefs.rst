@@ -32,7 +32,7 @@ Density-Dependent Dispersion Contributions* *J. Chem. Theory Comput.* **2019**, 
 Applications
 ==========================
 
-**CREST:** Pracht, P.; Bohle, F.; Grimme, S. *Automated exploration of the low-energy chemical space with fast quantum chemical methods*, *Phys. Chem. Chem. Phys.*, **2020**, *22*, 7169-7192. `DOI: 10.1039/c9cp06869d`__ Publication Date (Web): February 12, 2020
+**CREST:** Pracht, P.; Bohle, F.; Grimme, S. *Automated exploration of the low-energy chemical space with fast quantum chemical methods*, *Phys. Chem. Chem. Phys.*, **2020**, *22*, 7169-7192. `DOI: 10.1039/C9CP06869D <https://dx.doi.org/10.1039/C9CP06869D>`_ Publication Date (Web): February 12, 2020
 
 **Meta-Dynamics Simulations:** Grimme, S. *Exploration of Chemical Compound, Conformer, and Reaction Space with Meta-Dynamics Simulations Based on Tight-Binding Quantum Chemical Calculations*, *J. Chem. Theory Comput.*, **2019**, *155*, 2847-2862. `DOI: 10.1021/acs.jctc.9b00143`__ Publication Date (Web): April 3, 2019 
        
