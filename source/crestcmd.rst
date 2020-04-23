@@ -113,6 +113,9 @@ General Options
 -gfn2 ``[DEFAULT]``
     Use GFN2-xTB, which is the default.
 
+-gff
+    Use GFN-FF (only `xtb 6.3` and newer)
+
 -g, -gbsa SOLVENT
     Generalized born (GB) model with solvent accessable surface (SASA) model,
     available solvents are *acetone*, *acetonitrile*, *benzene* (only GFN1-xTB),
@@ -288,9 +291,6 @@ Options for CREGEN
       Activate determination and printout of NMR-equivalencies. Writes the files
       ``anmr_rotamer`` and ``anmr_nucinfo``, which are required by the ``ENSO`` python script.
 
--metac 
-      Automatic methyl group rotamer equivalence correction. 
-
 -esort
      Sort only based on energy (i.e., no RMSD and rotational constant comparison)
 
@@ -334,6 +334,10 @@ Options related to constrainment
     Set up an example file in which the atoms in <atom list> shall be constrained.
     The file will be called ``.xcontrol.sample``. No calculations will be performed
     and the run is aborted after this sample is wirtten.
+
+-cbons REAL
+    Set up a constraint on all bonds (as detected in the input coordinates)
+    where REAL is the force constant
 
 Options for the PROPERTY mode
 -----------------------------

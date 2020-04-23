@@ -12,13 +12,15 @@ What is CREST ?
 ``CREST`` is an utility/driver program for the ``xtb`` program.
 Originally it was designed as conformer sampling program, hence the abbreviation **C**\onformer--**R**\otamer **E**\nsemble **S**\ampling **T**\ool, 
 but now offers also some utility functions for calculations with the GFN\ `n`--xTB methods.
-The key procedures implemented in ``CREST`` are two different conformational search workflows abbreviated as MF-MD-GC (V1) and MTD-GC (V2). 
+Generally the program functions as an IO based OMP scheduler (i.e., calculations are performed by the xtb program) and tool for the creation and analysation of structure ensembles.
+
+The key procedures implemented in ``CREST`` are two different conformational search workflows abbreviated as MF-MD-GC and iMTD-GC. 
 The older of these procedures, MF-MD-GC, combines a mode following (MF), molecular dynamics sampling (MD), and genetic z-matrix
 crossing (GC) approach for the generation of conformer/rotamer ensembles (CREs).
-The newer workflow, MTD-GC, makes use of extensive metadynamic sampling (MTD), with an additional GC step at the end.
-Of the two algorithms, MTD-GC showed significant improvements while being slightly more expensive compared to MF-MD-GC for large cases.
-Other functionalities that are included in ``CREST`` are parallel optimization (MDOPT) and screening (SCREEN) functions for GFN\ `n`--xTB, 
-a Z-matrix sorting function (ZSORT) and a function to sort (e.g. for NMR equivalencies) externally created CREs (CREGEN).
+The newer workflow, iMTD-GC, makes use of extensive metadynamic sampling (MTD), with an additional GC step at the end.
+Of the two algorithms, iMTD-GC showed significant improvements while being slightly more expensive compared to MF-MD-GC for large cases.
+Other standalone functionalities that are included in ``CREST`` are parallel optimization and screening functions for GFN\ `n`--xTB, 
+a Z-matrix sorting function and a function to sort (e.g. for NMR equivalencies) externally created ensembles.
 Following verison 2.7 of ``CREST``, the program also includes some automated procedures for the protonation, deprotonation and tautomerization of structures.
 
 The main publication for the ``CREST`` program can be found at: `PCCP <https://pubs.rsc.org/en/content/articlelanding/2020/CP/C9CP06869D>`_.
@@ -64,8 +66,8 @@ the RMSD,the rotational constants, and the energies will be the same.
 Conformational Search Algorithms
 ================================
 
-MF-MD-GC
----------
+MF-MD-GC Algorithm (outdated)
+-----------------------------
 
 .. warning:: The MF-MD-GC workflow is outdated! The newer iMTD-GC workflow is the default (see below)
 
@@ -120,11 +122,11 @@ In the last step the GC is performed with the CRE that was found up to this poin
    :scale: 90 %
    :alt: cre-pes
 
-MTD-GC / iMTD-GC 
------------------
-The MTD-GC workflow was designed to find low lying conformers more efficiently and more safely than the older MF-MD-GC algorithm. 
+iMTD-GC Algorithm
+------------------
+The iMTD-GC workflow was designed to find low lying conformers more efficiently and more safely than the older MF-MD-GC algorithm. 
 Furthermore this new algorithm is more robust and generally applicable than more complicated schemes since it does not require any pre-definition of special system coordinates.
-MTD-GC is rooted in the basic idea to combine GFN\ *n*--xTB calculations with root-mean-square-deviation (RMSD) based meta-dynamics (see section :ref:`mtd`). 
+iMTD-GC is rooted in the basic idea to combine GFN\ *n*--xTB calculations with root-mean-square-deviation (RMSD) based meta-dynamics (see section :ref:`mtd`). 
 In practice a history-dependent biasing potential is applied, where the collective variables (CVs) for the meta-dynamics are previous minima on the PES, expressed as RMSD between the structures.
 The biasing contribution is given by Gaussian-type potential as
 
@@ -149,14 +151,10 @@ which is done to A) get rotamers and B) more extensively sample around these min
 In the last step the GC procedure is performed to further complete the CRE. The number of generated structures in this step is limited to :math:`min(3000,t\times50)` in order to limit the computational cost.
 Furthermore a two-step-filtering procedure is used to optimize the generated geometries, similar to the three-step-filtering before.
 
-.. note:: The new MTD-GC algorithm is much better than the MF-MF-GC workflow in regards of finding low-energy conformations and complete CREs and as such replaces it as default runtype of ``CREST``.
+.. note:: The new iMTD-GC algorithm is much better than the MF-MF-GC workflow in regards of finding low-energy conformations and complete CREs and as such replaces it as default runtype of ``CREST``.
           Additionally it is much more streamlined from the technical point of view and its implementation makes full use of OMP parallelization (parallelization on a single computer/CPU node).
 
-Following version 2.6 of  ``CREST`` an iterative version of the MTD-GC workflow (called iMTD-GC) is the default runtype. 
-In this slightly different scheme a fewer number of MTDs is conducted, but if a new lower conformer is found the procedure is restarted with this conformer as an input. 
-The process is also restarted if a better conformer is found after the normal MD sampling around the lowest conformers or the GC.
-Compared to the regular MTD-GC workflow the optimization thresholds are set differently.
-Hence, for typical drug sized molecules the total CPU time of the iMTD-GC workflow is approximately the same as with MTD-GC, while better CREs are produced.
+The algorithm is iterative, i.e., if a new lower conformer is found at any point during the sampling the procedure is restarted with this conformer as an input. 
 All CREs that are found within the iterations are included in the conformer/rotamer ranking process.
 The iMTD-GC worflow is outlined graphically in the figure below.
 
