@@ -14,7 +14,7 @@ with almost quantum mechanical accuracy.
 The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.202004239>`_.
 
 .. figure:: ../figures/gfnff.jpg
-   :scale: 20 %
+   :scale: 25 %
    :alt: gfnff
    
 
