@@ -13,7 +13,7 @@ structures and dynamics of large molecules across the periodic table. This metho
 with almost quantum mechanical accuracy.
 The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.202004239>`_.
 
-.. figure:: ../figures/gfnff.png
+.. figure:: ../figures/gfnff.jpg
    :scale: 100 %
    :alt: gfnff
    
