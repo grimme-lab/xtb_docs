@@ -115,7 +115,7 @@ This means not any mol or sdf input will be accepted as geometry input.
 
 A valid sdf input is given for the water molecule with
 
-.. code-code:: text
+.. code-block:: text
    :caption: h2o.sdf
 
    Water
