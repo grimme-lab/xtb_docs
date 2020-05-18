@@ -66,6 +66,14 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
 
 .. toctree::
    :maxdepth: 3
+   :caption: Submodules
+
+   xtb_info
+   xtb_thermo
+   xtb_topo
+
+.. toctree::
+   :maxdepth: 3
    :caption: CREST
 
    crest
