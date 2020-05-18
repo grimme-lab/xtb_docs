@@ -63,6 +63,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    gsm
    periodic_boundary_conditions
    pcem
+   gfnff
 
 .. toctree::
    :maxdepth: 3
