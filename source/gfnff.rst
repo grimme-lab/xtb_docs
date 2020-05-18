@@ -31,7 +31,6 @@ To remain accurate in the description of conjugated systems, GFN-FF retains an i
 The resulting bond orders obtained by a Hückel calculation have an influence on force constants and energy relevant parameters of the system.
 To yield accurate results the FF parameters are fitted to reproduce B97-3c minimum geometries and frequencies. 
 Thereby a strictly global and element specific parameter strategy is applied and no element pair specific parameters are employed.
-This approach is a unique feature of all GFN methods and differs strongly from the parameterization strategies of other FFs. 
 Special attention is paid to the simple application. As input only Cartesian coordinates and elemental composition are required from which fully automatically all potential energy terms are constructed.
 The total GFN-FF energy expression is given by
 
@@ -50,11 +49,14 @@ In the noncovalent part, electrostatic interactions are described by an electron
 It is employed to calculate the isotropic electrostatic energy and atomic partial charges. 
 Overall GFN-FF uses two sets of EEQ charges. One set depends on the standard geometry, whereas another set of charges is exclusively topology based, introducing partial polarizability to the FF method.
 Dispersion interactions are taken into account by a topology based version of the D4 scheme, in which the dispersion coefficients are scaled by atomic charges instead of atomic polarizabilities.
-Within the absence of electrons and without the QM information of occupied orbitals, the correct description of hydrogen and halogen bonds is challenging.
-Therefore additional charge scaled H- and X- bond corrections are applied to yield the right binding motifs.
+For the description of hydrogen and halogen bonds additional charge scaled H- and X- bond corrections are applied to yield the right binding motifs.
 
 .. math::
    E_{NCI} = E_{IES} + E_{disp} + E_{HB} + E_{XB} + E_{rep}^{NCI}
 
 GFN-FF reaches quadratic scaling in terms of energy and gradient calculation, whereas all GFN-xTB methods show cubic scaling with respect to the number of atoms.
 It is the computationally most efficient member of the GFN family.
+
+How to use it
+============================
+GFN-FF is implemented in the ``xtb```program.
