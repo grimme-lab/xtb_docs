@@ -70,6 +70,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
 
    xtb_info
    xtb_thermo
+   xtb_topo
 
 .. toctree::
    :maxdepth: 3
