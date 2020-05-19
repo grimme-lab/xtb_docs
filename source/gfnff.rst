@@ -59,4 +59,53 @@ It is the computationally most efficient member of the GFN family.
 
 How to use it
 ============================
-GFN-FF is implemented in the ``xtb```program.
+GFN-FF is implemented in the ``xtb`` program. It extends the portfolio of different GFN parametrizations by a non-electronic variant. GFN-FF is applied with the keyword ``--gfnff`` as shown in the example below.
+
+.. code:: bash
+
+  > xtb --gfnff <geometry> [options]
+
+Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request of electronic structure properties will be ignored, since those are not available at the force-field level of theory.
+
+
+GFN-FF specific settings
+============================
+
+``xtb`` is a semiempirical extended tight-binding program package and its default values are chosen to yield robust and accurate results for all GFN-xTB methods. GFN-FF represents the first non-electronic variant and thus it should come as no surprise, that some of the default values do not work with a generic force-field. In the following all deviations are discussed.
+
+Parallelisation
+-------------------
+
+The ``xtb`` program uses OMP parallelisation, to calculate larger systems an appropriate OMP stacksize must be provided. Since the system size may easily exceed 5000 atoms in force-field calculations, a large number should be chosen. Otherwise you may encounter a segmentation fault. For 5000 atoms you may choose:
+
+.. code:: bash
+
+  > export OMP_STACKSIZE=5G
+  
+As a rule of thumb, add 1G for evey additional 1000 atoms. 
+  
+MD Simulations
+------------------
+
+For molecular dynamics simulations, the default time step of 4 ps is instable in GFN-FF. Below you can find our recommended settings for a stable MD run.
+
+.. code:: bash
+
+   $md
+     step=2.0
+     hmass=4.0
+     shake=0
+   $end
+
+Input files
+---------------------
+
+``xtb`` accepts various input formats. Especially the possibility to directly read pdb files as input might be something you want to use in combination with GFN-FF. If the pdb file includes charge information, ``xtb`` reads this information, determines the overall charge of the system automatically and applies this charge constrain per residue. There is no need to further specify the total charge of the system.
+
+
+Use of additional fragment charge information
+----------------------------------------------
+
+In GFN-FF the computed atomic charges from the EEQ model may be improved by constrains if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
+(named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments. The last option is
+useful especially for biological systems.
