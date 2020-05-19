@@ -18,7 +18,7 @@ The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https:/
    :alt: gfnff
    
 
-Theoretical Background
+Theoretical background
 =================================
 
 The latest progress in the field of semi empirical methods, regarding the evolution of GFN1, GFN2 and GFN0-xTB, inspired the development of a generic force-field. 
@@ -82,12 +82,12 @@ The ``xtb`` program uses OMP parallelisation, to calculate larger systems an app
 
   > export OMP_STACKSIZE=5G
   
-As a rule of thumb, add 1G for evey additional 1000 atoms. 
+As a rule of thumb, add 1G for every additional 1000 atoms. 
   
 MD Simulations
 ------------------
 
-For molecular dynamics simulations, the default time step of 4 ps is instable in GFN-FF. Below you can find our recommended settings for a stable MD run.
+For molecular dynamics simulations, the default time step of 4 ps is not stable in GFN-FF. Below you can find our recommended settings for a stable MD run.
 
 .. code:: bash
 
@@ -100,12 +100,26 @@ For molecular dynamics simulations, the default time step of 4 ps is instable in
 Input files
 ---------------------
 
-``xtb`` accepts various input formats. Especially the possibility to directly read pdb files as input might be something you want to use in combination with GFN-FF. If the pdb file includes charge information, ``xtb`` reads this information, determines the overall charge of the system automatically and applies this charge constrain per residue. There is no need to further specify the total charge of the system.
+``xtb`` accepts various input formats. Especially the possibility to directly read ``pdb`` files as input might be something you want to use in combination with GFN-FF. If the pdb file includes charge information, ``xtb`` reads this information, determines the overall charge of the system automatically and applies this charge constrain per residue. There is no need to further specify the total charge of the system. The following output is generated.
+
+.. code:: bash
+
+   charge from pdb residues: <integer>
 
 
-Use of additional fragment charge information
-----------------------------------------------
+2D to 3D strucutre converter
+-------------------------------
+
+``xtb`` feaetures a 2D to 3D strucutre converter for ``sdf`` files. If a two-dimensional sdf file input is passed to ``xtb`` and a GFN2-xTB single point calculation is requested, it will automatically perform a combination of GFN-FF optimization and molecular dynamics steps to generate a three dimensional structure, on which the GFN2-xtB calculation is performed.
+
+.. code:: bash
+
+  > xtb 2d_input.sdf --gfn 2 --sp
+  
+The keyword ``--gfnff`` is not needed here.
+
+Use of additional charge information
+-------------------------------------
 
 In GFN-FF the computed atomic charges from the EEQ model may be improved by constrains if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
-(named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments. The last option is
-useful especially for biological systems.
+(named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments.
