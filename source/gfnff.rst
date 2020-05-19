@@ -65,18 +65,18 @@ GFN-FF is implemented in the ``xtb`` program. It extends the portfolio of differ
 
   > xtb --gfnff <geometry> [options]
 
-Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request of electronic structure properties will be ignored, since those are not available at the force-field level of theory.
+Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request of electronic structure properties will be ignored, since those are not available at the force-field level of theory. With GFN-FF you can perform single point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types.
 
 
 GFN-FF specific settings
 ============================
 
-``xtb`` is a semiempirical extended tight-binding program package and its default values are chosen to yield robust and accurate results for all GFN-xTB methods. GFN-FF represents the first non-electronic variant and thus it should come as no surprise, that some of the default values do not work with a generic force-field. In the following all deviations are discussed.
+``xtb`` is a semiempirical extended tight-binding program package and its default values are chosen to yield robust and accurate results for all GFN-xTB methods. GFN-FF represents the first non-electronic variant and thus it should come as no surprise, that some of the default values do not work with a generic force-field. Settings that deviate from the defaults are discussed below.
 
 Parallelisation
 -------------------
 
-The ``xtb`` program uses OMP parallelisation, to calculate larger systems an appropriate OMP stacksize must be provided. Since the system size may easily exceed 5000 atoms in force-field calculations, a large number should be chosen. Otherwise you may encounter a segmentation fault. For 5000 atoms you may choose:
+The ``xtb`` program uses OMP parallelisation. To calculate larger systems an appropriate OMP stacksize must be provided. Since the system size may easily exceed 5000 atoms in force-field calculations, a large number should be chosen. Otherwise you may encounter a segmentation fault. For 5000 atoms you may choose:
 
 .. code:: bash
 
@@ -109,7 +109,7 @@ GFN-FF specific input
 Use of additional charge information
 -------------------------------------
 
-In GFN-FF the computed atomic charges from the EEQ model may be improved by constrains if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
+In GFN-FF the computed atomic charges from the EEQ model may be improved by constrains if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information besides using a pdb file. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
 (named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments.
 
 
