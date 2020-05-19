@@ -65,7 +65,26 @@ GFN-FF is implemented in the ``xtb`` program. It extends the portfolio of differ
 
   > xtb --gfnff <geometry> [options]
 
-Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request of electronic structure properties will be ignored, since those are not available at the force-field level of theory. With GFN-FF you can perform single point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types.
+Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request of electronic structure properties will be ignored, since those are not available at the force-field level of theory. With GFN-FF you can perform single point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types. A GFN-FF calculation is indicated in the output by:
+
+.. code:: bash
+
+   ------------------------------------------------- 
+  |                   G F N - F F                   |
+  |          A general generic force-field          |
+  |                  Version 1.0.1                  | 
+   ------------------------------------------------- 
+
+The topology file
+--------------------
+
+GFN-FF generates a topology file named ``gfnff_topo`` automatically upon first use on an input strucutre. This ile saves system specific parameters and derived force constants as well as the entire topological information. If the force-field calculation is repeated, the topology file is read. 
+
+.. code:: bash
+
+   GFN-FF topology read from file successfully!
+
+Depending on the system size, this speeds up you the overall computation time If large structural changes are applied to the structure, the topology file should better be deleted. The next calculation will genrrate a new one, according to the modified structure. If parameters are changes in the code, the topology file should also be deleted, as the old parameters are also saved there.
 
 
 GFN-FF specific settings
@@ -122,4 +141,21 @@ In GFN-FF the computed atomic charges from the EEQ model may be improved by cons
 
   > xtb 2d_input.sdf --gfn 2 --sp
   
-The keyword ``--gfnff`` is not needed here.
+The keyword ``--gfnff`` is not needed here. The start of the structure conversion is indicated in the output by,
+
+.. code:: bash
+
+   ------------------------------------------------- 
+  |                     2D => 3D                    |
+  |          A structure converter based on         |
+  |                   G F N - F F                   |
+   ------------------------------------------------- 
+
+and the succesfull conversion is confirmed by:
+
+.. code:: bash
+   
+   ------------------------------------------------- 
+  |           2D => 3D conversion done!             |
+   -------------------------------------------------
+   converted geometry written to: gfnff_convert.sdf
