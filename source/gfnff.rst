@@ -78,13 +78,13 @@ Thus, the usage is in line with its semiempirical QM siblings and (almost) the s
 The topology file
 --------------------
 
-GFN-FF generates a topology file named ``gfnff_topo`` automatically upon first use on an input strucutre. This ile saves system specific parameters and derived force constants as well as the entire topological information. If the force-field calculation is repeated, the topology file is read. 
+GFN-FF generates a topology file named ``gfnff_topo`` automatically upon first use on an input structure. This file saves system specific parameters and derived force constants as well as the entire topological information. If the force-field calculation is repeated, the topology file is read. 
 
 .. code:: bash
 
    GFN-FF topology read from file successfully!
 
-Depending on the system size, this speeds up you the overall computation time If large structural changes are applied to the structure, the topology file should better be deleted. The next calculation will genrrate a new one, according to the modified structure. If parameters are changes in the code, the topology file should also be deleted, as the old parameters are also saved there.
+Depending on the system size, this speeds up you the overall computation time If large structural changes are applied to the structure, the topology file should better be deleted. The next calculation will generate a new one, according to the modified structure. If parameters are changes in the code, the topology file should also be deleted, as the old parameters are also saved there.
 
 
 GFN-FF specific settings
@@ -132,10 +132,10 @@ In GFN-FF the computed atomic charges from the EEQ model may be improved by cons
 (named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments.
 
 
-2D to 3D strucutre converter
+2D to 3D structure converter
 ============================
 
-``xtb`` feaetures a 2D to 3D strucutre converter for ``sdf`` files. If a two-dimensional sdf file input is passed to ``xtb`` and a GFN2-xTB single point calculation is requested, it will automatically perform a combination of GFN-FF optimization and molecular dynamics steps to generate a three dimensional structure, on which the GFN2-xtB calculation is performed.
+``xtb`` feaetures a 2D to 3D structure converter for ``sdf`` files. If a two-dimensional sdf file input is passed to ``xtb`` and a GFN2-xTB single point calculation is requested, it will automatically perform a combination of GFN-FF optimization and molecular dynamics steps to generate a three dimensional structure, on which the GFN2-xtB calculation is performed.
 
 .. code:: bash
 
@@ -151,7 +151,7 @@ The keyword ``--gfnff`` is not needed here. The start of the structure conversio
   |                   G F N - F F                   |
    ------------------------------------------------- 
 
-and the succesfull conversion is confirmed by:
+and the successful conversion is confirmed by:
 
 .. code:: bash
    
