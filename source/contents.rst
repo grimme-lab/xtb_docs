@@ -94,13 +94,6 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
 
 .. toctree::
    :maxdepth: 3
-   :caption: API
-
-   dev_interface
-   dev_python
-
-.. toctree::
-   :maxdepth: 3
    :caption: Misc
 
    versions
