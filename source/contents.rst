@@ -64,6 +64,8 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    periodic_boundary_conditions
    pcem
    gfnff
+   capi
+   python
 
 .. toctree::
    :maxdepth: 3
@@ -91,13 +93,6 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    enso_doc/enso_usage
    enso_doc/enso_anmr
    enso_doc/plotting
-
-.. toctree::
-   :maxdepth: 3
-   :caption: API
-
-   dev_interface
-   dev_python
 
 .. toctree::
    :maxdepth: 3
