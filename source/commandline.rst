@@ -7,6 +7,7 @@
 For ``xtb`` we usually enjoy to build our workflows via commandline,
 so most tasks can be performed without ever writing any kind of input file
 (except for the geometry input, of course).
+The man page can be found `here <https://github.com/grimme-lab/xtb/blob/master/man/xtb.1.adoc>`_.
 
 .. note:: If you need more control you should resort to the :ref:`detailed-input`
           file.
