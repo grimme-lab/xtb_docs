@@ -7,6 +7,7 @@
 The ``xcontrol`` instruction set is inspired by the Turbomole ``control``
 file syntax. I decided to call it ``xcontrol`` instructions back than,
 but here we will just call it (detailed) input for convenience.
+The man page can be found `here <https://github.com/grimme-lab/xtb/blob/master/man/xcontrol.7.adoc>`_.
 
 .. note:: The parser implemented is more general and limited by
           arbitrary choice to this syntax. At some point more common
