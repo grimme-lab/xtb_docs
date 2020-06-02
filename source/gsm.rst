@@ -16,7 +16,7 @@ Growing String Method
 .. _ZimmermanGroup: https://github.com/ZimmermanGroup/molecularGSM/wiki 
 .. _orca: https://zimmermangroup.github.io/molecularGSM/classORCA.html
 
-
+.. note:: For ``xtb`` versions newer than at least 6.1, an updated ``tm2orca.py`` is needed, which is available upon personal request. 
 
 Input
 ======
