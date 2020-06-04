@@ -10,68 +10,130 @@ This guide is intended to help developers to get our programs running.
 
 The ``xtb`` source code is hosted at `GitHub <https://github.com/grimme-lab/xtb>`_.
 
-Building ``xtb``
-================
+.. contents::
 
-The ``xtb`` program source comes with a ``meson`` build-system
+
+Building with meson
+===================
+
+The ``xtb`` program source comes with a meson build-system
 (see `mesonbuild.com <https://mesonbuild.com/index.html>`_ for details).
 Despite being a rather young build-system, we decided to commit to the
 idea of using it for ``xtb`` due to its simplicity and speed compared
 to competing build-systems like Scons or Make.
 
-From version 0.49 ``meson`` implements a decent Fortran support, any
-older versions will **fail** to build Fortran code using modern language
-features. Since we are requiring a rather new version it is unlikely that
-this version is available for most Linux distributions from standard
-repositories, in this case install it with
+To build ``xtb`` from the source the `meson build system <https://mesonbuild.com>`_ can be used.
+For a decent Fortran support verson 0.51 of meson or newer is required,
+additionally the default backend `ninja <https://ninja-build.org/>`_ is required with version 1.7 or newer.
 
-.. code:: bash
+Getting meson
+-------------
 
-   > pip3 install meson [--user]
+To install the meson build system first check your package manager for an up-to-date meson version,
+usually this will also install ninja as dependency.
+Alternatively you can install the latest version of meson and ninja with ``pip`` (or ``pip3`` depending on your system):
 
-You will need ``python`` version 3.5 or newer, through.
-The ``meson`` backend used for building is usually ``ninja`` 
-(see `ninja-build.org <https://ninja-build.org/>`_ for details)
-so you should have a version 1.5 or newer on your machine as well.
+.. code-block:: none
 
-Linear Algebra Backend
-----------------------
+   pip install meson ninja [--user]
 
-Having setup ``meson`` you have to provide versions of the
-basic linear algebra subroutines (BLAS) and the linear algebra package (LAPACK).
-The most basic solution is to install the development libraries ``libblas-dev``
-and ``liblapack-dev`` (Ubuntu 16) and jump ahead.
+If you prefer ``conda`` as a package manage you can install meson and ninja from the conda-forge channel.
+Make sure to select the conda-forge channel for searching packages.
 
-The recommended solution is to get a version of the math kernel library (MKL)
-and link against its version of BLAS and LAPACK, which usually results in
-a significant performance gain.
+.. code-block:: none
 
-Compilier Choice
-----------------
+   conda config --add channels conda-forge
+   conda install meson ninja
 
-We tested so far different versions of the Intel and GNU compilers.
-We found that ``xtb`` can be compiled with
+Configure Intel Fortran build with MKL
+--------------------------------------
 
-* ``ifort`` and ``icc`` version 17 or newer
-* ``gfortran`` and ``gcc`` version 8 or newer
+The recommended build for ``xtb`` is with Intel Parallel Studio using the Intel Fortran compiler and the Math Kernel Library as default backend.
+Precompiled, statically linked ``xtb`` binaries for Linux are provided at the `release page <https://github.com/grimme-lab/xtb/releases/latest>`_.
+The setup for the linear algebra backend defaults to MKL, therefore, only the compilers have to exported before configuring the build:
 
-Building with ``meson``
------------------------
+.. code-block::
 
-After having setup all the infrastructure run
+   export FC=ifort CC=icc
+   meson setup build --buildtype=release
 
-.. code:: bash
+After the configuration step the build can be performed with ninja:
 
-   > export FC=ifort CC=icc
-   > meson setup build_intel [-Dla_backend='mkl'] --optimization=2
-   > ninja -C build_intel test
+.. code-block::
 
-For a production build with the Intel compilers and the MKL as backend.
-To repeat the build you now only need to call ``ninja``.
+   ninja -C build
 
-To install the ``xtb`` binaries to ``/usr/local`` use (might require ``sudo``)
+Note, ninja will by default use all the threads available on your system.
 
-.. code:: bash
+.. note::
 
-   ninja -C build_intel install
+   If you share the build machine with others it might be helpful to reduce the number of concurrent jobs using the ``-j`` flag.
 
+By default the binary will be linked statically, other supported backends are:
+
+============ ======================================
+ backend      linked against
+============ ======================================
+ mkl-static   static MKL (default)
+ mkl          shared MKL
+ mkl-rt       MKL real time library
+ openblas     OpenBLAS and if required LAPACK
+ netlib       BLAS and LAPACK
+ custom       ``-Dcustom_libraries=...``
+============ ======================================
+
+.. note::
+
+   If you are using the MKL provided by conda-forge you have to link against the netlib backend
+
+
+Configure GCC build with OpenBLAS
+---------------------------------
+
+``xtb`` can also be compiled with GCC version 8 or later.
+For this example we additonally choose to change the linear algebra backend to OpenBLAS, if you have Intel Parallel Studio installed, you can leave out the last argument to get the MKL backend.
+
+.. code-block::
+
+   export FC=gfortran CC=gcc
+   meson setup build --buildtype=release -Dla_backend=openblas
+
+The build system will check if the OpenBLAS library provides LAPACK features as well, if this is not the case it will additionally search for LAPACK.
+If you are compiling ``xtb`` on Darwin platforms, ensure that GCC is the actual GCC and not clang.
+The build can be performed just like before:
+
+.. code-block::
+
+   ninja -C build
+
+
+Testing the build with meson
+----------------------------
+
+After successfully building the `xtb` program ensure that it is working as expected.
+Run the testsuite with
+
+.. code-block::
+
+   ninja -C build test
+
+All tests should pass, otherwise `open an issue <https://github.com/grimme-lab/xtb/issues/new/choose>`_.
+
+
+Installing with meson
+---------------------
+
+To use ``xtb`` in production or to pack a release with precompiled binaries the project should be installed with ninja.
+The installation prefix defaults to ``/usr/local`` on Linux systems, you might want to adjust this first by configuring your build with
+
+.. code-block:: none
+
+   meson configure build --prefix=$HOME/.local
+
+To perform the actual installation run
+
+.. code-block:: none
+
+   ninja -C build install
+
+Depending on the installation prefix and your user rights ninja might ask for the ``root`` access to perform the installation.
