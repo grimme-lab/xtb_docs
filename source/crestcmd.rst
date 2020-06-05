@@ -322,6 +322,10 @@ Options for other modes
 -swel STR
      Change H\ :math:`^+` in the protonation tool to some other ion specified by *STR*.
      *STR* has to contain the element symbol AND charge, e.g. ``Na+``
+     
+-trev
+ For the tautomerization mode rverse the order of protonation/deprotonation steps. 
+ I.e., first deprotonate the molecule and then protonate it again
 
 
 Options related to constrainment
@@ -335,9 +339,21 @@ Options related to constrainment
     The file will be called ``.xcontrol.sample``. No calculations will be performed
     and the run is aborted after this sample is wirtten.
 
--cbons REAL
+-cbonds REAL
     Set up a constraint on all bonds (as detected in the input coordinates)
-    where REAL is the force constant
+    where REAL is the force constant (default value 0.02)
+ 
+-cmetal REAL
+    Set up a constraint on all M-X bonds (as detected in the input coordinates, M = transition metal atom)
+    where REAL is the force constant (default value 0.02)
+    
+-cheavy REAL
+    Set up a constraint on all heavy atom bonds (i.e., X-H bonds will be not constrained)
+    where REAL is the force constant (default value 0.02) 
+    
+-clight REAL
+    Set up a constraint on all X-H bonds (as detected in the input coordinates)
+    where REAL is the force constant (default value 0.02)
 
 Options for the PROPERTY mode
 -----------------------------
