@@ -87,7 +87,16 @@ MD specific Files
 =================
 
 After the ``xtb`` program has performed the desired MD simulation the trajectory of the structures can be found in ``xtb.trj``.
-Furthermore, files with the names ``scoord.*`` are generated. After every picosecond of simulation the structure at this point will be written into these files. After a successful completion of the MD simulation a ``xtbmdok`` file will be touched. The structure and velocities at the end of the simulation will be written into a ``mdrestart`` file.  
+Furthermore, files with the names ``scoord.*`` are generated. After every picosecond of simulation the structure at this point will be written into these files. After a successful completion of the MD simulation a ``xtbmdok`` file will be touched. The structure and velocities at the end of the simulation will be written into a ``mdrestart`` file.
+
+Trajectory
+----------
+The number of structures in the ``xtb.trj`` file depends on the ``dump`` variable and the propagation time step.
+For practical purposes the two parameters are converted into a dump frequency *n* = (dump step/time step), e.g.,
+a structure is written to the trajecotry equidistantly at every *n*-th propagation step. 
+Due to this conversion the total number of structures in the ``xtb.trj`` file might be slightly larger
+than the expected (total runtime/dump step).
+The same applies to the ``scoord.*`` files.
 
 Restart
 -------
