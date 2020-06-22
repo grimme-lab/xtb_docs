@@ -110,12 +110,14 @@ Available Grids
 ===============
 
 Different Lebedev grids for the calculation of the SASA term are 
-implemented in GFN-xTB. The grids are independent of the used GFNn method 
-and are called as example like this
+implemented in ``xtb``. The grids are independent of the used GFNn method 
+and are set in the detailed input as
 
-.. code:: bash
+.. code-block:: text
 
-  > xtb coord --opt --gbsa toluene tight
+  $gbsa
+     gbsagrid=tight
+
 
 The default grid level is ``normal``. 
 The available grid levels are given in the table below
