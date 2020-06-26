@@ -9,52 +9,57 @@ program.
 
 .. contents::
 
+
 Getting the Program
 ===================
 
-The `xtb <https://github.com/grimme-lab/xtb/releases/latest>`_ program
-is *now open source* and available free of charge on GitHub.
+There are several ways to obtain the ``xtb`` program.
 
+
+Precompiled Binaries from GitHub
+--------------------------------
+
+A precompiled version of the program can be obtained from the
+`latest release page <https://github.com/grimme-lab/xtb/releases/latest>`_
+on GitHub.
 At the release page you find the a compressed tarball (``tar xf xtb*.tar.xz``)
 usually containing the following content:
 
 .. code-block:: none
 
    .
-   ├── CHANGELOG.md
    ├── bin
    │   └── xtb
    ├── include
-   │   └── xtb.h
+   │   └── xtb
+   │       └── xtb.h
    ├── lib
    │   ├── libxtb.so -> libxtb.so.6
-   │   ├── libxtb.so.6 -> libxtb.so.6.2.1
-   │   └── libxtb.so.6.2.1
-   ├── python
-   │   ├── setup.py
-   │   └── xtb
-   │       ├── __init__.py
-   │       ├── calculators.py
-   │       ├── interface.py
-   │       └── solvation.py
+   │   ├── libxtb.so.6 -> libxtb.so.6.3.1
+   │   ├── libxtb.so.6.3.1
+   │   └── pkgconfig
+   │       └── xtb.pc
    └── share
        ├── man
        │   ├── man1
        │   │   └── xtb.1
        │   └── man7
        │       └── xcontrol.7
+       ├── modules
+       │   └── modulefiles
+       │       └── xtb
+       │           └── 6.3.1
        └── xtb
-           ├── .param_gfn0.xtb
-           ├── .param_gfn2.xtb
-           └── .param_gfn.xtb
+           ├── param_gfn2-xtb.txt
+           ├── param_gfn1-xtb.txt
+           ├── param_gfn0-xtb.txt
+           ├── param_ipea-xtb.txt
+           └── .param_gfnff.txt
 
 The binary is usually compiled with the Intel Fortran compiler and statically
 linked against Intel's Math Kernel Library (Intel MKL).
 Newer versions of ``xtb`` (6.2 and newer) additionally include a shared library,
-the header specification of the C-API and a Python wrapper to use the API
-within the Atomic Simulation Environment (`ASE`_).
-
-.. _ASE: https://wiki.fysik.dtu.dk/ase/
+the header specification of the C-API.
 
 First check the version by
 
@@ -88,6 +93,40 @@ testing the binary and packing the tarball.
 This line is very important when reporting a bug to us, because we can
 validate the binary you were using and easier reproduce it.
 
+
+Installing with Conda
+---------------------
+
+Installing ``xtb`` from the conda-forge channel can be achieved by adding conda-forge to your channels with:
+
+.. code-block:: none
+
+   conda config --add channels conda-forge
+
+Once the conda-forge channel has been enabled, ``xtb`` can be installed with:
+
+.. code-block:: none
+
+   conda install xtb
+
+It is possible to list all of the versions of ``xtb`` available on your platform with:
+
+.. code-block:: none
+
+   conda search xtb --channel conda-forge
+
+.. note::
+
+   The conda package manager can become quite slow when adding large channels
+   like conda-forge, for a more performant alternative you can use try
+   `mamba <https://github.com/thesnakepit/mamba>`_, which can be conveniently
+   installed from the conda-forge channel with
+
+   .. code-block:: none
+
+      conda install mamba -c conda-forge
+
+
 Setting up ``xtb``
 ==================
 
@@ -116,7 +155,7 @@ an appropriate OMP stacksize must be provided, chose a reasonable large number b
 
 .. code:: bash
 
-  > export OMP_STACKSIZE=1G
+  > export OMP_STACKSIZE=4G
 
 To distribute the number of threads reasonable in the OMP section
 it is recommended to use
@@ -138,6 +177,7 @@ to make the linear algebra run in parallel export
 
   > export MKL_NUM_THREADS=<ncores>
 
+
 Environment Variables for ``xtb``
 ---------------------------------
 
@@ -148,40 +188,53 @@ files and parameter files.
 The present working directory is implicitly included for most files that
 are searched in the ``XTBPATH``.
 
-The old ``XTBHOME`` variable is used if you have not set the ``XTBPATH``
-variable and is used in the same manner. ``xtb`` will print the values
-of ``XTBPATH`` and ``XTBHOME`` at the beginning of each calculation
-if set to verbose mode.
 
-A configuration script to be sourced in your ``.bashrc`` is provided here
+Environment Module
+~~~~~~~~~~~~~~~~~~
 
-.. code:: bash
+.. note:: Available since version 6.3.2
 
-   #!/usr/bin/env bash
-   # requirements: $XTBHOME is set to `xtb` root directory
-   # otherwise the script will find the location of itself here:
-   if [ -z "${XTBHOME}" ]; then
-      XTBHOME="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-   fi
+A tcl environment module is provided and can be used with usual module systems.
+For installations from the tarball the ``prefix`` variable in the module file
+has to be adjusted accordingly
 
-   # set up path for xtb, using the xtb directory and the users home directory
-   XTBPATH=${XTBHOME}/share/xtb:${XTBHOME}:${HOME}
+.. code-block:: diff
 
-   # to include the documentation we include our man pages in the users manpath
-   MANPATH=${MANPATH}:${XTBHOME}/share/man
+   --- ./share/modules/modulefiles/xtb/6.3.1
+   +++ ./share/modules/modulefiles/xtb/6.3.1
+   @@ -1,5 +1,5 @@
+    #%Module
+   -set prefix /
+   +set prefix /absolute/path/to/xtb
+    
+    module-whatis "Semiempirical Extended Tight-Binding Program Package"
+    
 
-   # finally we have to make the binaries and scripts accessable
-   PATH=${PATH}:${XTBHOME}/bin
-   LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${XTBHOME}/lib
-   PYTHONPATH=${PYTHONPATH}:${XTBHOME}/python
+If the ``share/modules/modulesfiles`` directory is included in your ``MODULEPATH``
+you should be able to load ``xtb`` with
 
-   export PATH XTBPATH MANPATH LD_LIBRARY_PATH PYTHONPATH
+.. code-block:: none
 
-It will set ``XTBHOME`` to the location of the script if you have not
-set it already and just assumes that ``XTBHOME`` contains the content
-of shipped tarball, then it will append the directories ``bin/``
-to your ``PATH`` variable, ``share/man/`` to your ``MANPATH``,
-``lib/`` to your ``LD_LIBRARY_PATH`` and ``python/`` to your ``PYTHONPATH``.
+   module load xtb
+
+.. important::
+
+   If you plan to use the ``xtb`` shared library in your build system you have
+   to do a similar adjustment to the ``lib/pkgconfig/xtb.pc`` file.
+
+
+Sourceable Shell Scripts
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Example scripts to be sourced in your shells rc file are included in the
+distributed tarball:
+
+.. code-block::
+
+   source ./share/xtb/config_env.bash
+
+and should setup all environment variables correctly in most cases.
+
 
 Getting Help from ``xtb``
 =========================
