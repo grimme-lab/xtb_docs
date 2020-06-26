@@ -54,7 +54,7 @@ usually containing the following content:
            ├── param_gfn1-xtb.txt
            ├── param_gfn0-xtb.txt
            ├── param_ipea-xtb.txt
-           └── .param_gfnff.txt
+           └── .param_gfnff.xtb
 
 The binary is usually compiled with the Intel Fortran compiler and statically
 linked against Intel's Math Kernel Library (Intel MKL).
@@ -118,8 +118,8 @@ It is possible to list all of the versions of ``xtb`` available on your platform
 .. note::
 
    The conda package manager can become quite slow when adding large channels
-   like conda-forge, for a more performant alternative you can use try
-   `mamba <https://github.com/thesnakepit/mamba>`_, which can be conveniently
+   like conda-forge, for a more performant alternative you can try to use
+   `mamba <https://github.com/thesnakepit/mamba>`_ instead, which can be conveniently
    installed from the conda-forge channel with
 
    .. code-block:: none
