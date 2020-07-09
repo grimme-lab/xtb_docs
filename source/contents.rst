@@ -27,6 +27,7 @@ The xTB-methods are now officially available in other quantum chemistry programs
 - the computational chemistry framework `cuby4`_ supports ``xtb``
 - `Turbomole`_ does support GFN1-xTB and GFN2-xTB since version 7.4
 - `QCEngine`_ supports calculations with the ``xtb`` API
+- the `GMIN`_, `OPTIM`_, and `PATHSAMPLE`_ global optimization tools provide a ``xtb`` interface
 
 .. _Orca: https://orcaforum.kofo.mpg.de
 .. _AMS: https://www.scm.com/product/dftb/
@@ -34,6 +35,9 @@ The xTB-methods are now officially available in other quantum chemistry programs
 .. _cuby4: http://cuby4.molecular.cz/interface_xtb.html
 .. _Turbomole: https://www.turbomole.org/
 .. _QCEngine: http://docs.qcarchive.molssi.org/projects/QCEngine
+.. _GMIN: http://www-wales.ch.cam.ac.uk/examples/GMIN
+.. _OPTIM: http://www-wales.ch.cam.ac.uk/OPTIM
+.. _PATHSAMPLE: http://www-wales.ch.cam.ac.uk/PATHSAMPLE/
 
 We missed your project here?
 No problem, just give us hint at the mailing list or open an issue at `github`_.
