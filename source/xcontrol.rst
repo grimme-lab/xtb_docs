@@ -121,11 +121,9 @@ fixed atoms:
         8   8 O      1.8253000    -2.9003800    -0.0757700
        11   8 O      6.3893400    -3.6596500    -0.0723200
 
-Note that the oxygen atom 8 is fixed twice using this input on caffeine,
-currently there is no check in place that is removing duplicated atoms
-from the fixing list. This is usually no problem since the gradient of this
-atom is just set to zero multiple times, but you should be aware that this
-can in fact be an issue.
+.. note::
+
+   Since version 6.3 the input is sorted and duplicates are removed automatically.
 
 Constraining Potentials
 -----------------------
@@ -183,6 +181,10 @@ spotted in the verbose output of the constraints summary.
         effective force constant per atom:     0.0500000
             constraining energy/grad norm:     0.0000000     0.0000000
 
+.. note::
+
+   Since version 6.3 the input is sorted and duplicates are removed automatically.
+
 Note that in some versions of ``xtb`` this leads to ``NaN`` for the
 gradient, therefore double-check the constrained atom list for duplicates.
 
@@ -209,6 +211,14 @@ are distances, angles and dihedral angles as done here
      angle: 5, 7, 8, auto
      dihedral: 3, 4, 1, 7, 180
   $end
+
+.. note::
+
+   This printout is not yet fully integrated in the released versions and
+   might not work as expected.
+   For the experimental constraining potentials supporting this features
+   use the all-caps keyword variants (``DISTANCE``, ``ANGLE`` and ``DIHEDRAL``).
+   Note that those are not available for the scan feature.
 
 Distance constraints are given in Ångström, while angle constraints are given
 in degrees.
