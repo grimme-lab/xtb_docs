@@ -229,7 +229,7 @@ Sourceable Shell Scripts
 Example scripts to be sourced in your shells rc file are included in the
 distributed tarball:
 
-.. code-block::
+.. code-block:: bash
 
    source ./share/xtb/config_env.bash
 
