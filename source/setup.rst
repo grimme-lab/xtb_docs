@@ -97,6 +97,14 @@ validate the binary you were using and easier reproduce it.
 Installing with Conda
 ---------------------
 
+.. note::
+
+   To bootstrap a conda installation we recommend to either use
+   the conda-forge distribution
+   `miniforge <https://github.com/conda-forge/miniforge/releases/latest>`_
+   or the anaconda distribution
+   `miniconda <https://docs.conda.io/en/latest/miniconda.html>`_.
+
 Installing ``xtb`` from the conda-forge channel can be achieved by adding conda-forge to your channels with:
 
 .. code-block:: none
