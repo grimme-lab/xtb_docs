@@ -13,6 +13,10 @@ Parameterized solvents and available grids are given as well.
 General command-line control
 ============================
 
+.. note::
+
+   The ALPB solvation model is implemented in version 6.3.3 or newer, use ``--gbsa`` in older versions instead.
+
 The analytical linearized Poisson-Boltzmann (ALPB) model is envoked with the flag ``--alpb [Solvent]``.
 As an example the single point calculation employing the ALPB model for solvation in water would be started by
 
