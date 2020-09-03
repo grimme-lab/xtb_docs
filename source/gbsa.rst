@@ -5,7 +5,7 @@
 --------------------
 
 In this chapter, all neccessary information will be given in order
-to use the implicit solvent model GBSA in xTB calculations.
+to use the implicit solvent model ALPB in xTB calculations.
 Parameterized solvents and available grids are given as well.
 
 .. contents::
@@ -13,17 +13,14 @@ Parameterized solvents and available grids are given as well.
 General command-line control
 ============================
 
-The generalized born (GB) model with solvent accessable surface area
-(SASA) termed GBSA is envoked with the flag ``--gbsa [Solvent]`` or 
-alternative ``-g [Solvent]``. As an example the single point calculation employing the 
-GBSA model for solvation in water would be started by
+The analytical linearized Poisson-Boltzmann (ALPB) model is envoked with the flag ``--alpb [Solvent]``.
+As an example the single point calculation employing the ALPB model for solvation in water would be started by
 
 .. code:: bash
 
-  > xtb coord --gbsa water
+  > xtb coord --alpb water
 
-As an example the energy printout of a singlepoint calculation
-of a H₂O molecule in implicit water is given.
+As an example the energy printout of a singlepoint calculation of a H₂O molecule in implicit water is given.
 
 .. code:: bash
 
@@ -52,65 +49,70 @@ of a H₂O molecule in implicit water is given.
 The solvation free energy is printed as ``Gsolv`` and is also added
 to all total energy printouts.
 
-Optimizing a geometry with the GBSA model can be done with the following input
+Optimizing a geometry with the ALPB model can be done with the following input
 
 .. code:: bash
 
-  > xtb coord --opt --gbsa water
+  > xtb coord --opt --alpb water
 
 The order of the flags can be altered and the input
 is not case sensitive.
-Like in a optimization without GBSA the optimized coordinates are
+Like in a optimization without ALPB the optimized coordinates are
 written to a new file (``xtbopt.coord``).
-In General the GBSA can be used in combination with all available run types 
+In General the ALPB can be used in combination with all available run types
 implemented in the `xtb`.
 
 Parameterized Solvents
 ======================
 
-The GBSA model is parameterized for the Hamiltonian of 
-GFN1-xTB and GFN2-xTB, but not for GFN0-xTB. 
-Also some solvents were parameterized only for GFN1 or GFN2.
+The ALPB model is parameterized for the Hamiltonian of GFN1-xTB, GFN2-xTB, and the GFN-FF, but not for GFN0-xTB.
+For the GFN1-xTB and GFN2-xTB Hamltonians also a generalized Born (GB) model with surface area (SA) contributions, dubbed GBSA is available.
 Here is a list of the available solvents.
 
-+------------------------+-------+-------+
-| solvents               | GFN1  | GFN2  |
-+========================+=======+=======+
-| Acetone                |   x   |   x   |
-+------------------------+-------+-------+
-| Acetonitrile           |   x   |   x   |
-+------------------------+-------+-------+
-| Benzene                |   x   |   x   |
-+------------------------+-------+-------+
-| CH₂Cl₂                 |   x   |   x   |
-+------------------------+-------+-------+
-| CHCl₃                  |   x   |   x   |
-+------------------------+-------+-------+
-| CS₂                    |   x   |   x   |
-+------------------------+-------+-------+
-| DMF                    |       |   x   |
-+------------------------+-------+-------+
-| DMSO                   |   x   |   x   |
-+------------------------+-------+-------+
-| Ether                  |   x   |   x   |
-+------------------------+-------+-------+
-| Water (H₂O)            |   x   |   x   |
-+------------------------+-------+-------+
-| Methanol               |   x   |   x   |
-+------------------------+-------+-------+
-| n-Hexan                |       |   x   |
-+------------------------+-------+-------+
-| THF                    |   x   |   x   |
-+------------------------+-------+-------+
-| Toluene                |   x   |   x   |
-+------------------------+-------+-------+
+=============== ============ ============ ============ ============ ========
+ solvents        GFN1(ALPB)   GFN1(GBSA)   GFN2(ALPB)   GFN2(GBSA)   GFN-FF
+=============== ============ ============ ============ ============ ========
+ Acetone         x            x            x            x            x
+ Acetonitrile    x            x            x            x            x
+ Aniline         x                         x                         x
+ Benzaldehyde    x                         x                         x
+ Benzene         x            x            x            x            x
+ CH₂Cl₂          x            x            x            x            x
+ CHCl₃           x            x            x            x            x
+ CS₂             x            x            x            x            x
+ Dioxane         x                         x                         x
+ DMF             x                         x                         x
+ DMSO            x            x            x            x            x
+ Ether           x            x            x            x            x
+ Ethylacetate    x                         x                         x
+ Furane          x                         x                         x
+ Hexandecane     x                         x                         x
+ Hexane          x                         x            x            x
+ Methanol                     x                         x
+ Nitromethane    x                         x                         x
+ Octanol         x                         x                         x
+ Octanol (wet)   x                         x                         x
+ Phenol          x                         x                         x
+ Toluene         x            x            x            x            x
+ THF             x            x            x            x            x
+ Water (H₂O)     x            x            x            x            x
+=============== ============ ============ ============ ============ ========
+
+To get the legacy GBSA model setup a detailed input with
+
+.. code-block:: text
+
+   $gbsa
+      kernel=still
+
+and invoke the program with the ``--gbsa`` flag instead of the ``--alpb`` flag.
 
 
 Available Grids
 ===============
 
-Different Lebedev grids for the calculation of the SASA term are 
-implemented in ``xtb``. The grids are independent of the used GFNn method 
+Different Lebedev grids for the calculation of the SASA term are
+implemented in ``xtb``. The grids are independent of the used GFNn method
 and are set in the detailed input as
 
 .. code-block:: text
@@ -119,7 +121,7 @@ and are set in the detailed input as
      gbsagrid=tight
 
 
-The default grid level is ``normal``. 
+The default grid level is ``normal``.
 The available grid levels are given in the table below
 with the corresponding number of gridpoints.
 
@@ -136,13 +138,13 @@ with the corresponding number of gridpoints.
 +---------------+--------------+
 
 Larger grids increase the computation time and
-reduce numerical noise in the energy. They may help to converge 
-geometry optimizations with GBSA for large molecules which 
+reduce numerical noise in the energy. They may help to converge
+geometry optimizations with ALPB for large molecules which
 would otherwise not converge due to numerical noise.
 
 Reference States
 ================
- 
+
 The default reference state option is ``bar1M`` which should not
 be changed for normal production runs.
 In order to compare the solvation free energy with
@@ -151,7 +153,7 @@ to the same ``reference`` option as in COSMO-RS. This could be done with
 
 .. code:: bash
 
-  > xtb coord --opt --gbsa water reference
+  > xtb coord --opt --alpb water reference
 
 Extended Functionality
 ======================
@@ -161,7 +163,7 @@ Solvent Accessable Surface Area
 
 .. note:: feature implemented in version 6.2
 
-To get more insights and diagnostics for a GBSA calculation the Born radii
+To get more insights and diagnostics for a ALPB calculation the Born radii
 and the solvent accessable surface area can be printed by toggling the
 property-printout with
 
@@ -170,7 +172,7 @@ property-printout with
    $write
       gbsa=true
 
-The printout for a branched octane isomer using GBSA(Water) looks like
+The printout for a branched octane isomer using ALPB(Water) looks like
 
 .. code-block:: none
 

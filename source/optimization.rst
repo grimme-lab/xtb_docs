@@ -5,7 +5,7 @@ Geometry Optimization
 ---------------------
 
 The basics of calculating geometry optimizations with ``xtb`` are presented in this chapter.
-Please check out the chapter :ref:`sp` for options that are not optimization-specific, as the charge or the number of SCF iterations, for example. Solvation can be included easily by using GBSA. For this approach, please read the chapter :ref:`gbsa`.
+Please check out the chapter :ref:`sp` for options that are not optimization-specific, as the charge or the number of SCF iterations, for example. Solvation can be included easily by using ALPB. For this approach, please read the chapter :ref:`gbsa`.
 
 .. contents::
 
@@ -263,7 +263,7 @@ The number of unpaired electrons (uhf) and the solvent have to be specified. Fur
 
 .. code:: bash
 
-   > xtb inp.xyz --opt loose --gbsa toluene --uhf 2
+   > xtb inp.xyz --opt loose --alpb toluene --uhf 2
 
 The thresholds corresponding to the optimization level 'loose' can be found in the ANCopt setup.
 
@@ -322,7 +322,7 @@ The failure of the geometry convergence is indicated by the printout
    *** FAILED TO CONVERGE GEOMETRY OPTIMIZATION IN 500 ITERATIONS ***
 
 Additionally, the empty file ``NOT_CONVERGED`` is written. If convergence problems in the SCC occur, it is recommended to start with *GFN0-xTB* which does not have to perform SCC iterations. Then the geometry optimization can be improved using *GFN2-xTB*.
-It can occur sometimes that a geometry does not converge correctly or at all if the calculation is carried out in the gas phase. It is recommended to use GBSA in this cases. An example for the difference made by using GBSA during the geometry optimization can be seen below. If the system is optimized in chloroform, the chloride anion coordinates the cation while the neutral compounds are formed in the gas phase.
+It can occur sometimes that a geometry does not converge correctly or at all if the calculation is carried out in the gas phase. It is recommended to use ALPB in this cases. An example for the difference made by using ALPB during the geometry optimization can be seen below. If the system is optimized in chloroform, the chloride anion coordinates the cation while the neutral compounds are formed in the gas phase.
 
 .. figure:: ../figures/gas_slow.gif
    :scale: 50 %
