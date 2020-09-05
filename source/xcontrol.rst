@@ -371,9 +371,9 @@ When using this input with the caffeine molecule the automatically
 determined radius is about 5.6 Å, which should be large enough to contain
 a molecule of its size.
 At first it might be surprising to find that the confining energy
-is about +84 kcal/mol, but we did we did not account for the correct
-placement of the aufpunkt of the potential within our chosen input.
-Currently, the aufpunkt of the spherical logfermi-potential
+is about +84 kcal/mol, but we did we did not account for the placement of 
+the molecule, relative to the center of potential within our chosen input.
+Currently, the center point of the spherical logfermi potential
 is set at the origin (0,0,0) and the center of mass of the caffeine molecule
 is about 4.4 Å away from it, so our molecule is stuck halfway in the wall
 we just created.
@@ -398,7 +398,7 @@ the molecule to its principal axes of inertia.
    The caffeine molecule is now shifted correctly inside the potential.
    The confining energy, for the correctly placed potential is now 0 kcal/mol.
 
-.. note:: The aufpunkt for all wall potentials is always placed at the origin,
+.. note:: The center point for all wall potentials is always placed at the origin,
           which cannot be changed with the currently available input options.
           Therefore, we resort to modifying our input coordinates here.
 
@@ -468,7 +468,7 @@ the three radii with an automatically determined value.
 The automatic determined value is the automatic isotropic sphere radius,
 so letting all three values be autodetermined results in an isotropic potential.
 
-As before we have to deal with the issue that the center of mass of our caffeine
+As before, we have to deal with the issue that the center of mass of our caffeine
 molecule and the origin do not coincident, this time we use a Python interpreter
 with ASE support for this job
 
