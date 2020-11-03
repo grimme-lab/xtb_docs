@@ -115,7 +115,7 @@ The product structure given here
 Running the calculation should yield an output similar to this
 
 .. code-block:: none
-   :emphasize-lines: 46
+   :emphasize-lines: 35
 
               ------------------------------------------------- 
              |                     P A T H                     |
