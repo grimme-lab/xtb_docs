@@ -33,10 +33,11 @@ A usual invokation of the path finder is given here
 
 .. code-block:: none
 
-   xtb --gfnff start.xyz --path end.xyz --input path.inp
+   xtb start.xyz --path end.xyz --input path.inp
 
-For this guide we will use the GFN-FF as it is fast and the path generation
-therefore near instant. Keep in mind, that the GFN-FF can only break bonds,
+For this guide we will use the GFN2-xTB since we want to form bonds.
+
+If you want to use GFN-FF, keep in mind, that the GFN-FF can only break bonds,
 dissociation reactions will therefore usually work fine, while association
 reactions are likely to fail, as the topology is generated for the reactant
 geometry.
@@ -129,62 +130,53 @@ Running the calculation should yield an output similar to this
    # optlevel                         :   0
     
    degenerate system : F 0.260023 0.367379
-    18 # points, run   1 for k push/pull/alpha :   0.003  -0.015   1.200      prod-ed RMSD:   0.403
-    18 # points, run   2 for k push/pull/alpha :   0.005  -0.022   1.200      prod-ed RMSD:   0.345
-    19 # points, run   3 for k push/pull/alpha :   0.007  -0.034   1.200      prod-ed RMSD:   0.295
-    21 # points, run   4 for k push/pull/alpha :   0.010  -0.051   1.200      prod-ed RMSD:   0.255
-    35 # points, run   5 for k push/pull/alpha :   0.015  -0.076   1.200      prod-ed RMSD:   0.219
-    42 # points, run   6 for k push/pull/alpha :   0.023  -0.114   1.200      prod-ed RMSD:   0.185
-    17 # points, run   1 for k push/pull/alpha :   0.003  -0.015   1.000      prod-ed RMSD:   0.421
+    24 # points, run   1 for k push/pull/alpha :   0.003  -0.015   1.200      prod-ed RMSD:   0.018
+    23 # points, run   2 for k push/pull/alpha :   0.003  -0.013   1.200      prod-ed RMSD:   0.017
     
     path trials (see xtbpath_*.xyz), energies in kcal/mol
-   run 1  barrier:  17.97  dE:  17.18  product-end path RMSD:   0.403
-   run 2  barrier:  26.58  dE:  26.36  product-end path RMSD:   0.345
-   run 3  barrier:  36.99  dE:  36.74  product-end path RMSD:   0.295
-   run 4  barrier:  49.35  dE:  47.69  product-end path RMSD:   0.255
-   run 5  barrier:  65.06  dE:  60.90  product-end path RMSD:   0.219
-   run 6  barrier:  93.33  dE:  77.75  product-end path RMSD:   0.185
-   run 7  barrier:  15.73  dE:  14.87  product-end path RMSD:   0.421
-   path  6 taken with   42 points.
+   run 1  barrier: 116.09  dE: -25.06  product-end path RMSD:   0.018
+   run 2  barrier:  12.52  dE: -25.08  product-end path RMSD:   0.017
+   path  2 taken with   23 points.
    screening points ...
-   new # points : 22
    start path on file xtbpath_0.xyz                                                                   
    refinement cycle   1
     optimizing points            2  ...
     optimizing points           10  ...
     optimizing points           20  ...
     
-   forward  barrier (kcal)  :    77.745
-   backward barrier (kcal)  :     0.000
-   reaction energy  (kcal)  :    77.745
+   forward  barrier (kcal)  :    12.420
+   backward barrier (kcal)  :    37.497
+   reaction energy  (kcal)  :   -25.076
    opt. pull strength       :     0.050
-   norm(g) at est. TS, point: 0.08064  19
+   norm(g) at est. TS, point: 0.01615  11
     
    terminated because max. # cycles reached
    estimated TS on file xtbpath_ts.xyz                                                                  
    path data (pmode=approx. path mode):
    point     drms     energy pmode ovlp pmode grad
-      2     0.000    -1.590     0.930  -0.00220
-      3     0.077    -1.349     0.991   0.00036
-      4     0.149    -0.939     1.000   0.00061
-      5     0.220    -0.326     1.000   0.00092
-      6     0.291     0.560     0.991   0.00133
-      7     0.362     1.726     0.915   0.00180
-      8     0.430     3.244     0.937   0.00250
-      9     0.495     5.181     0.987   0.00316
-     10     0.560     7.641     0.940   0.00405
-     11     0.625    10.590     0.807   0.00458
-     12     0.693    14.099     0.532   0.00641
-     13     0.751    17.975     0.642   0.00698
-     14     0.810    22.543    -0.007   0.01109
-     15     0.854    25.963    -0.046   0.00673
-     16     0.908    25.377    -0.247  -0.00139
-     17     0.953    27.441    -0.029   0.00435
-     18     1.003    29.220    -0.562   0.00370
-     19     1.054    31.613    -0.361   0.00535
-     20     1.102    27.815    -0.402  -0.00793
-     21     1.153    28.778    -0.094   0.00283
-     22     1.189    77.745     0.304   0.03345   
+      2     0.000    -0.025     0.996  -0.00004
+      3     0.066     0.177     0.999   0.00032
+      4     0.134     0.570     0.999   0.00062
+      5     0.202     1.146     0.999   0.00092
+      6     0.269     1.984     0.999   0.00137
+      7     0.334     3.094     0.997   0.00179
+      8     0.400     4.629     0.995   0.00245
+      9     0.466     6.516     0.982   0.00303
+     10     0.532     8.988     0.900   0.00373
+     11     0.603    12.420     0.939   0.00374
+     12     0.700   -12.104     0.772  -0.01147
+     13     0.927   -17.963     0.806  -0.01343
+     14     0.974   -21.578     0.948  -0.00871
+     15     1.018   -23.406     0.612  -0.00549
+     16     1.053   -24.364     0.207  -0.00297
+     17     1.088   -24.348    -0.080   0.00006
+     18     1.117   -24.149    -0.414   0.00084
+     19     1.142   -24.574    -0.534  -0.00194
+     20     1.165   -24.941    -0.212  -0.00168
+     21     1.189   -24.865    -0.748   0.00043
+     22     1.208   -25.100    -0.450  -0.00123
+     23     1.228   -25.076     0.077   0.00031
+
 
 The final transition state guess can be found in ``xtbpath_ts.xyz``, depicted here:
 
