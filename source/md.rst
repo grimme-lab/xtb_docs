@@ -82,6 +82,8 @@ The above default setting should look like below in your input file
       sccacc=2.0
    $end
 
+.. important :: 
+   For MD simulations with GFN-FF the time step must be reduced, for more information see section :ref:`gfnff`
 
 MD specific Files
 =================
