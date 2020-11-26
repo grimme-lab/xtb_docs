@@ -197,7 +197,8 @@ To constrain the atoms more tightly the force constant can be adjusted
   $end
 
 this variable goes directly into the constraining procedure and is given in
-Hartree, for very high force constants this becomes equivalent to the exact fixing.
+atomic unites (Hartree/Bohr²), for very high force constants this becomes
+equivalent to the exact fixing.
 Note the difference in the syntax as you are required to use an equal-sign
 instead of a colon, as you are modifying a global variable.
 
