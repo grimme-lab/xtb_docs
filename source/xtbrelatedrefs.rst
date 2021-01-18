@@ -42,6 +42,14 @@ Applications
 
 __ https://doi.org/10.1021/acs.jctc.9b00143
 
+**Conformational Energies of Transition Metal Complexes (TMCONF40):** Bursch, M.; Pracht, P.; Hansen, A.; Grimme, S. *Theoretical study on conformational energies of transition metal complexes* *Phys. Chem. Chem. Phys.* **2021**, *23*, 287-299
+`DOI: 10.1039/D0CP04696 <https://doi.org/10.1039/D0CP04696E>`_
+
+**Small Molecule Binding in Metal Organic Polyhedra** Spicher, S.; Bursch, M.; Grimme, S. *Efficient Calculation of Small Molecule Binding in Metal–Organic Frameworks and Porous Organic Cages* *J. Phys. Chem. C* **2020**, *124 (50)*, 27529-27541
+`DOI: 10.1021/acs.jpcc.0c08617 <https://doi.org/10.1021/acs.jpcc.0c08617>`_
+
+**Calculation of Redoxpotentials:** Neugebauer, H.; Bohle, F.; Bursch, M.; Hansen, A.; Grimme, S. *Benchmark Study of Electrochemical Redox Potentials Calculated with Semiempirical and DFT Methods* *J. Phys. Chem. A* **2020**, *124 (35)*, 7166-7176
+`DOI: 10.1021/acs.jpca.0c05052 <https://doi.org/10.1021/acs.jpca.0c05052>`_
 
 **Protonation Site Determination:** Pracht, P.; Bauer, C.; Grimme, S. *Automated and efficient quantum chemical determination and energetic ranking of molecular protonation sites* *J. Comput. Chem.* **2017**, *38 (30)*, 2618-2631
 `DOI: 10.1002/jcc.24922 <https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.24922>`_
