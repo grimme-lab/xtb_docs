@@ -166,10 +166,13 @@ parametrizations, which differ mostly in the cost--accuracy ratio,
 
 .. code:: sh
 
+  > xtb --gfn 0 coord
+  > xtb --gfn 1 coord
   > xtb --gfn 2 coord
+  > xtb --gfnff coord
 
 to choose GFN2-xTB, which is also the default parametrization. Also
-available are GFN1-xTB, and GFN0-xTB.
+available are GFN1-xTB, and GFN0-xTB (Notice: separate parameter file necessary!) as well as the GFN-FF force-field.
 
 Accuracy and Iterations
 =======================
