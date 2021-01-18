@@ -161,8 +161,8 @@ The imported specifications are documented in the output file in the *Calculatio
             > xtb -- -oh.xyz
 
 To select the parametrization of the xTB method you can currently choose
-from three different geometry, frequency and non-covalent interactions (GFN)
-parametrizations, which differ mostly in the cost--accuracy ratio,
+from four different geometry, frequency and non-covalent interactions (GFN)
+parametrizations/methods, which differ mostly in the cost--accuracy ratio,
 
 .. code:: sh
 
@@ -171,8 +171,8 @@ parametrizations, which differ mostly in the cost--accuracy ratio,
   > xtb --gfn 2 coord
   > xtb --gfnff coord
 
-to choose GFN2-xTB, which is also the default parametrization. Also
-available are GFN1-xTB, and GFN0-xTB (Notice: separate parameter file necessary!) as well as the GFN-FF force-field.
+GFN2-xTB is the default parametrization. Also
+available are GFN1-xTB, GFN0-xTB (Notice: separate parameter file necessary!) as well as the GFN-FF force-field.
 
 Accuracy and Iterations
 =======================
