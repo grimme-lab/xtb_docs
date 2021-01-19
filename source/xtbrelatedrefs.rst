@@ -42,11 +42,17 @@ Applications
 
 __ https://doi.org/10.1021/acs.jctc.9b00143
 
+**Thermodynamics** Spicher, S.; Grimme, S. *Efficient Computation of Free Energy Contributions for Association Reactions of Large Molecules* *J. Phys. Chem. Lett.* **2020**, *11 (16)*, 6606–6611
+`DOI: 10.1021/acs.jpclett.0c011930 <https://doi.org/10.1021/acs.jpclett.0c01930>`_
+
 **Conformational Energies of Transition Metal Complexes (TMCONF40):** Bursch, M.; Pracht, P.; Hansen, A.; Grimme, S. *Theoretical study on conformational energies of transition metal complexes* *Phys. Chem. Chem. Phys.* **2021**, *23*, 287-299
 `DOI: 10.1039/D0CP04696 <https://doi.org/10.1039/D0CP04696E>`_
 
 **Small Molecule Binding in Metal Organic Polyhedra** Spicher, S.; Bursch, M.; Grimme, S. *Efficient Calculation of Small Molecule Binding in Metal–Organic Frameworks and Porous Organic Cages* *J. Phys. Chem. C* **2020**, *124 (50)*, 27529-27541
 `DOI: 10.1021/acs.jpcc.0c08617 <https://doi.org/10.1021/acs.jpcc.0c08617>`_
+
+**Distance Distributions in Biomacromolecules** Spicher, S.; Abdullin, D.; Grimme, S.; Schiemann, O. *Modeling of spin–spin distance distributions for nitroxide labeled biomacromolecules* *Phys. Chem. Chem. Phys* **2020**, *22*, 24282-24290
+`DOI: 10.1039/DOCP04920D <https://doi.org/10.1039/D0CP04920D>`_
 
 **Calculation of Redoxpotentials:** Neugebauer, H.; Bohle, F.; Bursch, M.; Hansen, A.; Grimme, S. *Benchmark Study of Electrochemical Redox Potentials Calculated with Semiempirical and DFT Methods* *J. Phys. Chem. A* **2020**, *124 (35)*, 7166-7176
 `DOI: 10.1021/acs.jpca.0c05052 <https://doi.org/10.1021/acs.jpca.0c05052>`_
