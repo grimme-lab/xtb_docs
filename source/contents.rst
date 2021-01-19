@@ -28,6 +28,8 @@ The xTB-methods are now officially available in other quantum chemistry programs
 - `Turbomole`_ does support GFN1-xTB and GFN2-xTB since version 7.4
 - `QCEngine`_ supports calculations with the ``xtb`` API
 - the `GMIN`_, `OPTIM`_, and `PATHSAMPLE`_ global optimization tools provide a ``xtb`` interface
+- `CP2K`_ has an GFN1-xTB implementation since version 7.1
+
 
 .. _Orca: https://orcaforum.kofo.mpg.de
 .. _AMS: https://www.scm.com/product/dftb/
@@ -38,6 +40,7 @@ The xTB-methods are now officially available in other quantum chemistry programs
 .. _GMIN: http://www-wales.ch.cam.ac.uk/examples/GMIN
 .. _OPTIM: http://www-wales.ch.cam.ac.uk/OPTIM
 .. _PATHSAMPLE: http://www-wales.ch.cam.ac.uk/PATHSAMPLE/
+.. _CP2K: https://www.cp2k.org/version_history
 
 We missed your project here?
 No problem, just give us hint at the mailing list or open an issue at `github`_.
