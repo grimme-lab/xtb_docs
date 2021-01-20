@@ -94,4 +94,4 @@ Koopman, J.; Grimme, S.
 **Supramolecular Chemistry with GFN2-xTB:** Bohle, F. Grimme, S. *Efficient structural and energetic screening of fullerene
 encapsulation in a large supramolecular double decker macrocycle* *J. Serb. Chem. Soc.* **2019**, *84(8)*, 837-844 `DOI:10.2298/JSC190701079B <https://doi.org/10.2298/JSC190701079B>`_
 
-**Geometry Optimization of (Metallo-) Proteins:** Schmitz, S., Seibert, J., Ostermeir, K., Hansen, A., Göller, A. H., Grimme, S. *Quantum Chemical Calculation of Molecular and Periodic Peptide and Protein Structures* *J. Phys. Chem. B* **2020**, *124*, 3636-3646 `DOI: 10.1021/acs.jpcb.0c00549 <https://doi.org/10.1021/acs.jpcb.0c00549>
+**Geometry Optimization of (Metallo-) Proteins:** Schmitz, S., Seibert, J., Ostermeir, K., Hansen, A., Göller, A. H., Grimme, S. *Quantum Chemical Calculation of Molecular and Periodic Peptide and Protein Structures* *J. Phys. Chem. B* **2020**, *124*, 3636-3646 `DOI: 10.1021/acs.jpcb.0c00549 <https://doi.org/10.1021/acs.jpcb.0c00549>`_
