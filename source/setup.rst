@@ -22,6 +22,9 @@ Precompiled Binaries from GitHub
 A precompiled version of the program can be obtained from the
 `latest release page <https://github.com/grimme-lab/xtb/releases/latest>`_
 on GitHub.
+To get the newest features an automatically generated
+`development version <https://github.com/grimme-lab/xtb/releases/tag/bleed>`_
+is available for the latest commit on the default branch.
 At the release page you find the a compressed tarball (``tar xf xtb*.tar.xz``)
 usually containing the following content:
 
@@ -133,6 +136,9 @@ It is possible to list all of the versions of ``xtb`` available on your platform
    .. code-block:: none
 
       conda install mamba -c conda-forge
+      
+   Alternatively, the `mambaforge <https://github.com/conda-forge/miniforge/releases>`_
+   installed can be used to bootstrap a conda installation with mamba preinstalled.
 
 
 Setting up ``xtb``
@@ -158,14 +164,22 @@ include this option for production runs.
 Parallelisation
 ---------------
 
-The ``xtb`` program uses OMP parallelisation, to calculate larger systems
+The ``xtb`` program uses shared memory OpenMP parallelisation, to calculate larger systems
 an appropriate OMP stacksize must be provided, chose a reasonable large number by
 
 .. code:: bash
 
   > export OMP_STACKSIZE=4G
+  
+.. note::
 
-To distribute the number of threads reasonable in the OMP section
+   Note that the memory requirement will increase with the system size *and* the number
+   of requested threads.
+   Currently, for 3000 atom system each thread requires around 16GB of memory due to
+   the usage of dense matrix algebra for the xTB Hamiltonian.
+   You have to account for this by allowing an accordingly larger OpenMP stacksize.
+
+To distribute the number of threads reasonable in the OpenMP section
 it is recommended to use
 
 .. code:: bash
@@ -177,9 +191,17 @@ You might want to deactivate nested OMP constructs by
 .. code:: bash
 
   > export OMP_MAX_ACTIVE_LEVELS=1
-  
+
+.. tip::
+   
+   Most OpenMP regions allow to customize the scheduling by setting ``OMP_SCHEDULE``,
+   for many threads the ``dynamic`` schedule has proven to give a good load-balance
+   between all threads.
+
 The default linear algebra backend of `xtb` is the Math Kernel Library,
-to make the linear algebra run in parallel export
+which usually comes as OpenMP threaded version and respects the settings
+of ``OMP_NUM_THREADS``. You can however still adjust the MKL parallelisation
+separately by setting
 
 .. code:: bash
 
