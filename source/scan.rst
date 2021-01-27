@@ -66,7 +66,7 @@ __ https://xtb-docs.readthedocs.io/en/latest/xcontrol.html#constraining-potentia
 
 .. code:: text
 
-    $constain
+    $constrain
      force constant=0.05
     $scan
      dihedral: 8,5,1,4,60.0; 60.0,420.0,72
