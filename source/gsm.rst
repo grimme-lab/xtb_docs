@@ -123,7 +123,7 @@ After the calculation, the two most important files are the reaction path in you
 
    Inversion of cyclohexane
 
-.. figure:: ../figures/cyclohexan_conv.pdf
+.. figure:: ../figures/cyclohexan_conv.png
    :scale: 50 %
    :alt: cyclohexane
 
@@ -205,7 +205,7 @@ The reaction path as well as the energy diagram are given below.
 
    Reaction path of a claisen rearrangement
 
-.. figure:: ../figures/claisen_conv.pdf
+.. figure:: ../figures/claisen_conv.png
    :scale: 25 %
    :alt: claisen_conv
 
