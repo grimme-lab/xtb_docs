@@ -209,7 +209,7 @@ The reaction path as well as the energy diagram are given below.
    :scale: 25 %
    :alt: claisen_conv
 
-   Energy diagram of a wrong reaction path
+   Energy diagram of a claisen reaction
 
 
 
