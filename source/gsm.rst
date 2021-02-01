@@ -123,7 +123,7 @@ After the calculation, the two most important files are the reaction path in you
 
    Inversion of cyclohexane
 
-.. figure:: ../figures/cyclohexan_conv.png
+.. figure:: ../figures/cyclohexane_conv.png
    :scale: 50 %
    :alt: cyclohexane
 
