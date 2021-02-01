@@ -6,7 +6,7 @@ Growing String Method
 
 .. contents::
 
-.. note:: ``gsm`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without warranty of completness or correctness. We are using version *5e12e14d30faaf084b47bc491d62e49a81dad3b2* of ``gsm``. ``gsm`` is not able to communicate with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values. To run a ``gsm`` calculation, the following programs are needed. All of them are available upon personal request.
+.. note:: ``gsm`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without warranty of completness or correctness. We are using version *5e12e14d30faaf084b47bc491d62e49a81dad3b2* of ``gsm``. ``gsm`` is not able to communicate with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values. To run a ``gsm`` calculation, the following programs / files are needed. They can be found at our github page. 
      1) gsm.orca          *in any valid path, e.g. your bin*
      2) inpfileq          *in the directory, where you want to execute your calculation*
      3) modified ograd    *in the directory, where you want to execute your calculation*
@@ -16,54 +16,30 @@ Growing String Method
 .. _ZimmermanGroup: https://github.com/ZimmermanGroup/molecularGSM/wiki
 .. _orca: https://zimmermangroup.github.io/molecularGSM/classORCA.html
 
-.. note:: For ``xtb`` versions newer than at least 6.1, an updated ``tm2orca.py`` is needed, which is available upon personal request.
 
 Input
 ======
 
-``gsm`` is a method to find a reaction path and a transition state. In the following, we are going to work with the Double-ended Growing String Method (DE-GSM), therefore a converged start and end structure is needed. The atomic order needs to be the same in both files otherwise the ``gsm`` calculation will not give the transition state you are looking for.
+``gsm`` is a method to find a reaction path and a transition state. In the following, we are going to work with the Double-Ended Growing String Method (DE-GSM), therefore a converged start and end structure is needed. The atomic order needs to be the same in both files, otherwise the ``gsm`` calculation will not give the transition state you are looking for.
 
-Lets first have a look at the structure needed. The files are explained later in detail. Let' call the directory, where you want to execute your calculations, *cwd/* (current working directory). In *cwd/* you need to have the directory *scratch/*. Here, all files created and needed during the calculation are saved, but in the beginning, there is only one file in *scratch/*, named *initial0000.xyz*. The file *initial0000.xyz* contains the start and the end structure in any valid Xmol format. The next two files needed are in the directory, where you want to carry out your calculation. Both are available upon personal request or from the *ZimmermanGroup* (see links attached). With the *inpfileq* the user is able to set specific parameters for the ``gsm`` calculation, whereas the *ograd* wraps ``xtb`` and converts input and output for ``gsm``. This is necessary, as ``gsm`` can read ``orca`` output but not ``xtb`` output. To use ``gsm`` with ``xtb``, we therefore have to fake an ``orca`` output, which is done using the ``tm2orca`` script. Furthermore, you need two directories, where you optimize your start and end structure, namley *start/* and *end/*.
+In your current working directory *cwd/* you need to have the files *inpfileq* and *ograd*, and the directory *scratch/*. In *scratch/*, all files created and needed during the calculation are saved, but in the beginning, there is only one file in *scratch/*, named *initial0000.xyz*. The file *initial0000.xyz* contains the start and the end structure in any valid Xmol format. With the *inpfileq* the user is able to set specific parameters for the ``gsm`` calculation, whereas the *ograd* wraps ``xtb`` and converts input and output for ``gsm``. This is necessary, as ``gsm`` can read ``orca`` output but not ``xtb`` output. To use ``gsm`` with ``xtb``, we therefore have to fake an ``orca`` output, which is done using the ``tm2orca.py`` script. 
 
 
 .. code:: bash
 
     > cd cwd/
     > ls
-    end/    inpfileq    ograd*    scratch/    start/
+    inpfileq    ograd*    scratch/
 
 
 Inversion
 ==========
 
-This example deals with the inversion of cyclohexane from the chair to the boat conformation. Firstly, you need a converged starting structure *start.xyz*. You therefore have to build your molecule in *start/*, where you build your molecule using a smiles string, ``avogadro`` or any other graphical program of your choice. Afterwards you have to execute a quick geometry optimization (e.g. with ``xtb``) and copy the obtained converged structure back in your *cwd/*.
+This example deals with the inversion of cyclohexane from the chair to the boat conformation. Firstly, you need a converged starting structure *start.xyz*. You therefore have to build your molecule using a smiles string, ``avogadro`` or any other graphical program of your choice. Afterwards you have to execute a quick geometry optimization (e.g. with ``xtb``) and copy the obtained converged structure back in your *cwd/*.
 
 .. code:: bash
 
-    > cd start/
-    > obabel -ismi unconverged.smi --gen3d -oxyz -O unconverged.xyz
     > xtb unconverged.xyz --opt
-    > cat xtbopt.xyz
-    18
-            -19.19539921
-    C           0.72843434470456    1.25982478073651   -0.24012456780476
-    C          -0.72777610989508    1.26067546579378    0.23600481175104
-    C          -1.45606227367562   -0.00012407730597   -0.24050672835883
-    C          -0.72883134272817   -1.26099459852248    0.23739090970526
-    C           0.72737798955291   -1.26188502513029   -0.23874262122560
-    C           1.45568794883483   -0.00106824921650    0.23769683369676
-    H           0.75509375057143    1.30484737240468   -1.33473424471687
-    H           1.24080411887910    2.14749990671418    0.14406690070669
-    H          -1.23941415236514    2.14836879734283   -0.14911579915314
-    H          -0.75440938068291    1.30686679161267    1.33056700638662
-    H          -2.48123885422840    0.00052444409439    0.14306417819097
-    H          -1.50769808223365   -0.00069664832176   -1.33514006744289
-    H          -0.75548303390087   -1.30594264398711    1.33200209562400
-    H          -1.24120585934463   -2.14869071264549   -0.14673782557395
-    H           1.23901244269262   -2.14956140418753    0.14642959499471
-    H           0.75401085032508   -1.30814283105027   -1.33330389699568
-    H           1.50743880779513   -0.00049661774011    1.33233065893244
-    H           2.48082883569879   -0.00171475059154   -0.14597723871678
     > cp xtbopt.xyz ../start.xyz
 
 
@@ -77,56 +53,57 @@ Before you can start the calculation, a couple of other things have to be done. 
     > cat start.xyz end.xyz > scratch/initial0000.xyz
     > cat scratch/initial0000.xyz
     18
-
-    C       0.72843434       1.25982478      -0.24012457
-    C      -0.72777611       1.26067547       0.23600481
-    C      -1.45606227      -0.00012408      -0.24050673
-    C      -0.72883134      -1.26099460       0.23739091
-    C       0.72737799      -1.26188503      -0.23874262
-    C       1.45568795      -0.00106825       0.23769683
-    H       0.75509375       1.30484737      -1.33473424
-    H       1.24080412       2.14749991       0.14406690
-    H      -1.23941415       2.14836880      -0.14911580
-    H      -0.75440938       1.30686679       1.33056701
-    H      -2.48123885       0.00052444       0.14306418
-    H      -1.50769808      -0.00069665      -1.33514007
-    H      -0.75548303      -1.30594264       1.33200210
-    H      -1.24120586      -2.14869071      -0.14673783
-    H       1.23901244      -2.14956140       0.14642959
-    H       0.75401085      -1.30814283      -1.33330390
-    H       1.50743881      -0.00049662       1.33233066
-    H       2.48082884      -0.00171475      -0.14597724
+     
+    C         0.72407050811334    1.25235108200516   -0.24338094705465
+    C        -0.72343762657313    1.25319617766380    0.23929059852918
+    C        -1.44731174776017   -0.00012207898744   -0.24387881064420
+    C        -0.72448059275055   -1.25351379257321    0.24067027167326
+    C         0.72302665800789   -1.25441395902634   -0.24200633751896
+    C         1.44695184726671   -0.00106936630608    0.24102971332150
+    H         0.74079379322633    1.27977999101331   -1.33568337236737
+    H         1.23911262989111    2.14407418287692    0.12103331256485
+    H        -1.23773720847930    2.14497568327721   -0.12601425207736
+    H        -0.74014360366626    1.28171032471934    1.33155904823478
+    H        -2.47725186596728    0.00050340452584    0.12007291068245
+    H        -1.47894487592394   -0.00071222738449   -1.33620018565333
+    H        -0.74120355748858   -1.28080687484113    1.33297520098609
+    H        -1.23953398541620   -2.14527362819323   -0.12363941525185
+    H         1.23731965319244   -2.14616191699557    0.12338823394548
+    H         0.73972201150389   -1.28305135703018   -1.33427294070718
+    H         1.47879051289637   -0.00048052377193    1.33334318895494
+    H         2.47682744992731   -0.00169512097196   -0.12311621761763
     18
+     
+    C         0.73801367871811    1.26986541848913   -0.29891956390957
+    C        -0.72425034407001    1.23660126909089    0.13751131482082
+    C        -1.44534047314084   -0.03177648038732   -0.35671028842475
+    C        -0.51312926640361   -0.95386524177349   -1.13921033932034
+    C         0.73874270548611   -1.27320174695686   -0.32527750643084
+    C         1.46163460859193    0.00218599807452    0.14815613748902
+    H         0.80167461165837    1.37397900540374   -1.38290508569736
+    H         1.22823701649042    2.14109015941832    0.14110672721895
+    H        -1.22954714616749    2.12895335124983   -0.23651035666162
+    H        -0.75981821609326    1.27774751863575    1.22804091215143
+    H        -1.84194534594910   -0.58465393222957    0.49789315375467
+    H        -2.29332568018213    0.23757670740058   -0.98938629993452
+    H        -1.03732116020641   -1.88207230826469   -1.37787118249708
+    H        -0.23326413070136   -0.48637114937456   -2.08427188018927
+    H         0.44512664267991   -1.87161892139158    0.54024210888424
+    H         1.41101252131720   -1.88609677273023   -0.92920597460851
+    H         1.52271848431407    0.00555688995561    1.23838178865502
+    H         2.48432149365809    0.02132023538992   -0.23310366530028
 
-    C       0.68592691       1.18699523      -0.37166504
-    C      -0.71247366       1.28972619       0.24465681
-    C      -1.48633392      -0.04257838       0.16798353
-    C      -0.66602811      -1.15671938      -0.49020173
-    C       0.70236292      -1.30691892       0.18101114
-    C       1.47637829       0.02635865       0.24044092
-    H       0.60640049       1.05375726      -1.45578749
-    H       1.22625770       2.12231496      -0.19521334
-    H      -1.27113983       2.07536249      -0.27327708
-    H      -0.61522611       1.59591566       1.29152994
-    H      -1.76777815      -0.35941636       1.17752955
-    H      -2.41311298       0.09662737      -0.39787855
-    H      -1.21246851      -2.10086604      -0.40890220
-    H      -0.53654748      -0.94345183      -1.55627453
-    H       0.55794260      -1.69125734       1.19609431
-    H       1.28612751      -2.05224384      -0.36883693
-    H       1.70740394       0.26751591       1.28322280
-    H       2.42887838      -0.07183163      -0.28926209
 
 
-Then you have to modify your *inpfileq*. Normally, all default values can be used, and you only have to care about the last two entries *TS_FINAL_TYPE* and *NNODES*. *TS_FINAL_TYPE* can be *0* or *1*. *0* means no bond breaking and is used for a inversion, whereas you have to use *1* for a bond breaking. If you use the wrong setting here, so e.g. *1* for the inversion of cyclohexane, ``gsm`` tries to break a bond leading to a wrong path. *NNODES* is the maximum number of nodes for the DE-GSM calculation and should be set to 15 for ``xtb``.
+Then you have to modify your *inpfileq*. Normally, all default values can be used, and you only have to care about the last two entries *TS_FINAL_TYPE* and *NNODES*. *TS_FINAL_TYPE* can be *0* or *1*. *0* means no bond breaking and is used for this inversion, whereas you have to use *1* for a bond breaking. If you use the wrong setting here, so in this case *1* for the inversion of cyclohexane, ``gsm`` tries to break a bond leading to a wrong path. *NNODES* is the maximum number of nodes for the DE-GSM calculation and should be set to at least 15 for ``xtb``.
 
 .. code:: bash
 
-    TS_FINAL_TYPE           0      # any/delta bond: 0/1
+    TS_FINAL_TYPE           0      # 0=No bond breaking, 1=breaking of bond
     NNODES                  15     # including endpoints
 
 
-Last, you have to modify the ``xtb`` call in *ograd\**. The *$ofile.xyz* as well as the *--grad* flag are necessary, but you have to modify e.g. your charge or alpb flag. In the case of cyclohexane, the charge is 0 and for simplifications I just calculate it in gasphase, therefore no ALPB is used.
+Last, you have to modify the ``xtb`` call in *ograd\**. The *$ofile.xyz* as well as the *--grad* flag are necessary, but you can modify e.g. your charge or alpb flag. In the case of cyclohexane, the charge is 0 and for simplifications I just calculate it in gasphase, therefore no ALPB is used.
 
 .. code:: bash
 
@@ -146,7 +123,7 @@ After the calculation, the two most important files are the reaction path in you
 
    Inversion of cyclohexane
 
-.. figure:: ../figures/cyclohexan_conv.png
+.. figure:: ../figures/cyclohexan_conv.pdf
    :scale: 50 %
    :alt: cyclohexane
 
@@ -156,54 +133,57 @@ After the calculation, the two most important files are the reaction path in you
 Bond breaking
 ===============
 
-The next example is a simple Claisen rearrangement of an allyl vinyl ether and consequently includes a bond breaking and building. The *initial0000.xyz* is build as described above by writing the converged start and end structure on after the other.
+The next example is a simple Claisen rearrangement of an allyl vinyl ether and consequently includes a bond breaking and building. The *initial0000.xyz* is build as described above by writing the converged start and end structure one after the other.
 
 .. code:: bash
 
     > cat start.xyz end.xyz > scratch/initial0000.xyz
     > cat scratch/initial0000.xyz
     14
-
-    C       0.34045581      -0.40506398       0.07097230
-    C       0.11887830      -0.26450745       1.37067084
-    H       1.33494198      -0.62381082      -0.28316830
-    H      -0.42796661      -0.30487940      -0.67945703
-    O      -1.06263702      -0.00257270       1.98945599
-    H       0.91489299      -0.35650127       2.10610317
-    C      -2.25344277       0.07943851       1.21679236
-    H      -2.32305178      -0.77460066       0.52867746
-    C      -2.39137043       1.36931973       0.45116271
-    H      -3.07877280      -0.00237677       1.93509856
-    H      -3.21809081       1.37439708      -0.25142133
-    C      -1.61901537       2.43132664       0.60779946
-    H      -0.79235365       2.45051429       1.30599753
-    H      -1.77447485       3.33495880       0.03620927
+     
+    C       0.33830681      -0.40028145       0.06863012
+    C       0.10595161      -0.26718767       1.36421188
+    H       1.33077226      -0.61906183      -0.27493881
+    H      -0.42216146      -0.28728678      -0.68244497
+    O      -1.06599246      -0.01419187       2.00107453
+    H       0.89080386      -0.36692363       2.10223944
+    C      -2.24339525       0.08535540       1.21865884
+    H      -3.06296651       0.00347496       1.94095352
+    C      -2.38810216       1.37002374       0.45318426
+    H      -2.30704191      -0.76808842       0.53050462
+    H      -3.21531691       1.36845744      -0.24273208
+    C      -1.61866094       2.43160218       0.59926563
+    H      -0.79697159       2.43969569       1.29630648
+    H      -1.77723230       3.33005423       0.02997950
     14
+    
+    C       0.05083404       0.47756955       0.03067754 
+    C       0.22099793      -0.53384083       1.12248949 
+    H       1.00063556       0.99546491      -0.11008883 
+    H      -0.23550427      -0.01507412      -0.90051555 
+    O      -0.06214314      -1.70052772       1.01406801 
+    H       0.61484477      -0.11647527       2.06863484 
+    C      -3.09105601       0.69502179       1.56213016 
+    H      -4.07672239       0.25168355       1.53446340 
+    C      -2.38605593       0.89986170       0.46164886 
+    H      -2.72406577       0.97143579       2.54163695 
+    H      -2.77578741       0.61350077      -0.51143129 
+    C      -1.01585926       1.51412664       0.44531292 
+    H      -0.76139644       1.92312285       1.42742393 
+    H      -0.99072867       2.32977240      -0.28155745 
 
-    C       0.05083404       0.47756955       0.03067754
-    C       0.22099793      -0.53384083       1.12248949
-    H       1.00063556       0.99546491      -0.11008883
-    H      -0.23550427      -0.01507412      -0.90051555
-    O      -0.06214314      -1.70052772       1.01406801
-    H       0.61484477      -0.11647527       2.06863484
-    C      -3.09105601       0.69502179       1.56213016
-    H      -4.07672239       0.25168355       1.53446340
-    C      -2.38605593       0.89986170       0.46164886
-    H      -2.72406577       0.97143579       2.54163695
-    H      -2.77578741       0.61350077      -0.51143129
-    C      -1.01585926       1.51412664       0.44531292
-    H      -0.76139644       1.92312285       1.42742393
-    H      -0.99072867       2.32977240      -0.28155745
 
-Next, the *inpfileq* is modified. As we are now dealing with a bond breaking, the *TS_FINAL_TYPE* has to be adapted. The *NNODES* is also changed to a higher value to give a more detailed reaction path. This is not necessary and was just done for a nicer movie and a nicer energy diagram.
+
+
+Next, the *inpfileq* is modified. As we are now dealing with a bond breaking, the *TS_FINAL_TYPE* has to be adapted. The *NNODES* is also changed to a higher value to give a more detailed reaction path. This is not necessary and was just done to play a bit with the settings. 
 
 .. code:: bash
 
-    TS_FINAL_TYPE           1      # any/delta bond: 0/1
+    TS_FINAL_TYPE           1      # 0=No bond breaking, 1=breaking of bond
     NNODES                  20     # including endpoints
 
 
-At the end, the *ograd\** has to be modified. As Claisen rearrangements are often done in polar solvents, and a water / ethanol mixture accelerates the reaction, the calculcation was done using *ALPB(water)*.
+At the end, the *ograd\** has to be modified. As Claisen rearrangements are often done in polar solvents, the calculcation was done using *ALPB(water)*.
 
 .. code:: bash
 
@@ -214,7 +194,7 @@ Now, the ``gsm`` calculation is done
 
 .. code:: bash
 
-    >gsm.orca
+    > gsm.orca
 
 The reaction path as well as the energy diagram are given below.
 
@@ -225,7 +205,7 @@ The reaction path as well as the energy diagram are given below.
 
    Reaction path of a claisen rearrangement
 
-.. figure:: ../figures/claisen_conv.png
+.. figure:: ../figures/claisen_conv.pdf
    :scale: 25 %
    :alt: claisen_conv
 
