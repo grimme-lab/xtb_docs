@@ -6,11 +6,16 @@ Growing String Method
 
 .. contents::
 
-.. note:: ``gsm`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without warranty of completness or correctness. We are using version *5e12e14d30faaf084b47bc491d62e49a81dad3b2* of ``gsm``. ``gsm`` is not able to communicate with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values. To run a ``gsm`` calculation, the following programs / files are needed. They can be found at our github page. 
+.. note::
+   
+   ``gsm`` is not developed in our group but in the *ZimmermanGroup*, therefore this tutorial and the useage of GSM is without warranty of completness or correctness.
+   ``gsm`` is not able to communicate with ``xtb``, therefore a fake ``orca`` output is created using the ``xtb`` values.
+   To run a ``gsm`` calculation, the following programs / files are needed.
      1) gsm.orca          *in any valid path, e.g. your bin*
      2) inpfileq          *in the directory, where you want to execute your calculation*
      3) modified ograd    *in the directory, where you want to execute your calculation*
      4) tm2orca.py        *in any valid path, e.g. your bin*
+   Those are distributed from our fork of ``gsm`` `here <https://github.com/grimme-lab/molecularGSM/releases/tag/rev1>`_ for your convenience.
    For further information and a detailed description on ``gsm``, see `ZimmermanGroup`_ and their `orca`_ interface.
 
 .. _ZimmermanGroup: https://github.com/ZimmermanGroup/molecularGSM/wiki
