@@ -9,6 +9,20 @@ Recent binaries can be found on `GitHub <https://github.com/grimme-lab/crest/rel
 
 .. note:: Release candidates and beta versions are not listed here.
 
+Version 2.11 (1. Feb. 2020)
+   - Code cleanup (pt. 2)
+   - Moved ``crest`` source code to the `repository <https://github.com/grimme-lab/crest>`_ 
+   - Rewritten ensemble sorting routine CREGEN
+   - Connectivity/topology checks in CREGEN (can be turned off with ``--notopo``)
+   - Optional PCA and k-Means clustering after sorting (``--cluster <number>``)
+   - Multiple smaller tools and improvements implemented
+   - Updated input reader for Turbomole coord, .xyz and 3D .sdf (V2000,V3000) formats
+   - Turned off ``zsort`` default input sorting of coordinates
+   - Enabled ``--alpb`` usage (new implicit solvation model in ``xtb``)
+   - Reduced creation of files during optimizations
+   - Dedicated ensemble entropy (``--entropy``) mode and iMTD-sMTD workflow (``--v4``)
+
+
 Version 2.10 (20th Apr. 2020)
    - Major code cleanup (pt. 1)
    - Moved ``crest`` from ``xtb`` to its own `repository <https://github.com/grimme-lab/crest>`_ 
