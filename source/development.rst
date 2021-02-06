@@ -137,3 +137,82 @@ To perform the actual installation run
    ninja -C build install
 
 Depending on the installation prefix and your user rights ninja might ask for the ``root`` access to perform the installation.
+
+
+Building with GPU support
+-------------------------
+
+This projects can run on accelerator devices from NVIDIA®.
+The compilation of the GPU version requires the NVIDIA® HPC SDK, dupped NVHPC for brevity.
+The NVHPC compilers are available for free `here <https://developer.nvidia.com/nvidia-hpc-sdk-downloads>`.
+
+.. note::
+
+   It is highly recommended to carefully compare the performance of the CPU version
+   with the GPU version before starting production runs.
+   Certain problem sizes can profit more from different accelerator devices than others.
+
+   To throw in some numbers as guidance for a single point calculation of a
+   3000 atom system with GFN2-xTB(ALPB) using `xtb` version 6.4.0:
+
+   ============= ===================================== ==========
+    Compiler      Hardware                              Walltime
+   ============= ===================================== ==========
+    Intel 18      4 cores @ Intel Xeon CPU E3-1270 v5     13 min
+    Intel 18      8 cores @ Intel Xeon Gold 6148 CPU       7 min
+    NVHPC 20.7    Tesla K80 (cc35)                         7 min
+    NVHPC 20.7    Tesla V100 (cc70)                        2 min
+   ============= ===================================== ==========
+
+
+The NVHPC provides TCL environment modules which are the preferred way to setup
+the compilers, if your module environment is already configured, you can just go
+ahead and
+
+.. code-block:: none
+
+   module load nvhpc
+
+.. note::
+
+   The TCL environment modules are usually installed in the highest level of
+   your chosen install prefix, *i.e.* ``/opt/nvhpc/modulefiles`` if you
+   installed into ``/opt/nvhpc``.
+
+   If you do not have a module environment available on your (local) system
+   you can install the TCL environment modules under Ubuntu with the
+   ``environment-module`` package or the newer Lua environment modules with
+   the ``lmod`` package.
+
+With the NVHPC compilers available, configure a build with
+
+.. code-block:: none
+
+   export FC=nvfortran CC=nvc
+   meson setup build_gpu --prefix=$HOME/.local -Dla_backend=netlib -Dgpu=true -Dcusolver=true
+
+You can select the correct compute capability of your device with ``-Dgpu_arch=70``.
+Compile and install the project with
+
+.. code-block:: none
+
+   ninja -C build_gpu install
+
+If you used the provided TCL environment modules of the NVHPC, you can use `xtb`
+in a similar way by including the automatically generated TCL environment module
+in the install prefix with:
+
+.. code-block:: none
+
+   echo "prereq nvhpc" >> ~/.local/share/modules/modulefiles/xtb/*
+   module use ~/.local/share/modules/modulefiles
+   module load xtb
+
+Now you have a working version of `xtb` which can make use of your GPU.
+
+To check if your GPU is utilized correctly you can either track the GPU usage with
+``nvidia-smi`` command line tool or set ``PGI_ACC_NOTIFY=3`` when running `xtb`
+as environment variable to get information on which kernels are launched on which device.
+
+If you have multiple accelerator devices attached to your system you can select them
+at runtime with ``CUDA_VISIBLE_DEVICES=<int>`.
