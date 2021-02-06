@@ -142,9 +142,9 @@ Depending on the installation prefix and your user rights ninja might ask for th
 Building with GPU support
 -------------------------
 
-This projects can run on accelerator devices from NVIDIA®.
-The compilation of the GPU version requires the NVIDIA® HPC SDK, dupped NVHPC for brevity.
-The NVHPC compilers are available for free `here <https://developer.nvidia.com/nvidia-hpc-sdk-downloads>`.
+This projects can run on accelerator devices from NVIDIA.
+The compilation of the GPU version requires the NVIDIA HPC SDK, dupped NVHPC for brevity.
+The NVHPC compilers are available for free `here <https://developer.nvidia.com/nvidia-hpc-sdk-downloads>`_.
 
 .. note::
 
