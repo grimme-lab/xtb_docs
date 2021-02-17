@@ -222,3 +222,38 @@ as environment variable to get information on which kernels are launched on whic
 
 If you have multiple accelerator devices attached to your system you can select them
 at runtime with ``CUDA_VISIBLE_DEVICES=<int>``.
+
+
+Supported Compilers
+===================
+
+This is a non-comprehensive list of tested compilers for ``xtb`` with the meson build system.
+
+========= ================ ===================== ================== ===============
+Compiler   Version          Platform              Architecture       ``xtb``
+========= ================ ===================== ================== ===============
+ GCC       10.2             Manjaro Linux         x86_64             6.4.0
+ GCC       10.2             Windows Server 2019   x86_64             6.4.0, latest
+ GCC        9.3             Ubuntu 18.04          x86_64             6.4.0, latest
+ GCC        9.3             Centos 7              ppc64le, aarch64   6.4.0
+ GCC        9.3             Centos 6              x86_64             6.4.0
+ GCC        9.3             MacOS 10.15.7         x86_64             6.4.0, latest
+ GCC        7.5             Ubuntu 18.04          x86_64             6.4.0, latest
+ Intel     2021.1           Ubuntu 20.04          x86_64             6.4.0, latest
+ Intel      18.0.2          OpenSuse 42.1         x86_64             6.4.0
+ NVHPC      20.11, 21.1     Manjaro Linux         x86_64             6.4.0
+ NVHPC      20.9            Centos 8              x86_64 + cc70      6.4.0
+ NVHPC      20.7            OpenSuse 42.1         x86_64 + cc35      6.4.0
+========= ================ ===================== ================== ===============
+
+The list was started with version 6.4.0 and will be continued for future released.
+The *latest* version refers to the continuously tested compiler tool chains in the ``xtb`` repository.
+For GPU enabled builds the compute-capability is given together with the architecture.
+
+.. note::
+
+   First class compiler support in ``xtb`` comes only with continuous testing, if you
+   want to see a particular compiler, platform or architecture in the list above,
+   please reach out to us at the `discussion board <https://github.com/grimme-lab/xtb/discussions>`_,
+   `open an issue <https://github.com/grimme-lab/xtb/issues/new/choose>`_ or submit
+   a continuous integration workflow with a pull request to ``xtb``.
