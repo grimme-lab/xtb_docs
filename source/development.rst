@@ -192,6 +192,12 @@ With the NVHPC compilers available, configure a build with
    meson setup build_gpu --prefix=$HOME/.local -Dla_backend=netlib -Dgpu=true -Dcusolver=true
 
 You can select the correct compute capability of your device with ``-Dgpu_arch=70``.
+
+.. note::
+
+   Support for NVHPC in meson is available since version
+   `0.56.0 <https://mesonbuild.com/Release-notes-for-0-56-0.html#added-nvidia-hpc-sdk-compilers>`_.
+
 Compile and install the project with
 
 .. code-block:: none
@@ -215,4 +221,4 @@ To check if your GPU is utilized correctly you can either track the GPU usage wi
 as environment variable to get information on which kernels are launched on which device.
 
 If you have multiple accelerator devices attached to your system you can select them
-at runtime with ``CUDA_VISIBLE_DEVICES=<int>`.
+at runtime with ``CUDA_VISIBLE_DEVICES=<int>``.
