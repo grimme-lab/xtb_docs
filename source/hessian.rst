@@ -198,4 +198,52 @@ The thermostatistical calculations can be influenced by the ``$thermo`` block of
 
        sthr=real
            rotor cut-off (cm-1) in thermo (default: 50.0)
+           
+Single Point Hessian (SPH) calcualtions
+_______________________________________________________
 
+A prerequisite for accurate thermostatistics so far was to optimize the molecular input structures in order to avoid imaginary frequencies as discussed above.  This inevitably leads to changes in the geometry if different theoretical levels are applied for geometry optimization and frequency calculations. Therefore, we propose a new method termed single-point Hessian (SPH) for the computation of HVF and thermodynamic contributions to the free energy within the modified RRHO approximation for general nonequilibrium molecular geometries. The main publication for ``SPH`` can be found at: `JCTC <https://doi.org/10.1021/acs.jctc.0c01306>`_.
+A SPH calculation is invoked using the ``--bess`` command line argument. *xTB* automatically applies a biasing potential given as Gaussian functions expressed with the RMSD in Cartesian space in order to retain the initial geometry. In the *xTB* printout this is indicated by e.g.:
+
+.. code:: text
+
+   metadynamics with 1 initial structures loaded
+              -------------------------------------------------
+             |           Optimal kpush determination           |
+              -------------------------------------------------
+   target rmsd / Å         0.100000
+   unbiased initial rmsd   0.415461
+ 
+   iter. min.        max.        rmsd       kpush
+    1    0.000000    1.000000    0.023187   -0.500000
+    2    0.000000    0.500000    0.052359   -0.250000
+    3    0.000000    0.250000    0.090094   -0.125000
+    4    0.000000    0.125000    0.135494   -0.062500
+    5    0.062500    0.125000    0.108071   -0.093750
+    6    0.093750    0.125000    0.098169   -0.109375
+    7    0.093750    0.109375    0.102794   -0.101562
+    8    0.101562    0.109375    0.100426   -0.105469
+   final kpush: -0.105469
+              -------------------------------------------------
+             |            Biased Numerical Hessian             |
+              -------------------------------------------------
+   kpush                :  -0.10547
+   alpha                :   1.00000
+   step length          :   0.00500
+   SCC accuracy         :   0.30000
+   Hessian scale factor :   1.00000
+   frozen atoms in %    :   0.00000    0
+   RMS gradient         :   0.00028
+   estimated CPU  time      0.06 min
+   estimated wall time      0.02 min
+
+   writing file <hessian>.
+   
+The systematic shift of the HVF caused by the modification of the PES due to the biasing potential is subsequently removed approximately by individual frequency scaling, giving access to accurate thermostatistical contributions for general nonequilibrium geometries with low-level methods.
+The desired target RMSD between the input and constrained optimized structure can be influenced by the ``$metadyn`` block of the ``xcontrol`` file.
+
+.. code:: text
+
+   $metadyn
+       rmsd=real
+           target RMSD between input and optimized structure (default: 0.10 Å)
