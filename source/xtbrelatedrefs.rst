@@ -11,6 +11,10 @@ xTB related Publications
 Methods
 ==========================
 
+C. Bannwarth, E. Caldeweyher, S. Ehlert, A. Hansen, P. Pracht, J. Seibert, S. Spicher, S. Grimme
+*WIREs Comput. Mol. Sci.*, **2020**, 11, e01493.
+`DOI: 10.1002/wcms.1493 <https://doi.org/10.1002/wcms.1493>`_
+
 **GFN1-xTB:** Grimme, S.; Bannwarth, C.; Shushkov, P. *A Robust and Accurate Tight-Binding 
 Quantum Chemical Method for Structures, Vibrational Frequencies, and Noncovalent Interactions 
 of Large Molecular Systems Parameterized for All spd-Block Elements (Z = 1-86).* 
