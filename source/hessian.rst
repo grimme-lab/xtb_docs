@@ -199,7 +199,7 @@ The thermostatistical calculations can be influenced by the ``$thermo`` block of
        sthr=real
            rotor cut-off (cm-1) in thermo (default: 50.0)
            
-Single Point Hessian (SPH) calcualtions
+Single Point Hessian (SPH) calculations
 _______________________________________________________
 
 A prerequisite for accurate thermostatistics so far was to optimize the molecular input structures in order to avoid imaginary frequencies as discussed above.  This inevitably leads to changes in the geometry if different theoretical levels are applied for geometry optimization and frequency calculations. Therefore, we propose a new method termed single-point Hessian (SPH) for the computation of HVF and thermodynamic contributions to the free energy within the modified RRHO approximation for general nonequilibrium molecular geometries. The main publication for ``SPH`` can be found at: `JCTC <https://doi.org/10.1021/acs.jctc.0c01306>`_.
