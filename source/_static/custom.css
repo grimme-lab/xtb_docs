@@ -12,11 +12,11 @@
 }
 
 .rst-content .toggle .admonition-title:after {
-  content: ' ▶';
+  content: ' (show)';
 }
 
 .rst-content .toggle .admonition-title.open:after {
-  content: ' ▼';
+  content: ' (hide)';
 }
 
 .rst-content .toggle p:last-child {
