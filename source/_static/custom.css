@@ -13,10 +13,12 @@
 
 .rst-content .toggle .admonition-title:after {
   content: ' (show)';
+  font-style: italic;
 }
 
 .rst-content .toggle .admonition-title.open:after {
   content: ' (hide)';
+  font-style: italic;
 }
 
 .rst-content .toggle p:last-child {
