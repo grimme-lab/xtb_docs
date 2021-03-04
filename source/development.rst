@@ -232,13 +232,16 @@ This is a non-comprehensive list of tested compilers for ``xtb`` with the meson 
 ========= ================ ===================== ================== ===============
 Compiler   Version          Platform              Architecture       ``xtb``
 ========= ================ ===================== ================== ===============
+ GCC       10.2             Ubuntu 20.04          x86_64                    latest
  GCC       10.2             Manjaro Linux         x86_64             6.4.0
  GCC       10.2             Windows Server 2019   x86_64             6.4.0, latest
- GCC        9.3             Ubuntu 18.04          x86_64             6.4.0, latest
+ GCC        9.3             Ubuntu 18.04          x86_64             6.4.0
+ GCC        9.3             Ubuntu 20.04          x86_64                    latest
  GCC        9.3             Centos 7              ppc64le, aarch64   6.4.0
  GCC        9.3             Centos 6              x86_64             6.4.0
  GCC        9.3             MacOS 10.15.7         x86_64             6.4.0, latest
- GCC        7.5             Ubuntu 18.04          x86_64             6.4.0, latest
+ GCC        8.4             Ubuntu 20.04          x86_64                    latest
+ GCC        7.5             Ubuntu 18.04          x86_64             6.4.0
  Intel     2021.1           Ubuntu 20.04          x86_64             6.4.0, latest
  Intel      18.0.2          OpenSuse 42.1         x86_64             6.4.0
  NVHPC      20.11, 21.1     Manjaro Linux         x86_64             6.4.0
