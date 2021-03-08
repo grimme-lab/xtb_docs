@@ -24,6 +24,26 @@ Get the latest version of of the programs by clicking on the respective badge.
 This documentation is currently hosted at
 `readthedocs.org <https://xtb-docs.readthedocs.io>`_.
 
+Building this documentation
+---------------------------
+
+This documentation is built with sphinx.
+
+You can easily setup sphinx with the provided conda environment file
+
+.. code::
+
+   conda env create -n sphinx -f env.yml
+   conda activate sphinx
+
+
+Build the documentation by invoking
+
+.. code::
+
+   make html
+
+
 Contributors
 ------------
 
