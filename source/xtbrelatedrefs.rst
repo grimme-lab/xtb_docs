@@ -46,7 +46,7 @@ Applications
 
 __ https://doi.org/10.1021/acs.jctc.9b00143
 
-**SPH calculations:** Spicher, S.; Grimme, S.  *Single-Point Hessian Calculations for Improved Vibrational Frequencies and Rigid-Rotor-Harmonic-Oscillator Thermodynamics* *J. Chem. Theory Comput.* **2021**,
+**SPH calculations:** Spicher, S.; Grimme, S.  *Single-Point Hessian Calculations for Improved Vibrational Frequencies and Rigid-Rotor-Harmonic-Oscillator Thermodynamics* *J. Chem. Theory Comput.* **2021**, *17 (3)*, 1701-1714.
 `DOI: 10.1021/acs.jctc.0c01306 <https://doi.org/10.1021/acs.jctc.0c01306>`_
 
 **Thermodynamics** Spicher, S.; Grimme, S. *Efficient Computation of Free Energy Contributions for Association Reactions of Large Molecules* *J. Phys. Chem. Lett.* **2020**, *11 (16)*, 6606–6611
