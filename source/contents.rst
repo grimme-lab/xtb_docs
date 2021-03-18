@@ -108,6 +108,16 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
 
 .. toctree::
    :maxdepth: 3
+   :caption: QCxMS
+   
+   qcxms_doc/qcxms
+   qcxms_doc/qcxms_setup
+   qcxms_doc/qcxms_run
+   qcxms_doc/qcxms_plot
+   qcxms_doc/qcxms_ex
+
+.. toctree::
+   :maxdepth: 3
    :caption: Misc
 
    versions
