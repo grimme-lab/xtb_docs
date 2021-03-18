@@ -13,6 +13,9 @@ Documentation for xtb and related software
 .. image:: https://img.shields.io/github/v/release/grimme-lab/enso?label=enso
    :alt: enso release
    :target: https://github.com/grimme-lab/enso/releases/latest
+.. image:: https://img.shields.io/github/v/release/grimme-lab/CENSO?label=CENSO
+   :alt: CENSO release
+   :target: https://github.com/grimme-lab/CENSO/releases/latest
 
 This is the official documentation for the extended tight binding (xtb) program
 package and related or dependent methods, like the conformer-rotamer ensemble
@@ -23,6 +26,26 @@ Get the latest version of of the programs by clicking on the respective badge.
 
 This documentation is currently hosted at
 `readthedocs.org <https://xtb-docs.readthedocs.io>`_.
+
+Building this documentation
+---------------------------
+
+This documentation is built with sphinx.
+
+You can easily setup sphinx with the provided conda environment file
+
+.. code::
+
+   conda env create -n sphinx -f env.yml
+   conda activate sphinx
+
+
+Build the documentation by invoking
+
+.. code::
+
+   make html
+
 
 Contributors
 ------------

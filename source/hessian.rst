@@ -198,7 +198,9 @@ The thermostatistical calculations can be influenced by the ``$thermo`` block of
 
        sthr=real
            rotor cut-off (cm-1) in thermo (default: 50.0)
-           
+
+.. _SPH:
+
 Single Point Hessian (SPH) calculations
 _______________________________________________________
 

@@ -106,6 +106,20 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    enso_doc/enso_anmr
    enso_doc/plotting
 
+
+.. toctree::
+   :maxdepth: 3
+   :caption: CENSO
+   
+   CENSO_docs/censo
+   CENSO_docs/censo_setup
+   CENSO_docs/censorc
+   CENSO_docs/censo_thresholds
+   CENSO_docs/censo_solvation
+   CENSO_docs/censo_troubleshooting
+   CENSO_docs/censo_usage
+   CENSO_docs/abbreviations
+
 .. toctree::
    :maxdepth: 3
    :caption: QCxMS

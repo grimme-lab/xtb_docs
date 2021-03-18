@@ -1,26 +1,9 @@
-.rst-content .toggle {
-  background: none repeat scroll 0 0 #e7f2fa;
-  padding: 12px;
-  line-height: 24px;
-  margin-bottom: 24px;
+.wy-table-responsive table td, .wy-table-responsive table th {
+    /* !important prevents the common CSS stylesheets from
+       overriding this as on RTD they are loaded after this stylesheet */
+    white-space: normal !important;
 }
 
-.rst-content .toggle .admonition-title {
-  display: block;
-  clear: both;
-  cursor: pointer;
-}
-
-.rst-content .toggle .admonition-title:after {
-  content: ' (show)';
-  font-style: italic;
-}
-
-.rst-content .toggle .admonition-title.open:after {
-  content: ' (hide)';
-  font-style: italic;
-}
-
-.rst-content .toggle p:last-child {
-  margin-bottom: 0;
+.wy-table-responsive {
+    overflow: visible !important;
 }
