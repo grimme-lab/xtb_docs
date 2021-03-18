@@ -68,7 +68,7 @@ Workflow of QCxMS
    folder. 
 
 
-.. figure:: ../../figures/qceims/QCEIMS.png
+.. figure:: ../../figures/qcxms/QCEIMS.png
   :align: center
 
   Steps during the production runs in the EI and CID modules
