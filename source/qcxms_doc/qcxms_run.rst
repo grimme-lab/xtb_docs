@@ -77,7 +77,7 @@ Workflow of QCxMS
 .. figure:: ../../figures/qcxms/QCEIMS.png
   :align: center
 
-  Steps during the production runs in the EI and CID modules
+  Steps during the production runs in the EI and CID modules. CID module not yet available,
 
 
 Input keywords in *qceims.in*
@@ -136,6 +136,9 @@ EI method specific keywords
 
 CID method specific keywords
 ----------------------------
+.. note::
+   The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
+   For this reason, QCEIMS version 4.2 is currently the most recent version available. 
 
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | **<Parameter>**             | **Specification**             |  **Default**         | **Alt. settings**  |
