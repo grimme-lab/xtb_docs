@@ -7,6 +7,10 @@ Setting up QCxMS
 Setup
 =====
 
+.. note::
+   The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
+   For this reason, QCEIMS version 4.2 is currently the most recent version available.
+
 Untar the zipped archive:
 
 .. code-block:: text
@@ -54,7 +58,7 @@ If available, place the following QC executables in `/usr/local/bin`:
 +-----------+-----------------------------------------------------------------------+
 | MNDO99    |                                                                       |
 +-----------+-----------------------------------------------------------------------+
-| DFTD+     |  place Slater-Koster parameters `atom-atom.spl` in `/usr/local/dftb+` |
+| DFTB+     |  place Slater-Koster parameters `atom-atom.spl` in `/usr/local/dftb+` |
 +-----------+-----------------------------------------------------------------------+
 | ORCA      |  All orca utilities must also be in your path.                        |
 +-----------+-----------------------------------------------------------------------+

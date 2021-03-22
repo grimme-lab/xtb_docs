@@ -17,6 +17,8 @@ free-of-charge by mailing qceims@thch.uni-bonn.de
 The program was originally developed for calculating EI, so it is historically gron that a lot of files obtained and used by 
 the program have the historic `qceims.xxx` name. This will be corrected over time.
 
-Publications can be found at 
+.. note::
+   The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
+   For this reason, QCEIMS version 4.2 is currently the most recent version available.
 
  

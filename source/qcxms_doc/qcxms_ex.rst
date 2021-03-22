@@ -38,6 +38,10 @@ are recommended for anion calculations. The xtb negative ion simulations are not
 CID - positive Ion Collision Induced Dissociation
 -------------------------------------------------
 
+.. note::
+   The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
+   For this reason, QCEIMS version 4.2 is currently the most recent version available. 
+
 .. code::
 
    cid
