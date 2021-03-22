@@ -10,12 +10,11 @@ What is *QCxMS* ?
 ==================
 
 `QCxMS` is a quantum chemical based program to calculate electron ionization (**EI**) and collision induced dissociation (**CID**) 
-mass spectra using Born-Oppenheimer Molecular Dynamics (BO-MD). It is the successor of the QCEIMS program. The **EI** part 
-is exchanged to ``x`` to account for a greater general applicibility of the program.  The executable can be obtained 
-free-of-charge by mailing qceims@thch.uni-bonn.de
-
-The program was originally developed for calculating EI, so it is historically gron that a lot of files obtained and used by 
-the program have the historic `qceims.xxx` name. This will be corrected over time.
+mass spectra using Born-Oppenheimer Molecular Dynamics (BO-MD). It is the successor of the QCEIMS program, in which 
+the **EI** part is exchanged to ``x`` to account for a greater general applicibility of the program. 
+However, the program is **not available** in this form, as it is under review. After publication, the program will be released.
+Until then, the **QCEIMS** version 4.2 is available and free-of-charge by mailing qceims@thch.uni-bonn.de
+All information provided here corresponding to the *EI part* is relevant to QCEIMS. 
 
 .. note::
    The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
