@@ -39,8 +39,10 @@ CID - positive Ion Collision Induced Dissociation
 -------------------------------------------------
 
 .. note::
-   The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
-   For this reason, QCEIMS version 4.2 is currently the most recent version available. 
+   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released.
+   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent
+   version of the program. For this reason, this section is not available yet. 
+
 
 .. code::
 

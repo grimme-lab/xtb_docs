@@ -9,9 +9,9 @@ Running QCxMS
 The program basically runs in two modes: ``EI`` and ``CID``. Both methods require three individual steps to create the final spectrum.
 
 .. note::
-   The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
-   For this reason, QCEIMS version 4.2 is currently the most recent version available. 
-   
+   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released.
+   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent
+   version of the program. For this reason, only the **EI** part is currently available. 
 
 To obtain a QCxMS simulated mass spectrum, please follow this protocol:
 
@@ -137,8 +137,9 @@ EI method specific keywords
 CID method specific keywords
 ----------------------------
 .. note::
-   The CID mode describes experimental features that are not yet released. The EI mode is not influenced hereby.
-   For this reason, QCEIMS version 4.2 is currently the most recent version available. 
+   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released.
+   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent
+   version of the program. For this reason, this section is not yet available and still undergoes changes.
 
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | **<Parameter>**             | **Specification**             |  **Default**         | **Alt. settings**  |
