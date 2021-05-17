@@ -8,7 +8,7 @@ Plotting Mass Spectra
 =====================
 
 The plotms Version 3.2 utility and the `~/.mass_raw.agr` template file for xmgrace are provided in order to 
-visualize your results.
+visualize your results. New updates on the plotting program can be found in the `PlotMS repository <https://github.com/qcxms/PlotMS>`_. 
 The following protocol should be applied. Be advised that you can plot your spectra as soon as the production 
 run has started. This may be useful to check for convergence in case you are running more trajectories than 
 actually needed for good statistics.

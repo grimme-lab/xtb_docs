@@ -29,8 +29,8 @@ Workflow of QCxMS
    ``x2t <xyzfile> > coord`` if you have installed *TURBOMOLE*. If you do not have *TURBOMOLE*, you may have to write a
    script converting .xyz files to *TUROBOMOLE* coord files. Be advised that the coord file has
    to be in atomic units.
-2. Prepare an input file called `qceims.in`_ . For the input options, see section 4 or the
-   qceims.in file in the examples folder. If no such file is prepared, default options are:
+2. Prepare an input file called `qcxms.in`. The `keywords`_ can be found below and an example is given in 
+   in the examples folder. If no such file is prepared, default options are:
    run GFN1-xTB with 25 × the number of atoms in the molecule trajectories (ntraj).
 
 
@@ -83,7 +83,7 @@ Workflow of QCxMS
 Input keywords in *qceims.in*
 =============================
 
-.. _qceims.in:
+.. _keywords:
 
 If no input file is given, default settings are taken. This means an **EI** calculation is conducted.
 The general *qceims.in* input file can be manipulated by providing *<parameters>* : 
