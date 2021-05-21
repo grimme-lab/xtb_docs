@@ -25,8 +25,6 @@ The following files are being extracted:
 +---------------+----------------------------------------------------------------------------------------------+
 | qceims        |  main program (`executable`)                                                                 |
 +---------------+----------------------------------------------------------------------------------------------+
-| plotms        |  required for the generation of visualized spectra (`executable`)                            |
-+---------------+----------------------------------------------------------------------------------------------+
 | pqceims       |  script that runs trajectories in parallel locally (`executable`)                            |
 +---------------+----------------------------------------------------------------------------------------------+
 | q-batch       |  script that runs trajectories on a cluster with a queueing system  (`executable`)           |
@@ -44,7 +42,9 @@ The following files are being extracted:
 1. Place the `executables` into your ``$HOME/bin`` directory or path. 
 2. Place the `.XTBPARAM` folder and `.mass_raw.arg` file into your `$HOME` directory (these files can appear to be hidden). 
 
-For easy visualization of the calculated spectra we recommend the useage of ``xmgrace``.
+
+For easy visualization of the calculated spectra, the :ref:`PlotMS` program was developed. It can be found at the `PlotMS repository <https://github.com/qcxms/PlotMS>`_. 
+Do display the results, we recommend the useage of ``xmgrace``.
 Examples for an input file and coordinate file are to be found in the `EXAMPLES` file.
 
 
