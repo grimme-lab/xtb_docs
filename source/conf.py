@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'xtb doc'
-copyright = '2019, Grimme group'
+copyright = '2019-2021, Grimme group'
 author = 'Grimme group'
 
 # The full version, including alpha/beta/rc tags
-release = '6.2'
+release = '2021'
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,6 +31,7 @@ release = '6.2'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "ablog",
     "sphinx_panels",
     "sphinx_copybutton",
     "sphinx_togglebutton",
@@ -67,3 +68,10 @@ html_static_path = ['_static']
 
 # other default
 master_doc = 'contents'
+
+# Settings for blog
+blog_path = "news"
+blog_post_pattern = "_posts/*/*"
+post_redirect_refresh = 1
+post_auto_image = 1
+post_auto_excerpt = 2
