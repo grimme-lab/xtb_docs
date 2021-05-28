@@ -15,6 +15,15 @@ Detailed inputs are provided in a ready to use fashion to solve some
 more special but still common tasks with ``xtb`` together with some
 insights into the theory used behind the scences.
 
+--------------------------------------------
+ Recent developments, news and publications
+--------------------------------------------
+
+.. postlist:: 5
+   :date: %Y-%m-%d
+   :format: {date} - {title}
+   :excerpts:
+
 -----------------------------------------
  xTB in Other Quantum Chemistry Programs
 -----------------------------------------
@@ -134,6 +143,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    :maxdepth: 3
    :caption: Misc
 
+   news
    versions
    xtbrelatedrefs
    license
