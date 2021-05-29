@@ -485,3 +485,41 @@ Example: BF\ :sub:`3`\
       4 F    -0.233   -0.335   -0.284
 
 The Fukui indexes for BF\ :sub:`3`\  indicate the most negative f(+) value and a positive value for f(-) at the boron atom. Thus, a nucleophilic attack can be expected at the boron atom.
+
+H\ :sub:`0`\  Tuning
+====================
+
+For special cases it can be beneficial to tune the H\ :sub:`0`\  Hamiltonian by modifying the atom-pairwise parameters. In order to do this, create a copy of the parameter file ``$XTBPATH/param_gfn2-xtb.txt`` with a different name and add atom pairs to the ``$pairpar`` block in the copy according to the example below.
+
+.. code-block:: bash
+   :caption: Example entry for a nitrogen-tellurium pair
+
+   $pairpar
+     7  52  0.93
+   $end
+
+The first two numbers express atomic numbers followed by the H\ :sub:`0`\ -scaling factor. The default value for the scaling of each pair is 1.00 but certain pairs may already be changed in the file.
+
+The new parameter file can then be imported with the commandline call:
+
+.. code:: sh
+
+   xtb coord --vparam <PARAMETER_FILE>
+
+.. note::   The whole content of the parameter file ``param_gfn2-xtb.txt`` is required to perform a calculation. A file containing only the ``$pairpar`` block is not sufficient. 
+.. warning:: Please do not change the original ``param_gfn2-xtb.txt`` file. Otherwise, global parameters are changed.
+
+Example: Application on Te-N Interactions
+-----------------------------------------
+
+One example of the H\ :sub:`0`\  tuning can be found at `Angew. Chemie Int. Ed., 2021 <https://doi.org/10.1002/anie.202102679>`_. Here, the GFN2 Hamiltonian for the Te-N interaction was calibrated against numerically converged DLPNO-CCSD(T1) results in a potential-energy surface scan.
+
+.. figure:: ../figures/h0tuning.png
+   :scale: 70 %
+   :alt: h0tuning
+   :align: center
+
+
+
+
+
