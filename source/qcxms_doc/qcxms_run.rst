@@ -8,10 +8,6 @@ Running QCxMS
 
 The program basically runs in two modes: ``EI`` and ``CID``. Both methods require three individual steps to create the final spectrum.
 
-.. note::
-   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released.
-   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent
-   version of the program. For this reason, only the **EI** part is currently available. 
 
 To obtain a QCxMS simulated mass spectrum, please follow this protocol:
 
@@ -50,16 +46,16 @@ Workflow of QCxMS
 ---------------------------------
 
 5. If you use a computer cluster with a queing system, type ``q-batch`` for the execution of
-   the batch script. This will initiate the production run with ntraj trajectories. For each
+   the batch script. This will initiate the production run with `ntraj` trajectories. For each
    trajectory this starts a single core calculation. 
    **Reminder**: Look into the *q-batch* script, as it might need to be changed to match for your queing system.
-   If you want to run QCxMS locally, use the ``pqceims`` script. You might want to leave
+   If you want to run QCxMS locally, use the ``pqcxms`` script. You might want to leave
    your work station and even log out in the meantime. In this case, type, where ``<proc>`` referres to the 
    number of processors your workstation is allowed to use:
 
 .. code:: sh
 
-   nohup pqceims <proc> &
+   nohup pqcxms <proc> &
 
 
 6. Optionally, check the status of your QCxMS run by changing to your working directory and typing ``getres``,
@@ -67,10 +63,10 @@ Workflow of QCxMS
 
 .. code:: 
 
-   XXX runs done and written to tmpqceims.res/out
+   XXX runs done and written to tmpqcxms.res/out
 
 7. The steps that are conducted in the production runs are displayed in the following figure. For details look into
-   the *qceims.out* file provided after the calculations are finished. For details on individual runs, look into the *TMPQCEIMS/TMP.X* 
+   the *qcxms.out* file provided after the calculations are finished. For details on individual runs, look into the *TMPQCXMS/TMP.X* 
    folder. 
 
 
@@ -80,13 +76,13 @@ Workflow of QCxMS
   Steps during the production runs in the EI and CID modules. CID module not yet available,
 
 
-Input keywords in *qceims.in*
+Input keywords in *qcxms.in*
 =============================
 
 .. _keywords:
 
 If no input file is given, default settings are taken. This means an **EI** calculation is conducted.
-The general *qceims.in* input file can be manipulated by providing *<parameters>* : 
+The general *qcxms.in* input file can be manipulated by providing *<parameters>* : 
 
 +-------------------+-----------------------------+-------------------+----------------------------+
 | **<Parameter>**   | **Specification**           |  **Default**      | **Alt. settings**          |
