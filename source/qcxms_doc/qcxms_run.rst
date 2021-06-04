@@ -136,10 +136,6 @@ EI method specific keywords
 
 CID method specific keywords
 ----------------------------
-.. note::
-   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released.
-   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent
-   version of the program. For this reason, this section is not yet available and still undergoes changes.
 
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | **<Parameter>**             | **Specification**             |  **Default**         | **Alt. settings**  |
@@ -148,7 +144,7 @@ CID method specific keywords
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | elab *<real>*               | Collision Energy E(*LAB*)     | 25 eV                | *<real>*           |
 +-----------------------------+-------------------------------+----------------------+--------------------+
-| eexact                      | do not distribute E(coll)     | *off*                | *none*             |
+| eexact                      | do not distribute E(*LAB*)    | *off*                | *none*             |
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | iatom *<string>*            | Neutral gas atom              | ar                   | he, ne, kr, xe, n2 |
 +-----------------------------+-------------------------------+----------------------+--------------------+
