@@ -38,9 +38,9 @@ Workflow of QCxMS
    the QC method specified. After some steps for equilibration, the files *trjM* and *qceims.gs*
    are generated. It is highly recommended to conduct the initial run with a low-cost method,
    e.g. GFN1-xTB (default) or OM2-D3.
-4. Run ``QCxMS`` for the second time after the GS run is finished. This genereates the *TMPQCEIMS* file.  
+4. Run ``QCxMS`` for the second time after the GS run is finished. This genereates the *TMPQCXMS* file.  
    If the file qceims.gs exists, this will prepare the specifications for the parallel production run in 
-   the *TMPQCEIMS* folder.
+   the *TMPQCXMS* folder.
 
 3. Excecuting the Production Runs
 ---------------------------------
