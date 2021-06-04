@@ -38,12 +38,6 @@ are recommended for anion calculations. The xtb negative ion simulations are not
 CID - positive Ion Collision Induced Dissociation
 -------------------------------------------------
 
-.. note::
-   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released.
-   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent
-   version of the program. For this reason, this section is not available yet. 
-
-
 .. code::
 
    cid
@@ -52,4 +46,4 @@ CID - positive Ion Collision Induced Dissociation
    lchamb 0.25
    fullauto
 
-The run-type must explicitly be defined so the program knows how to handle the number of collisions. 
+The run-type must explicitly be defined so the program knows how to handle the number of collisions. For the *general activation method*, use the `fullauto` command. For the *forced activation run-type*, the number of collisions are set by using *collno x* to set all collisions (including fragment-gas collisions (*fgc*)). For setting ONLY mol. ion-gas collisions, use *maxcoll x*. 
