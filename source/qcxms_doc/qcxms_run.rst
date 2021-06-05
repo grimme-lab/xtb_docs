@@ -168,7 +168,8 @@ This run-type was developed to calculate spectra without manually setting many p
 
 **Forced Activation run-type (explicit collisions)**
 
-This run-type is called as soon as ``setcoll``, ``maxcoll`` or ``collsec`` are called. The number of colllisions can be set to a total number of collisions (*pgc* + *fgc* -> ``setcoll``) or only precursor-gas collisions (*pgc* -> ``maxcoll``). With the ``collsec`` mode, the number of fragmentations are set (50%,35%,15% of runs).   
+This run-type is called as soon as ``setcoll``, ``maxcoll`` or ``collsec`` are called. The number of colllisions can be set to a total number of collisions (*pgc* + *fgc* -> ``setcoll``) or only precursor-gas collisions (*pgc* -> ``maxcoll``). With the ``collsec`` mode, the number of fragmentations are set (50%,35%,15% of runs). 
+
 **Thermal Activation run-type (implicit collisions)**
 
 Increasing the internal energy can be done either by scaling the targeted temperature (``tscale`` *<real>*) or internal energy (``esi`` *<real>*). 
