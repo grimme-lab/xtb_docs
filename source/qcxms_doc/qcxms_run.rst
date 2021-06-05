@@ -163,11 +163,14 @@ CID method specific keywords
 
 
 **General Activation run-type (explicit collisions)**
-This run-type was developed to calculate spectra without manually setting many parameters. It is the **default** run-type, but can be called with the ``fullauto`` command. The most important settings are ``lchamb`` defines the collision chamber length (in meters) and ``pgas`` the collision gas pressure (in Pascal). The temperature of the gas is set to 300 K. These three factors are important for the number of **p**recursor-**g**as **c**ollisions (*pgc*) and **f**ragment-**g**as **c**ollisions (*fgc*). It is advised to set the collision energy ``elab`` somewhat higher than in the experiments, depending on the molecular ion's size. 
+
+This run-type was developed to calculate spectra without manually setting many parameters. It is the **default** run-type, but can be called with the ``fullauto`` command. The most important settings are ``lchamb`` defines the collision chamber length (in meters) and ``pgas`` the collision gas pressure (in Pascal). The temperature of the gas is set to 300 K. These three factors are important for the number of precursor-gas collisions (*pgc*) and fragment-gas collisions (*fgc*). It is advised to set the collision energy ``elab`` somewhat higher than in the experiments, depending on the molecular ion's size. 
 
 **Forced Activation run-type (explicit collisions)**
+
 This run-type is called as soon as ``setcoll``, ``maxcoll`` or ``collsec`` are called. The number of colllisions can be set to a total number of collisions (*pgc* + *fgc* -> ``setcoll``) or only precursor-gas collisions (*pgc* -> ``maxcoll``). With the ``collsec`` mode, the number of fragmentations are set (50%,35%,15% of runs).   
 **Thermal Activation run-type (implicit collisions)**
+
 Increasing the internal energy can be done either by scaling the targeted temperature (``tscale`` *<real>*) or internal energy (``esi`` *<real>*). 
 
 **Other important keywords**
@@ -175,6 +178,7 @@ Increasing the internal energy can be done either by scaling the targeted temper
  - ``eexact``: No variation of the input collision energy; the molecular ion will be accelerated for all production runs with the same energy.
  - ``esi``: A MD prior to the collision simulation (explicit run-types) increases E(int) to the *<real>* value. If this is less than the internal energy of the initial system (e.g. through high initial temperature), the scaling will be skipped (**no** downwards scaling/cooling!). If nothing is set, the scaling is done automatically depending on the system size (both general and forced default **on**).
  - ``noesi``: Switch off the automatic ``esi`` scaling (explicit run-types). In the thermal activation run-type, this step cannot be skipped, as this is the essential part of the run-type. 
+
 
 Misc keywords
 -------------
