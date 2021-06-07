@@ -7,25 +7,22 @@ Setting up QCxMS
 Setup
 =====
 
-Follow the instructions to use QCxMS without the need of installing or building anything.
-
-.. note::
-   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released. 
-   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent 
-   version of the program. The setup works the same for both, only the name have to be exchanged. 
+Follow the instructions to use QCxMS without the need of installing or building anything. 
 
 Untar the zipped archive:
 
 .. code-block:: text
 
-   > tar -xvzf QCxMS_5.0.tar.xz
+   > tar -xvzf QCxMS_v.X.X.tar.xz
+
+Replace the *X.X* with the current version number. The program is compiled that it currently only runs on Linux operating systems.
 
 The following files are being extracted:
 
 +---------------+----------------------------------------------------------------------------------------------+
-| qceims        |  main program (`executable`)                                                                 |
+| qcxms        |  main program (`executable`)                                                                 |
 +---------------+----------------------------------------------------------------------------------------------+
-| pqceims       |  script that runs trajectories in parallel locally (`executable`)                            |
+| pqcxms       |  script that runs trajectories in parallel locally (`executable`)                            |
 +---------------+----------------------------------------------------------------------------------------------+
 | q-batch       |  script that runs trajectories on a cluster with a queueing system  (`executable`)           |
 +---------------+----------------------------------------------------------------------------------------------+
@@ -78,15 +75,13 @@ Building the program
 ====================
 
 .. note::
-   The QCxMS describes the new name for QCEIMS and includes the CID features that are not yet released. 
-   However, the EI mode is not influenced hereby. Until publication, QCEIMS version 4.3 the most recent 
-   version of the program. The setup works the same for both, only the name have to be exchanged. 
+The source code will be provided in the future, as soon as most bugs have been cleared. A special release note will be provided accordingly. 
 
 Untar the compressed source archive:
 
 .. code::
 
-   tar -xvzf QCxMS.tar.gz
+   tar -xvzf QCxMS_v.X.X.tar.gz
 
 Enter the newly created folder. All source files can be found in the qcxms folder.
 To build the program, run the following commands:
