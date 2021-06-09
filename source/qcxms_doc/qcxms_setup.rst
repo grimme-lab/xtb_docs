@@ -15,7 +15,7 @@ Untar the zipped archive:
 
    > tar -xvzf QCxMS_v.X.X.tar.xz
 
-Replace the *X.X* with the current version number. The program is compiled that it currently only runs on Linux operating systems.
+Replace the *X.X* with the current version number. The program is  only runs on Linux operating systems.
 
 The following files are being extracted:
 
@@ -41,8 +41,8 @@ The following files are being extracted:
 
 
 For easy visualization of the calculated spectra, the :ref:`PlotMS` program was developed. It can be found at the `PlotMS repository <https://github.com/qcxms/PlotMS>`_. 
-Do display the results, we recommend the useage of ``xmgrace``.
-Examples for an input file and coordinate file are to be found in the `EXAMPLES` file.
+To display the results, we recommend the useage of ``xmgrace``.
+Exemplary input and coordinate files can be found in the `EXAMPLES` folder.
 
 
 Quantum Chemistry Codes Required
