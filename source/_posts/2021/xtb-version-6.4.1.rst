@@ -10,7 +10,7 @@ xtb version 6.4.1 released
    :alt: xtb logo
 
 We released a new version of ``xtb`` with a significantly improved memory footprint for large scale calculations and improved parallelisation for frequency calculations.
-The parallel evaluation of hessians should with GFN-FF is now possible, overall we improved the stablility of the parallelisation which was slightly degraded in version 6.4.0.
+The parallel evaluation of hessians with GFN-FF is now possible, overall we improved the stablility of the parallelisation which was slightly degraded in version 6.4.0.
 For xTB calculations the required ``OMP_STACKSIZE`` has been significantly reduced by restructuring the integral evaluation slightly.
 
 Also, this version of ``xtb`` now supports the COSMO/CPCM solvation model using the `ddPCM <https://github.com/filippolipparini/ddPCM>`_ library.
