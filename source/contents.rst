@@ -21,8 +21,10 @@ insights into the theory used behind the scences.
 
 .. postlist:: 5
    :date: %Y-%m-%d
-   :format: {date} - {title}
+   :format: {date}: {title} by {author}
    :excerpts:
+
+See the :ref:`news archive <news>` for all posts.
 
 -----------------------------------------
  xTB in Other Quantum Chemistry Programs
@@ -30,14 +32,14 @@ insights into the theory used behind the scences.
 
 The xTB-methods are now officially available in other quantum chemistry programs!
 
-- in `Orca`_ 4.2 an IO-based interface to the ``xtb`` binary is available
-- `AMS`_ 2019 implements GFN1-xTB in their DFTB module
-- the `entos`_ program implements GFN1-xTB (also available in the webinterface)
-- the computational chemistry framework `cuby4`_ supports ``xtb``
-- `Turbomole`_ does support GFN1-xTB and GFN2-xTB since version 7.4
-- `QCEngine`_ supports calculations with the ``xtb`` API
-- the `GMIN`_, `OPTIM`_, and `PATHSAMPLE`_ global optimization tools provide a ``xtb`` interface
-- `CP2K`_ has an GFN1-xTB implementation since version 7.1
+ - in `Orca`_ 4.2 an IO-based interface to the ``xtb`` binary is available
+ - `AMS`_ 2019 implements GFN1-xTB in their DFTB module
+ - the `entos`_ program implements GFN1-xTB (also available in the webinterface)
+ - the computational chemistry framework `cuby4`_ supports ``xtb``
+ - `Turbomole`_ does support GFN1-xTB and GFN2-xTB since version 7.4
+ - `QCEngine`_ supports calculations with the ``xtb`` API
+ - the `GMIN`_, `OPTIM`_, and `PATHSAMPLE`_ global optimization tools provide a ``xtb`` interface
+ - `CP2K`_ has an GFN1-xTB implementation since version 7.1
 
 
 .. _Orca: https://orcaforum.kofo.mpg.de
