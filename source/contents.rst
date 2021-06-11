@@ -140,6 +140,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    qcxms_doc/qcxms_run
    qcxms_doc/qcxms_plot
    qcxms_doc/qcxms_ex
+   qcxms_doc/qcxms_cites
 
 .. toctree::
    :maxdepth: 3

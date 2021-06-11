@@ -20,9 +20,9 @@ Replace the *X.X* with the current version number. The program is  only runs on 
 The following files are being extracted:
 
 +---------------+----------------------------------------------------------------------------------------------+
-| qcxms        |  main program (`executable`)                                                                 |
+| qcxms         |  main program (`executable`)                                                                 |
 +---------------+----------------------------------------------------------------------------------------------+
-| pqcxms       |  script that runs trajectories in parallel locally (`executable`)                            |
+| pqcxms        |  script that runs trajectories in parallel locally (`executable`)                            |
 +---------------+----------------------------------------------------------------------------------------------+
 | q-batch       |  script that runs trajectories on a cluster with a queueing system  (`executable`)           |
 +---------------+----------------------------------------------------------------------------------------------+
