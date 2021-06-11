@@ -7,8 +7,6 @@ Introduction to QCxMS
 .. figure:: ../../figures/qcxms/qcxms_logo.svg
   :align: center
 
-.. contents::
-
 What is *QCxMS* ?
 ==================
 
