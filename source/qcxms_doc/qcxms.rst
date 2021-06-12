@@ -12,7 +12,7 @@ What is *QCxMS* ?
 
 `QCxMS` is a quantum chemical (**QC**) based program that enables users to calculate mass spectra (**MS**) 
 using Born-Oppenheimer Molecular Dynamics (**MD**). 
-It is the successor of the QCEIMS program, in which the **EI** part is exchanged to **x** (x=ES, CID) to account 
+It is the successor of the QCEIMS program, in which the **EI** part is exchanged to **x** (x=EI, CID) to account 
 for the greater general applicability of the program. The different MS methods of the program are described in short 
 below. A full list of :ref:`qcxmsrelatedrefs` is provided elsewhere.
 
