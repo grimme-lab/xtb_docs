@@ -2,9 +2,9 @@
  User Guide to Semiempirical Tight Binding
 ==============================================
 
-This user guide focuses on the semiempirical quantum mechanical methods GFNn-xTB, their
-descendants, and corresponding composite schemes  as implemented in the
-`xtb <https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb>`_ (extended tight binding) program package.
+This user guide focuses on the semiempirical quantum mechanical methods GFNn-xTB,
+their descendants, and corresponding composite schemes as implemented in the
+`xtb <https://github.com/grimme-lab/xtb>`_ (extended tight binding) program package.
 
 We provide a number of detailed guides dealing with common task that can
 be performed easily with the ``xtb`` program.
@@ -14,6 +14,75 @@ by a trouble shooting section.
 Detailed inputs are provided in a ready to use fashion to solve some
 more special but still common tasks with ``xtb`` together with some
 insights into the theory used behind the scences.
+
+
+-------------
+ Quick Links
+-------------
+
+.. panels::
+   :column: + text-center
+
+   .. image:: https://github.com/awvwgk/xtb-logo/raw/master/xtb.svg
+      :width: 75%
+      :alt: xtb
+
+   +++
+
+   .. link-button:: setup
+      :type: ref
+      :text: Documentation for xtb
+      :classes: btn-block stretched-link
+
+   ---
+
+   .. image:: https://github.com/grimme-lab/crest/raw/master/assets/crest.png
+      :width: 50%
+      :alt: CREST
+
+   +++
+
+   .. link-button:: crest
+      :type: ref
+      :text: Documentation for CREST
+      :classes: btn-block stretched-link
+
+   ---
+
+   .. image:: ../figures/CENSO/censo_logo_300dpi.png
+      :alt: CENSO
+
+   +++
+
+   .. link-button:: censo
+      :type: ref
+      :text: Documentation for CENSO
+      :classes: btn-block stretched-link
+
+   ---
+
+   .. image:: ../figures/qcxms/qcxms_logo.svg
+      :alt: QCxMS
+
+   +++
+
+   .. link-button:: qcxms
+      :type: ref
+      :text: Documentation for QCxMS
+      :classes: btn-block stretched-link
+
+   ---
+   :column: + col-lg-12 p-2
+
+   .. image:: ../logo/akgrimme_logo_final2018_xtbdocs.png
+      :width: 33%
+      :alt: Grimme-lab
+
+   +++
+
+   .. link-button:: https://github.com/grimme-lab
+      :text: Explore on GitHub
+      :classes: btn-block stretched-link
 
 --------------------------------------------
  Recent developments, news and publications
