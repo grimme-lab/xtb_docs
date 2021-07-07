@@ -158,6 +158,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    gfnff
    capi
    python
+   community/index
 
 .. toctree::
    :maxdepth: 3
