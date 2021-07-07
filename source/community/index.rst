@@ -14,5 +14,5 @@ Here we want to highlight frameworks and programs that depend or build on the me
 
 .. toctree::
 
+   gaussian
    pysisyphus
-   xtb-gaussian
