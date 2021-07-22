@@ -34,6 +34,9 @@ Possible options are:
    Read a Turbomole Hessian file,
    use this only when $nomw is not present in control
 
+--orca
+   Read a Orca .hess file, projection will be performed automatically
+   
 --dftb+
    Read a DFTB+ hessian.out file, projection will be performed automatically
 
