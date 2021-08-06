@@ -4,13 +4,13 @@
 Visualization
 --------------
 
-Plotting Mass Spectra
-=====================
+Plotting Mass Spectra (PlotMS)
+==============================
 
 The PlotMS utility is provided in order to visualize your results. The newest version can be found in the 
 `PlotMS repository <https://github.com/qcxms/PlotMS>`_. 
-The program analyzes the `qcxms.res` file and combines the results using the `~/.mass_raw.agr` template file
-to create the `mass.agr` and the `results.jdx` files. 
+The program analyzes the `qcxms.res` or `qcxms_cid.res` file and combines the results using the `~/.mass_raw.agr` template file
+to create the `mass.agr` and the `results.jdx` files in your working directory. 
 
 This may be useful to check for convergence in case you are running more trajectories than 
 actually needed for good statistics. You can plot your spectra as soon as the production run has started. 
@@ -26,6 +26,10 @@ actually needed for good statistics. You can plot your spectra as soon as the pr
    (JCAMP-DX format). Copy it to the working directory as `exp.dat`. PlotMS reads the `exp.dat` and compares
    your calculated spectrum directly to the experiment (inverted).
    There is currently no feature to do this for the CID spectrum as well.
+
+There are some useful commandline options to  your results.
+
+
 
 
 Visualization of Trajectories
