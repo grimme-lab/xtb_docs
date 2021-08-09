@@ -48,9 +48,9 @@ Exemplary input and coordinate files can be found in the `EXAMPLES` folder.
 Quantum Chemistry Codes Required
 ================================
 
-The low cost QC methods GFN1-xTB and GFN2-xTB are implemented in QCxMS. No further rights or installations of 
-third-party software is required and the methods can be called directly by the program. For this reason, 
-using GFN2-xTB is set to run as default.
+The low cost QC methods **GFN1-xTB** and **GFN2-xTB** are directly implemented into QCxMS. No further rights or installations of 
+third-party software is required and the methods can be called directly by the program. GFN2-xTB is set to run as default for
+QCxMS calculations.
 
 To run other QC methods, QCxMS needs ORCA or TURBOMOLE to function. 
 If available, place the following QC executables in `/usr/local/bin`:
@@ -64,8 +64,6 @@ If available, place the following QC executables in `/usr/local/bin`:
 +-----------+-----------------------------------------------------------------------+
 | TURBOMOLE |  The ridft and rdgrad programs of Turbomole 7.3 are used.             |
 +-----------+-----------------------------------------------------------------------+
-| (xTB)     |  Optional. Newer xTB can be called upon if needed.                    |
-+-----------+-----------------------------------------------------------------------+
 
 Please contact the development teams of these programs directly for executables since we do not have the 
 right to distribute them. 
@@ -75,20 +73,27 @@ Building the program
 ====================
 
 .. note::
-The source code will be provided in the future, as soon as most bugs have been cleared. A special release note will be provided accordingly. 
-
-Untar the compressed source archive:
+The source code is provided on the official `QCxMS GitHub page <https://github.com/qcxms/QCxMS>`_. 
+Download the source code and untar the compressed source archive:
 
 .. code::
 
-   tar -xvzf QCxMS_v.X.X.tar.gz
+   tar -xvzf QCxMS-v.X.X.tar.gz
 
-Enter the newly created folder. All source files can be found in the qcxms folder.
+Enter the newly created folder. All source files can be found in the `qcxms` folder.
 To build the program, run the following commands:
 
 .. code-block:: 
 
    cd QCxMS/qcxms/
-   make
+   
+The program uses [meson](https://mesonbuild.com/) (version 0.57.2 and higher) and [ninja](https://ninja-build.org/) (version 1.10 and higher) as building system. 
+To build the program, use the following commands:
 
-This will build the program and creates the executable in the *QCxMS/exe/* folder.
+.. code:: 
+  export FC=ifort CC=icc
+  meson setup build -Dfortran_link_args=-static
+  ninja -C build 
+
+This will build a static linked binary in the `build` folder. Copy the binary from `build/qcxms` file into a directory in your path, e.g. `~/bin/`.
+
