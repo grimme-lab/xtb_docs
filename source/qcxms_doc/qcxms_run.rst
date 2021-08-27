@@ -325,18 +325,20 @@ Available Basissets in ORCA/TURBOMOLE:
 Command line Options
 ====================
 
--**c**
+-**c** / -**check**
     check IEE but do nothing (requires ground state trajectory). Writes IEE distribution in file *eimp.dat*.
--**p**
-    production (fragmentation) mode. Possible in any existing *TMPQCEIMS/TMP.XXX* directory.
+-**p** / -**prod**
+    production (fragmentation) mode. Possible in any existing *TMPQCXMS/TMP.XXX* directory.
 -**eonly**
     use the requested QC (as specified in qceims.in) and do a single-point energy.                        
 -**e0**
     same as above, charge = 0                                                                             
 -**e1**
     same as above, charge = 1                                                                             
--**qcp <string>**
-    <string> = path to the QC code. /usr/local/bin is default 
+-**qcp <string>** / -**qcpath <string>**
+    `<string>` = path to the QC code. `/usr/local/bin` is the default.
 -**unity**
     enforces uniform velocity scaling during the vibrational heating phase (in **EI** mode only) 
+-**v** / -**verbose**
+    provide more information on the starting settings. 
 
