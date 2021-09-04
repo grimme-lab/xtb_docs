@@ -26,7 +26,7 @@ Workflow of QCxMS
    script converting .xyz files to *TUROBOMOLE* coord files. Be advised that the coord file has
    to be in atomic units.
 2. Prepare an input file called `qcxms.in`. The `keywords`_ can be found below and an example is given in 
-   in the examples folder. If no such file is prepared, default options are:
+   in the examples folder. If no such file is prepared, [*default*] options are:
    run GFN1-xTB with 25 × the number of atoms in the molecule trajectories (ntraj).
 
 
@@ -37,7 +37,7 @@ Workflow of QCxMS
    which information is taken for the production trajectories. **Be aware** that this already uses
    the QC method specified. After some steps for equilibration, the files *trjM* and *qceims.gs*
    are generated. It is highly recommended to conduct the initial run with a low-cost method,
-   e.g. GFN1-xTB (default) or OM2-D3.
+   e.g. GFN1-xTB [*default*] or OM2-D3.
 4. Run ``QCxMS`` for the second time after the GS run is finished. This genereates the *TMPQCXMS* file.  
    If the file qceims.gs exists, this will prepare the specifications for the parallel production run in 
    the *TMPQCXMS* folder.
@@ -70,7 +70,7 @@ Workflow of QCxMS
    folder. 
 
 
-.. figure:: ../../figures/qcxms/QCEIMS.png
+.. figure:: ../../figures/qcxms/QCxMS_EI-CID_Flowchart.png
   :align: center
 
   Steps during the production runs in the EI and CID modules. CID module not yet available,
@@ -81,7 +81,7 @@ Input keywords in *qcxms.in*
 
 .. _keywords:
 
-If no input file is given, default settings are taken. This means an **EI** calculation is conducted.
+If no input file is given, [*default*] settings are taken. This means an **EI** calculation is conducted.
 The general *qcxms.in* input file can be manipulated by providing *<parameters>* : 
 
 +-------------------+-----------------------------+-------------------+----------------------------+
@@ -104,7 +104,7 @@ The general *qcxms.in* input file can be manipulated by providing *<parameters>*
 | tinit *<real>*    | Initial Temperature         | 500 K             | *<real>*                   |
 +-------------------+-----------------------------+-------------------+----------------------------+
 
-While xTB is set as default programm and method, it is not required to define it twice.
+While xTB is set as [*default*] programm and method, it is not required to define it twice.
 
 EI method specific keywords
 ---------------------------
@@ -164,7 +164,7 @@ CID method specific keywords
 
 **General Activation run-type (explicit collisions)**
 
-This run-type was developed to calculate spectra without manually setting many parameters. It is the **default** run-type, but can be called with the ``fullauto`` command. The most important settings are ``lchamb`` defines the collision chamber length (in meters) and ``pgas`` the collision gas pressure (in Pascal). The temperature of the gas is set to 300 K. These three factors are important for the number of precursor-gas collisions (*pgc*) and fragment-gas collisions (*fgc*). It is advised to set the collision energy ``elab`` somewhat higher than in the experiments, depending on the molecular ion's size. 
+This run-type was developed to calculate spectra without manually setting many parameters. It is the [**default**] run-type, but can be called with the ``fullauto`` command. The most important settings are ``lchamb`` defines the collision chamber length (in meters) and ``pgas`` the collision gas pressure (in Pascal). The temperature of the gas is set to 300 K. These three factors are important for the number of precursor-gas collisions (*pgc*) and fragment-gas collisions (*fgc*). It is advised to set the collision energy ``elab`` somewhat higher than in the experiments, depending on the molecular ion's size. 
 
 **Forced Activation run-type (explicit collisions)**
 
@@ -177,24 +177,26 @@ Increasing the internal energy can be done either by scaling the targeted temper
 **Other important keywords**
  - ``simmd``: MD time for the mean-free-path (*mfp*) simulation. This sets the number of time steps for the simulation between collisions (explicit run-types) or after fragmentation during internal energy scaling (implicit run-typ). 
  - ``eexact``: No variation of the input collision energy; the molecular ion will be accelerated for all production runs with the same energy.
- - ``esi``: A MD prior to the collision simulation (explicit run-types) increases E(int) to the *<real>* value. If this is less than the internal energy of the initial system (e.g. through high initial temperature), the scaling will be skipped (**no** downwards scaling/cooling!). If nothing is set, the scaling is done automatically depending on the system size (both general and forced default **on**).
+ - ``esi``: A MD prior to the collision simulation (explicit run-types) increases E(int) to the *<real>* value. If this is less than the internal energy of the initial system (e.g. through high initial temperature), the scaling will be skipped (**no** downwards scaling/cooling!). If nothing is set, the scaling is done automatically depending on the system size (both general and forced [*default* **on**]).
  - ``noesi``: Switch off the automatic ``esi`` scaling (explicit run-types). In the thermal activation run-type, this step cannot be skipped, as this is the essential part of the run-type. 
 
 
 Misc keywords
 -------------
 
-+--------------------------------------------------------------------+-------------------------------------------------------------------+
-| isotope <atomnumber> <mass_isotope> <atomnumber> <mass_isotope> ...| Switches *<atom> <mass>* to simulate isotopes. (integer masses)   |
-+--------------------------------------------------------------------+-------------------------------------------------------------------+
-| iseed *<integer>*                                                  | Random number seed (Default: 42)                                  | 
-+--------------------------------------------------------------------+-------------------------------------------------------------------+
-| etemp *<real>*                                                     | Electronic temperature of convergenc of MD (Default: Auto)        | 
-+--------------------------------------------------------------------+-------------------------------------------------------------------+
-| nfragexit *<integer>*                                              | Stop at *<integer>* simultaneously created fragments (Default: 3) | 
-+--------------------------------------------------------------------+-------------------------------------------------------------------+
-| ecp / no-ecp                                                       | Use ECPs / Do not use ECPs (ORCA /TMOL only!)                     |
-+--------------------------------------------------------------------+-------------------------------------------------------------------+
++--------------------------------------------------------------------+-----------------------------------------------------------------------+
+| isotope <atomnumber> <mass_isotope> <atomnumber> <mass_isotope> ...| Switches *<atom> <mass>* to simulate isotopes. (integer masses)       |
++--------------------------------------------------------------------+-----------------------------------------------------------------------+
+| iseed *<integer>*                                                  | Random number seed [*default*: 42]                                    |
++--------------------------------------------------------------------+-----------------------------------------------------------------------+
+| etemp *<real>*                                                     | Electronic temperature of convergenc of MD [*default*: Auto]          | 
++--------------------------------------------------------------------+-----------------------------------------------------------------------+
+| nfragexit *<integer>*                                              | Stop at *<integer>* simultaneously created fragments [*default*: 3]   | 
++--------------------------------------------------------------------+-----------------------------------------------------------------------+
+| ecp / no-ecp                                                       | Use ECPs / Do not use ECPs (ORCA /TMOL only!)                         |
++--------------------------------------------------------------------+-----------------------------------------------------------------------+
+| grid *<integer>*                                                   | Set the ORCA grid [*default*: 2]                                      |  
++--------------------------------------------------------------------+-----------------------------------------------------------------------+
 
 
 Input Details
@@ -212,7 +214,8 @@ QC Programs:
 +-------------+-------------+-------------------------------------------------------------------+
 | tmol        | TURBOMOLE   | The ridft and rdgrad programs are called.distribution type        |
 +-------------+-------------+-------------------------------------------------------------------+
-| orca        | ORCA        | large QC program package free for academic use. distribution type |
+| orca5       | ORCA        | QC program package version 5.0 (and higher)                       |
+| orca        | ORCA        | QC program package version 4.0 (and higher) [*default*]           |
 +-------------+-------------+-------------------------------------------------------------------+
 | mndo        | MNDO99      |  semiempirical QC program available from Walter Thiel             |
 +-------------+-------------+-------------------------------------------------------------------+
@@ -336,7 +339,7 @@ Command line Options
 -**e1**
     same as above, charge = 1                                                                             
 -**qcp <string>** / -**qcpath <string>**
-    `<string>` = path to the QC code. `/usr/local/bin` is the default.
+    `<string>` = path to the QC code. `/usr/local/bin` is the [*default*].
 -**unity**
     enforces uniform velocity scaling during the vibrational heating phase (in **EI** mode only) 
 -**v** / -**verbose**
