@@ -27,7 +27,29 @@ actually needed for good statistics. You can plot your spectra as soon as the pr
    your calculated spectrum directly to the experiment (inverted).
    There is currently no feature to do this for the CID spectrum as well.
 
-There are some useful commandline options to  your results.
+
+Visualization of Trajectories
+-----------------------------
+
+There are some useful commandline options to manipulate your results.
+
+
+-**v** 
+    print spectra *"mass % intensity  counts   Int. exptl"* to stdout with *"Int. exptl"* (experimental) taken
+    from `exp.dat` but not all exp peaks are exported, if no theoretical counterpart exists
+-**f** *<filename>* or  -**f** *<name_of_res_file>*
+    provide `.res` file for plotting the spectrum
+-**t** *<x> <y>*
+    couting ions with charge *x* to *y* (give the value, e.g. "-t 1 2" for charge 1 to 2)
+-**w** *<real>*
+    broadening the charges by an standard distribution (given in decimal numbers between 0 and 1)
+-**s** *<integer>*
+    account only for only secondary and tertiary fragmentations (give the value, e.g. "-s 2" for secondary)
+-**m** *<integer>*
+    set minimum threshold for m/z. Will be calculate the base peak for higher values than 
+-**i** 
+    do not calculate the isotope pattern 
+
 
 
 
