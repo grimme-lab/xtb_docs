@@ -7,8 +7,8 @@
 .. contents::
 
 
-``CREST`` is usually invoked via commandline, and requires only a coordinate input file.
-The program supports the ``TURBOMOLE`` coordinates (coord, Bohr), Xmol (`*`.xyz, Angstroem)
+``CREST`` is usually invoked via command line, and requires only a coordinate input file.
+The program supports the ``TURBOMOLE`` coordinates (coord, Bohr), Xmol (`*`.xyz, Ångström)
 or 3d SDF (V2000,V3000) formats and can be called via
 
 .. code:: bash
@@ -20,7 +20,7 @@ in the ``TURBOMOLE`` format. Either must be present. The different ``[OPTIONS]``
 to ``Version 2.11`` of the ``CREST`` code. ``[DEFAULT]`` options do not need to be specified explicitly.
 
 
-General and techincal options
+General and technical options
 -----------------------------
 
 .. list-table:: 
@@ -45,15 +45,15 @@ General and techincal options
     * - ``--T <INT>``
       - Specify the number of CPU threads ``<INT>`` that shall be used. ``CREST`` automatically adjusts the number of processes according to this variable in each step, in order to achieve optimal parallelization of the calculations.
     * - ``--dry``
-      - Perfrom a "dry" run, i.e., nothing is actually done but instead an overview of the settings that would be applied in the calculation is given.
+      - Perform a "dry" run, i.e., nothing is actually done but instead an overview of the settings that would be applied in the calculation is given.
 
 Runtypes
 ========
 
-Several different applications are availabile within the ``CREST`` program.
+Several different applications are available within the ``CREST`` program.
 The most important usage are the two different conformational search algorithms MF-MD-GC and iMTD-GC,
 but there are also some smaller utility tools that can be used, such as an CRE sorting function (CREGEN),
-or a standalone z-martix sorting function (ZSORT).
+or a standalone z-matrix sorting function (ZSORT).
 The different runtypes are:
 
 .. list-table:: 
@@ -102,7 +102,9 @@ Ensemble sorting
     * - ``--ethr <REAL>``
       - Set energy threshold between conformer pairs in kcal/mol. The ``[DEFAULT]`` is 0.05 kcal/mol.
     * - ``--bthr <REAL>``
-      - Set lower bound for the rotational constant threshold to *REAL*. The ``[DEFAULT]`` is 0.01 (= 1%). The thresold is dynamically adjusted between this value and 2.5%, based on the anisotropy of the rotational constants.
+      - Set lower bound for the rotational constant threshold to *REAL*. The ``[DEFAULT]`` is 0.01 (= 1%). The threshold is dynamically adjusted between this value and 2.5%, based on the anisotropy of the rotational constants.
+    * - ``--pthr <REAL>``
+      - Boltzmann population threshold. The ``[DEFAULT]`` is 0.05 (= 5%)
     * - ``--nmr, --eqv, --entropy``
       - Activate determination and printout of NMR-equivalencies. Writes the files ``anmr_rotamer`` and ``anmr_nucinfo``, which are required by the ``ENSO`` python script.
     * - ``--athr <REAL>``
@@ -145,8 +147,14 @@ Calculation settings passed to ``xtb``
     
     * - Flag
       - Description
-    * - ``--gfn2, --gfn1, --gfn0, --gfnff``
-      - Use any of the respective GFN\ *n* methods. The default is GFN2-xTB but GFN-FF is strongly recommended for faster sampling.
+    * - ``--gfn1``
+      - Use GFN1-xTB
+    * - ``--gfn2``
+      - Use GFN2-xTB ``[DEFAULT]``
+    * - ``--gff, -gfnff``
+      - Use GFN-FF (recommended for faster sampling)
+    * - ``--gfn2//gfnff``
+      - Use GFN2-xTB//GFN-FF composite method
       
 **Charge and multiplicity**
 
@@ -170,7 +178,7 @@ Calculation settings passed to ``xtb``
     * - Flag
       - Description
     * - ``--g, --gbsa <SOLVENT>``
-      - Generalized born (GB) model with solvent accessable surface (SASA) model, for available *SOLVENT* options see :ref:`gbsa`. The solvent input is not case-sensitive.
+      - Generalized born (GB) model with solvent accessible surface (SASA) model, for available *SOLVENT* options see :ref:`gbsa`. The solvent input is not case-sensitive.
     * - ``--alpb <SOLVENT>``
       - New ALPB implicit solvation model, for available *SOLVENT* options see :ref:`gbsa`. The solvent input is not case-sensitive.
 
@@ -230,9 +238,9 @@ Options for conformational search algorithms
     * - Flag
       - Description
     * - ``--cross``
-      - ``[DEFAULT]`` Perform Z-matrix strucutre crossing (GC) in the algorithm.
+      - ``[DEFAULT]`` Perform Z-matrix structure crossing (GC) in the algorithm.
     * - ``--nocross``                                                                        
-      - Skip Z-matrix strucutre crossing.
+      - Skip Z-matrix structure crossing.
 
 **Additional MD sampling after MTD**
 
@@ -266,16 +274,22 @@ Options for conformational search algorithms
     
     * - Flag
       - Description
+    * - ``--hflip, --noflip``
+      - Turn a small enhancement routine on/off to rotate OH groups after MTD. The ``[DEFAULT]`` is OFF.
+    * - ``--maxflip <INT>```
+      - Maximum number of new structures by the above mentioned enhancement routine. The ``[DEFAULT]`` is OFF.
     * - ``--quick``
       - Perform a search with reduced settings for a crude conformer ensemble.
     * - ``--squick, --superquick``
       - Perform an even more crude conformational search than with ``-quick``.
     * - ``--mquick``
       - Perform an even more crude conformational search than with ``-quick`` or ``-squick``.
+    * - ``--origin``
+      - Track the step of generation for each conformer/rotamer. ``[DEFAULT]`` 
     * - ``--nci``
-      - Specialized NCI mode that can be used to find aggregates of NCI complexes. The option generates an ellipsoide potential around the input structure and adds it to the MTD simulation. Also, settings for :math:`k` and :math:`\alpha` are adjusted and some settings are reduced, in order to achieve lower computation times.
-    * - ``---wscal <REAL>``
-      - Scale the ellipsoide potential axes in the ``--nci`` mode by factor *REAL*.
+      - Specialized NCI mode that can be used to find aggregates of NCI complexes. The option generates an ellipsoid potential around the input structure and adds it to the MTD simulation. Also, settings for :math:`k` and :math:`\alpha` are adjusted and some settings are reduced, in order to achieve lower computation times.
+    * - ``---pscal <REAL>``
+      - Scale the ellipsoid potential axes in the ``--nci`` mode by factor *REAL*.
 
 **Technical iMTD-GC settings**
 
@@ -313,11 +327,13 @@ Valid options for *STR* are currently (case sensitive!):
     * - ``hess``  
       - performs a hessian calculation for all conformers and re-weights the ensemble on free energies
     * - ``reopt`` 
-      - reoptimization of the ensemble with vtight thresholds (usefull for "quick" runs)
+      - reoptimization of the ensemble with vtight thresholds (useful for "quick" runs)
     * - ``autoIR`` 
-      - calculate vib. modes for all conformers and average them (weighted by Boltzmann populations) in a single "crest.vibspectum" file.
+      - calculate vib. modes for all conformers and average them (weighted by Boltzmann populations) in a single "crest.vibspectrum" file.
       
 .. note:: The different quick, NCI and property settings are incompatible with ``--entropy``!
+
+.. _entropymodesettings:
 
 **Entropy mode settings**
 
@@ -328,17 +344,19 @@ Valid options for *STR* are currently (case sensitive!):
     * - Flag
       - Description
     * - ``--scthr,--entropy_cthr <REAL>``
-      - Specifiy the ensemble growth threshold (% new conformers) for ``--entropy`` and ``--v4`` convergence. The default is 0.02 (=2%) for the entropy mode and  0.05 (=5%) for ``--v4``.
+      - Specify the ensemble growth threshold (% new conformers) for ``--entropy`` and ``--v4`` convergence. The default is 0.02 (=2%) for the entropy mode and  0.05 (=5%) for ``--v4``.
     * - ``--ssthr,--entropy_sthr <REAL>``
-      - Specifiy the entropy growth threshold (% growth entropy) for ``--entropy`` and ``--v4`` convergence. The default is 0.005 (=0.5%) for the entropy mode and 0.01 (=1%) for ``--v4``. 
+      - Specify the entropy growth threshold (% growth entropy) for ``--entropy`` and ``--v4`` convergence. The default is 0.005 (=0.5%) for the entropy mode and 0.01 (=1%) for ``--v4``. 
     * - ``--trange <from> <to> <step>``
       - Entropies from the ``--entropy`` mode are always printed for a range of temperatures. The respective temperatures can be specified with this option.
     * - ``--ptot <REAL>``
       - For the rovibrational average :math:`\overline{S}_{msRRHO}` requires frequency calculations at GFN level. To reduce computational cost, only the specified *REAL* fraction of structures are calculated, and the rest is averaged. The default is 0.9 (=90%).   
-    * - ``--fscal <REAL>``
-      - Scale frequencies read for :math:`\overline{S}_{msRRHO}` by a given factor. Also works together with the ``--thermo`` option (see below, section Other Tools)
-    * - ``--rotorcut,--sthr``
-      - Specify the rotor cutoff for the ro/vib entropy interpolation (:math:`\tau`). Also works together with the ``--thermo`` option (see below, section Other Tools)
+    * - ``--fscal <FLOAT>``
+      - Scale frequencies read for :math:`\overline{S}_{msRRHO}` by a given factor. Also works together with the ``--thermo`` option (see below, section :ref:`othertools`). The ``[DEFAULT]`` is 1.0.
+    * - ``--rotorcut, --sthr <FLOAT>``
+      - Specify the rotor cutoff for the ro/vib entropy interpolation (:math:`\tau`). Also works together with the ``--thermo`` option (see below, section :ref:`othertools`). The ``[DEFAULT]`` is 25.0 cm-1.
+    * - ``--ptot <FLOAT>``
+      - Sum of population for structures considered in msRRHO average. The ``[DEFAULT]`` is 0.9 (=90%). (?)
 
 Options related to constrainment
 ================================
@@ -352,9 +370,11 @@ Options related to constrainment
     * - ``--cinp <FILE>``
       - Specify a ``<FILE>`` with additional constraints in the xTB syntax.
     * -  ``--constrain <atom list>``
-      - Set up an example file in which the atoms in ``<atom list>`` shall be constrained. The file will be called ``.xcontrol.sample``. No calculations will be performed and the run is aborted after this sample is wirtten. The written file can be read with the ``--cinp`` option.
+      - Set up an example file in which the atoms in ``<atom list>`` shall be constrained. The file will be called ``.xcontrol.sample``. No calculations will be performed and the run is aborted after this sample is written. The written file can be read with the ``--cinp`` option.
     * -  ``--cbonds [REAL]``
       - Set up a constraint on all bonds (as detected in the input coordinates topology), where ``[REAL]`` optionally can be used to set the force constant (default value 0.02 Eh)
+    * -  ``--cbonds [REAL]``
+      - Turn off ``-cbonds`` (mainly for GFN-FF)
     * -  ``--cmetal [REAL]``
       - Set up a constraint on all M-X bonds (as detected in the input coordinates, M = transition metal atom), where ``[REAL]`` optionally can be used to set the force constant (default value 0.02 Eh)
     * -  ``--cheavy [REAL]``
@@ -362,7 +382,9 @@ Options related to constrainment
     * -  ``--clight [REAL]``
       - Set up a constraint on all X-H bonds (as detected in the input coordinates), where ``[REAL]`` optionally can be used to set the force constant (default value 0.02 Eh)   
     * -  ``--fc <REAL``
-      - Specifiy a force constant for the applied constaints (default value 0.02 Eh). Note: Only one force constant is applied for all constraints!
+      - Specify a force constant for the applied constraints (default value 0.02 Eh). Note: Only one force constant is applied for all constraints!
+
+.. _othertools:
 
 Other tools
 -----------
@@ -463,7 +485,7 @@ Ensemble comparison
     * - Flag
       - Description  
     * -  ``--compare <FILE1> <FILE2>``
-      - Compare two ensembles *<FILE1>* and *<FILE2>*. Both ensembles must have the same order of atoms of the molecule and should contain rotamers (e.g. ``crest_rotamers.xyz``). Furthermore the structures should have energies in the same magnitude, or relative energies as the comment in the ensemble file.
+      - Compare two ensembles *<FILE1>* and *<FILE2>*. Both ensembles must have the same order of atoms of the molecule and should contain rotamers (e.g. ``crest_rotamers.xyz``). Furthermore, the structures should have energies in the same magnitude, or relative energies as the comment in the ensemble file.
       
 .. list-table:: 
     :widths: 30 100
@@ -472,7 +494,7 @@ Ensemble comparison
     * - Modifier
       - Description        
     * - ``--maxcomp <INT>``
-      - Selcect the lowest *INT* conformers out of each ensemble to be compared with ``-compare``. The ``[DEFAULT]`` is the 10 lowest conformers.
+      - Select the lowest *INT* conformers out of each ensemble to be compared with ``-compare``. The ``[DEFAULT]`` is the 10 lowest conformers.
 
 
 Rovibrational entropy average
@@ -504,7 +526,7 @@ RMSD comparison
     * - Flag
       - Description  
     * -  ``--rmsd,--rmsdheavy <FILE1> <FILE2>``
-      - Calculate the RMSD or heavy atom RMSD between two given structures. Input format of the two structures can be any of the formats that can be read by CREST, output will always be the RMSD in Angstroem.
+      - Calculate the RMSD or heavy atom RMSD between two given structures. Input format of the two structures can be any of the formats that can be read by CREST, output will always be the RMSD in Ångström.
 
 Topology check
 
@@ -535,9 +557,9 @@ Thermostatistical calculations from frequencies
     * - Modifier
       - Description  
     * - ``--fscal``, ``--rotorcut,--sthr`` 
-      - (see above)
+      - see :ref:`Entropy mode settings<entropymodesettings>`
          
-Splitting an Ensemble into seperate files
+Splitting an Ensemble into separate files
 
 .. list-table:: 
     :widths: 30 100
@@ -546,7 +568,7 @@ Splitting an Ensemble into seperate files
     * - Flag
       - Description  
     * -  ``--splitfile <FILE> [from] [to]``
-      - Split an ensemble from ``<FILE>`` into seperate directories for each structure.  ``[from]`` and ``[to]`` can be used to select specific structures from the file or a range of structures. The new directories are collected in the ``SPLIT`` directory.
+      - Split an ensemble from ``<FILE>`` into separate directories for each structure.  ``[from]`` and ``[to]`` can be used to select specific structures from the file or a range of structures. The new directories are collected in the ``SPLIT`` directory.
 
 
 
