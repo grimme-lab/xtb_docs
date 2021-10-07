@@ -96,6 +96,8 @@ Koopman, J.; Grimme, S.
 
 **Nonlinear optical properties with sTD-DFT-xTB:** De Wergifosse, M., Grimme, S.  *Nonlinear-response properties in a simplified time-dependent density functional theory (sTD-DFT) framework: Evaluation of the first hyperpolarizability* *J. Chem. Phys* **2018**, *149(2)*, 024108. `DOI:10.1063/1.5037665 <https://doi.org/10.1063/1.5037665>`_
 
+**Calculation of Optical Rotation for Nonrigid Systems:** Bohle, F.; Seibert, J.; Grimme, S. *Automated Quantum Chemistry-Based Calculation of Optical Rotation for Large Flexible Molecules* *J. Org. Chem.* `DOI: 10.1021/acs.joc.1c02008 <https://doi.org/10.1021/acs.joc.1c02008>`_
+
 **Excited state absorption spectra with sTD-DFT-xTB:** De Wergifosse, M., Grimme, S. *Nonlinear-response properties in a simplified time-dependent density functional theory (sTD-DFT) framework: Evaluation of excited-state absorption spectra* *J. Chem. Phys.* **2019** , *150(9)*,  094112 `DOI: 10.1063/1.5080199  <https://doi.org/10.1063/1.5080199>`_
 
 **Supramolecular Chemistry with GFN2-xTB:** Bohle, F. Grimme, S. *Efficient structural and energetic screening of fullerene
