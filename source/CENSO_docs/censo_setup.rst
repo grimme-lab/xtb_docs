@@ -891,3 +891,5 @@ have to be considered:
 
          cd $DIR1
          rm -r $TMP_DIR/$PBS_JOBID
+    
+    .. hint:: The program paths in your job-submission script have to be adjusted to your local environment

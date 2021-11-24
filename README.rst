@@ -62,3 +62,4 @@ Contributors
 * Sarah Schmitz
 * Jakob Seibert
 * Sebastian Spicher
+* Johannes Gorges

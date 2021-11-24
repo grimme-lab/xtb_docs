@@ -197,6 +197,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    CENSO_docs/censorc
    CENSO_docs/censo_thresholds
    CENSO_docs/censo_solvation
+   CENSO_docs/censo_nmr
    CENSO_docs/censo_troubleshooting
    CENSO_docs/censo_usage
    CENSO_docs/abbreviations
