@@ -7,20 +7,19 @@ Visualization
 Plotting Mass Spectra (PlotMS)
 ==============================
 
-The PlotMS utility is provided to visualize your results. The newest version can be found in the 
-`PlotMS repository <https://github.com/qcxms/PlotMS/releases/>`_. 
-The program analyzes the `qcxms.res` or `qcxms_cid.res` file and provides the results as *m/z*-values and abundances.
+The **PlotMS** utility was developed to visualize the results of `QCxMS <https://github.com/qcxms/QCxMS/releases>`_
+calculations. The newest version can be found in the `PlotMS repository <https://github.com/qcxms/PlotMS/releases/>`_.
+
+The program analyzes the *qcxms.res* or *qcxms_cid.res* file and provides the results as *m/z*-values and abundances.
 Versions 6.0 and higher provide **exact masses** of the fragments. 
 
-This may be useful to check for convergence in case you are running more trajectories than 
-actually needed for good statistics. You can plot your spectra as soon as the production run has started
-by using the `getres` script, which is provided with the latest `QCxMS version <https://github.com/qcxms/QCxMS/releases>`_.
-
-Change into your working directory and run ``plotms``. This generates three files:
+To run the program, change into your working directory and run ``plotms``. This generates three files:
    - `mass.agr` -> *XMGRACE* file using the `~/.mass_raw.agr` template file
    - `results.jdx` -> *JCAMP-DX* ( *Joint Committee on Atomic and Molecular Physical* data) file 
    - `results.csv` -> *CSV* (*comma seperated values*) file for spreadsheet programs (e.g. Excel)
 
+The spectra can be plotted as soon as the production run has started by using the `getres` script, which creates an 
+*tmpqcxms.res* file. The file has to be deleted before ``getres`` is used a second time.
 
 For a comparison to experimental EI spectra, a spectrum can be downloaded from the 
 `NIST database <https://webbook.nist.gov/chemistry/>`_ if available (*JCAMP-DX* format). 
