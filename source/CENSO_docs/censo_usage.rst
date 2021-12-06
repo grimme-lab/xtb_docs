@@ -10205,7 +10205,7 @@ and :math:`{\beta}`-D-glucopyranose
         
 
 .. figure:: ../../figures/CENSO/Dglucopyranose.png
-   :scale: 100 %    
+   :scale: 80 %    
    :align: center    
    :alt: structure
    

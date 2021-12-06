@@ -91,12 +91,15 @@ The file *anmr_enso* is written by the `censo` program and contains information 
 the conformers, which folder they are in, the Boltzmann weight, energy, solvation 
 and thermostatistical contribution to free energy. The first number in the three last 
 lines indicates to ``ANMR`` if the conformer is to be considered (1) or not (0). 
-If one conformer is not considered (or more) `anmr` program internally recalculates
+If one conformer is not considered (or more) the `anmr` program internally recalculates
 the Boltzmann weights based on the free energies from the *anmr_enso* file. 
 
 
 Usage of `anmr`:
 
+.. important::
+
+    `ANMR` still relies on autmatically created arrays on the stack. For this reason you have to run ``ulimit -s unlimited`` to prevent stackoverflows.
 
 
 .. tabbed:: command
@@ -180,7 +183,7 @@ If this is the case, run `anmr` with a decreased spinsystem size:
 
 .. code:: sh
 
-  $ anmr -mss 12 > anmr.out 2> anmr.error &
+  $ anmr -mss 12 -plain > anmr.out 2> anmr.error &
 
 
 `anmr` will then write a file called *anmr.dat* (which is quiet large). The file
@@ -298,7 +301,7 @@ Reference shielding constants
 """""""""""""""""""""""""""""
 
 For user convenience shielding constants of the reference molecules (TMS (Tetramethylsilane), CFCl3, PH3, TMP 
-(Trimethylphosphine oxide)) were precalculated and stored within the `CENSO` program. 
+(Trimethylphosphine oxide)) were precalculated (for some method combinations) and stored within the `CENSO` program. 
 The reference shielding values are used in the `ANMR`
 program to calculate the shifts and the reference values are written to the file *.anmrrc*.
 
@@ -400,7 +403,7 @@ Example calculation for reference shielding constant
 
 
 In this usage example, ``CENSO`` printed an error-message that the reference absolute shielding constant at the level of
-theory chosen is missing for hydrogen.
+theory chosen is missing for hydrogen and has not been precalculated.
 
 .. code:: none
 
@@ -409,7 +412,7 @@ theory chosen is missing for hydrogen.
                  
 
 
-To calculate it, a NMR-calculation at the respective level of theory
+To calculate it, a NMR calculation at the respective level of theory
 has to be performed for TMS in a new directory. In this case, the theory level is PBE0/def2-TZVP for the NMR part on
 r2SCAN-3c geometries with the implicit SMD solvation model for CHCl3 (PBE0[SMD]/def2-TZVP//r2scan-3c[SMD]/def2-mTZVPP).
 
@@ -609,8 +612,8 @@ r2SCAN-3c geometries with the implicit SMD solvation model for CHCl3 (PBE0[SMD]/
                         ----------------------------------------------------------------------------------------------------
                         
                         program call: censo --input crest_conformers.xyz -func0 b97-d3 -solvent chcl3 -smgsolv1 smd -sm2 smd --smgsolv2 smd --prog orca -part4 on -prog4J orca -prog4S orca -funcJ pbe0 -funcS pbe0 -basisJ def2-TZVP -basisS def2-TZVP
-                        The configuration file .censorc is read from /home/gorges/.censorc.
-                        Reading conformer rotamer ensemble from: /tmp1/gorges/3881229.majestix.thch.uni-bonn.de/crest_conformers.xyz.
+                        The configuration file .censorc is read from /home/$USER/.censorc.
+                        Reading conformer rotamer ensemble from: /tmp1/$USER/3881229.majestix.thch.uni-bonn.de/crest_conformers.xyz.
                         Reading file: censo_solvents.json
                         
                         

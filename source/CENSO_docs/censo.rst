@@ -34,7 +34,7 @@ To perform fast calculations ``censo`` interfaces with QM codes like ``xtb``, ``
 TURBOMOLE and ORCA. The results are read by ``censo`` and evaluated in the sorting 
 algorithm.
 
-CENSO is the enhanced and more efficient successor of the ENSO program. 
+**CENSO is the enhanced and more efficient successor of the ENSO program.**
 
 The main publication for the CENSO program can be found at 
 `J. Phys. Chem. A 2021 <https://pubs.acs.org/doi/10.1021/acs.jpca.1c00971>`_.
@@ -139,4 +139,4 @@ Part5 - OR-Mode:
 ----------------
 
 In part5 optical rotatory (OR) dispersion of the populated structure ensemble 
-can be calculated. Boltzmann weights can be taken from part1, part2 or part3.
+can be calculated (TURBOMOLE only!). Boltzmann weights can be taken from part1, part2 or part3.
