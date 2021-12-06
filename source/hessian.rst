@@ -205,7 +205,7 @@ Single Point Hessian (SPH) calculations
 _______________________________________________________
 
 A prerequisite for accurate thermostatistics so far was to optimize the molecular input structures in order to avoid imaginary frequencies as discussed above.  This inevitably leads to changes in the geometry if different theoretical levels are applied for geometry optimization and frequency calculations. Therefore, we propose a new method termed single-point Hessian (SPH) for the computation of HVF and thermodynamic contributions to the free energy within the modified RRHO approximation for general nonequilibrium molecular geometries. The main publication for ``SPH`` can be found at: `JCTC <https://doi.org/10.1021/acs.jctc.0c01306>`_.
-A SPH calculation is invoked using the ``--bess`` command line argument. *xTB* automatically applies a biasing potential given as Gaussian functions expressed with the RMSD in Cartesian space in order to retain the initial geometry. In the *xTB* printout this is indicated by e.g.:
+A SPH calculation is invoked using the ``--bhess`` command line argument. *xTB* automatically applies a biasing potential given as Gaussian functions expressed with the RMSD in Cartesian space in order to retain the initial geometry. In the *xTB* printout this is indicated by e.g.:
 
 .. code:: text
 

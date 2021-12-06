@@ -7,32 +7,36 @@ Visualization
 Plotting Mass Spectra (PlotMS)
 ==============================
 
-The PlotMS utility is provided in order to visualize your results. The newest version can be found in the 
-`PlotMS repository <https://github.com/qcxms/PlotMS>`_. 
-The program analyzes the `qcxms.res` or `qcxms_cid.res` file and combines the results using the `~/.mass_raw.agr` template file
-to create the `mass.agr` and the `results.jdx` files in your working directory. 
+The **PlotMS** utility was developed to visualize the results of `QCxMS <https://github.com/qcxms/QCxMS/releases>`_
+calculations. The newest version can be found in the `PlotMS repository <https://github.com/qcxms/PlotMS/releases/>`_.
 
-This may be useful to check for convergence in case you are running more trajectories than 
-actually needed for good statistics. You can plot your spectra as soon as the production run has started. 
+The program analyzes the *qcxms.res* or *qcxms_cid.res* file and provides the results as *m/z*-values and abundances.
+Versions 6.0 and higher provide **exact masses** of the fragments. 
 
-1. Change into your working directory and run ``plotms``. This should generate the `mass.agr` file.
-2. With the `mass.agr` file, visualize your QCxMS spectrum with: 
+To run the program, change into your working directory and run ``plotms``. This generates three files:
+   - `mass.agr` -> *XMGRACE* file using the `~/.mass_raw.agr` template file
+   - `results.jdx` -> *JCAMP-DX* ( *Joint Committee on Atomic and Molecular Physical* data) file 
+   - `results.csv` -> *CSV* (*comma seperated values*) file for spreadsheet programs (e.g. Excel)
 
-.. code:: none
+The spectra can be plotted as soon as the production run has started by using the `getres` script, which creates an 
+*tmpqcxms.res* file. The file has to be deleted before ``getres`` is used a second time.
 
-   xmgrace mass.agr
+For a comparison to experimental EI spectra, a spectrum can be downloaded from the 
+`NIST database <https://webbook.nist.gov/chemistry/>`_ if available (*JCAMP-DX* format). 
+Copy it to the working directory as `exp.dat`. PlotMS reads the `exp.dat` and compares your calculated spectrum directly 
+to the experiment (inverted). A matching score is printed at the end of the program  output.
 
-3. For a comparision of EI spectra, the experimental spectrum can be downloaded from the NIST database if available
-   (JCAMP-DX format). Copy it to the working directory as `exp.dat`. PlotMS reads the `exp.dat` and compares
-   your calculated spectrum directly to the experiment (inverted).
-   There is currently no feature to do this for the CID spectrum as well.
+.. note::
+  There is currently no feature to do this for the CID spectrum as well.
+
+.. warning::
+  In PlotMS version 6.0, the automatic matching score calculation is not supported!
 
 
-Visualization of Trajectories
------------------------------
+Program flags and command-line options
+--------------------------------------
 
-There are some useful commandline options to manipulate your results.
-
+There are some useful command-line options to manipulate your results.
 
 -**v** 
     print spectra *"mass % intensity  counts   Int. exptl"* to stdout with *"Int. exptl"* (experimental) taken
@@ -46,11 +50,11 @@ There are some useful commandline options to manipulate your results.
 -**s** *<integer>*
     account only for only secondary and tertiary fragmentations (give the value, e.g. "-s 2" for secondary)
 -**m** *<integer>*
-    set minimum threshold for m/z. Will be calculate the base peak for higher values than 
--**i** 
+    set minimum value for m/z, so rel. 100% value will be calculated for higher masses (x-axis)
+-**i** *<real>*
+    set the minimum rel. intensity from which the signals are counted (y-axis)
+-**p** 
     do not calculate the isotope pattern 
-
-
 
 
 
@@ -67,5 +71,4 @@ setting. This allows for movie generation employing the ``VMD`` movie maker plug
 working directory to load the trajectory *TMPQCEIMS/TMP.X/trj.X.Y*. For instance, `msmovie 1 1` loads the first 
 trajectory of the first folder. 
 Some adjustments according to personal preferences for movie-making may have to be made in these scripts.
-
 
