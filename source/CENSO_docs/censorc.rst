@@ -209,7 +209,7 @@ Part4 - NMR- Settings
       - Option to turn the "NMR property part" *on* or *off*.
     * - couplings
       - Perform coupling constant calculations [options are *on* or *off*].
-    * - progJ
+    * - prog4J
       - QM code (TM, ORCA) used for coupling constant calculations.
     * - funcJ
       - Density functional employed for the coupling constant calculation.
@@ -219,7 +219,7 @@ Part4 - NMR- Settings
       - implicit solvent model employed in the coupling constant calculation.
     * - shieldings
       - Perform shielding constant calculations [options are *on* or *off*].
-    * - progS
+    * - prog4S
       - QM code (TM, ORCA) used for shielding constant calculations.
     * - funcS
       - Density functional employed for the shielding constant calculation.

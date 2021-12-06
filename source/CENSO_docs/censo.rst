@@ -34,6 +34,8 @@ To perform fast calculations ``censo`` interfaces with QM codes like ``xtb``, ``
 TURBOMOLE and ORCA. The results are read by ``censo`` and evaluated in the sorting 
 algorithm.
 
+**CENSO is the enhanced and more efficient successor of the ENSO program.**
+
 The main publication for the CENSO program can be found at 
 `J. Phys. Chem. A 2021 <https://pubs.acs.org/doi/10.1021/acs.jpca.1c00971>`_.
 
@@ -91,8 +93,8 @@ The threshold can be automatically increased (fuzzy-threshold) as a function of
 the standard deviation of G\_mRRHO, which is the case for flexible or diverse SE.
 Up to now all calculations have been performed on the SQM/FF input geometries!
 
-Part2 - Optimiation:
---------------------
+Part2 - Optimization:
+---------------------
 
 The relevant conformers/structures have to be optimized at DFT (r2SCAN-3c) level
 in implicit solvation (DCOSMO-RS). An efficient ensemble optimizer has been 
@@ -137,4 +139,4 @@ Part5 - OR-Mode:
 ----------------
 
 In part5 optical rotatory (OR) dispersion of the populated structure ensemble 
-can be calculated. Boltzmann weights can be taken from part1, part2 or part3.
+can be calculated (TURBOMOLE only!). Boltzmann weights can be taken from part1, part2 or part3.

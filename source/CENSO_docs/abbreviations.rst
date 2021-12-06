@@ -11,6 +11,8 @@ Abbreviations
       - definition
     * - SQM
       - semiempirical quantum mechanical (method)
+    * - ALPB
+      - analytical linearized Poisson-Boltzmann model
     * - GBSA
       - generalized born surface approximation
     * - DFT
@@ -31,3 +33,4 @@ Abbreviations
       - Geometry Frequency Noncovalent 
     * - GCP
       - geometric counterpoise correction
+      

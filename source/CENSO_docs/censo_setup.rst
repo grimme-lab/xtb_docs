@@ -759,6 +759,11 @@ Some information is already contained in ``censo`` and can be accessed by runnin
 Requirements
 ------------
 
+.. note:: 
+
+    CENSO interfaces to other codes (ORCA, TURBOMOLE, COSMOtherm). They are not part of CENSO!
+
+
 CENSO needs other programs in certain versions and will not work properly without them:
 
 * xTB in version 6.4.0 or above
@@ -778,8 +783,8 @@ have to be considered:
 * provide the correct number of available cores to CENSO (P, maxthreads) * 
   (O,omp) = number of cores
 * CENSO will generate a lot of data for each conformer. This data is stored in the 
-  CONFX (X=number) folders. If you restart and resubmit a calculation to the cluster,
-  you have to tell your submission script to copy these folders.
+  CONFX (X=number) folders. **If you restart and resubmit a calculation to the cluster,
+  you have to tell your submission script to copy these folders.**
 
 .. hint:: 
 
@@ -891,3 +896,5 @@ have to be considered:
 
          cd $DIR1
          rm -r $TMP_DIR/$PBS_JOBID
+    
+    .. hint:: The program paths in your job-submission script have to be adjusted to your local environment
