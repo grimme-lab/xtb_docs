@@ -86,6 +86,12 @@ GFN-FF generates a topology file named ``gfnff_topo`` automatically upon first u
 
 Depending on the system size, this speeds up you the overall computation time If large structural changes are applied to the structure, the topology file should better be deleted. The next calculation will generate a new one, according to the modified structure. If parameters are changes in the code, the topology file should also be deleted, as the old parameters are also saved there.
 
+The following lists from the GFN-FF topology can be exported to a JSON file named ``gfnff_lists.json`` using the keyword ``--wrtopo``. The neighbor list **nb** contains the indices of neighboring atoms for each atom and the number of its neighbors in the last entry. The bond pair list **bpair** is a packed matrix holding the number of bonds between atom pairs. A maximum of five bonds between atoms is considered, setting pairs with more bonds inbetween to this value. The angle list **alist** contains sets of three bonded atoms forming an angle. The bond list **blist** contains all bonded atoms. The torsion list **tlist** contains sets of four bonded atoms forming a torsion and a torsion angle prefactor as the last entry. The bond, angle and torsion parameters are requested with **vbond**, **vangl** and **vtors** respectively. The requested lists have to be separated with a comma, as shown in the example below.
+
+.. code:: bash
+
+  > xtb --gfnff <geometry> --wrtopo nb,bpair,alist,blist,tlist,vtors,vbond,vangl 
+
 
 GFN-FF specific settings
 ============================
