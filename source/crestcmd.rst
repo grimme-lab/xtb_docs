@@ -288,7 +288,7 @@ Options for conformational search algorithms
       - Track the step of generation for each conformer/rotamer. ``[DEFAULT]`` 
     * - ``--nci``
       - Specialized NCI mode that can be used to find aggregates of NCI complexes. The option generates an ellipsoid potential around the input structure and adds it to the MTD simulation. Also, settings for :math:`k` and :math:`\alpha` are adjusted and some settings are reduced, in order to achieve lower computation times.
-    * - ``---pscal <REAL>``
+    * - ``--wscal <REAL>``
       - Scale the ellipsoid potential axes in the ``--nci`` mode by factor *REAL*.
 
 **Technical iMTD-GC settings**
