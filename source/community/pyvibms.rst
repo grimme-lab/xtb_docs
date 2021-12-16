@@ -7,7 +7,7 @@ Lauch PyVibMS in a new PyMOL window, load the  ``g98.out`` file by changing the 
 
 Then vibrational modes can be visualized as following
 
-.. image:: https://raw.githubusercontent.com/smutao/PyVibMS/master/examples/xtb-640/xtb-pyvibms-shot.png
+.. image:: https://raw.githubusercontent.com/smutao/PyVibMS/83e503c0abf3f5f93cc667d28f67a433073c6757/examples/xtb-640/xtb-pyvibms-shot.png
    :width: 650
    :target: https://github.com/smutao/PyVibMS
   
