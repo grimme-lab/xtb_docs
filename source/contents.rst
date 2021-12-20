@@ -176,6 +176,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    crestversions
    crestcmd
    crestxmpl
+   crestqcg
 
 .. toctree::
    :maxdepth: 3
