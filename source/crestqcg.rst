@@ -13,7 +13,7 @@ Quantum Cluster Growth is a utility/driver extension of ``CREST`` for the ``xtb`
 
 The key procedure is the automated addition of solvent molecules around the solute, mainly done by a screening of docking positions, using the ``xtb-IFF``, and ``xtb`` geometry optimizations. A second step includes the ensemble generation, which can be done either with single a MD/MTD simulation or the NCI-MTD workflow of ``CREST``. The solvation free energy can additionally be computed by generating a reference ensemble.
 
-.. note:: Currently, a version of ``xtb-IFF`` and ``xtb`` has to be installed and to be accessible by calling *xtb* and *xtbiff*. A future release of ``xtb`` will make the use of ``xtb-IFF`` optional.
+.. note:: Currently, a version of ``xtb-IFF`` and ``xtb`` has to be installed and to be accessible by calling *xtb* and *xtbiff*. Statically linked binaries of ``xtb-IFF`` can be found `here <https://github.com/grimme-lab/xtbiff/releases/tag/v1.1>`_ and for ``xtb`` they can be found at the `latest release page <https://github.com/grimme-lab/xtb/releases/latest>`_. A future release of ``xtb`` will make the use of ``xtb-IFF`` optional.
 
 
 Automated Grow Algorithm and Ensemble Generation
@@ -117,7 +117,7 @@ Growth
       - Set the charge for the solute and creates .CHRG file
     * - ``--uhf <INT>``
       - Set the number of unpaired electrons for the solute and creates .UHF file
-    * - ``--wscal <FLOAT>``
+    * - ``--wscal <REAL>``
       - Set the scaling factor for the outer wall potential. The default is 1.0 except for water
     * - ``--fixsolute``
       - Fix the solute during the grow process (automatically done for water as solvent)
@@ -151,9 +151,9 @@ The defaults of the NCI-MTD run-type in QCG are the same as in the stand-alone u
       - Use GFN2-xTB for M(T)D simulation and geometry optimizations during the ensemble generation. ``[DEFAULT]`` in case of a single MD and MTD simulation.
     * - ``--enslvl gff, -- enslvl gfnff``
       - Use GFN-FF for M(T)D simulation and geometry optimizations during the ensemble generation ``[DEFAULT]`` in case of the NCI-MTD run-type
-    * - ``--len <real>, --mdlen <real>, --mdtime <real>``
+    * - ``--len <REAL>, --mdlen <REAL>, --mdtime <REAL>``
       - Set the M(T)D length
-    * - ``mddump <INT>``
+    * - ``--mddump <INT>``
       - Set the dumping frequency of the M(T)D simulations
     * - ``--tstep <INT>``
       - Set the M(T)D time step in fs
@@ -189,7 +189,7 @@ Solvation Free Energy
       - Use GFN2-xTB for frequency calculations
     * - ``--freqlvl gff, -- freqlvl gfnff``
       - Use GFN-FF for frequency calculations ``[Default]``     
-    * - ``--freqscal <INT>``
+    * - ``--freqscal <REAL>``
       - Set a scaling factor for the translational and rotational entropy. Only for printout. ``[Default]`` is 0.75
 
 
