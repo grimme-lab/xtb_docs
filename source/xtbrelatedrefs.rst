@@ -52,6 +52,9 @@ __ https://doi.org/10.1021/acs.jctc.9b00143
 **Thermodynamics** Spicher, S.; Grimme, S. *Efficient Computation of Free Energy Contributions for Association Reactions of Large Molecules* *J. Phys. Chem. Lett.* **2020**, *11 (16)*, 6606–6611
 `DOI: 10.1021/acs.jpclett.0c011930 <https://doi.org/10.1021/acs.jpclett.0c01930>`_
 
+**Finite-Temperature Effects and H0-Tuning** Mewes, J.-M.; Hansen, A.; Grimme, S. *Comment on “The Nature of Chalcogen-Bonding-Type Tellurium–Nitrogen Interactions”: Fixing the Description of Finite-Temperature Effects Restores the Agreement Between Experiment and Theory* *Angewandte Chemie Internation Edition* **2021**, *60 (24)*, 13144-13149
+`DOI: 10.1002/anie.202102679 <https://doi.org/10.1002/anie.202102679>`_
+
 **Molecular Muscles:** Kohn, J.; Spicher, S.; Bursch, M.; Grimme, S. *Quickstart guide to model structures and interactions of artificial molecular muscles with efficient computational methods*, *Chem. Commun.*, **2022**, *58*, 258-261. `DOI: 10.1039/D1CC05759F <http://dx.doi.org/10.1039/D1CC05759F>`_
 
 **Conformational Energies of Transition Metal Complexes (TMCONF40):** Bursch, M.; Pracht, P.; Hansen, A.; Grimme, S. *Theoretical study on conformational energies of transition metal complexes* *Phys. Chem. Chem. Phys.* **2021**, *23*, 287-299
