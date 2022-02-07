@@ -37,10 +37,10 @@ Workflow of QCxMS
 
 3. Run ``qcxms`` for the first time. This will generate the ground state (GS) trajectory from
    which information is taken for the production trajectories. **Be aware** that this already uses
-   the QC method specified. After some steps for equilibration, the files *trjM* and *qceims.gs*
+   the QC method specified. After some steps for equilibration, the files *trjM* and *qcxms.gs*
    are generated. It is highly recommended to conduct the initial run with a low-cost method,
    e.g. GFN2-xTB [*default*] or GFN1-xTB.
-4. Run ``qcxms`` for the second time after the GS run is finished. If the *qceims.gs* exists, 
+4. Run ``qcxms`` for the second time after the GS run is finished. If the *qcxms.gs* exists, 
    this will create a *TMPQCXMS* folder and prepares the specifications for the parallel production.
 
 3. Excecuting the Production Runs
@@ -103,9 +103,13 @@ The general *qcxms.in* input file can be manipulated by providing *<parameters>*
 +-------------------+-----------------------------+-------------------+----------------------------+
 | ntraj *<integer>* | Number of trajectories      | 25 × no. of atoms | *<integer>*                |
 +-------------------+-----------------------------+-------------------+----------------------------+
-| tmax *<real>*     | Maximum MD time             | 5 ps              | *<integer>*                |
-+-------------------+-----------------------------+-------------------+----------------------------+
 | tinit *<real>*    | Initial Temperature         | 500 K             | *<real>*                   |
++-------------------+-----------------------------+-------------------+----------------------------+
+| etemp *<real>*    | electronic Temperature      | 5000 K            | *<real>*                   |
++-------------------+-----------------------------+-------------------+----------------------------+
+| tmax *<real>*     | Maximum MD time (sampling)  | 5 ps              | *<integer>*                |
++-------------------+-----------------------------+-------------------+----------------------------+
+| tstep *<real>*    | MD time step                | 0.5 fs            | *<real>*                   |
 +-------------------+-----------------------------+-------------------+----------------------------+
 
 While xTB is set as [*default*] programm and method, it is not required to define it twice. 
@@ -121,9 +125,15 @@ EI method specific keywords
 +--------------------------------------+-------------------------------------+-------------------+--------------------+
 | eimp0 *<real>*                       | Electron-beam impact energy         | 70 eV             | *<real>*           |
 +--------------------------------------+-------------------------------------+-------------------+--------------------+
+| eimpw *<real>*                       | Impact energy distribution          | 0.1 eV            | *<real>*           |
++--------------------------------------+-------------------------------------+-------------------+--------------------+
 | ieeatm *<real>*                      | Impact excess energy (IEE) per atom | 0.6 eV/atom       | *<real>*           |
 +--------------------------------------+-------------------------------------+-------------------+--------------------+
 | poisson *or* gauss (*<real> <real>*) | IEE distribution type               | poisson           | *<real>*           |
++--------------------------------------+-------------------------------------+-------------------+--------------------+
+| maxsec *<integer>*                   | no. of secondary fragmentation runs | 7                 | *<integer>*        |
++--------------------------------------+-------------------------------------+-------------------+--------------------+
+| nfragexit *<integer>*                | max. fragments created in single MD | 3                 | *<integer>*        |
 +--------------------------------------+-------------------------------------+-------------------+--------------------+
 
 .. note:: **Poisson/Gauss IEE distribution:**
@@ -213,7 +223,7 @@ Misc keywords
 +--------------------------------------------------------------------+-----------------------------------------------------------------------+
 | isotope <atomnumber> <mass_isotope> <atomnumber> <mass_isotope> ...| Switches *<atom> <mass>* to simulate isotopes. (integer masses)       |
 +--------------------------------------------------------------------+-----------------------------------------------------------------------+
-| iseed *<integer>*                                                  | Random number seed [*default*: 42]                                    |
+| iseed *<integer>*                                                  | Random number seed [*default*: off]                                   |
 +--------------------------------------------------------------------+-----------------------------------------------------------------------+
 | etemp *<real>*                                                     | Electronic temperature of convergenc of MD [*default*: Auto]          | 
 +--------------------------------------------------------------------+-----------------------------------------------------------------------+
@@ -356,12 +366,12 @@ Available Basissets in ORCA/TURBOMOLE:
 Command line Options
 ====================
 
--**c** / -**check**
+-**c** / --**check**
     check IEE but do nothing (requires ground state trajectory). Writes IEE distribution in file *eimp.dat*.
--**p** / -**prod**
+-**p** / --**prod**
     production (fragmentation) mode. Possible in any existing *TMPQCXMS/TMP.XXX* directory.
 -**eonly**
-    use the requested QC (as specified in qceims.in) and do a single-point energy.                        
+    use the requested QC (as specified in qcxms.in) and do a single-point energy.                        
 -**e0**
     same as above, charge = 0                                                                             
 -**e1**
@@ -370,6 +380,6 @@ Command line Options
     `<string>` = path to the QC code. `/usr/local/bin` is the [*default*].
 -**unity**
     enforces uniform velocity scaling during the vibrational heating phase (in **EI** mode only) 
--**v** / -**verbose**
+-**v** / --**verbose**
     provide more information on the starting settings. 
 

@@ -48,12 +48,12 @@ Exemplary input and coordinate files can be found in the `EXAMPLES` folder.
 Quantum Chemistry Codes Required
 ================================
 
-The low cost QC methods **GFN1-xTB** and **GFN2-xTB** are directly implemented into QCxMS. No further rights or installations of 
-third-party software is required and the methods can be called directly by the program. GFN2-xTB is set to run as default for
-QCxMS calculations.
+The low cost QC methods **GFN1-xTB** and **GFN2-xTB** are directly implemented into QCxMS `via` the `tblite framework <https://github.com/tblite/tblite>`_. 
+With this, no further installations of third-party software is required to create a spectrum at the semi-empirical level of theory.
+GFN2-xTB is set to run as default for QCxMS calculations.
 
-To run other QC methods, QCxMS needs ORCA or TURBOMOLE to function. 
-If available, place the following QC executables in `/usr/local/bin`:
+To run other QC methods (e.g. DFT), ORCA or TURBOMOLE have to be installed on your system,
+either by using ``enviornment modules`` or by placing the executables in `/usr/local/bin`.
 
 +-----------+-----------------------------------------------------------------------+
 | MNDO99    |                                                                       |
