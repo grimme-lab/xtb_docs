@@ -492,8 +492,6 @@ The resulting cluster can be found in the ``grow`` directory as ``cluster.xyz`` 
 
 As we want to perform an MD simulation on this structure without dissociating the cluster, we also need the wall potentials found in the ``wall_potential`` file. This can be renamed to ``.xcontrol`` and directly used as an input for ``xtb`` to perform the constrained MD simulation. 
 
-.. note:: Other constraints set by the user will also be written in this file and thus used by xtb if not removed.
-
 
 
 Ensemble Generation and Microsolvation
