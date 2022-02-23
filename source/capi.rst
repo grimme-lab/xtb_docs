@@ -74,11 +74,13 @@ GFN2-xTB calculation is given here.
 
 .. code-block:: c
 
+   #include <stddef.h>
+
    #include "xtb.h"
 
-   int
-   main (int argc, char** argv)
+   int main (int argc, char** argv)
    {
+     double energy = 0.0;
      int    const natoms = 7;
      int    const attyp[7] = {6,6,6,1,1,1,1};
      double const charge = 0.0;
