@@ -74,6 +74,8 @@ GFN2-xTB calculation is given here.
 
 .. code-block:: c
 
+   #include <stddef.h>
+
    #include "xtb.h"
 
    int main (int argc, char** argv)
