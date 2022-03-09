@@ -49,10 +49,10 @@ __ https://doi.org/10.1021/acs.jctc.9b00143
 **SPH calculations:** Spicher, S.; Grimme, S.  *Single-Point Hessian Calculations for Improved Vibrational Frequencies and Rigid-Rotor-Harmonic-Oscillator Thermodynamics* *J. Chem. Theory Comput.* **2021**, *17 (3)*, 1701-1714.
 `DOI: 10.1021/acs.jctc.0c01306 <https://doi.org/10.1021/acs.jctc.0c01306>`_
 
-**Thermodynamics** Spicher, S.; Grimme, S. *Efficient Computation of Free Energy Contributions for Association Reactions of Large Molecules* *J. Phys. Chem. Lett.* **2020**, *11 (16)*, 6606–6611
+**Thermodynamics:** Spicher, S.; Grimme, S. *Efficient Computation of Free Energy Contributions for Association Reactions of Large Molecules* *J. Phys. Chem. Lett.* **2020**, *11 (16)*, 6606–6611
 `DOI: 10.1021/acs.jpclett.0c011930 <https://doi.org/10.1021/acs.jpclett.0c01930>`_
 
-**Finite-Temperature Effects and H0-Tuning** Mewes, J.-M.; Hansen, A.; Grimme, S. *Comment on “The Nature of Chalcogen-Bonding-Type Tellurium–Nitrogen Interactions”: Fixing the Description of Finite-Temperature Effects Restores the Agreement Between Experiment and Theory* *Angewandte Chemie Internation Edition* **2021**, *60 (24)*, 13144-13149
+**Finite-Temperature Effects and H0-Tuning:** Mewes, J.-M.; Hansen, A.; Grimme, S. *Comment on “The Nature of Chalcogen-Bonding-Type Tellurium–Nitrogen Interactions”: Fixing the Description of Finite-Temperature Effects Restores the Agreement Between Experiment and Theory* *Angewandte Chemie Internation Edition* **2021**, *60 (24)*, 13144-13149
 `DOI: 10.1002/anie.202102679 <https://doi.org/10.1002/anie.202102679>`_
 
 **Molecular Muscles:** Kohn, J.; Spicher, S.; Bursch, M.; Grimme, S. *Quickstart guide to model structures and interactions of artificial molecular muscles with efficient computational methods*, *Chem. Commun.*, **2022**, *58*, 258-261. `DOI: 10.1039/D1CC05759F <http://dx.doi.org/10.1039/D1CC05759F>`_
@@ -60,10 +60,10 @@ __ https://doi.org/10.1021/acs.jctc.9b00143
 **Conformational Energies of Transition Metal Complexes (TMCONF40):** Bursch, M.; Pracht, P.; Hansen, A.; Grimme, S. *Theoretical study on conformational energies of transition metal complexes* *Phys. Chem. Chem. Phys.* **2021**, *23*, 287-299
 `DOI: 10.1039/D0CP04696 <https://doi.org/10.1039/D0CP04696E>`_
 
-**Small Molecule Binding in Metal Organic Polyhedra** Spicher, S.; Bursch, M.; Grimme, S. *Efficient Calculation of Small Molecule Binding in Metal–Organic Frameworks and Porous Organic Cages* *J. Phys. Chem. C* **2020**, *124 (50)*, 27529-27541
+**Small Molecule Binding in Metal Organic Polyhedra:** Spicher, S.; Bursch, M.; Grimme, S. *Efficient Calculation of Small Molecule Binding in Metal–Organic Frameworks and Porous Organic Cages* *J. Phys. Chem. C* **2020**, *124 (50)*, 27529-27541
 `DOI: 10.1021/acs.jpcc.0c08617 <https://doi.org/10.1021/acs.jpcc.0c08617>`_
 
-**Distance Distributions in Biomacromolecules** Spicher, S.; Abdullin, D.; Grimme, S.; Schiemann, O. *Modeling of spin–spin distance distributions for nitroxide labeled biomacromolecules* *Phys. Chem. Chem. Phys* **2020**, *22*, 24282-24290
+**Distance Distributions in Biomacromolecules:** Spicher, S.; Abdullin, D.; Grimme, S.; Schiemann, O. *Modeling of spin–spin distance distributions for nitroxide labeled biomacromolecules* *Phys. Chem. Chem. Phys* **2020**, *22*, 24282-24290
 `DOI: 10.1039/DOCP04920D <https://doi.org/10.1039/D0CP04920D>`_
 
 **Calculation of Redoxpotentials:** Neugebauer, H.; Bohle, F.; Bursch, M.; Hansen, A.; Grimme, S. *Benchmark Study of Electrochemical Redox Potentials Calculated with Semiempirical and DFT Methods* *J. Phys. Chem. A* **2020**, *124 (35)*, 7166-7176
@@ -72,8 +72,14 @@ __ https://doi.org/10.1021/acs.jctc.9b00143
 **Protonation Site Determination:** Pracht, P.; Bauer, C.; Grimme, S. *Automated and efficient quantum chemical determination and energetic ranking of molecular protonation sites* *J. Comput. Chem.* **2017**, *38 (30)*, 2618-2631
 `DOI: 10.1002/jcc.24922 <https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.24922>`_
 
-**NMR Spectrum Simulation:** Grimme, S.; Bannwarth, C.; Dohm, S.; Hansen, A.; Pisarek, J.; Pracht, P.; Seibert, J.; Neese, F.  *Fully Automated Quantum Chemistry Based Computation of Spin–Spin Coupled Nuclear Magnetic Resonance Spectra* *Angew. Chem. Int. Ed.* **2017**, *56 (20)*, 12485–12491
+**NMR Spectrum Simulation:** Grimme, S.; Bannwarth, C.; Dohm, S.; Hansen, A.; Pisarek, J.; Pracht, P.; Seibert, J.; Neese, F. *Fully Automated Quantum Chemistry Based Computation of Spin–Spin Coupled Nuclear Magnetic Resonance Spectra* *Angew. Chem. Int. Ed.* **2017**, *56 (20)*, 12485–12491
 `DOI: 10.1002/anie.201708266 <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.201708266>`_
+
+\ :sup:`29`\ **Si NMR Chemical Shifts on GFN2-xTB- and GFN-FF-Based Structures:** Bursch, M.; Gasevic, T.; Stückrath, J. B.; Grimme, S. *Comprehensive Benchmark Study on the Calculation of* \ :sup:`29`\ *Si NMR Chemical Shifts*, *Inorg. Chem.* **2021**, *60 (1)*, 272–285
+`DOI: 10.1021/acs.inorgchem.0c02907 <https://doi.org/10.1021/acs.inorgchem.0c02907>`_
+
+\ :sup:`119`\ **Sn NMR Chemical Shifts on GFN2-xTB- and GFN-FF-Based Structures:** Stückrath, J. B.; Gasevic, T.; Bursch, M.; Grimme, S. *Benchmark Study on the Calculation of* \ :sup:`119`\ *Sn NMR Chemical Shifts*, *Inorg. Chem.* **2022**, *61 (9)*, 3903–3917
+`DOI: 10.1021/acs.inorgchem.1c03453 <https://doi.org/10.1021/acs.inorgchem.1c03453>`_
 
 **Geometry Optimization of Transition-Metal Complexes:**
 Bursch, M.; Neugebauer, H.; Grimme, S.
