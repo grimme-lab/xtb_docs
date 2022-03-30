@@ -20,7 +20,7 @@ To read an input file called ``xtb.inp`` use
 
   > xtb --input xtb.inp coord
 
-In the detailed input you have control about almost very global
+In the detailed input you have control about almost every global
 variable in the program, some instructions even check your input, but
 most of the time you should know what you are doing.
 Developed as a feature for developers, this is incredible powerful
