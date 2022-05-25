@@ -46,6 +46,10 @@ Applications
 
 __ https://doi.org/10.1021/acs.jctc.9b00143
 
+**Calculation of gas-phase entropies:** Pracht, P.; Grimme, S. *Calculation of absolute molecular entropies and heat capacities made simple*, *Chem. Sci.*, **2021**, *12*, 6551-6568. `DOI: 10.1039/D1SC00621E <https://doi.org/10.1039/D1SC00621E>`_
+
+**Conformational entropies in solution:** Gorges, J.; Grimme, S.; Hansen, A.; Pracht, P. *Towards understanding solvation effects on the conformational entropy of non-rigid molecules*, *Phys. Chem. Chem. Phys.*, **2022**, *24*, 12249-12259. `DOI: 10.1039/D1CP05805C <https://dx.doi.org/10.1039/D1CP05805C>`_
+
 **SPH calculations:** Spicher, S.; Grimme, S.  *Single-Point Hessian Calculations for Improved Vibrational Frequencies and Rigid-Rotor-Harmonic-Oscillator Thermodynamics* *J. Chem. Theory Comput.* **2021**, *17 (3)*, 1701-1714.
 `DOI: 10.1021/acs.jctc.0c01306 <https://doi.org/10.1021/acs.jctc.0c01306>`_
 
