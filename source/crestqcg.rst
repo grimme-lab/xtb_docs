@@ -507,9 +507,9 @@ As an example, a microsolvation approach is considered, but also large ensembles
 
    .. code:: bash
 
-      crest benzoic_acid.xyz --qcg water.xyz --nsolv 3 --T 12 --ensemble --mdtime 50 --alpb water --wscal 1.0 --nofix > crest.out
+      crest benzoic_acid.xyz --qcg water.coord --nsolv 3 --T 12 --ensemble --mdtime 50 --alpb water --wscal 1.0 --nofix > crest.out
 
-.. tabbed:: benzoiic_acid.xyz
+.. tabbed:: benzoic_acid.xyz
 
    .. code:: sh
         
