@@ -218,7 +218,7 @@ Let's assume we have bacillaene and want to grow a cluster of 100 water molecule
 
    .. code:: bash
 
-      crest bacillaene.xyz --qcg water.xyz --nsolv 100 --gfnff --T 12 --alpb water --nofix > crest.out
+      crest bacillaene.xyz --qcg water.xyz --nsolv 100 --gfnff --T 12 --alpb water --nofix --wscal 1.0 > crest.out
 
 .. tabbed:: bacillaene.xyz
 
@@ -360,7 +360,7 @@ Let's assume we have bacillaene and want to grow a cluster of 100 water molecule
             MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
             Command line input:
-            > crest bacillaene.xyz -qcg water.xyz -gfnff -nsolv 100 -T 20 -grow -alpb water -nofix
+            > crest bacillaene.xyz -qcg water.xyz -gfnff -nsolv 100 -T 20 -grow -alpb water -nofix -wscal 1.0
 
             Solute-file: bacillaene.xyz
             Solvent-file: water.xyz
@@ -482,15 +482,15 @@ Let's assume we have bacillaene and want to grow a cluster of 100 water molecule
             CREST terminated normally.
         
 
-QCG automatically detects water as a solvent. This will cause the outer wall potential to be scaled to smaller sizes. Additionally, the solute will be fixed during the growth (also only in case of water). Bacillaene has a variety of different conformations and we want to consider the response of the intramolecular geometry upon addition of water. Thus, the ``--nofix`` flag was provided.
+QCG automatically detects water as a solvent. This will cause the outer wall potential to be scaled to smaller sizes. Additionally, the solute will be fixed during the growth (also only in the case of water). Bacillaene has a variety of different conformations and we want to consider the response of the intramolecular geometry upon the addition of water molecules. Thus, the ``--nofix`` flag was provided. Additionally, we plan to add many water molecules and the scaling of the outer wall potential is therefore not required. Hence, the scaling factor was set to one with ``--wscal 1.0``
 
-.. note:: Fixing the solute during the growth will increase the cluster quality, especially for water. It is only the ``default`` for water as solvent and can be switched off with ``--nofix``. For other solvents, the solute can be fixed also by using the keyword ``--fixsolute``.
+.. note:: Fixing the solute and scaling the wall potential during the growth will increase the cluster quality, especially for water. It is only the ``default`` for water as solvent and can be switched off with ``--nofix``. For other solvents, the solute can be fixed also by using the keyword ``--fixsolute``.
 
 
 Notice that we also choose the ALPB water model to get energies including an additional implicit solvation model around the cluster. 
 The resulting cluster can be found in the ``grow`` directory as ``cluster.xyz`` file. Additionally, each step is written to ``qcg_grow.xyz``. 
 
-As we want to perform an MD simulation on this structure without dissociating the cluster, we also need the wall potentials found in the ``wall_potential`` file. This can be renamed to ``.xcontrol`` and directly used as an input for ``xtb`` to perform the constrained MD simulation. 
+As we want to perform an MD simulation on this structure without dissociating the cluster, we also need the wall potentials found in the ``wall_potential`` file. This can be renamed to ``.xcontrol`` and directly used as an input for ``xtb`` to perform the constrained MD simulation.
 
 
 
