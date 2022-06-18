@@ -301,7 +301,7 @@ molecule groundstate and its ionized species in the same geometry.
    IP_{v} = E(M^{n+1})-E(M^{n})
 
 .. math::
-   EA_{v} = E(M^{n-1})-E(M^{n})
+   EA_{v} = E(M^{n})-E(M^{n-1})
 
 .. note::  The sign of the IP and EA can differ in the literature due to different definitions.
 
