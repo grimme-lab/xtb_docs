@@ -52,3 +52,20 @@ Collision Induced Dissociation
  Koopman, J.; Grimme, S. *From QCEIMS to QCxMS: A Tool to Routinely Calculate CID Mass Spectra Using Molecular Dynamics.*
  *J. Am. Soc. Mass Spectrom*, **2021**.
  `DOI: 10.1021/jasms.1c00098 <https://doi.org/10.1021/jasms.1c00098>`_
+
+ Schreckenbach, S.A; Anderson, J.S.M; Koopman, J.; Jobst, K. *Predicting the Mass Spectra of Environmental Pollutants
+ Using Computational Chemistry: A Case Study and Critical Evaluation.*
+ *J. Am. Soc. Mass Spectrom*, **2021**.
+ `DOI: 10.1021/jasms.1c00078 <https://doi.org/10.1021/jasms.1c00078>`_
+
+ Schnegotzki, R.; Koopman, J., Grimme, S.; Süssmuth, R.D. *Quantum Chemistry‐based Molecular Dynamics Simulations as a
+ Tool for the Assignment of ESI‐MS/MS Spectra of Drug Molecules.*
+ *Eur. J. Chem.*, **2022**
+ `DOI:  10.1002/chem.202200318 <https://doi.org/10.1002/chem.202200318>`_
+
+ Koopman, J.; Grimme, S. *Calculation of mass spectra with the QCxMS method for negatively and multiply charged
+ molecules.*
+ *ChemRxiv*, **2022**
+ `DOI: 10.26434/chemrxiv-2022-w5260 <http://dx.doi.org/10.26434/chemrxiv-2022-w5260>`_
+
+

@@ -1,4 +1,4 @@
-.. _PlotMS:
+.. _plotms:
 
 --------------
 Visualization
@@ -6,6 +6,7 @@ Visualization
 
 Plotting Mass Spectra (PlotMS)
 ==============================
+
 
 The **PlotMS** utility was developed to visualize the results of `QCxMS <https://github.com/qcxms/QCxMS/releases>`_
 calculations. The newest version can be found in the `PlotMS repository <https://github.com/qcxms/PlotMS/releases/>`_.
@@ -31,7 +32,7 @@ Most recommended is using a *.csv* file format with the following specifications
 +--------------------+-----------------------------+-------------------+
 | intensity *<real>* |                             | m/z *<real>*      | 
 +--------------------+-----------------------------+-------------------+
-|       .....        |                             |       .....       | 
+|       `.....`      |                             |      `.....`      | 
 +--------------------+-----------------------------+-------------------+
 
 PlotMS will than plot the *.agr* file with direct comparison between computed and experimental 
@@ -44,30 +45,27 @@ into the working directory as `nist.dat`.
 
 
 Program flags and command-line options
---------------------------------------
+---------------------------------------
 
 There are some useful command-line options to manipulate your results.
 
--**v**,--**verbose** 
+-v, --verbose
     print verbose options
--**f**, --**file**
-    *<filename>*
+-f, --file <file>
     provide `.res` file for plotting the spectrum
--**t** 
-    *<x> <y>*
+-t <x> <y>
     couting ions with charge *x* to *y* (give the value, e.g. "-t 1 2" for charge 1 to 2)
--**w**, --**width** 
-    *<real>*
+-w, --width <real>
     broadening the charges by an standard distribution (given in decimal numbers between 0 and 1)
--**s** *<integer>*, --**cascades** *<integer
+-s, --cascades <integer>
     account only for only secondary and tertiary fragmentations (give the value, e.g. "-s 2" for secondary)
--**m** *<integer>*
+-m, --min <integer>
     set minimum value for m/z, so rel. 100% value will be calculated for higher masses (x-axis)
--**i** *<real>*
+-i, --mzmin <real>
     set the minimum rel. intensity from which the signals are counted (y-axis)
--**p** 
+-p, --noisotope
     do not calculate the isotope pattern 
--**e** *<file>*
+-e, --exp <file>
     use the following file as input for comparison to the calculated spectrum
 
 
