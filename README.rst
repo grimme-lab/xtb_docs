@@ -16,6 +16,9 @@ Documentation for xtb and related software
 .. image:: https://img.shields.io/github/v/release/grimme-lab/CENSO?label=CENSO
    :alt: CENSO release
    :target: https://github.com/grimme-lab/CENSO/releases/latest
+.. image:: https://img.shields.io/github/v/release/grimme-lab/QCxMS?label=QCxMS
+   :alt: QCxMS release
+   :target: https://github.com/qcxms/QCxMS/releases/latest
 
 This is the official documentation for the extended tight binding (xtb) program
 package and related or dependent methods, like the conformer-rotamer ensemble
