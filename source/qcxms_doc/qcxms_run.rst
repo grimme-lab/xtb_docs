@@ -207,6 +207,8 @@ CID method specific keywords
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | collsec *<int> <int> <int>* | number of fragmentations      | 0 0 0                | *<integer>*        |
 +-----------------------------+-------------------------------+----------------------+--------------------+
+| dist *<int>*                | number of steps until coll    | minimum 10 steps     | *<integer>*        |
++-----------------------------+-------------------------------+----------------------+--------------------+
 
 The center-of-mass energy (``ecom``) is a mass reduced value, defined as: 
 
@@ -332,7 +334,7 @@ Available Functionals in ORCA/TURBOMOLE:
 +-------------+-------------+------------------------+------------------+
 | pbe0        | PBE0-D3BJ   | global hybrid          | ORCA / TURBOMOLE |
 +-------------+-------------+------------------------+------------------+
-| pbeh3c      | PBEh3-c     | global hybrid          | ORCA             |
+| pbeh3c      | PBEh3-c     | global hybrid          | ORCA / TURBOMOLE |
 +-------------+-------------+------------------------+------------------+
 | revpbe      | REVPBE-D3BJ | GGA                    | ORCA             |
 +-------------+-------------+------------------------+------------------+

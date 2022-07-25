@@ -47,11 +47,13 @@ Collision Induced Dissociation
 ------------------------------
 
 Ionization of molecules can be done by (de)protonation, *e.g.*, by the popular electrospray ionization (ESI) method. 
-This ionization process produces *closed-shell* ions (even number of valence electrons) and is softer than the EI or DEA methods. 
-For this reason, the activation of the ion has to be conducted in a second step, *i.e.*, by acceleration and 
-subsequent collisions with neutral collision gas atoms. The following Collision Induced Dissociation (**CID**) leads to 
-a spectrum normally under lower energy conditions than in the other MS methods. The simulation conditions and 
-specific details are extensively covered in `this paper`_.
+This ionization process produces *closed-shell* ions (even number of valence electrons) and is softer than the EI or DEA methods.
+It is often implemented by (de-)protonation of the molecule under study, leading to positivly or negativly charged
+molecular ions. 
+Activation of the ion has to be conducted in a second step, *i.e.*, by acceleration and subsequent collisions with neutral collision gas atoms.
+The following Collision Induced Dissociation (**CID**) leads to a spectrum normally under lower energy conditions than in 
+the other MS methods. 
+The simulation conditions and specific details are extensively covered in `this paper`_.
 
 .. _this paper: https://doi.org/10.1021/jasms.1c00098
 

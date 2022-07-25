@@ -75,12 +75,12 @@ Visualization of Trajectories
 
 Trajectories are saved in the *TMPQCXMS/TMP.XXX* directories, where NUM is the first number of the specific 
 trajectory track to be visualized. There are two programs that can easily display the trajectories, which 
-are saved in the *trj.NUM.xxx* files. One is ``(g)molden``, the other is ``VMD``. Obtaining a video (.avi) of a 
+are saved in the *trj.NUM.xxx* files. One is `(g)molden`, the other is `VMD`. Obtaining a video (.avi) of a 
 given trajectory is possibly most easily done by loading the trajectory of choice into VMD (file type .xyz).
 
-The `msmovie` and `movie.tcl` scripts for ``VMD`` generate a visualization using the dynamic bonds graphical representations 
-setting. This allows for movie generation employing the ``VMD`` movie maker plug-in. Simply type msmovie X Y in the 
-working directory to load the trajectory *TMPQCEIMS/TMP.X/trj.X.Y*. For instance, `msmovie 1 1` loads the first 
+The `msmovie` and `movie.tcl` scripts for `VMD` generate a visualization using the dynamic bonds graphical representations 
+setting. This allows for movie generation employing the `VMD` movie maker plug-in. Simply type msmovie X Y in the 
+working directory to load the trajectory *TMPQCXMS/TMP.X/trj.X.Y*. For instance, `msmovie 1 1` loads the first 
 trajectory of the first folder. 
 Some adjustments according to personal preferences for movie-making may have to be made in these scripts.
 
