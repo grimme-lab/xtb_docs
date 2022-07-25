@@ -21,11 +21,9 @@ Workflow of QCxMS
    the molecule has to be protonated. This can be done with the protonation tool of **CREST**
    (see: :ref:`crestcmd`). 
 
-.. Caution:: 
-   The structure file has to be named ``coord`` and should have the *TURBOMOLE coord* format. 
-   If the `x2t` program is available, *.xyz* files can be easily converted by typing ``x2t <xyzfile> > coord``. 
-   Otherwise, a script converting *.xyz* to *TUROBOMOLE* coord files should be used. Be advised that the coord 
-   file has to be in atomic units.
+.. Attention:: 
+  The structure files can have all formats supported by the `MCTC library <https://github.com/grimme-lab/mctc-lib>`_ ,
+  including coord and xyz file formats.
 
 2. Prepare an input file called `qcxms.in`. The `keywords`_ can be found below and an example is given in 
    in the examples folder. If no such file is prepared, [*default*] options are:
@@ -36,10 +34,14 @@ Workflow of QCxMS
 --------------------------------
 
 3. Run ``qcxms`` for the first time. This will generate the ground state (GS) trajectory from
-   which information is taken for the production trajectories. **Be aware** that this already uses
-   the QC method specified. After some steps for equilibration, the files *trjM* and *qcxms.gs*
-   are generated. It is highly recommended to conduct the initial run with a low-cost method,
-   e.g. GFN2-xTB [*default*] or GFN1-xTB.
+   which information is taken for the production trajectories.  After some steps for equilibration, the files *trjM* and *qcxms.gs*
+   are generated.
+
+.. Warning:: 
+   This step already uses the QC method specified! As the correct sampling of the GS trajectory has no direct connection 
+   with the accuracy of the endresult, it is highly recommended to conduct the initial run with a low-cost method, 
+   e.g. GFN2-xTB [*default*] or GFN1-xTB. 
+
 4. Run ``qcxms`` for the second time after the GS run is finished. If the *qcxms.gs* exists, 
    this will create a *TMPQCXMS* folder and prepares the specifications for the parallel production.
 
@@ -76,7 +78,13 @@ Workflow of QCxMS
   For details see: `DOI: 10.1021/jasms.1c00098 <https://doi.org/10.1021/jasms.1c00098>`_
 
 8. As soon as the calculations are finished, the :ref:`PlotMS` program can be used to analyse the resulting `qcxms.res`
-   or `qcxms_cid.res` file and provides *XMGRACE*, *JCAMP-DX*, and *CSV* files with the spectral data.
+   or `qcxms_cid.res` file and provides *.agr* (open with `xmgrace`), *JCAMP-DX*, and *.csv* files with the spectral data.
+   If experimental data is put into the same folder in *.csv* format, a direct comparison to the computed spectrum is plottet
+   into the *.agr* file and a matching score is provided. Run: `plotms -i file.csv`.
+
+In each *TMPQCXMS/TMP.* file, a production run can be conducted by `qcxms -p` to test settings or take a look into the fragmentation
+processes in detail. Other `commandline`_ options are provided below.
+
 
 
 Input keywords in *qcxms.in*
@@ -87,33 +95,44 @@ Input keywords in *qcxms.in*
 If no input file is given, [*default*] settings are taken. This means an **EI** calculation is conducted.
 The general *qcxms.in* input file can be manipulated by providing *<parameters>* : 
 
-+-------------------+-----------------------------+-------------------+----------------------------+
-| **<Parameter>**   | **Specification**           |  **Default**      | **Alt. settings**          |
-+===================+=============================+===================+============================+
-| *<method>*        | Mass Spec. Method           | ei                | cid, dea                   | 
-+-------------------+-----------------------------+-------------------+----------------------------+
-| *<program>*       | QC Program                  | *xtb*             | tmol, orca, mndo, dftb     |
-+-------------------+-----------------------------+-------------------+----------------------------+
-| *<method>*        | QC Method                   | xtb               | *see:* Input Details       |
-+-------------------+-----------------------------+-------------------+----------------------------+
-| *<qc settings>*   | Basisset and/or Functional  | pbe0 sv(p)        | *see:* Input Details       |  
-+-------------------+-----------------------------+-------------------+----------------------------+
-| *<ip method>*     | Ionization Potential Method | ip-xtb2           | ip-xtb,  ip-mndo, ip-tmol  |
-|                   |                             |                   | ip-orca/-orca5, ip-orca4   |
-+-------------------+-----------------------------+-------------------+----------------------------+
-| ntraj *<integer>* | Number of trajectories      | 25 × no. of atoms | *<integer>*                |
-+-------------------+-----------------------------+-------------------+----------------------------+
-| tinit *<real>*    | Initial Temperature         | 500 K             | *<real>*                   |
-+-------------------+-----------------------------+-------------------+----------------------------+
-| etemp *<real>*    | electronic Temperature      | 5000 K            | *<real>*                   |
-+-------------------+-----------------------------+-------------------+----------------------------+
-| tmax *<real>*     | Maximum MD time (sampling)  | 5 ps              | *<integer>*                |
-+-------------------+-----------------------------+-------------------+----------------------------+
-| tstep *<real>*    | MD time step                | 0.5 fs            | *<real>*                   |
-+-------------------+-----------------------------+-------------------+----------------------------+
++--------------------+-----------------------------+-------------------+----------------------------+
+| **<Parameter>**    | **Specification**           |  **Default**      | **Alt. settings**          |
++====================+=============================+===================+============================+
+| *<method>*         | Mass Spec. Method           | ei                | cid, dea                   | 
++--------------------+-----------------------------+-------------------+----------------------------+
+| *<program>*        | QC Program                  | *xtb*             | tmol, orca, mndo, dftb     |
++--------------------+-----------------------------+-------------------+----------------------------+
+| *<method>*         | QC Method                   | xtb               | *see:* Input Details       |
++--------------------+-----------------------------+-------------------+----------------------------+
+| *<qc settings>*    | Basisset and/or Functional  | pbe0 sv(p)        | *see:* Input Details       |  
++--------------------+-----------------------------+-------------------+----------------------------+
+| *<ip method>*      | Ionization Potential Method | ip-xtb2           | ip-xtb,  ip-mndo, ip-tmol  |
+|                    |                             |                   | ip-orca/-orca5, ip-orca4   |
++--------------------+-----------------------------+-------------------+----------------------------+
+| charge *<integer>* | (neg.) Charge of M+         | 1                 | (-) *<integer>*            |
++--------------------+-----------------------------+-------------------+----------------------------+
+| ntraj *<integer>*  | Number of trajectories      | 25 × no. of atoms | *<integer>*                |
++--------------------+-----------------------------+-------------------+----------------------------+
+| tinit *<real>*     | Initial Temperature         | 500 K             | *<real>*                   |
++--------------------+-----------------------------+-------------------+----------------------------+
+| etemp *<real>*     | electronic Temperature      | 5000 K            | *<real>*                   |
++--------------------+-----------------------------+-------------------+----------------------------+
+| tmax *<real>*      | Maximum MD time (sampling)  | 5 ps              | *<integer>*                |
++--------------------+-----------------------------+-------------------+----------------------------+
+| tstep *<real>*     | MD time step                | 0.5 fs            | *<real>*                   |
++--------------------+-----------------------------+-------------------+----------------------------+
+
 
 While xTB is set as [*default*] programm and method, it is not required to define it twice. 
 If ``ip-orca`` is chosen, **ORCA 5.x** is set as default. Chose ``ip-orca4`` for version **ORCA4.x**.
+
+The [*default*] charge is set to 1 for EI and CID computations. Negative charges can easily be set by providing `charge
+-1`, which switches the program automatically to the correct settings (i.e. *DEA* for negative charged EI). For multiple
+charges, e.g. set `charge 2`.
+
+.. Attention::
+  For EI, only 1 and -1 are considered. It is **not** possible to compute multiple charges with EI or DEA!
+
 
 EI method specific keywords
 ---------------------------
@@ -135,6 +154,18 @@ EI method specific keywords
 +--------------------------------------+-------------------------------------+-------------------+--------------------+
 | nfragexit *<integer>*                | max. fragments created in single MD | 3                 | *<integer>*        |
 +--------------------------------------+-------------------------------------+-------------------+--------------------+
+| upper *<real>*                       | upper limit for IEE distribution    | 0                 | *<real>*           |
++--------------------------------------+-------------------------------------+-------------------+--------------------+
+| lower *<real>*                       | lower limit for IEE distribution    | 0                 | *<real>*           |
++--------------------------------------+-------------------------------------+-------------------+--------------------+
+
+Changing the `ieeatm` amd `eimpw` values can have a significant influence on the fragmentation behavior of the molecular
+ion. 
+For larger structures, the degrees-of-freedom (DOF) can require a larger setting of the impact excess energy per atom
+(`ieeatm`), as the energy distributed per atom can be too low. 
+
+Increasing this value can require increasing the impact energy `eimp0` as well.
+If the IEE distribution has to be manually set, use the keywords `upper` and `lower` for the limit of the distribution. 
 
 .. note:: **Poisson/Gauss IEE distribution:**
   Generated from the MO spectrum of the molecule. For low ionization energies and for 
@@ -145,6 +176,7 @@ EI method specific keywords
   either over- or under-fragmentation of the precursor ion.
 
 
+
 CID method specific keywords
 ----------------------------
 
@@ -153,9 +185,9 @@ CID method specific keywords
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | *<run-type>*                | Run-type specifics            | fullauto             | collauto, temprun  |
 +-----------------------------+-------------------------------+----------------------+--------------------+
-| ecom *<real>*               | Collision Energy E(*COM*)     | 10 eV                | *<real>*           |
+| elab *<real>*               | Collision Energy E(*LAB*)     | 40 eV                | *<real>*           |
 +-----------------------------+-------------------------------+----------------------+--------------------+
-| elab *<real>*               | Collision Energy E(*LAB*)     | ----                 | *<real>*           |
+| ecom *<real>*               | Collision Energy E(*COM*)     | --                   | *<real>*           |
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | eexact                      | do not distribute E(*LAB*)    | *off*                | *none*             |
 +-----------------------------+-------------------------------+----------------------+--------------------+
@@ -169,23 +201,23 @@ CID method specific keywords
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | lchamb *<real>*             | coll. cell length (m)         | 0.25 (=25cm)         | *<real>*           |
 +-----------------------------+-------------------------------+----------------------+--------------------+
-| simmd  *<integer>*          | MD steps for mean-free-path   | 10000 (=5ps)         | *<integer>*        |
-+-----------------------------+-------------------------------+----------------------+--------------------+
 | setcoll *<integer>*         | number of *pgc* **and** *fgc* | 10 (*collauto*)      | *<integer>*        |
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | maxcoll *<integer>*         | number of *pgc*, **no** *fgc* | 10 (*collauto*)      | *<integer>*        |
 +-----------------------------+-------------------------------+----------------------+--------------------+
 | collsec *<int> <int> <int>* | number of fragmentations      | 0 0 0                | *<integer>*        |
 +-----------------------------+-------------------------------+----------------------+--------------------+
+| dist *<int>*                | number of steps until coll    | minimum 10 steps     | *<integer>*        |
++-----------------------------+-------------------------------+----------------------+--------------------+
 
-The collision energy was set to a default center-of-mass energy (``ecom``) energy. This energy is a mass reduced value, defined as: 
+The center-of-mass energy (``ecom``) is a mass reduced value, defined as: 
 
 .. math::
   \frac{m_g}{m_g + m_p} E_{kin}
 
 with :math:`m_g` the mass of the collision gas, :math:`m_p` the precursor mass and :math:`E_{kin}` the kinetic energy of the precursor 
-ion (i.e. ``elab``). This is chosen as this helps generalizing the input energy independent from the molecular ion size. 
-Providing the ``elab`` command with a *<real>* value will automatically switch to the laboatory energy frame.
+ion (i.e. ``elab``). It can be used as help for generalizing the input energy independent from the molecular ion size. 
+Providing the ``ecom`` command with a *<real>* value will automatically switch to the center-of-mass energy frame.
 
 
 **General Activation run-type (explicit collisions)**
@@ -200,14 +232,14 @@ the molecular ion's size.
 
 This run-type is called as soon as ``setcoll``, ``maxcoll`` or ``collsec`` are called. The number of colllisions can be set to a total number of 
 collisions (*pgc* + *fgc* -> ``setcoll``) or only precursor-gas collisions (*pgc* -> ``maxcoll``). With the ``collsec`` mode, the number of 
-fragmentations are set (50%,35%,15% of runs). 
+fragmentations are set (50%, 35%, 15% of runs). 
 
 **Thermal Activation run-type (implicit collisions)**
 
 Increasing the internal energy can be done either by scaling the targeted temperature (``tscale`` *<real>*) or internal energy (``esi`` *<real>*). 
 
 **Other important keywords**
- - ``simmd``: MD time for the mean-free-path (*mfp*) simulation. This sets the number of time steps for the simulation between collisions (explicit run-types) 
+ - ``tmax``: MD time for the mean-free-path (*mfp*) simulation. This sets the number of time steps for the simulation between collisions (explicit run-types) 
    or after fragmentation during internal energy scaling (implicit run-typ). 
  - ``eexact``: No variation of the input collision energy; the molecular ion will be accelerated for all production runs with the same energy.
  - ``esi``: A MD prior to the collision simulation (explicit run-types) increases E(int) to the *<real>* value. If this is less than the internal energy 
@@ -244,9 +276,9 @@ QC Programs:
 +-------------+-------------+-------------------------------------------------------------------+
 | **Keyword** | **Program** | **Specifics**                                                     |
 +-------------+-------------+-------------------------------------------------------------------+
-| xtb         | xTB 5.8.1   | built-in GFN1-xTB Hamiltonian                                     |
+| xtb         | xTB         | built-in GFN1-xTB Hamiltonian                                     |
 +-------------+-------------+-------------------------------------------------------------------+
-| xtb2        | xTB 5.8.1   |  built-in GFN2-xTB Hamiltonian                                    |
+| xtb2        | xTB         | built-in GFN2-xTB Hamiltonian                                     |
 +-------------+-------------+-------------------------------------------------------------------+
 | tmol        | TURBOMOLE   | The ridft and rdgrad programs are called.distribution type        |
 +-------------+-------------+-------------------------------------------------------------------+
@@ -302,7 +334,7 @@ Available Functionals in ORCA/TURBOMOLE:
 +-------------+-------------+------------------------+------------------+
 | pbe0        | PBE0-D3BJ   | global hybrid          | ORCA / TURBOMOLE |
 +-------------+-------------+------------------------+------------------+
-| pbeh3c      | PBEh3-c     | global hybrid          | ORCA             |
+| pbeh3c      | PBEh3-c     | global hybrid          | ORCA / TURBOMOLE |
 +-------------+-------------+------------------------+------------------+
 | revpbe      | REVPBE-D3BJ | GGA                    | ORCA             |
 +-------------+-------------+------------------------+------------------+
@@ -365,6 +397,7 @@ Available Basissets in ORCA/TURBOMOLE:
 
 Command line Options
 ====================
+.. _commandline:
 
 -**c** / --**check**
     check IEE but do nothing (requires ground state trajectory). Writes IEE distribution in file *eimp.dat*.
