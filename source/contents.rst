@@ -167,6 +167,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    :caption: Submodules
 
    xtb_info
+   xtb_docking
    xtb_thermo
    xtb_topo
 

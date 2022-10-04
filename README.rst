@@ -7,9 +7,9 @@ Documentation for xtb and related software
 .. image:: https://img.shields.io/github/v/release/grimme-lab/xtb?label=xtb
    :alt: xtb release
    :target: https://github.com/grimme-lab/xtb/releases/latest
-.. image:: https://img.shields.io/github/v/release/grimme-lab/crest?label=crest
+.. image:: https://img.shields.io/github/v/release/crest-lab/crest?label=crest
    :alt: crest release
-   :target: https://github.com/grimme-lab/crest/releases/latest
+   :target: https://github.com/crest-lab/crest/releases/latest
 .. image:: https://img.shields.io/github/v/release/grimme-lab/enso?label=enso
    :alt: enso release
    :target: https://github.com/grimme-lab/enso/releases/latest

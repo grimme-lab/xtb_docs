@@ -67,7 +67,7 @@ The QCG extension of ``CREST`` is usually invoked via the command line. To do so
 
    > crest [SOLUTE] -qcg [SOLVENT] [OPTIONS]
 
-The general and technical options of ``CREST`` also apply for the QCG run-type ( :ref:`crestcmd`). Take care to always set the number of cores with ``--T <INT>``.
+The general and technical options of ``CREST`` also apply for the QCG run-type (:ref:`crestcmd`). Take care to always set the number of cores with ``--T <INT>``.
 
 Algorithms
 """"""""""
