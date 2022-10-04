@@ -15,7 +15,7 @@ Untar the zipped archive:
 
 .. code-block:: text
 
-   > tar -xvzf QCxMS_v.X.X.tar.xz
+   > tar -xvzf QCxMS.v.X.X.tar.xz
 
 Replace the *X.X* with the current version number. 
 The program is designed to run on Linux operating systems.
@@ -31,8 +31,6 @@ The following files are being extracted:
 +-----------------+----------------------------------------------------------------------------------------------+
 | getres          |  script that gives the status of the parallel QCxMS production run (`executable`)            |
 +-----------------+----------------------------------------------------------------------------------------------+ 
-| `.mass_raw.agr` |  xmgrace template                                                                            |
-+-----------------+----------------------------------------------------------------------------------------------+
 | `.XTBPARAM`     |  folder involving the xTB-parameterfiles .param_gfn.xtb, .param_gfn2.xtb and .param_ipea.xtb |
 +-----------------+----------------------------------------------------------------------------------------------+
 | EXAMPLE         |  folder hosting an example input and coordinate file.                                        |
@@ -40,7 +38,7 @@ The following files are being extracted:
 
 
 1. Place the `executables` into your ``$HOME/bin`` directory or path. 
-2. Place the `.XTBPARAM` folder and `.mass_raw.arg` file into your ``$HOME`` directory (these files can appear to be hidden). 
+2. Place the `.XTBPARAM` folder into your ``$HOME`` directory (these files can appear to be hidden). 
 
 
 For easy visualization of the calculated spectra, the **PlotMS** program was developed.

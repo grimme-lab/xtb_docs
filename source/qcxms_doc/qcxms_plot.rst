@@ -14,7 +14,17 @@ calculations. The newest version can be found in the `PlotMS repository <https:/
 The program analyzes the *qcxms.res* or *qcxms_cid.res* file and provides the results as *m/z*-values and abundances.
 Versions 6.0 and higher provide **exact masses** of the fragments. 
 
-To run the program, change into your working directory and run ``plotms``. This generates three files:
+To run the program, extract the PlotMS executable
+
+.. code-block:: text
+
+   > tar -xvzf PlotMS.v.X.X.tar.xz
+
+Replace the *X.X* with the current version number. 
+The program is designed to run on Linux operating systems.
+
+Move the ``.mass_raw.agr`` file into the ``$HOME`` folder. Change into your working directory, in which you created the 
+*qcxms.res* or *qcxms_cid.res* file and run ``plotms``. This generates three files:
    - `mass.agr` -> *XMGRACE* file using the `~/.mass_raw.agr` template file
    - `results.jdx` -> *JCAMP-DX* ( *Joint Committee on Atomic and Molecular Physical* data) file 
    - `results.csv` -> *CSV* (*comma seperated values*) file for spreadsheet programs (e.g. Excel)
