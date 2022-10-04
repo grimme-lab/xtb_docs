@@ -186,13 +186,13 @@ Options
     analytical linearized Poisson-Boltzmann (ALPB) model,
     available solvents are *acetone*, *acetonitrile*, *aniline*, *benzaldehyde*,
     *benzene*, *ch2cl2*, *chcl3*, *cs2*, *dioxane*, *dmf*, *dmso*, *ether*,
-    *ethylacetate*, *furane*, *hexandecane*, *hexane*, *methanol*, *nitromethane*,
+    *ethylacetate*, *furane*, *hexadecane*, *hexane*, *methanol*, *nitromethane*,
     *octanol*, *woctanol*, *phenol*, *toluene*, *thf*, *water*.
     The solvent input is not case-sensitive.
     The Gsolv reference state can be chosen as *reference* or *bar1M* (default).
 
 -g, --gbsa SOLVENT [reference]
-    generalized born (GB) model with solvent accessable surface (SASA) model,
+    generalized born (GB) model with solvent accessible surface (SASA) model,
     available solvents are *acetone*, *acetonitrile*, *benzene* (only GFN1-xTB),
     *CH2Cl2*, *CHCl3*, *CS2*, *DMF* (only GFN2-xTB), *DMSO*, *ether*, *H2O*,
     *methanol*, *n-hexane* (only GFN2-xTB), *THF* and *toluene*.
