@@ -76,6 +76,9 @@ Options
 
 --maxparent INT
    Number of parents for genetic optimization
+   
+--nstack INT
+   Number of gridpoints in one direction of the stack search
 
 --nfinal INT
    Number of final optimizations
