@@ -13,7 +13,7 @@ Quantum Cluster Growth is a utility/driver extension of ``CREST`` for the ``xtb`
 
 The key procedure is the automated addition of solvent molecules around the solute, mainly done by a screening of docking positions, using the ``xtb-IFF``, and ``xtb`` geometry optimizations. A second step includes the ensemble generation, which can be done either with single a MD/MTD simulation or the NCI-MTD workflow of ``CREST``. The solvation free energy can additionally be computed by generating a reference ensemble.
 
-.. note:: Currently, a version of ``xtb-IFF`` and ``xtb`` has to be installed and to be accessible by calling *xtb* and *xtbiff*. Statically linked binaries of ``xtb-IFF`` can be found `here <https://github.com/grimme-lab/xtbiff/releases/tag/v1.1>`_ and for ``xtb`` they can be found at the `latest release page <https://github.com/grimme-lab/xtb/releases/latest>`_. A future release of ``xtb`` will make the use of ``xtb-IFF`` optional.
+.. note:: A version of ``xtb`` has to be installed and to be accessible by calling *xtb*. Statically linked binaries of ``xtb`` can be found at the `latest release page <https://github.com/grimme-lab/xtb/releases/latest>`_. With version 6.6.0, the use of ``xtb-IFF`` becomes optional and is not recommended. However, it can still be used by providing the *-xtbiff* flag. Statically linked binaries of ``xtb-IFF`` are available `here <https://github.com/grimme-lab/xtbiff/releases/tag/v1.1>`_. 
 
 
 Automated Grow Algorithm and Ensemble Generation
@@ -105,6 +105,8 @@ Growth
       - Number of solvents that should be added
     * - ``--nopreopt``
       - Does not perform a GFN2-xTB preoptimization of the input structures
+    * - ``--xtbiff``
+      - Employ the xtbiff stand-alone for docking
     * - ``--keepdir``
       - Saves the tmp folders
     * - ``--gfn1``
