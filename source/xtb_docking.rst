@@ -572,7 +572,7 @@ and invoke ``xtb`` with
  
   .. code:: sh
   
-     xtb dock amine.xyz educt.xyz --alpb dmso --input xtb.inp
+     xtb dock amine.xyz cat.xyz --alpb dmso --input xtb.inp
 
 This will result to a structure where the amine moiety is bound to the catalyst, as proposed for the mechanism:
 
