@@ -190,9 +190,9 @@ Solvation Free Energy
     * - ``--freqlvl gfn1``
       - Use GFN1-xTB for frequency calculations
     * - ``--freqlvl gfn2``
-      - Use GFN2-xTB for frequency calculations
+      - Use GFN2-xTB for frequency calculations ``[Default]``
     * - ``--freqlvl gff, -- freqlvl gfnff``
-      - Use GFN-FF for frequency calculations ``[Default]``     
+      - Use GFN-FF for frequency calculations     
     * - ``--freqscal <REAL>``
       - Set a scaling factor for the translational and rotational entropy. Only for printout. ``[Default]`` is 0.75
 
