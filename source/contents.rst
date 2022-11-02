@@ -169,6 +169,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    xtb_info
    xtb_docking
    xtb_thermo
+   xtb_ir
    xtb_topo
 
 .. toctree::
