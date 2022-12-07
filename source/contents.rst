@@ -42,7 +42,7 @@ insights into the theory used behind the scences.
 
    +++
 
-   .. link-button:: crest
+   .. link-button:: https://crest-lab.github.io/crest-docs/
       :type: ref
       :text: Documentation for CREST
       :classes: btn-block stretched-link
