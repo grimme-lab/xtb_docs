@@ -29,7 +29,7 @@ EI - positive Ion Electron Ionization
    ei
    xtb2
    ntraj *<integer>*
-   tmax  *<real>*
+   eimp0 *<real>*
 
 The EI run mode is automatically used with the [*default*] settings described by the keywords, leading to a run using
 ``xtb2``, so actually there is no keyword required in the *qcxms.in* file. 
