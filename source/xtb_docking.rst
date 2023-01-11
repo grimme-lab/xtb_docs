@@ -137,7 +137,7 @@ To read an input file called ``xtb.inp`` use
 
 .. code:: bash
 
-  > xtb --input xtb.inp coord
+  > xtb dock coord1 coord2 --input xtb.inp 
 
 In the detailed input, you have control over almost every global
 variable in the program, some instructions even check your input, but
