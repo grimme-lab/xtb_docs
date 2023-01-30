@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'xtb doc'
-copyright = '2019-2021, Grimme group'
+copyright = '2019-2023, Grimme group'
 author = 'Grimme group'
 
 # The full version, including alpha/beta/rc tags
-release = '2021'
+release = '2023'
 
 
 # -- General configuration ---------------------------------------------------
@@ -35,6 +35,7 @@ extensions = [
     "sphinx_panels",
     "sphinx_copybutton",
     "sphinx_togglebutton",
+    "sphinx_toolbox.collapse"
 ]
 
 # Add any paths that contain templates here, relative to this directory.

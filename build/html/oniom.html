@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ONIOM &mdash; xtb doc 2021 documentation</title>
+  <title>ONIOM &mdash; xtb doc 2023 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -18,9 +18,8 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script>let toggleHintShow = 'Click to show';</script>
@@ -31,7 +30,9 @@
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reaction Path Methods" href="path.html" />
+    <link rel="prev" title="Meta-Dynamics Simulations" href="mtd.html" />    
 <style type="text/css">
   ul.ablog-archive {
     list-style: none;
@@ -84,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="development.html">Compiling from Source</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Guides</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="sp.html">Singlepoint Calculations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="properties.html">Properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Geometry Optimization</a></li>
@@ -93,6 +94,25 @@
 <li class="toctree-l1"><a class="reference internal" href="hessian.html">Calculation of Vibrational Frequencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="md.html">Molecular Dyamics Simulations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mtd.html">Meta-Dynamics Simulations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ONIOM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-description">General description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input">Input</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inner-region">Inner Region</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#functionality">Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flags">Flags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">xcontrol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#s30l-23">S30L-23</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metall-complex">Metall-complex</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="path.html">Reaction Path Methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gsm.html">Growing String Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="periodic_boundary_conditions.html">Periodic Boundary Conditions</a></li>
@@ -176,83 +196,465 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
               <section id="oniom">
-<span id="id1"></span><h1><a class="toc-backref" href="#id2">ONIOM</a><a class="headerlink" href="#oniom" title="Permalink to this headline"></a></h1>
-<p>This guide is aimed to give the general overview over the ONIOM implementation within <code class="docutils literal notranslate"><span class="pre">xtb</span></code>.</p>
-<div class="contents topic" id="contents">
+<span id="id1"></span><h1><a class="toc-backref" href="#id3" role="doc-backlink">ONIOM</a><a class="headerlink" href="#oniom" title="Permalink to this heading"></a></h1>
+<p>This guide is aimed to give the general overview over the ONIOM implementation within the <code class="docutils literal notranslate"><span class="pre">xtb</span></code> program package.</p>
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#oniom" id="id2">ONIOM</a></p>
+<li><p><a class="reference internal" href="#oniom" id="id3">ONIOM</a></p>
 <ul>
-<li><p><a class="reference internal" href="#theoretical-excurse" id="id3">Theoretical excurse</a></p></li>
-<li><p><a class="reference internal" href="#input" id="id4">Input</a></p>
+<li><p><a class="reference internal" href="#general-description" id="id4">General description</a></p></li>
+<li><p><a class="reference internal" href="#input" id="id5">Input</a></p>
 <ul>
-<li><p><a class="reference internal" href="#methods" id="id5">Methods</a></p></li>
-<li><p><a class="reference internal" href="#model-system" id="id6">Model system</a></p></li>
-<li><p><a class="reference internal" href="#geometry-optimization" id="id7">Geometry optimization</a></p></li>
+<li><p><a class="reference internal" href="#methods" id="id6">Methods</a></p></li>
+<li><p><a class="reference internal" href="#inner-region" id="id7">Inner Region</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#functionality" id="id8">Functionality</a></p>
 <ul>
-<li><p><a class="reference internal" href="#options" id="id9">Options</a></p></li>
-<li><p><a class="reference internal" href="#xcontrol" id="id10">xcontrol</a></p></li>
+<li><p><a class="reference internal" href="#flags" id="id9">Flags</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id10">xcontrol</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#example" id="id11">Example</a></p>
+<li><p><a class="reference internal" href="#examples" id="id11">Examples</a></p>
 <ul>
-<li><p><a class="reference internal" href="#organic" id="id12">Organic</a></p></li>
-<li><p><a class="reference internal" href="#mof" id="id13">MOF</a></p></li>
+<li><p><a class="reference internal" href="#s30l-23" id="id12">S30L-23</a></p></li>
+<li><p><a class="reference internal" href="#metall-complex" id="id13">Metall-complex</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-</div>
-<section id="theoretical-excurse">
-<h2><a class="toc-backref" href="#id3">Theoretical excurse</a><a class="headerlink" href="#theoretical-excurse" title="Permalink to this headline"></a></h2>
-<p>The ONIOM is a multiscale calculation model used generally to handle large molecular systems. The detailed review of the ONIOM and its applications can be found at: <a class="reference external" href="https://pubs.acs.org/doi/10.1021/cr5004419">Chung2015</a>.</p>
-<p>The total 2-layer ONIOM energy expression is given by:</p>
+</nav>
+<section id="general-description">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">General description</a><a class="headerlink" href="#general-description" title="Permalink to this heading"></a></h2>
+<p>The ONIOM is a multiscale calculation approach used mainly to efficiently handle large molecular systems. The detailed review of the ONIOM and its possible applications can be found at: <a class="reference external" href="https://pubs.acs.org/doi/10.1021/cr5004419">Chung2015</a>.</p>
+<p>The total 2-layer ONIOM energy is defined as:</p>
 <div class="math notranslate nohighlight">
-\[E_{ONIOM} = E_{whole,low} - E_{model,low} + E_{model,high}\]</div>
-<p>where <span class="math notranslate nohighlight">\(E_{whole,low}\)</span> and <span class="math notranslate nohighlight">\(E_{model,low}\)</span> refer to the single point energies calculated at <strong>low</strong> level of theory applied to the <strong>whole</strong> system and its specific <strong>model</strong> cutoff, <span class="math notranslate nohighlight">\(E_{modle,high}\)</span> is the SP energy of the same system cutoff at <strong>high</strong> level of theory. The idea is to combine different levels of quantum chemical methods in the subtructive manner.</p>
+\[E_{oniom} = E_{whole,low} - E_{model,low} + E_{model,high}\]</div>
+<p>where <span class="math notranslate nohighlight">\(E_{whole,low}\)</span> and <span class="math notranslate nohighlight">\(E_{model,low}\)</span> terms refer to the singlepoint energies calculated at a low-level of theory applied to the whole system and its specific model cutoff(called henceforward ‘inner region’), <span class="math notranslate nohighlight">\(E_{model,high}\)</span> is the singlepoint energy of the model cutoff at higher level of theory. The idea is to combine the different levels of quantum chemical theories in the subtructive manner to compromise between accuracy and speed.</p>
 </section>
 <section id="input">
-<h2><a class="toc-backref" href="#id4">Input</a><a class="headerlink" href="#input" title="Permalink to this headline"></a></h2>
-<p>To perform the ONIOM calculation with <code class="docutils literal notranslate"><span class="pre">xtb</span></code> one has to use <code class="docutils literal notranslate"><span class="pre">--oniom</span></code> flag, to specify calculation methods, and to list the inner region cutoff:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&gt;<span class="w"> </span>xtb<span class="w"> </span>--oniom<span class="w"> </span>high:low<span class="w"> </span>inner_region_cutoff
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Input</a><a class="headerlink" href="#input" title="Permalink to this heading"></a></h2>
+<p>To perform the ONIOM calculation with <code class="docutils literal notranslate"><span class="pre">xtb</span></code> one has to use <code class="docutils literal notranslate"><span class="pre">--oniom</span></code> option and specify calculation <strong>methods</strong> as well as  <strong>inner region cutoff</strong>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&gt;<span class="w"> </span>xtb<span class="w"> </span>inp.xyz<span class="w"> </span>--oniom<span class="w"> </span>high:low<span class="w"> </span>inner_region_cutoff
 </pre></div>
 </div>
+<p>If <strong>methods</strong> are not provided, <em>gfn2:gfnff</em> combination is a default.</p>
 <section id="methods">
-<h3><a class="toc-backref" href="#id5">Methods</a><a class="headerlink" href="#methods" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Methods</a><a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p><em>gfnff, gfn1, gfn2</em></p>
+<blockquote>
+<div><p>All 3 methods that are available in the <code class="docutils literal notranslate"><span class="pre">xtb</span></code> can be used both as high- and low-level approaches in the ONIOM framework.</p>
+</div></blockquote>
+</li>
+</ul>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The ONIOM routine includes but not limited to the <code class="docutils literal notranslate"><span class="pre">xtb</span></code> functionality. To expand the range of the available methods, the ONIOM utilizes <code class="docutils literal notranslate"><span class="pre">ORCA</span></code> and <code class="docutils literal notranslate"><span class="pre">TURBOMOLE</span></code> software packages. This can be done by inlucding the corresponding binary path into the environment variable <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>.</p>
+<p>The ONIOM routine includes but not limited to the <code class="docutils literal notranslate"><span class="pre">xtb</span></code> functionality. To expand the range of the available methods, the ONIOM utilizes <code class="docutils literal notranslate"><span class="pre">ORCA</span></code> and <code class="docutils literal notranslate"><span class="pre">TURBOMOLE</span></code> software packages. This can be done by including the path to the binary in the environment variable <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>.</p>
+<p>The best way to configure the external settings for the xtb run is to use <a class="reference external" href="https://github.com/grimme-lab/xtb/blob/main/man/xcontrol.7.adoc">xcontrol</a> instructions.</p>
 </div>
-<p>The default combination of m1 and m2 within ONIOM xtb calculation is GFN-FF and GFN2-xTB.</p>
+<ul class="simple">
+<li><p><em>orca</em></p></li>
+</ul>
+<p>The ORCA uses its own <a class="reference external" href="https://www.orcasoftware.de/tutorials_orca/first_steps/input_output.html">input format</a> to run calculations. To specify your own input file, use xcontrol:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">$external</span>
+<span class="w">   </span>orca<span class="w"> </span>input<span class="w"> </span><span class="nv">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;filename&gt;.inp
+</pre></div>
+</div>
+<p>In this case one has to be aware that <code class="docutils literal notranslate"><span class="pre">.xyz</span></code> specified in the structure section will be overwritten by the xtb with the inner region geometry. If no input is provided, xtb will create its own ORCA input with the default settings(’<em>b97-3c</em>’). It is possible to change the default calculation method by providing <code class="docutils literal notranslate"><span class="pre">orca</span> <span class="pre">input</span> <span class="pre">string</span></code> variable in the <code class="docutils literal notranslate"><span class="pre">xcontrol</span></code> set.</p>
+<ul class="simple">
+<li><p><em>turbomole</em></p></li>
+</ul>
+<p>Similarly, the <a class="reference external" href="https://www.turbomole.org/">Turbomole</a> uses its own format that is defined by the <strong>control</strong> file.
+Initially, the <code class="docutils literal notranslate"><span class="pre">xtb</span></code> searches for the user’s <strong>control</strong> file in the calculation directory, and if no file is present, the default <strong>control</strong> file is written (’<em>b97-3c</em>’).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently it is possible to use the ORCA/TURBOMOLE packages only for the inner region calculation as the <strong>high</strong> level method.</p>
+</div>
 </section>
-<section id="model-system">
-<h3><a class="toc-backref" href="#id6">Model system</a><a class="headerlink" href="#model-system" title="Permalink to this headline"></a></h3>
-<p>To perform the multicsale ONIOM calculations with <code class="docutils literal notranslate"><span class="pre">xtb</span></code> one has to specify the inner region</p>
-</section>
-<section id="geometry-optimization">
-<h3><a class="toc-backref" href="#id7">Geometry optimization</a><a class="headerlink" href="#geometry-optimization" title="Permalink to this headline"></a></h3>
+<section id="inner-region">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Inner Region</a><a class="headerlink" href="#inner-region" title="Permalink to this heading"></a></h3>
+<p>To perform the multicsale ONIOM calculations with <code class="docutils literal notranslate"><span class="pre">xtb</span></code> one has to specify the <code class="docutils literal notranslate"><span class="pre">inner_region_cutoff</span></code> which is provided either explicitly - “1,3-5,9,10”, or via a file with the same content.</p>
+<p>If the covalent bonds are cut between inner region and the rest of the system, the ONIOM handles the resulting boundary by means of Hydrogen Linked Atoms:</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="fd3a5e1c-ab67-4fdd-9848-05e290abcae2" name="9f89fdb0-260d-4842-b57a-0f1e01053610" type="radio">
+</input><label class="tabbed-label" for="fd3a5e1c-ab67-4fdd-9848-05e290abcae2">
+inner region</label><div class="tabbed-content docutils">
+<figure class="align-default">
+<img alt="_images/ohne.png" src="_images/ohne.png" />
+</figure>
+</div>
+<input id="cf92d998-129c-4f31-8a58-9bc3ac324e3e" name="9f89fdb0-260d-4842-b57a-0f1e01053610" type="radio">
+</input><label class="tabbed-label" for="cf92d998-129c-4f31-8a58-9bc3ac324e3e">
+inner region with LAs</label><div class="tabbed-content docutils">
+<figure class="align-default">
+<img alt="_images/mit.png" src="_images/mit.png" />
+</figure>
+</div>
+</div>
+<p>To distinguish between different bonds the topology information of the underlying method is used.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using the GFN-FF as a low level method, one has to be very careful with the inner region specification. The topology of the GFN-FF does not allow to accurately differentiate between single and higher order bonds.</p>
+</div>
 </section>
 </section>
 <section id="functionality">
-<h2><a class="toc-backref" href="#id8">Functionality</a><a class="headerlink" href="#functionality" title="Permalink to this headline"></a></h2>
-<section id="options">
-<h3><a class="toc-backref" href="#id9">Options</a><a class="headerlink" href="#options" title="Permalink to this headline"></a></h3>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Functionality</a><a class="headerlink" href="#functionality" title="Permalink to this heading"></a></h2>
+<section id="flags">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Flags</a><a class="headerlink" href="#flags" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>–chrg int:int</dt><dd><p>an extension of the classical <code class="docutils literal notranslate"><span class="pre">--chrg</span></code> flag for the ONIOM as <strong>inner_region_charge:whole_system_charge</strong>. If not specified, the <code class="docutils literal notranslate"><span class="pre">xtb</span></code> will automatically determine the <strong>inner_region_charge</strong>.</p>
+</dd>
+</dl>
+<dl class="option-list">
+<dt><kbd><span class="option">--cut</span></kbd></dt>
+<dd><p>To check initial inner region written in <code class="docutils literal notranslate"><span class="pre">inner_region_without_h.xyz</span></code> without performing any calculations. Note that hydrogen linked atoms are not present, because one needs wiberg bond orders to correctly adjust them. However, if this flag is abscent, you will get saturated system written in <code class="docutils literal notranslate"><span class="pre">inner_region.xyz</span></code> after single point calcultion for the whole region. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.</p>
+</dd>
+<dt><kbd><span class="option">--ceasefiles</span></kbd></dt>
+<dd><p>additionally to its already existing functions, this flag would instruct <code class="docutils literal notranslate"><span class="pre">xtb</span></code> to delete all external files both for ORCA and TURBOMOLE(exception <code class="docutils literal notranslate"><span class="pre">*.inp</span></code> and <code class="docutils literal notranslate"><span class="pre">control</span></code>)</p>
+</dd>
+</dl>
 </section>
-<section id="xcontrol">
-<h3><a class="toc-backref" href="#id10">xcontrol</a><a class="headerlink" href="#xcontrol" title="Permalink to this headline"></a></h3>
+<section id="id2">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">xcontrol</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>In addition to the above-mentioned external settings, <code class="docutils literal notranslate"><span class="pre">xcontrol</span></code> allows the more deeper control over the ONIOM routine:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$oniom
+$end
+</pre></div>
+</div>
+<dl class="simple">
+<dt><em>inner logs=bool</em></dt><dd><p>Normally <code class="docutils literal notranslate"><span class="pre">xtb</span></code> prints optimization log file only for the whole system, but with this keyword <code class="docutils literal notranslate"><span class="pre">xtb</span></code> additionally writes high- and low-level logs for the model system as well(<code class="docutils literal notranslate"><span class="pre">high.inner_region.log</span></code> and <code class="docutils literal notranslate"><span class="pre">low.inner_region.log</span></code>).</p>
+</dd>
+<dt><em>derived k=bool</em></dt><dd><p>Prefactor <em>k</em> is used in the ONIOM scheme to correct the output gradients:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[g_{ONIOM} = g_{whole,low} - g_{model,low}*J + g_{model,high}*J\]</div>
+<p>where J is the Jacobian matrix, which by the construction depends on the <em>k</em> prefactor, that is usually constant and uses standard distances between atoms. However, the <em>derived k</em> keyword allows it to vary due to the calculating some distances explicitely.</p>
+<dl class="simple">
+<dt><em>silent=bool</em></dt><dd><p>to redirect output of the ORCA or TURBOMOLE</p>
+</dd>
+</dl>
 </section>
 </section>
-<section id="example">
-<h2><a class="toc-backref" href="#id11">Example</a><a class="headerlink" href="#example" title="Permalink to this headline"></a></h2>
-<section id="organic">
-<h3><a class="toc-backref" href="#id12">Organic</a><a class="headerlink" href="#organic" title="Permalink to this headline"></a></h3>
+<section id="examples">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
+<section id="s30l-23">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">S30L-23</a><a class="headerlink" href="#s30l-23" title="Permalink to this heading"></a></h3>
+<p>The first example is non-covalently bounded complex number 23 from <a class="reference external" href="https://pubs.acs.org/doi/full/10.1021/acs.jctc.5b00296">S30L benchmark</a>.</p>
+<details class="summary-xyz-file">
+<summary>xyz file</summary><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>98
+
+C     0.7800079    6.8678780    5.5368969
+C    -0.7524620   -6.8540954    5.5601280
+C    -1.8617928   -4.6117174    5.6477616
+C     0.6504601   -4.7941213    5.7959390
+C     1.8907976    4.6261439    5.6192277
+C    -0.6200120    4.8079116    5.7907513
+C    -0.6206618   -5.3815968    5.1397097
+C     0.6446437    5.3943761    5.1211667
+C    -0.0083487   -0.0004324   -0.3233281
+C     0.0816478    2.3154959   -0.3654186
+C    -0.1026742   -2.3162587   -0.3590787
+C    -0.2959652   -3.7207698    1.6988510
+C     0.2900184    3.7253335    1.6873006
+C    -0.1686909   -2.4104886    1.0817263
+C     0.1605795    2.4132860    1.0744672
+C     0.3073296    4.8471713    0.8195874
+C    -0.3253307   -4.8444637    0.8338615
+C     0.5276492    5.2249147    3.6051512
+C    -0.5183472   -5.2156660    3.6222398
+C    -0.0021327    0.0013275    1.1173800
+C    -0.3936683   -3.9343044    3.0790781
+C     0.4013815    3.9420198    3.0659794
+C     0.1802918    4.6204737   -0.5828574
+C    -0.2109397   -4.6213534   -0.5702540
+C    -0.0947791   -1.2261541    1.7924088
+C     0.0957022    1.2304873    1.7885605
+C     0.5422958    6.3241699    2.7203124
+C    -0.5452450   -6.3167433    2.7399789
+C     0.4338755    6.1417501    1.3535797
+C    -0.4505106   -6.1375070    1.3718405
+N     0.0116094    1.1544899   -1.0315142
+N    -0.0353108   -1.1570386   -1.0285348
+N     0.0706724    3.4479104   -1.1540574
+N    -0.1024078   -3.4505370   -1.1451747
+H    -0.3766699   -3.0846938    3.7536939
+H     0.3946574    3.0937118    3.7424387
+H     0.6402108    7.3293416    3.1126263
+H    -0.6416612   -7.3208096    3.1354374
+H    -0.1065165   -1.2240152    2.8785113
+H     0.1173973    1.2309738    2.8745222
+H     0.4453140    6.9962771    0.6820918
+H    -0.4716396   -6.9933848    0.7023244
+H    -0.2080001   -5.4867763   -1.2347620
+H     0.1678296    5.4843584   -1.2492380
+H    -0.8214158   -6.9116715    6.6504902
+H     0.8607175    6.9279102    6.6263141
+H    -0.7372921    3.7424986    5.5676570
+H     1.8239111    3.5571595    5.3925453
+H    -1.7966759   -3.5433842    5.4175217
+H     0.7662278   -3.7292650    5.5694116
+H    -1.6551297   -7.3154982    5.1456164
+H     0.1168724   -7.4441425    5.2509428
+H     1.6777844    7.3288991    5.1115045
+H    -0.0930120    7.4567246    5.2359300
+H     2.8023074    5.0177240    5.1566686
+H    -1.5202507    5.3298528    5.4510796
+H    -2.7778232   -5.0041987    5.1950003
+H     1.5472087   -5.3172918    5.4490088
+H    -1.9411358   -4.7181202    6.7344847
+H     0.5868113   -4.9026714    6.8834941
+H    -0.5461631    4.9189786    6.8774015
+H     1.9805730    4.7354338    6.7048538
+C    -0.4488171    2.3665805   -4.6544687
+C     0.4333778   -2.3789163   -4.6469142
+C    -0.7917246    3.9457007   -6.0685007
+C     0.7866666   -3.9602320   -6.0559302
+C    -0.7915911    4.5371499   -4.7810591
+C     0.7743565   -4.5501742   -4.7678612
+N    -0.5769336    3.4887852   -3.8927405
+N     0.5526308   -3.5004778   -3.8828746
+N    -0.2162293    1.1365996   -4.0461490
+N     0.1977398   -1.1476848   -4.0424055
+C    -0.0069054   -0.0062888   -4.7519033
+C     1.1701962   -6.6894301   -5.7142314
+C    -1.1806924    6.6749532   -5.7335372
+C    -1.1835769    6.0993249   -7.0168863
+C     1.1847144   -6.1154023   -6.9982147
+C     0.9956430   -4.7491407   -7.1892085
+C    -0.9916821    4.7329808   -7.2045356
+C    -0.9861523    5.9032143   -4.5891788
+C     0.9658492   -5.9162071   -4.5726041
+N    -0.0024966   -0.0075912   -6.0685751
+N    -0.5736206    2.5723997   -5.9542885
+N     0.5690957   -2.5866178   -5.9453246
+H    -0.1946193    0.9005726   -6.5259354
+H     0.1937665   -0.9163433   -6.5228612
+H     0.1239780   -1.1213863   -3.0079656
+H    -0.1481455    1.1124645   -3.0112686
+H    -0.3819862    3.5198035   -2.8723700
+H     0.3536032   -3.5294854   -2.8634564
+H    -1.3407700    6.7384801   -7.8800928
+H     1.3486405   -6.7558037   -7.8592332
+H     1.3243264   -7.7589379   -5.6100014
+H    -1.3357299    7.7446004   -5.6320230
+H     1.0094379   -4.3072917   -8.1801901
+H    -0.9964687    4.2898655   -8.1950479
+H     0.9656238   -6.3638842   -3.5831368
+H    -0.9956242    6.3520069   -3.6002631
+</pre></div>
+</div>
+</details><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The fragments of this host-guest system are: 1-62 and 63-98, the latter having +1 charge.
+To test the automatic charge identification routine:</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="03c6d4b4-171c-436e-812b-625cb0d125e5" name="fa4a7dea-52b2-412f-8ae6-07676ef0ea3a" type="radio">
+</input><label class="tabbed-label" for="03c6d4b4-171c-436e-812b-625cb0d125e5">
+cml input</label><div class="tabbed-content docutils">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt; xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --cut
+</pre></div>
+</div>
+</div>
+<input id="8629b60a-5a8c-45f5-8897-56966a4be9a4" name="fa4a7dea-52b2-412f-8ae6-07676ef0ea3a" type="radio">
+</input><label class="tabbed-label" for="8629b60a-5a8c-45f5-8897-56966a4be9a4">
+output</label><div class="tabbed-content docutils">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>           -------------------------------------------------
+          |                Calculation Setup                |
+           -------------------------------------------------
+
+          program call               : xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --cut
+          hostname                   : albert
+          coordinate file            : input.xyz
+          omp threads                :                    16
+
+   ID    Z sym.   atoms
+    1    6 C      1-30, 63-68, 73-81
+    2    7 N      31-34, 69-72, 82-84
+    3    1 H      35-62, 85-98
+
+  ... skip ...
+  ------------------------------------------------------------------------
+  |                        INNER REGION CHARGE =  0                      |
+  ------------------------------------------------------------------------
+
+normal termination of xtb
+</pre></div>
+</div>
+</div>
+</div>
+<p>To start single point calculation with the user-defined orca input file:</p>
+<ol class="arabic simple">
+<li><p>specify orca input and add its name in the xcontrol file:</p></li>
+</ol>
+<div class="tabbed-set docutils">
+<input checked="checked" id="f9e4bf6f-917e-4093-a628-7c4aef85e21a" name="b6cd198c-41ed-4b54-9199-3b4a78e1772e" type="radio">
+</input><label class="tabbed-label" for="f9e4bf6f-917e-4093-a628-7c4aef85e21a">
+orca.inp</label><div class="tabbed-content docutils">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>   ! r2SCAN-3c
+<span class="hll">   ! engrad
+</span>   * xyzfile 0 1 some.xyz
+</pre></div>
+</div>
+</div>
+<input id="b92fd3fe-0448-4f18-8fd3-1df12798e438" name="b6cd198c-41ed-4b54-9199-3b4a78e1772e" type="radio">
+</input><label class="tabbed-label" for="b92fd3fe-0448-4f18-8fd3-1df12798e438">
+xcontrol</label><div class="tabbed-content docutils">
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$external
+   orca input file=orca.inp
+$end
+</pre></div>
+</div>
+</div>
+</div>
+<p>Please use <code class="docutils literal notranslate"><span class="pre">engrad</span></code> keyword for the ORCA to allow xtb to read the output. The inner region is automatically written in  <code class="docutils literal notranslate"><span class="pre">some.xyz</span></code> file.</p>
+<ol class="arabic simple" start="2">
+<li><p>start <code class="docutils literal notranslate"><span class="pre">xtb</span></code> run:</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt; xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --input xcontrol
+</pre></div>
+</div>
+<p>The final <code class="docutils literal notranslate"><span class="pre">xtb</span></code> output for the given example will be divided in 3 parts with the ONIOM results will be printed in the property printout section:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>   ------------------------------------------------------------------------
+
+        Singlepoint calculation of whole system with low-level method
+
+   ------------------------------------------------------------------------
+
+   ... skip ...
+
+   ------------------------------------------------------------------------
+
+        Singlepoint calculation of inner region with low-level method
+
+   ------------------------------------------------------------------------
+
+   ... skip ...
+
+   ------------------------------------------------------------------------
+
+        Singlepoint calculation of inner region with high-level method
+
+   ------------------------------------------------------------------------
+
+   ... skip ...
+
+             -------------------------------------------------
+            |                Property Printout                |
+             -------------------------------------------------
+
+              -------------------------------------------------
+<span class="hll">             | TOTAL ENERGY            -1438.298999659396 Eh   |
+</span><span class="hll">             | GRADIENT NORM               0.062957205099 Eh/α |
+</span>              -------------------------------------------------
+</pre></div>
+</div>
 </section>
-<section id="mof">
-<h3><a class="toc-backref" href="#id13">MOF</a><a class="headerlink" href="#mof" title="Permalink to this headline"></a></h3>
+<section id="metall-complex">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Metall-complex</a><a class="headerlink" href="#metall-complex" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>The second example, Zr-functionalized complex, is taken from the <a class="reference external" href="https://doi.org/10.1002/ange.201904021">TMG-145 benchmark</a>:</p>
+</div></blockquote>
+<details class="summary-xyz-file">
+<summary>xyz file</summary><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>77
+
+Zn    3.6937360    5.1063180   18.7964011
+Cl    5.5077870    6.3517350   19.2580401
+P     6.0686750    2.6641570   18.2610791
+C     3.7280450    2.8356680   16.5523611
+C     3.8544850    3.9118910   15.6318391
+C     4.4179300    5.1755470   15.9849611
+H     4.7663290    5.2863940   16.8616251
+C     4.4786650    6.2225480   15.1316041
+H     4.8394060    7.0498690   15.4280861
+C     4.0134910    6.1006160   13.8078361
+H     4.0530550    6.8422830   13.2151231
+C     3.5112450    4.9216070   13.3890521
+H     3.2188670    4.8359520   12.4883291
+C     3.4079040    3.7960060   14.2684731
+C     2.8775700    2.5928120   13.8311441
+H     2.5682090    2.5202580   12.9369361
+C     2.7876110    1.4893810   14.6719691
+C     2.2823510    0.2468870   14.1962951
+H     1.9786640    0.1783630   13.2978271
+C     2.2298460   -0.8343760   15.0002801
+H     1.8867120   -1.6546430   14.6662051
+C     2.6835910   -0.7537600   16.3383331
+H     2.6578100   -1.5236420   16.8942051
+C     3.1561030    0.4222260   16.8315501
+H     3.4456820    0.4585040   17.7362841
+C     3.2304100    1.6032510   16.0365881
+C     6.4388270    0.9603380   17.7816461
+H     6.0136030    0.3436260   18.4129541
+H     7.4082700    0.8212760   17.7914201
+H     6.0945690    0.7920520   16.8791681
+C     7.0990190    3.6579510   17.1608631
+H     7.0819010    4.5930970   17.4530851
+H     6.7540270    3.5954740   16.2451031
+H     8.0206690    3.3244020   17.1874291
+C     6.8389680    2.8870610   19.8698011
+H     6.6673000    3.7970140   20.1923471
+H     7.8062500    2.7449750   19.7913571
+H     6.4640740    2.2401170   20.5031141
+B     4.1430940    2.9444990   18.1244921
+P     1.3187980    2.6641570   19.3317221
+C     3.6594270    2.8356680   21.0404411
+C     3.5329880    3.9118910   21.9609631
+C     2.9695430    5.1755470   21.6078411
+H     2.6211430    5.2863940   20.7311771
+C     2.9088070    6.2225480   22.4611981
+H     2.5480660    7.0498690   22.1647161
+C     3.3739810    6.1006160   23.7849661
+H     3.3344170    6.8422830   24.3776791
+C     3.8762270    4.9216070   24.2037491
+H     4.1686060    4.8359520   25.1044731
+C     3.9795690    3.7960060   23.3243291
+C     4.5099030    2.5928120   23.7616581
+H     4.8192640    2.5202580   24.6558661
+C     4.5998620    1.4893810   22.9208321
+C     5.1051210    0.2468870   23.3965071
+H     5.4088090    0.1783630   24.2949751
+C     5.1576270   -0.8343760   22.5925221
+H     5.5007600   -1.6546430   22.9265971
+C     4.7038810   -0.7537600   21.2544691
+H     4.7296620   -1.5236420   20.6985971
+C     4.2313700    0.4222260   20.7612511
+H     3.9417900    0.4585040   19.8565181
+C     4.1570620    1.6032510   21.5562141
+C     0.9486460    0.9603380   19.8111561
+H     1.3738690    0.3436260   19.1798471
+H    -0.0207980    0.8212760   19.8013821
+H     1.2929040    0.7920520   20.7136341
+C     0.2884530    3.6579510   20.4319381
+H     0.3055720    4.5930970   20.1397171
+H     0.6334460    3.5954740   21.3476991
+H    -0.6331960    3.3244020   20.4053731
+C     0.5485040    2.8870610   17.7230011
+H     0.7201720    3.7970140   17.4004551
+H    -0.4187770    2.7449750   17.8014451
+H     0.9233990    2.2401170   17.0896881
+B     3.2443780    2.9444990   19.4683101
+Cl    1.8796850    6.3517350   18.3347611
+</pre></div>
+</div>
+</details><p>In comparison to the ORCA, the ONIOM searches for the <code class="docutils literal notranslate"><span class="pre">control</span></code> file automatically. In this example the optimization of this complex with the small inner region written to the <code class="docutils literal notranslate"><span class="pre">list</span></code> file is shown:</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="ba5c629e-1d3f-4bd3-a146-16d76a74bc08" name="d69e66ca-f69c-4087-8a2e-a30d18b13302" type="radio">
+</input><label class="tabbed-label" for="ba5c629e-1d3f-4bd3-a146-16d76a74bc08">
+cml input</label><div class="tabbed-content docutils">
+<p>&gt; xtb zn.xyz –oniom turbomole:gfn2 list –opt</p>
+</div>
+<input id="0d88a442-ac16-4212-b48d-aa27ce24f60e" name="d69e66ca-f69c-4087-8a2e-a30d18b13302" type="radio">
+</input><label class="tabbed-label" for="0d88a442-ac16-4212-b48d-aa27ce24f60e">
+list</label><div class="tabbed-content docutils">
+<p>1,2,39,76,77</p>
+</div>
+</div>
 </section>
 </section>
 </section>
@@ -263,12 +665,15 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mtd.html" class="btn btn-neutral float-left" title="Meta-Dynamics Simulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="path.html" class="btn btn-neutral float-right" title="Reaction Path Methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2021, Grimme group.</p>
+    <p>&#169; Copyright 2019-2023, Grimme group.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

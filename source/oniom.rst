@@ -4,62 +4,69 @@
  ONIOM
 -------
 
-This guide is aimed to give the general overview over the ONIOM implementation within ``xtb``.
+This guide is aimed to give the general overview over the ONIOM implementation within the ``xtb`` program package.
 
 .. contents::
 
-Theoretical excurse
-====================
+General description
+===================
 
+The ONIOM is a multiscale calculation approach used in general to efficiently handle large molecular systems. The detailed review of the ONIOM and its possible applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_.
 
-The ONIOM is a multiscale calculation model used generally to handle large molecular systems. The detailed review of the ONIOM and its applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_.
-
-The total 2-layer ONIOM energy expression is given by:
+The total 2-layer ONIOM energy is defined as:
 
 .. math::
-   E_{ONIOM} = E_{whole,low} - E_{model,low} + E_{model,high}
+   E_{oniom} = E_{whole,low} - E_{model,low} + E_{model,high}
 
-where :math:`E_{whole,low}` and :math:`E_{model,low}` refer to the single point energies calculated at low level of theory applied to the whole system and its specific model cutoff, :math:`E_{modle,high}` is the SP energy of the same system cutoff at high level of theory. The idea is to combine different levels of quantum chemical methods in the subtructive manner.
+where :math:`E_{whole,low}` and :math:`E_{model,low}` terms refer to the singlepoint energies calculated at a low-level of theory applied to the whole system and its specific model cutoff(called henceforward 'inner region'), :math:`E_{model,high}` is the singlepoint energy of the model cutoff at higher level of theory. The idea is to combine the different levels of quantum chemical theories in the subtructive manner to compromise between accuracy and speed.
 
 
 Input
 =====
 
-To perform the ONIOM calculation with ``xtb`` one has to use ``--oniom`` flag, to specify calculation **methods**, and to list the **inner region cutoff**:
+To perform the ONIOM calculation with ``xtb`` one has to use ``--oniom`` option and specify calculation **methods** as well as  **inner region cutoff**:
 
 .. code:: sh
    
    > xtb inp.xyz --oniom high:low inner_region_cutoff
 
-Default methods: ``gfn2:gfnff`` 
+If **methods** are not provided, *gfn2:gfnff* combination is a default.
 
 
 Methods
 -------
 
-xTB:
-
 * *gfnff, gfn1, gfn2*
 
-External:
+All 3 methods that are available in the ``xtb`` can be used both as high- and low-level approaches in the ONIOM framework.
+
 
 .. important::
 
-   The ONIOM routine includes but not limited to the ``xtb`` functionality. To expand the range of the available methods, the ONIOM utilizes ``ORCA`` and ``TURBOMOLE`` software packages. This can be done by including the path to the binary in the environment variable ``$PATH``.  
+   The ONIOM routine includes but not limited to the ``xtb`` functionality. To expand the range of the available methods, the ONIOM utilizes ``ORCA`` and ``TURBOMOLE`` software packages. This can be done by including the path of corresponding binary in the environment variable ``$PATH``.  
 
-The best way to configure the external settings for the xtb run is to use `xcontrol <https://github.com/grimme-lab/xtb/blob/main/man/xcontrol.7.adoc>`_ instructions.
+   The best way to configure the external settings for the xtb run is to use `xcontrol <https://github.com/grimme-lab/xtb/blob/main/man/xcontrol.7.adoc>`_ instructions.
 
 
 * *orca*
 
-The ORCA uses its own `input format <https://www.orcasoftware.de/tutorials_orca/first_steps/input_output.html>`_ to run calculations. To specify your own input file, use xcontrol:
+``ORCA`` uses its own `input format <https://www.orcasoftware.de/tutorials_orca/first_steps/input_output.html>`_ to run calculations. 
 
-.. code:: sh
+Use ``xcontrol`` to specify the orca input:
+
+.. code:: none
    
    $external
-      orca input file = <filename>.inp
+      orca input file=<filename>.inp
 
-In this case one has to be aware that ``.xyz`` specified in the structure section will be overwritten by the xtb with the inner region geometry. If no input is provided, xtb will create its own ORCA input with the default settings('*b97-3c*'). It is possible to change the default calculation method by providing ``orca input string`` variable in the ``xcontrol`` set.
+or to provide calculation method:
+
+.. code:: none
+   
+   $external
+      orca input string=<method>
+
+In this case one has to be aware that ``.xyz`` specified in the structure section will be overwritten by ``xtb`` with the inner region geometry. If no input is provided, the default settings are used (*b97-3c*).
 
 
 * *turbomole*
