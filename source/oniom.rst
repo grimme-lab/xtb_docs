@@ -18,73 +18,71 @@ The total 2-layer ONIOM energy is defined as:
 .. math::
    E_{oniom} = E_{whole,low} - E_{model,low} + E_{model,high}
 
-where :math:`E_{whole,low}` and :math:`E_{model,low}` terms refer to the singlepoint energies calculated at a low-level of theory applied to the whole system and its specific model cutoff(called henceforward 'inner region'), :math:`E_{model,high}` is the singlepoint energy of the model cutoff at higher level of theory. The idea is to combine the different levels of quantum chemical theories in the subtructive manner to compromise between accuracy and speed.
+where :math:`E_{whole,low}` and :math:`E_{model,low}` terms refer to the singlepoint energies calculated at a low-level of theory applied to the whole system and its specific model cutoff(called henceforward 'inner region'), :math:`E_{model,high}` is the singlepoint energy of the model cutoff at higher level of theory. The idea is to combine the different theory levels in the subtructive manner to compromise between accuracy and speed.
 
 
 Input
 =====
 
-To perform the ONIOM calculation with ``xtb`` one has to use ``--oniom`` option and specify calculation **methods** as well as  **inner region cutoff**:
+To perform the ONIOM calculation with ``xtb`` one has to use ``--oniom`` option, specify ``high:low`` calculation methods and list atoms in the ``inner region cutoff``:
 
 .. code:: sh
    
    > xtb inp.xyz --oniom high:low inner_region_cutoff
 
-If **methods** are not provided, *gfn2:gfnff* combination is a default.
+If ``high:low`` are not provided, ``gfn2:gfnff`` combination is used.
 
 
 Methods
 -------
 
-* *gfnff, gfn1, gfn2*
+* **gfnff, gfn1, gfn2**
 
-All 3 methods that are available in the ``xtb`` can be used both as high- and low-level approaches in the ONIOM framework.
+These methods are available in the ``xtb``  and can be utilized both as high and low level approaches in the ONIOM framework.
 
 
 .. important::
 
-   The ONIOM routine includes but not limited to the ``xtb`` functionality. To expand the range of the available methods, the ONIOM utilizes ``ORCA`` and ``TURBOMOLE`` software packages. This can be done by including the path of corresponding binary in the environment variable ``$PATH``.  
+   The ONIOM routine includes but not limited to the ``xtb`` functionality. To expand the range of the available methods, the ONIOM employs external ``ORCA`` and ``TURBOMOLE`` software packages. This is done by the addition of the corresponding binary path in the environment variable ``$PATH``.  
 
    The best way to configure the external settings for the xtb run is to use `xcontrol <https://github.com/grimme-lab/xtb/blob/main/man/xcontrol.7.adoc>`_ instructions.
 
 
-* *orca*
+* **orca**
 
-``ORCA`` uses its own `input format <https://www.orcasoftware.de/tutorials_orca/first_steps/input_output.html>`_ to run calculations. 
-
-Use ``xcontrol`` to specify the orca input:
+If ``ORCA`` is taken as an external driver, one has to provide `orca input <https://www.orcasoftware.de/tutorials_orca/first_steps/input_output.html>`_ to run calculations. ``xcontrol`` instruction set allows to specify the user-supplied orca input:
 
 .. code:: none
    
    $external
       orca input file=<filename>.inp
 
-or to provide calculation method:
+or to provide only calculation method:
 
 .. code:: none
    
    $external
       orca input string=<method>
 
-In this case one has to be aware that ``.xyz`` specified in the structure section will be overwritten by ``xtb`` with the inner region geometry. If no input is provided, the default settings are used (*b97-3c*).
+If no input is specified, ``xtb`` writes orca input with the default settings (*b97-3c*).
 
 
-* *turbomole*
+* **turbomole**
 
-Similarly, the `Turbomole <https://www.turbomole.org/>`_ uses its own format that is defined by the **control** file. 
-Initially, the ``xtb`` searches for the user's **control** file in the calculation directory, and if no file is present, the default **control** file is written ('*b97-3c*').
+``Turbomole`` also uses its own format to perform calculation, defined by ``control`` file. 
+Initially, the ``xtb`` searches for ``control`` file in the user's calculation directory, and if no file is present, writes it with some default settings (*b97-3c*).
 
 
 .. note::
    
-   Currently it is possible to use the ORCA/TURBOMOLE packages only for the inner region calculation as the **high** level method.
+   Currently it is possible to use ``ORCA``/``TURBOMOLE`` only as the **high** level embedding.
 
-Inner Region
+Inner region
 ------------
 
-To perform the multicsale ONIOM calculations with ``xtb`` one has to specify the ``inner_region_cutoff`` which is provided either explicitly - "1,3-5,9,10", or via a file with the same content.
+To perform the ONIOM calculations with the ``xtb`` one has to specify the ``inner_region_cutoff`` which is provided either directly as a comma-separated indices ("1,3-5,9,10"), or via a file with the same content (or each index on a separate line).
 
-If the covalent bonds are cut between inner region and the rest of the system, the ONIOM handles the resulting boundary by means of Hydrogen Linked Atoms:
+If covalent bonds are cut between inner region and the rest of the system, the ONIOM handles the resulting boundary by means of Hydrogen Linked Atoms (LAs):
 
 .. tabbed:: inner region
    
@@ -96,66 +94,56 @@ If the covalent bonds are cut between inner region and the rest of the system, t
    .. figure:: ../figures/mit.png
 
 
-To distinguish between different bonds the topology information of the underlying method is used. 
+To distinguish between different bonds the topology information from ``low`` level method is used. 
 
 .. warning:: 
 
-   When using the GFN-FF as a low level method, one has to be very careful with the inner region specification. The topology of the GFN-FF does not allow to accurately differentiate between single and higher order bonds.
+   It is strongly recommended to cut only **single bonds**.
+   When using the GFN-FF as a low level method, one has to be very careful with the inner region specification. The topology data of the GFN-FF does not allow to accurately distinguish  between single and higher order bonds.
 
 
 Functionality
 =============
 
-Flags
+flags
 -----
 
+*--chrg* 'int:int':
+   extension of the classical ``--chrg`` flag, with added charges for **inner:whole** regions. If not specified, the ``xtb`` determine the **inner** region charge automatically.
 
---chrg int:int
-   an extension of the classical ``--chrg`` flag for the ONIOM as **inner_region_charge:whole_system_charge**. If not specified, the ``xtb`` will automatically determine the **inner_region_charge**.
+--cut:
+   write the geometry of the specified inner region without performing any calculations. Note that hydrogen linked atoms are not present, due to the absence of the wiberg bond orders. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
 
---cut
-   To check initial inner region written in ``inner_region_without_h.xyz`` without performing any calculations. Note that hydrogen linked atoms are not present, because one needs wiberg bond orders to correctly adjust them. However, if this flag is abscent, you will get saturated system written in ``inner_region.xyz`` after single point calcultion for the whole region. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
-
---ceasefiles
-   additionally to its already existing functions, this flag would instruct ``xtb`` to delete all external files both for ORCA and TURBOMOLE(exception ``*.inp`` and ``control``) 
+--ceasefiles:
+   extension of the original flag, with inctructions for the ``xtb`` to delete all external files from ``ORCA``/``TURBOMOLE`` (except for ``*.inp`` and ``control`` files) 
    
-
 
 xcontrol
 --------
 
-In addition to the above-mentioned external settings, ``xcontrol`` allows the more deeper control over the ONIOM routine:
+In addition to the above-mentioned ``xcontrol`` instructions the more deeper control over the ONIOM routine is available via ``$oniom`` group block.
 
-.. code:: text
-
-   $oniom
-   $end
 
 *inner logs=bool*
-   Normally ``xtb`` prints optimization log file only for the whole system, but with this keyword ``xtb`` additionally writes high- and low-level logs for the model system as well(``high.inner_region.log`` and ``low.inner_region.log``). 
+   print  high and low level logs for the model system (``high.inner_region.log`` and ``low.inner_region.log``). 
 
 *derived k=bool*
-   Prefactor *k* is used in the ONIOM scheme to correct the output gradients:
+   k is a scaling factor for the LAs coordinates, which by default is constant. This insctruvtion allows it to be dynamically assigned ib dependence of the distance between connector and host atoms:
 
 .. math::
-   g_{ONIOM} = g_{whole,low} - g_{model,low}*J + g_{model,high}*J
+   [xyz]_{LA} = [xyz]_{connector} +([xyz]_{host} - [xyz]_{connector}) * k
 
-where J is the Jacobian matrix, which by the construction depends on the *k* prefactor, that is usually constant and uses standard distances between atoms. However, the *derived k* keyword allows it to vary due to the calculating some distances explicitely.
 
 *silent=bool*
-   to redirect output of the ORCA or TURBOMOLE 
+   clutter the screen less by the redirecting output of the external programs.
 
 
+Example:  S30L-23
+=================
 
-Examples
-========
+As a showcase host-guest complex number 23 from `S30L benchmark <https://pubs.acs.org/doi/full/10.1021/acs.jctc.5b00296>`_ is chosen. 
 
-S30L-23
--------
-
-The first example is non-covalently bounded complex number 23 from `S30L benchmark <https://pubs.acs.org/doi/full/10.1021/acs.jctc.5b00296>`_. 
-
-.. collapse:: xyz file
+.. collapse:: input.xyz
 
    .. code-block:: none
 
@@ -258,12 +246,8 @@ The first example is non-covalently bounded complex number 23 from `S30L benchma
       H     1.0094379   -4.3072917   -8.1801901 
       H    -0.9964687    4.2898655   -8.1950479 
       H     0.9656238   -6.3638842   -3.5831368 
-      H    -0.9956242    6.3520069   -3.6002631 
-     
-|
-
-The fragments of this host-guest system are: 1-62 and 63-98, the latter having +1 charge.
-To test the automatic charge identification routine:
+      H    -0.9956242    6.3520069   -3.6002631
+| This system consists of 2 NCI-bounded fragments: 1-62 and 63-98, the latter having +1 charge. To test the automatic charge identification routine:
 
 .. tabbed:: cml input
 
@@ -296,7 +280,7 @@ To test the automatic charge identification routine:
 
       normal termination of xtb
 
-To start single point calculation with the user-defined orca input file: 
+To start singlepoint calculation with the user-defined orca input file: 
 
 1) specify orca input and add its name in the xcontrol file:
 
@@ -318,7 +302,7 @@ To start single point calculation with the user-defined orca input file:
          orca input file=orca.inp 
       $end
 
-Please use ``engrad`` keyword for the ORCA to allow xtb to read the output. The inner region is automatically written in  ``some.xyz`` file.
+Please use ``engrad`` keyword to allow xtb to read the ``ORCA`` output. The inner region is automatically written in  ``some.xyz`` file.
 
 2) start ``xtb`` run:
 
@@ -326,7 +310,7 @@ Please use ``engrad`` keyword for the ORCA to allow xtb to read the output. The 
       
    > xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --input xcontrol
 
-The final ``xtb`` output for the given example will be divided in 3 parts with the ONIOM results will be printed in the property printout section:
+The final ``xtb`` output for the given example will be divided in 3 parts  with the ONIOM results printed in the property printout section:
 
 .. code-block:: none
    :emphasize-lines: 30-31
@@ -363,104 +347,3 @@ The final ``xtb`` output for the given example will be divided in 3 parts with t
                 | TOTAL ENERGY            -1438.298999659396 Eh   |
                 | GRADIENT NORM               0.062957205099 Eh/α |
                  -------------------------------------------------
-
-
-
-Metall-complex
---------------
-
-   The second example, Zr-functionalized complex, is taken from the `TMG-145 benchmark <https://doi.org/10.1002/ange.201904021>`_:
-
-.. collapse:: xyz file
-
-   .. code-block:: none
-         
-         77
-         
-         Zn    3.6937360    5.1063180   18.7964011 
-         Cl    5.5077870    6.3517350   19.2580401 
-         P     6.0686750    2.6641570   18.2610791 
-         C     3.7280450    2.8356680   16.5523611 
-         C     3.8544850    3.9118910   15.6318391 
-         C     4.4179300    5.1755470   15.9849611 
-         H     4.7663290    5.2863940   16.8616251 
-         C     4.4786650    6.2225480   15.1316041 
-         H     4.8394060    7.0498690   15.4280861 
-         C     4.0134910    6.1006160   13.8078361 
-         H     4.0530550    6.8422830   13.2151231 
-         C     3.5112450    4.9216070   13.3890521 
-         H     3.2188670    4.8359520   12.4883291 
-         C     3.4079040    3.7960060   14.2684731 
-         C     2.8775700    2.5928120   13.8311441 
-         H     2.5682090    2.5202580   12.9369361 
-         C     2.7876110    1.4893810   14.6719691 
-         C     2.2823510    0.2468870   14.1962951 
-         H     1.9786640    0.1783630   13.2978271 
-         C     2.2298460   -0.8343760   15.0002801 
-         H     1.8867120   -1.6546430   14.6662051 
-         C     2.6835910   -0.7537600   16.3383331 
-         H     2.6578100   -1.5236420   16.8942051 
-         C     3.1561030    0.4222260   16.8315501 
-         H     3.4456820    0.4585040   17.7362841 
-         C     3.2304100    1.6032510   16.0365881 
-         C     6.4388270    0.9603380   17.7816461 
-         H     6.0136030    0.3436260   18.4129541 
-         H     7.4082700    0.8212760   17.7914201 
-         H     6.0945690    0.7920520   16.8791681 
-         C     7.0990190    3.6579510   17.1608631 
-         H     7.0819010    4.5930970   17.4530851 
-         H     6.7540270    3.5954740   16.2451031 
-         H     8.0206690    3.3244020   17.1874291 
-         C     6.8389680    2.8870610   19.8698011 
-         H     6.6673000    3.7970140   20.1923471 
-         H     7.8062500    2.7449750   19.7913571 
-         H     6.4640740    2.2401170   20.5031141 
-         B     4.1430940    2.9444990   18.1244921 
-         P     1.3187980    2.6641570   19.3317221 
-         C     3.6594270    2.8356680   21.0404411 
-         C     3.5329880    3.9118910   21.9609631 
-         C     2.9695430    5.1755470   21.6078411 
-         H     2.6211430    5.2863940   20.7311771 
-         C     2.9088070    6.2225480   22.4611981 
-         H     2.5480660    7.0498690   22.1647161 
-         C     3.3739810    6.1006160   23.7849661 
-         H     3.3344170    6.8422830   24.3776791 
-         C     3.8762270    4.9216070   24.2037491 
-         H     4.1686060    4.8359520   25.1044731 
-         C     3.9795690    3.7960060   23.3243291 
-         C     4.5099030    2.5928120   23.7616581 
-         H     4.8192640    2.5202580   24.6558661 
-         C     4.5998620    1.4893810   22.9208321 
-         C     5.1051210    0.2468870   23.3965071 
-         H     5.4088090    0.1783630   24.2949751 
-         C     5.1576270   -0.8343760   22.5925221 
-         H     5.5007600   -1.6546430   22.9265971 
-         C     4.7038810   -0.7537600   21.2544691 
-         H     4.7296620   -1.5236420   20.6985971 
-         C     4.2313700    0.4222260   20.7612511 
-         H     3.9417900    0.4585040   19.8565181 
-         C     4.1570620    1.6032510   21.5562141 
-         C     0.9486460    0.9603380   19.8111561 
-         H     1.3738690    0.3436260   19.1798471 
-         H    -0.0207980    0.8212760   19.8013821 
-         H     1.2929040    0.7920520   20.7136341 
-         C     0.2884530    3.6579510   20.4319381 
-         H     0.3055720    4.5930970   20.1397171 
-         H     0.6334460    3.5954740   21.3476991 
-         H    -0.6331960    3.3244020   20.4053731 
-         C     0.5485040    2.8870610   17.7230011 
-         H     0.7201720    3.7970140   17.4004551 
-         H    -0.4187770    2.7449750   17.8014451 
-         H     0.9233990    2.2401170   17.0896881 
-         B     3.2443780    2.9444990   19.4683101 
-         Cl    1.8796850    6.3517350   18.3347611 
-
-In comparison to the ORCA, the ONIOM searches for the ``control`` file automatically. In this example the optimization of this complex with the small inner region written to the ``list`` file is shown:
-
-.. tabbed:: cml input
-   
-   > xtb zn.xyz --oniom turbomole:gfn2 list --opt 
-
-.. tabbed:: list
-   
-   1,2,39,76,77
