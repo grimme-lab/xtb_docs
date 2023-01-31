@@ -4,21 +4,21 @@
  ONIOM
 -------
 
-This guide is aimed to give the general overview over the ONIOM implementation within the ``xtb`` program package.
+This guide is aimed to give a general overview of the ONIOM implementation within the ``xtb`` program package.
 
 .. contents::
 
 General description
 ===================
 
-The ONIOM is a multiscale calculation approach used in general to efficiently handle large molecular systems. The detailed review of the ONIOM and its possible applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_.
+The ONIOM is a multiscale calculation approach used in general to efficiently handle large molecular systems. A detailed review of the ONIOM and its possible applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_.
 
 The total 2-layer ONIOM energy is defined as:
 
 .. math::
-   E_{oniom} = E_{whole,low} - E_{model,low} + E_{model,high}
+   E_{oniom} = E_{whole, low} - E_{model, low} + E_{model ,high}
 
-where :math:`E_{whole,low}` and :math:`E_{model,low}` terms refer to the singlepoint energies calculated at a low-level of theory applied to the whole system and its specific model cutoff(called henceforward 'inner region'), :math:`E_{model,high}` is the singlepoint energy of the model cutoff at higher level of theory. The idea is to combine the different theory levels in the subtructive manner to compromise between accuracy and speed.
+where :math:`E_{whole, low}` and :math:`E_{model, low}` terms refer to the single-point energies calculated at a low-level of theory applied to the whole system and its specific model cutoff(called henceforward 'inner region'), :math:`E_{model, high}` is the single-point energy of the model cutoff at a higher level of theory. The idea is to combine the different theory levels in a subtractive manner to compromise accuracy and speed.
 
 
 Input
@@ -30,7 +30,7 @@ To perform the ONIOM calculation with ``xtb`` one has to use ``--oniom`` option,
    
    > xtb inp.xyz --oniom high:low inner_region_cutoff
 
-If ``high:low`` are not provided, ``gfn2:gfnff`` combination is used.
+If ``high:low`` are not provided, the ``gfn2:gfnff`` combination is used.
 
 
 Methods
@@ -38,12 +38,12 @@ Methods
 
 * **gfnff, gfn1, gfn2**
 
-These methods are available in the ``xtb``  and can be utilized both as high and low level approaches in the ONIOM framework.
+These methods are available in the ``xtb``  and can be utilized both as high and low-level approaches in the ONIOM framework.
 
 
 .. important::
 
-   The ONIOM routine includes but not limited to the ``xtb`` functionality. To expand the range of the available methods, the ONIOM employs external ``ORCA`` and ``TURBOMOLE`` software packages. This is done by the addition of the corresponding binary path in the environment variable ``$PATH``.  
+   The ONIOM routine includes but is not limited to the ``xtb`` functionality. To expand the range of the available methods, ONIOM employs external ``ORCA`` and ``TURBOMOLE`` software packages. This is done by the addition of the corresponding binary path in the environment variable ``$PATH``.  
 
    The best way to configure the external settings for the xtb run is to use `xcontrol <https://github.com/grimme-lab/xtb/blob/main/man/xcontrol.7.adoc>`_ instructions.
 
@@ -69,20 +69,20 @@ If no input is specified, ``xtb`` writes orca input with the default settings (*
 
 * **turbomole**
 
-``Turbomole`` also uses its own format to perform calculation, defined by ``control`` file. 
-Initially, the ``xtb`` searches for ``control`` file in the user's calculation directory, and if no file is present, writes it with some default settings (*b97-3c*).
+``Turbomole`` also uses its format to perform calculations, defined by the ``control`` file. 
+Initially, the ``xtb`` searches for the ``control`` file in the user's calculation directory, and if no file is present, writes it with some default settings (*b97-3c*).
 
 
 .. note::
    
-   Currently it is possible to use ``ORCA``/``TURBOMOLE`` only as the **high** level embedding.
+   Currently, it is possible to use ``ORCA``/``TURBOMOLE`` only as the **high** level embedding.
 
 Inner region
 ------------
 
-To perform the ONIOM calculations with the ``xtb`` one has to specify the ``inner_region_cutoff`` which is provided either directly as a comma-separated indices ("1,3-5,9,10"), or via a file with the same content (or each index on a separate line).
+To perform the ONIOM calculations with the ``xtb`` one has to specify the ``inner_region_cutoff`` which is provided either directly as comma-separated indices ("1,3-5,9,10"), or via a file with the same content (or each index on a separate line).
 
-If covalent bonds are cut between inner region and the rest of the system, the ONIOM handles the resulting boundary by means of Hydrogen Linked Atoms (LAs):
+If covalent bonds are cut between the inner region and the rest of the system, the ONIOM handles the resulting boundary through Hydrogen Linked Atoms (LAs):
 
 .. tabbed:: inner region
    
@@ -93,13 +93,23 @@ If covalent bonds are cut between inner region and the rest of the system, the O
    
    .. figure:: ../figures/mit.png
 
+The positions for LAs are determined by the positions of the cleaved atoms:
 
-To distinguish between different bonds the topology information from ``low`` level method is used. 
+.. math::
+   [xyz]_{LA} = [xyz]_{con} +([xyz]_{host} - [xyz]_{con}) * k
+
+where :math:`[xyz]_{con}` and :math:`[xyz]_{host}` are coordinates of connector atom(stays in the inner region) and host atom (replaced by LA), :math:`k` is a fixed scaling factor.
+
+.. figure:: ../figures/docs.png
+   :align: center
+
+| 
+To distinguish between different bonds the topology information from the ``low`` level method is used. 
 
 .. warning:: 
 
    It is strongly recommended to cut only **single bonds**.
-   When using the GFN-FF as a low level method, one has to be very careful with the inner region specification. The topology data of the GFN-FF does not allow to accurately distinguish  between single and higher order bonds.
+   When using the GFN-FF as a low-level method, one has to be very careful with the inner region specification. The topology data of the GFN-FF does not allow for an accurate distinction between single and higher-order bonds.
 
 
 Functionality
@@ -112,26 +122,24 @@ flags
    extension of the classical ``--chrg`` flag, with added charges for **inner:whole** regions. If not specified, the ``xtb`` determine the **inner** region charge automatically.
 
 --cut:
-   write the geometry of the specified inner region without performing any calculations. Note that hydrogen linked atoms are not present, due to the absence of the wiberg bond orders. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
+   write the geometry of the specified inner region without performing any calculations. Note that hydrogen-linked atoms are not present, due to the absence of the Wiberg bond orders. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
 
 --ceasefiles:
-   extension of the original flag, with inctructions for the ``xtb`` to delete all external files from ``ORCA``/``TURBOMOLE`` (except for ``*.inp`` and ``control`` files) 
+   extension of the original flag, with instructions for the ``xtb`` to delete all external files from ``ORCA``/``TURBOMOLE`` (except for ``*.inp`` and ``control`` files) 
    
 
 xcontrol
 --------
 
-In addition to the above-mentioned ``xcontrol`` instructions the more deeper control over the ONIOM routine is available via ``$oniom`` group block.
+In addition to the above-mentioned ``xcontrol`` instructions deeper control over the ONIOM routine is available via the ``$oniom`` group block.
 
 
 *inner logs=bool*
-   print  high and low level logs for the model system (``high.inner_region.log`` and ``low.inner_region.log``). 
+   print high- and low-level logs for the model system (``high.inner_region.log`` and ``low.inner_region.log``). 
 
 *derived k=bool*
-   k is a scaling factor for the LAs coordinates, which by default is constant. This insctruvtion allows it to be dynamically assigned ib dependence of the distance between connector and host atoms:
+   k is a scaling factor for the LAs coordinates, which by default is constant. This instruction allows it to be dynamically assigned in dependence on the distance between the connector and host atoms:
 
-.. math::
-   [xyz]_{LA} = [xyz]_{connector} +([xyz]_{host} - [xyz]_{connector}) * k
 
 
 *silent=bool*
@@ -280,7 +288,7 @@ As a showcase host-guest complex number 23 from `S30L benchmark <https://pubs.ac
 
       normal termination of xtb
 
-To start singlepoint calculation with the user-defined orca input file: 
+To start single-point calculation with the user-defined orca input file: 
 
 1) specify orca input and add its name in the xcontrol file:
 
@@ -302,7 +310,7 @@ To start singlepoint calculation with the user-defined orca input file:
          orca input file=orca.inp 
       $end
 
-Please use ``engrad`` keyword to allow xtb to read the ``ORCA`` output. The inner region is automatically written in  ``some.xyz`` file.
+Please use the ``engrad`` keyword to allow ``xtb`` to read the ``ORCA`` output. The inner region is automatically written in the ``some.xyz`` file.
 
 2) start ``xtb`` run:
 
@@ -310,7 +318,7 @@ Please use ``engrad`` keyword to allow xtb to read the ``ORCA`` output. The inne
       
    > xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --input xcontrol
 
-The final ``xtb`` output for the given example will be divided in 3 parts  with the ONIOM results printed in the property printout section:
+The final ``xtb`` output for the given example will be divided into 3 parts  with the ONIOM results printed in the property printout section:
 
 .. code-block:: none
    :emphasize-lines: 30-31
