@@ -28,7 +28,7 @@ where :math:`E_{whole, low}` and :math:`E_{model, low}` terms are the single-poi
 Input
 =====
 
-To perform an ONIOM calculation with ``xtb`` the ``--oniom`` option is used. Additionally, the inner region has to be defined by providing the atom numbers contained in it and two calculation methods (``high:low``) can be chosen. The ONIOM calculation is then invoked by calling
+To perform an ONIOM calculation with ``xtb`` the ``--oniom`` option is used. The inner region has to be defined by providing the atom numbers contained in it and two calculation methods (``high:low``) can be chosen. The ONIOM calculation is then invoked by callinig:
 
 .. code:: sh
    
@@ -76,7 +76,7 @@ If no input is specified, ``xtb`` writes an orca input with the default settings
 * **turbomole**
 
 ``Turbomole`` also uses its format to perform calculations, defined by the ``control`` file. 
-Initially, the ``xtb`` searches for the ``control`` file in the user's calculation directory, and if no file is present, writes it with some default settings (*b97-3c*).
+Initially, the ``xtb`` searches for the ``control`` file in the user's calculation directory, and if no file is present, writes it with some default settings (*B97-3c*).
 
 
 .. note::
@@ -124,13 +124,13 @@ Functionality
 flags
 -----
 
-*--chrg* 'int:int':
+\--chrg 'int:int':
    extension of the classical ``--chrg`` flag, with added charges for **inner:whole** regions. If only one value is given, it is used for the whole system. If not specified, the ``xtb`` determine the **inner** region charge automatically.
 
---cut:
+\--cut:
    write the geometry of the specified inner region without performing any calculations. Note that hydrogen-linked atoms are not present, due to the absence of the Wiberg bond orders. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
 
---ceasefiles:
+\--ceasefiles:
    extension of the original flag, with instructions for the ``xtb`` to delete all external files from ``ORCA``/``TURBOMOLE`` (except for ``*.inp`` and ``control`` files) 
    
 
@@ -144,7 +144,7 @@ In addition to the above-mentioned ``xcontrol`` instructions deeper control over
    print high- and low-level optimization trajectory for the model system (``high.inner_region.log`` and ``low.inner_region.log``). 
 
 *derived k=[bool]*
-   k is a scaling factor for the LAs coordinates, which by default is constant. This instruction allows it to be dynamically assigned in dependence on the distance between the connector and host atoms:
+   k is a scaling factor for the LAs coordinates, which by default is constant. This instruction allows it to be dynamically assigned in dependence on the distance between the connector and host atoms.
 
 
 
@@ -157,8 +157,18 @@ Example:  S30L-23
 
 As a showcase host-guest complex number 23 from `S30L benchmark <https://pubs.acs.org/doi/full/10.1021/acs.jctc.5b00296>`_ is chosen. 
 
-.. collapse:: input.xyz
+.. figure:: ../figures/oniom_23.png
 
+This system consists of 2 NCI-bound fragments: 1-62 and 63-98, the latter having +1 charge. To test the automatic charge identification routine:
+
+.. tabbed:: cml input
+
+   .. code-block:: none
+      
+      > xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --cut
+
+.. tabbed:: input.xyz
+   
    .. code-block:: none
 
       98
@@ -261,13 +271,6 @@ As a showcase host-guest complex number 23 from `S30L benchmark <https://pubs.ac
       H    -0.9964687    4.2898655   -8.1950479 
       H     0.9656238   -6.3638842   -3.5831368 
       H    -0.9956242    6.3520069   -3.6002631
-| This system consists of 2 NCI-bound fragments: 1-62 and 63-98, the latter having +1 charge. To test the automatic charge identification routine:
-
-.. tabbed:: cml input
-
-   .. code-block:: none
-      
-      > xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --cut
 
 .. tabbed:: output
 
@@ -324,7 +327,7 @@ Please use the ``engrad`` keyword to allow ``xtb`` to read the ``ORCA`` output. 
       
    > xtb input.xyz --oniom orca:gfn2 1-62 --chrg +1 --input xcontrol
 
-The final ``xtb`` output for the given example will be divided into 3 parts  with the ONIOM results printed in the property printout section:
+The final ``xtb`` output for the given example is divided into 3 parts with the ONIOM results printed in the property printout section:
 
 .. code-block:: none
    :emphasize-lines: 30-31
@@ -359,5 +362,5 @@ The final ``xtb`` output for the given example will be divided into 3 parts  wit
 
                  -------------------------------------------------
                 | TOTAL ENERGY            -1438.298999659396 Eh   |
-                | GRADIENT NORM               0.062957205099 Eh/α |
+                | GRADIENT NORM               0.045824034529 Eh/α |
                  -------------------------------------------------
