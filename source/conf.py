@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'xtb doc'
-copyright = '2019-2021, Grimme group'
+copyright = '2019-2023, Grimme group'
 author = 'Grimme group'
 
 # The full version, including alpha/beta/rc tags
-release = '2021'
+release = '2023'
 
 
 # -- General configuration ---------------------------------------------------

@@ -153,6 +153,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    hessian
    md
    mtd
+   oniom
    path
    gsm
    periodic_boundary_conditions
@@ -176,11 +177,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    :maxdepth: 3
    :caption: CREST
 
-   crest
-   crestversions
-   crestcmd
    crestxmpl
-   crestqcg
 
 .. toctree::
    :maxdepth: 3
