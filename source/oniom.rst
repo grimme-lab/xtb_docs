@@ -6,31 +6,37 @@
 
 This guide is aimed to give a general overview of the ONIOM implementation within the ``xtb`` program package.
 
+.. note::
+   This feature is only present in version 6.6 and newer or in the current bleeding-edge version.
+
+
 .. contents::
 
 General description
 ===================
 
-The ONIOM is a multiscale calculation approach used in general to efficiently handle large molecular systems. A detailed review of the ONIOM and its possible applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_.
+The ONIOM scheme is a multiscale calculation approach used to treat large molecular systems efficiently. A detailed review of the ONIOM scheme and its possible applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_.
 
-The total 2-layer ONIOM energy is defined as:
+The total two-layer ONIOM energy is defined as
 
 .. math::
-   E_{oniom} = E_{whole, low} - E_{model, low} + E_{model ,high}
+   E_{oniom} = E_{whole, low} - E_{model, low} + E_{model ,high},
 
-where :math:`E_{whole, low}` and :math:`E_{model, low}` terms refer to the single-point energies calculated at a low-level of theory applied to the whole system and its specific model cutoff(called henceforward 'inner region'), :math:`E_{model, high}` is the single-point energy of the model cutoff at a higher level of theory. The idea is to combine the different theory levels in a subtractive manner to compromise accuracy and speed.
+where :math:`E_{whole, low}` and :math:`E_{model, low}` terms are the single-point energies calculated at a low-level of theory of the whole system and a specific system cutoff (called henceforward 'inner region'). :math:`E_{model, high}` denotes the single-point energy of the inner region at a higher level of theory. The idea is to combine the different theory levels in a subtractive manner to compromise accuracy and speed.
 
 
 Input
 =====
 
-To perform the ONIOM calculation with ``xtb`` one has to use ``--oniom`` option, specify ``high:low`` calculation methods and list atoms in the ``inner region cutoff``:
+To perform an ONIOM calculation with ``xtb`` the ``--oniom`` option is used. Additionally, the inner region has to be defined by providing the atom numbers contained in it and two calculation methods (``high:low``) can be chosen. The ONIOM calculation is then invoked by calling
 
 .. code:: sh
    
-   > xtb inp.xyz --oniom high:low inner_region_cutoff
+   > xtb <geometry_file> --oniom [high]:[low] [inner_region]
 
-If ``high:low`` are not provided, the ``gfn2:gfnff`` combination is used.
+
+.. note::
+        If ``high:low`` are not provided, the ``gfn2:gfnff`` combination is used.
 
 
 Methods
@@ -43,19 +49,19 @@ These methods are available in the ``xtb``  and can be utilized both as high and
 
 .. important::
 
-   The ONIOM routine includes but is not limited to the ``xtb`` functionality. To expand the range of the available methods, ONIOM employs external ``ORCA`` and ``TURBOMOLE`` software packages. This is done by the addition of the corresponding binary path in the environment variable ``$PATH``.  
+   The ONIOM routine includes but is not limited to the ``xtb`` functionality. To expand the range of the available methods, the external ``ORCA`` and ``TURBOMOLE`` software packages can be employed. This is done by the addition of the corresponding binary path in the environment variable ``$PATH``.  
 
    The best way to configure the external settings for the xtb run is to use `xcontrol <https://github.com/grimme-lab/xtb/blob/main/man/xcontrol.7.adoc>`_ instructions.
 
 
 * **orca**
 
-If ``ORCA`` is taken as an external driver, one has to provide `orca input <https://www.orcasoftware.de/tutorials_orca/first_steps/input_output.html>`_ to run calculations. ``xcontrol`` instruction set allows to specify the user-supplied orca input:
+If ``ORCA`` should be employed, an `orca input <https://www.orcasoftware.de/tutorials_orca/first_steps/input_output.html>`_ has to be provided to run calculations. An additional instruction file like ``xcontrol`` allows to specify the user-supplied orca input by adding the follwing lines:
 
 .. code:: none
    
    $external
-      orca input file=<filename>.inp
+      orca input file=<filename>
 
 or to provide only calculation method:
 
@@ -64,7 +70,7 @@ or to provide only calculation method:
    $external
       orca input string=<method>
 
-If no input is specified, ``xtb`` writes orca input with the default settings (*b97-3c*).
+If no input is specified, ``xtb`` writes an orca input with the default settings (*B97-3c*).
 
 
 * **turbomole**
@@ -80,9 +86,9 @@ Initially, the ``xtb`` searches for the ``control`` file in the user's calculati
 Inner region
 ------------
 
-To perform the ONIOM calculations with the ``xtb`` one has to specify the ``inner_region_cutoff`` which is provided either directly as comma-separated indices ("1,3-5,9,10"), or via a file with the same content (or each index on a separate line).
+To perform the ONIOM calculations with ``xtb`` one has to specify the ``inner_region_cutoff`` which is provided either directly as comma-separated indices ("1,3-5,9,10"), or via a file with the same content (or each index on a separate line).
 
-If covalent bonds are cut between the inner region and the rest of the system, the ONIOM handles the resulting boundary through Hydrogen Linked Atoms (LAs):
+If covalent bonds are cut between the inner region and the rest of the system, ONIOM handles the resulting boundary through Hydrogen Linked Atoms (LAs):
 
 .. tabbed:: inner region
    
@@ -98,7 +104,7 @@ The positions for LAs are determined by the positions of the cleaved atoms:
 .. math::
    [xyz]_{LA} = [xyz]_{con} +([xyz]_{host} - [xyz]_{con}) * k
 
-where :math:`[xyz]_{con}` and :math:`[xyz]_{host}` are coordinates of connector atom(stays in the inner region) and host atom (replaced by LA), :math:`k` is a fixed scaling factor.
+where :math:`[xyz]_{con}` and :math:`[xyz]_{host}` are coordinates of connector atom (stays in the inner region) and host atom (replaced by LA), :math:`k` is a fixed scaling factor.
 
 .. figure:: ../figures/docs.png
    :align: center
@@ -119,7 +125,7 @@ flags
 -----
 
 *--chrg* 'int:int':
-   extension of the classical ``--chrg`` flag, with added charges for **inner:whole** regions. If not specified, the ``xtb`` determine the **inner** region charge automatically.
+   extension of the classical ``--chrg`` flag, with added charges for **inner:whole** regions. If only one value is given, it is used for the whole system. If not specified, the ``xtb`` determine the **inner** region charge automatically.
 
 --cut:
    write the geometry of the specified inner region without performing any calculations. Note that hydrogen-linked atoms are not present, due to the absence of the Wiberg bond orders. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
@@ -134,16 +140,16 @@ xcontrol
 In addition to the above-mentioned ``xcontrol`` instructions deeper control over the ONIOM routine is available via the ``$oniom`` group block.
 
 
-*inner logs=bool*
-   print high- and low-level logs for the model system (``high.inner_region.log`` and ``low.inner_region.log``). 
+*inner logs=[bool]*
+   print high- and low-level optimization trajectory for the model system (``high.inner_region.log`` and ``low.inner_region.log``). 
 
-*derived k=bool*
+*derived k=[bool]*
    k is a scaling factor for the LAs coordinates, which by default is constant. This instruction allows it to be dynamically assigned in dependence on the distance between the connector and host atoms:
 
 
 
-*silent=bool*
-   clutter the screen less by the redirecting output of the external programs.
+*silent=[bool]*
+   redirecting the output of the external programs into files.
 
 
 Example:  S30L-23
@@ -255,7 +261,7 @@ As a showcase host-guest complex number 23 from `S30L benchmark <https://pubs.ac
       H    -0.9964687    4.2898655   -8.1950479 
       H     0.9656238   -6.3638842   -3.5831368 
       H    -0.9956242    6.3520069   -3.6002631
-| This system consists of 2 NCI-bounded fragments: 1-62 and 63-98, the latter having +1 charge. To test the automatic charge identification routine:
+| This system consists of 2 NCI-bound fragments: 1-62 and 63-98, the latter having +1 charge. To test the automatic charge identification routine:
 
 .. tabbed:: cml input
 

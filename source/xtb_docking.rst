@@ -5,7 +5,7 @@
 -------------------------
 
 .. note::
-   This feature is only present in version 6.6 and newer.
+   This feature is only present in version 6.6 and newer or in the current bleeding-edge version.
 
 The automated Interaction Site Screening (aISS) of the docking submodule allows the addition of any molecules to dimers and aggregates.
 This is done via an interaction site screening and genetic optimization with the xTB-IFF energy,
