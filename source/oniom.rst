@@ -127,6 +127,14 @@ flags
 \--chrg 'int:int':
    extension of the classical ``--chrg`` flag, with added charges for **inner:whole** regions. If only one value is given, it is used for the whole system. If not specified, the ``xtb`` determine the **inner** region charge automatically.
 
+.. note::
+   If CHARGE is specified in the external input format file(``*.inp`` or ``control``), one has to provide the same charge to the ``xtb`` as: 
+   
+   .. code-block:: sh
+      
+      > xtb <geometry_file> --oniom <orca/turbomole>:<xtb> <inner_region> --chrg <CHARGE>:<system_charge> 
+
+
 \--cut:
    write the geometry of the specified inner region without performing any calculations. Note that hydrogen-linked atoms are not present, due to the absence of the Wiberg bond orders. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
 
