@@ -37,18 +37,6 @@ Options
 --help
    Display the help window
 
---chrg1 INT
-   Define charge for molecule 1
-
---chrg2 INT
-   Define charge for molecule 2
-
---uhf1 INT
-   Define the number of unpaired electrons for molecule 1
-
---uhf2 INT
-   Define the number of unpaired electrons for molecule 2
-
 -I, --input FILE
    Use FILE as an input source for ``xcontrol(7)`` instructions
 
