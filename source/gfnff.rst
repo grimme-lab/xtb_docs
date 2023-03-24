@@ -75,6 +75,23 @@ Thus, the usage is in line with its semiempirical QM siblings and (almost) the s
   |                  Version 1.0.1                  | 
    ------------------------------------------------- 
 
+Additional torsion potential for diphenylacetylene like systems
+----------------------------------------------------------------
+
+An additional torsion potential for rotations around triple bonded carbons is added to the GFN-FF total energy. The potential is calculated according to 
+
+.. math::
+  E_\text{cctors} = -\frac{E_\text{ref}}{2} \cdot \cos (2 \cdot \phi ) + \frac{E_\text{ref}}{2}
+
+using the reference energy :math:`E_\text{ref}` from a DLPNO-CCSD(T)/CBS calculation on diphenylacetylene for a 90° dihedral angle :math:`\phi` compared to 0°. Below, diphenylacetylene is depicted without hydrogen atoms, to explain when the potential is applied. 
+
+.. figure:: ../figures/diphenylacetylene.png
+  :scale: 100 %
+  :alt: gfnff
+
+The potential is applied under the following conditions: Atoms three and four must be carbons with a triple bond between them (distance smaller than 2.37 bohr) and have exactly one other bond partner each. Atoms two and five must be carbons. At least one of the atoms one or one prime and six or six prime must be an sp2 hybridized carbon. In the case that there are multiple choices for atoms 1 and 6 the latter is chosen according to the sorting in the input file. The dihedral angle is then calculated between atoms one, two, five and six. 
+
+
 The topology file
 --------------------
 
