@@ -11,7 +11,7 @@ The automated Interaction Site Screening (aISS) of the docking submodule allows 
 This is done via an interaction site screening and genetic optimization with the xTB-IFF energy,
 followed by GFN geometry optimizations.
 By default, only the 15 best structures are optimized, but also an ensemble generation is possible.
-The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https://onlinelibrary.wiley.com/doi/10.1002/anie.202214477>`_.
+The main publication for the ``aISS`` can be found at: `Angewandte Chemie <https://onlinelibrary.wiley.com/doi/10.1002/anie.202214477>`_.
 
 
 .. important::
