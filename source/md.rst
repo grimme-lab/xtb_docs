@@ -111,6 +111,8 @@ In order to achive this, in the ``$md`` block the ``restart`` parameter has to b
    $md
     restart=true
 
+In this case, you will find the "RESTART" printed in the ``xtb`` output. 
+
 Example/Case study
 ------------------
 
