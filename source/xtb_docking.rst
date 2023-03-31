@@ -56,22 +56,22 @@ Options
    Include ATM term for screening and optimization
 
 --stepr REAL
-   Radial step size
+   Radial step size (default = 2.5 Å)
 
 --stepa REAL
-   Angular step size
+   Angular step size (default = 45°)
 
 --maxgen INT
-   Number of cycles for genetic optimization
+   Number of cycles for genetic optimization (default = 10)
 
 --maxparent INT
-   Number of parents for genetic optimization
+   Number of parents for genetic optimization (default = 100)
    
 --nstack INT
-   Number of gridpoints in one direction of the stack search
+   Number of gridpoints in one direction of the stack search (default = 1000)
 
 --nfinal INT
-   Number of final optimizations
+   Number of final optimizations (default = 15)
 
 --ensemble
    Optimizes every structure with a negative xTB-IFF interaction energy and sorts out replicates to yield an NCI ensemble
