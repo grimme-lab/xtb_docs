@@ -29,6 +29,9 @@ Possible options are:
 --temp REAL
    Temperature for thermodynamic functions in K,
    takes a comma separated list of temperatures
+   
+--scale REAL
+   Scaling factor for frequencies in vibrational partition function.
 
 --turbomole
    Read a Turbomole Hessian file,
