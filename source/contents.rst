@@ -74,8 +74,8 @@ insights into the theory used behind the scences.
    ---
    :column: + col-lg-12 p-2
 
-   .. image:: ../logo/akgrimme_logo_final2018_xtbdocs.png
-      :width: 33%
+   .. image:: ../logo/logo_abtgrimme_desktop.png
+      :width: 125%
       :alt: Grimme-lab
 
    +++
