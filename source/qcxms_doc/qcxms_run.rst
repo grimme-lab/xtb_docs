@@ -117,6 +117,8 @@ The general *qcxms.in* input file can be manipulated by providing *<parameters>*
 +--------------------+-----------------------------+-------------------+----------------------------+
 | etemp *<real>*     | electronic Temperature      | 5000 K            | *<real>*                   |
 +--------------------+-----------------------------+-------------------+----------------------------+
+| tmax *<integer>*   | Maximum MD time (sampling)  | 5 ps           | *<integer>*                |
++--------------------+-----------------------------+-------------------+----------------------------+
 | tstep *<real>*     | MD time step                | 0.5 fs            | *<real>*                   |
 +--------------------+-----------------------------+-------------------+----------------------------+
 
@@ -237,6 +239,8 @@ fragmentations are set (50%, 35%, 15% of runs).
 Increasing the internal energy can be done either by scaling the targeted temperature (``tscale`` *<real>*) or internal energy (``esi`` *<real>*). 
 
 **Other important keywords**
+ - ``tmax``: MD time for the mean-free-path (*mfp*) simulation. This sets the number of time steps for the simulation after fragmentation
+ during internal energy scaling (implicit run type). For the explicit run type, the time for the collision MDs is fixed at 50 fs * number_of_atoms.
  - ``eexact``: No variation of the input collision energy; the molecular ion will be accelerated for all production runs with the same energy.
  - ``esi``: A MD prior to the collision simulation (explicit run-types) increases E(int) to the *<real>* value. If this is less than the internal energy 
    of the initial system (e.g. through high initial temperature), the scaling will be skipped (**no** downwards scaling/cooling!). If nothing is set,
