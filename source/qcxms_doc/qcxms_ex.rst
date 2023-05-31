@@ -29,6 +29,7 @@ EI - positive Ion Electron Ionization
    ei
    xtb2
    ntraj *<integer>*
+   tmax  *<integer>*
    eimp0 *<real>*
 
 The EI run mode is automatically used with the [*default*] settings described by the keywords, leading to a run using
