@@ -102,7 +102,9 @@ The same applies to the ``scoord.*`` files.
 
 Restart
 -------
-The ``mdrestart`` file can be used to restart an MD simulation. This can be very helpful for equilibration purposes. 
+The ``mdrestart`` file can be used to restart an MD simulation. The file consisted of 6 columns. The initial three columns represent the atom coordinates, followed by their corresponding velocities. 
+Please note that the atoms retain the same order as in the input geometry file.
+This can be very helpful for equilibration purposes. 
 In order to achive this, in the ``$md`` block the ``restart`` parameter has to be set to ``true``.
 
 .. code::
@@ -111,7 +113,7 @@ In order to achive this, in the ``$md`` block the ``restart`` parameter has to b
    $md
     restart=true
 
-In this case, you will find the "RESTART" printed in the ``xtb`` output. 
+In this case, you will find the **RESTART** printed in the ``xtb`` output. 
 
 Example/Case study
 ------------------
