@@ -1,7 +1,7 @@
 .. _md:
 
 -------------------------------
- Molecular Dyamics Simulations
+ Molecular Dynamics Simulations
 -------------------------------
 
 In this chapter, all necessary information will be given in order
