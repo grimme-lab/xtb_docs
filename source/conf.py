@@ -67,7 +67,7 @@ html_css_files = [ "custom.css", ]
 html_static_path = ['_static']
 
 # other default
-master_doc = 'contents'
+master_doc = 'index'
 
 # Settings for blog
 blog_path = "news"
