@@ -154,7 +154,11 @@ In addition to the above-mentioned ``xcontrol`` instructions deeper control over
 *derived k=[bool]*
    k is a scaling factor for the LAs coordinates, which by default is constant. This instruction allows it to be dynamically assigned in dependence on the distance between the connector and host atoms.
 
+*outer=[bool]*
+   perform outer region saturation
 
+*ignore topo=[bool]*
+   bypass topology check when cutting bonds 
 
 *silent=[bool]*
    redirecting the output of the external programs into files.
