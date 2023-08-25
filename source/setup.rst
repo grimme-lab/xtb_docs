@@ -38,8 +38,8 @@ usually containing the following content:
    │       └── xtb.h
    ├── lib
    │   ├── libxtb.so -> libxtb.so.6
-   │   ├── libxtb.so.6 -> libxtb.so.6.3.1
-   │   ├── libxtb.so.6.3.1
+   │   ├── libxtb.so.6 -> libxtb.so.6.*.*
+   │   ├── libxtb.so.6.*.*
    │   └── pkgconfig
    │       └── xtb.pc
    └── share
@@ -51,7 +51,7 @@ usually containing the following content:
        ├── modules
        │   └── modulefiles
        │       └── xtb
-       │           └── 6.3.1
+       │           └── 6.*.*
        └── xtb
            ├── param_gfn2-xtb.txt
            ├── param_gfn1-xtb.txt
