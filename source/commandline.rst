@@ -79,6 +79,14 @@ Fukui Indices
    :queue:
      setup, SP, SP, SP, properties
 
+Dimer Projection Method DIPRO     
+   :flag: ``--dipro``
+   :description:
+     calculates the electronic coupling integrals J_ab and J_ab,eff between
+     two fragments 
+   :queue:
+     setup, SP, SP, SP, properties
+
 Electrostatic Potential
    :flag: ``--esp``
    :description:
