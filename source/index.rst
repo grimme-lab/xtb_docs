@@ -154,6 +154,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    md
    mtd
    oniom
+   dipro
    path
    gsm
    periodic_boundary_conditions
