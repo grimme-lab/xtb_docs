@@ -151,13 +151,18 @@ Apart from the general variable, also the directed docking can be
 activated with an input file. This allows the docking to user-defined 
 regions of molecule 1. The default is an attractive potential for the
 user-defined atoms, but also a repulsive potential for every other atom
-can be used (only recommended for large interacting molecules).
+can be used (only recommended for large interacting molecules). If the
+attractive potential is too strong (seen in fusing atoms leading to
+failing geometry optimizations), a scaling factor can be used to
+reduce the potential. Values between 0 (no potential) and 1 (default)
+are recommended.
 An input file for the directed docking might look like this:
 
 .. code:: text
 
   $directed
      attractive
+     scaling factor= 0.9
      atoms: 1-5
      elements: N
   $end
