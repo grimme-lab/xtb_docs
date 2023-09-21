@@ -125,14 +125,14 @@ flags
 -----
 
 \--chrg 'int:int':
-   extension of the classical ``--chrg`` flag, with added charges for **inner:whole** regions. If only one value is given, it is used for the whole system. If not specified, the ``xtb`` determine the **inner** region charge automatically.
+   extension of the classical ``--chrg`` flag, allows to specify charges for inner region and whole molecule as **inner_region_charge:system_charge**. If only one value is given, it is used as **system_charge**, and the ``xtb`` will determine the **inner_region_charge** automatically.
 
 .. note::
-   If CHARGE is specified in the external input format file(``*.inp`` or ``control``), one has to provide the same charge to the ``xtb`` as: 
+   If **inner_region_charge** is specified in the external input format file(``*.inp`` or ``control``), one has to provide the same charge to the ``xtb`` as: 
    
    .. code-block:: sh
       
-      > xtb <geometry_file> --oniom <orca/turbomole>:<xtb> <inner_region> --chrg <CHARGE>:<system_charge> 
+      > xtb <geometry_file> --oniom <orca/turbomole>:<xtb> <inner_region> --chrg <inner_region_charge>:<system_charge> 
 
 
 \--cut:
