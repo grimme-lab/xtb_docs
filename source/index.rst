@@ -160,6 +160,7 @@ No problem, just give us hint at the mailing list or open an issue at `github`_.
    periodic_boundary_conditions
    pcem
    gfnff
+   spgfn
    capi
    python
    community/index
