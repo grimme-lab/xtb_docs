@@ -7,14 +7,15 @@ CENSO uses several QM-packages and not all solvents are available for all solvat
 models throughout the QM-codes. For this reason a user editable file is created 
 in the folder *~/.censo_assets*:
 
-.. tabbed:: -->
+.. tab-set:: 
 
+    .. tab-item::
         .. code:: sh
 
             $  ~/.censo_assets/censo_solvents.json
 
-.. tabbed:: censo_solvents.json
-
+    .. tab-item:: censo_solvents.json
+        
         .. code:: sh
 
             {
