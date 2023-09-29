@@ -32,7 +32,7 @@ release = '2023'
 # ones.
 extensions = [
     "ablog",
-    "sphinx_panels",
+    "sphinx_design",
     "sphinx_copybutton",
     "sphinx_togglebutton",
 ]

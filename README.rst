@@ -58,11 +58,14 @@ Contributors
 * Eike Caldeweyher
 * Sebastian Dohm
 * Sebastian Ehlert
+* Johannes Gorges
+* Abylay Katbashev
 * Jeroen Koopman
+* Julia Kohn
 * Hagen Neugebauer
+* Christoph Plett
 * Philipp Pracht
 * Karola Schmitz
 * Sarah Schmitz
 * Jakob Seibert
 * Sebastian Spicher
-* Johannes Gorges
