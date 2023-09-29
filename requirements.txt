@@ -1,4 +1,4 @@
 ablog
-sphinx_panels
+sphinx_design
 sphinx_copybutton
 sphinx_togglebutton
