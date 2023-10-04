@@ -4,6 +4,9 @@
  Python Integration for the xtb API
 ------------------------------------
 
+.. warning::
+    ``xtb-python`` is no longer in active development. We recommend using `tblite <https://github.com/tblite/tblite>`_ instead. 
+
 The ``xtb`` program does not provide a Python API on its own anymore,
 it is now maintained in the ``xtb-python`` project.
 
