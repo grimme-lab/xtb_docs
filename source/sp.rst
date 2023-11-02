@@ -254,11 +254,24 @@ The typical xtb single-point calculation printout (caffeine molecule):
          :: atomisation energy         3.110573871656 Eh    ::
          :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-The total energy is evaluated as the sum of the following terms:
+Here, total energy :math:`E_{tot}` is evaluated as the sum of the following terms:
 
 .. math::
     E_{tot} = E_{SCC} + E_{rep} + E_{constrain}  [+ E_{XB}^{GFN1}]
  
+
+where :math:`E_{SCC}` self-consistent charge energy, :math:`E_{rep}` repulsion energy, :math:`E_{constrain}` 
+the additional energy due to the constraints and confinements which modify PES (for more details, :ref:`detailed-input`), 
+and :math:`E_{XB}^{GFN1}` halogen-bond correction (for GFN1-xTB). 
+
+The :math:`E_{SCC}` term can be further split as:
+
+.. math::
+    E_{SCC} = E_{EHT} + E_{\gamma} + E_{disp} + ...
+
+where :math:`E_{EHT}` extended Hückel energy, :math:`E_{disp}` dispersion (D3/D4), :math:`E_{\gamma}` 
+isotropic electrostatic and XC energy, and method-specific energy contrubutions 
+(can be found in the correponding `reference <https://wires.onlinelibrary.wiley.com/doi/10.1002/wcms.1493>`_).
 
 Fermi-smearing
 ==============
