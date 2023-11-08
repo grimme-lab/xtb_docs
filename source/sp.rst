@@ -270,8 +270,8 @@ The :math:`E_{SCC}` term can be further split as:
     E_{SCC} = E_{EHT} + E_{\gamma} + E_{disp} + ...
 
 where :math:`E_{EHT}` extended Hückel energy, :math:`E_{disp}` dispersion (D3/D4), :math:`E_{\gamma}` 
-isotropic electrostatic and XC energy, and method-specific energy contrubutions 
-(can be found in the correponding `reference <https://wires.onlinelibrary.wiley.com/doi/10.1002/wcms.1493>`_).
+isotropic electrostatic and XC energy, and further method-specific energy contrubutions 
+(can be found in the corresponding `reference <https://wires.onlinelibrary.wiley.com/doi/10.1002/wcms.1493>`_).
 
 Fermi-smearing
 ==============
