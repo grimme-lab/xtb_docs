@@ -50,7 +50,7 @@ constraints).
 The actual calculation can be performed with a single point
 calculator ``xtb_TCalculator`` which must be loaded with a particular
 parametrisation before it can be used for a calculation.
-GFN2-xTB and GFN1-xTB can savely load their parametrisation without
+GFN2-xTB and GFN1-xTB can safely load their parametrisation without
 a parameter file. For the experimental GFN0-xTB a parameter file
 is required in the ``XTBPATH`` or must be provided by the API.
 The GFN-FF can also provide its own parameters internally but
