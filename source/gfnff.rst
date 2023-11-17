@@ -21,16 +21,16 @@ The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https:/
 Theoretical background
 =================================
 
-The latest progress in the field of semi empirical methods, regarding the evolution of GFN1, GFN2 and GFN0-xTB, inspired the development of a generic force-field. 
+The latest progress in the field of semi-empirical methods, regarding the evolution of GFN1, GFN2 and GFN0-xTB, inspired the development of a generic force-field. 
 The main focus of this GFN force-field (GFN-FF) is directed towards the description of bio-macromolecular systems such as (metallo-) proteins, supramolecular assemblies 
 and metal-organic frameworks. 
-It is intended for the usage as a versatile tool for drug design in life sciences and structure screening in various fields of chemistry.
-Therefore, GFN-FF introduces an approximation to the remaining quantum mechanics in GFN0-xTB by replacing the extended Hückel theory by molecular mechanical bond strech, 
+It is intended for usage as a versatile tool for drug design in life sciences and structure screening in various fields of chemistry.
+Therefore, GFN-FF introduces an approximation to the remaining quantum mechanics in GFN0-xTB by replacing the extended Hückel theory with molecular mechanical bond stretch, 
 bond angle angle and torsion angle terms for the description of covalent bonds. 
 To remain accurate in the description of conjugated systems, GFN-FF retains an iterative Hückel scheme for a selected set of atoms. 
-The resulting bond orders obtained by a Hückel calculation have an influence on force constants and energy relevant parameters of the system.
+The resulting bond orders obtained by a Hückel calculation have an influence on force constants and energy-relevant parameters of the system.
 To yield accurate results the FF parameters are fitted to reproduce B97-3c minimum geometries and frequencies. 
-Thereby a strictly global and element specific parameter strategy is applied and no element pair specific parameters are employed.
+Thereby a strictly global and element-specific parameter strategy is applied and no element pair-specific parameters are employed.
 Special attention is paid to the simple application. As input only Cartesian coordinates and elemental composition are required from which fully automatically all potential energy terms are constructed.
 The total GFN-FF energy expression is given by
 
@@ -38,18 +38,18 @@ The total GFN-FF energy expression is given by
    E_{GFN-FF} = E_{cov} + E_{NCI},
 
 where :math:`E_{cov}` refers to the bonded FF energy and :math:`E_{NCI}` describes the intra- and intermolecular noncovalent interactions.
-In the covalent part interactions are described by asymptotically correct (dissociative) bonding, angular and torsional terms. 
+In the covalent part, interactions are described by asymptotically correct (dissociative) bonding, angular and torsional terms. 
 Repulsive terms are added for bonded and non-bonded interactions separately. 
-Additionally a three-body correction to the nuclear repulsion is added, that extends beyond the sum of pair-wise interactions.
+Additionally, a three-body correction to the nuclear repulsion is added, that extends beyond the sum of pair-wise interactions.
 
 .. math::
    E_{intra} = E_{bond} + E_{bend} + E_{tors} + E_{rep}^{bond} + E_{abc}^{bond}
 
-In the noncovalent part, electrostatic interactions are described by an electronegativity equilibrium (EEQ) model. 
+In the non-covalent part, electrostatic interactions are described by an electronegativity equilibrium (EEQ) model. 
 It is employed to calculate the isotropic electrostatic energy and atomic partial charges. 
-Overall GFN-FF uses two sets of EEQ charges. One set depends on the standard geometry, whereas another set of charges is exclusively topology based, introducing partial polarizability to the FF method.
-Dispersion interactions are taken into account by a topology based version of the D4 scheme, in which the dispersion coefficients are scaled by atomic charges instead of atomic polarizabilities.
-For the description of hydrogen and halogen bonds additional charge scaled H- and X- bond corrections are applied to yield the right binding motifs.
+Overall GFN-FF uses two sets of EEQ charges. One set depends on the standard geometry, whereas another set of charges is exclusively topology-based, introducing partial polarizability to the FF method.
+Dispersion interactions are taken into account by a topology-based version of the D4 scheme, in which the dispersion coefficients are scaled by atomic charges instead of atomic polarizabilities.
+For the description of hydrogen and halogen bonds, additional charge-scaled H- and X- bond corrections are applied to yield the right binding motifs.
 
 .. math::
    E_{NCI} = E_{IES} + E_{disp} + E_{HB} + E_{XB} + E_{rep}^{NCI}
@@ -65,7 +65,7 @@ GFN-FF is implemented in the ``xtb`` program. It extends the portfolio of differ
 
   > xtb --gfnff <geometry> [options]
 
-Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request of electronic structure properties will be ignored, since those are not available at the force-field level of theory. With GFN-FF you can perform single point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types. A GFN-FF calculation is indicated in the output by:
+Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request for electronic structure properties will be ignored since those are not available at the force-field level of theory. With GFN-FF you can perform single-point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types. A GFN-FF calculation is indicated in the output by:
 
 .. code:: bash
 
@@ -75,10 +75,10 @@ Thus, the usage is in line with its semiempirical QM siblings and (almost) the s
   |                  Version 1.0.1                  | 
    ------------------------------------------------- 
 
-Additional torsion potential for diphenylacetylene like systems
+Additional torsion potential for diphenylacetylene-like systems
 ----------------------------------------------------------------
 
-An additional torsion potential for rotations around triple bonded carbons is added to the GFN-FF total energy. The potential is calculated according to 
+An additional torsion potential for rotations around triple-bonded carbons is added to the GFN-FF total energy. The potential is calculated according to 
 
 .. math::
   E_\text{cctors} = -\frac{E_\text{ref}}{2} \cdot \cos (2 \cdot \phi ) + \frac{E_\text{ref}}{2}
@@ -89,7 +89,7 @@ using the reference energy :math:`E_\text{ref}` from a DLPNO-CCSD(T)/CBS calcula
   :scale: 100 %
   :alt: gfnff
 
-The potential is applied under the following conditions: Atoms three and four must be carbons with a triple bond between them (distance smaller than 2.37 bohr) and have exactly one other bond partner each. Atoms two and five must be carbons. At least one of the atoms one or one prime and six or six prime must be an sp2 hybridized carbon. In the case that there are multiple choices for atoms 1 and 6 the latter is chosen according to the sorting in the input file. The dihedral angle is then calculated between atoms one, two, five and six. 
+The potential is applied under the following conditions: Atoms three and four must be carbons with a triple bond between them (distance smaller than 2.37 Bohr) and have exactly one other bond partner each. Atoms two and five must be carbons. At least one of the atoms one or one prime and six or six prime must be an sp2 hybridized carbon. In the case that there are multiple choices for atoms 1 and 6 the latter is chosen according to the sorting in the input file. The dihedral angle is then calculated between atoms one, two, five and six. 
 
 
 
@@ -98,10 +98,10 @@ GFN-FF specific settings
 
 ``xtb`` is a semiempirical extended tight-binding program package and its default values are chosen to yield robust and accurate results for all GFN-xTB methods. GFN-FF represents the first non-electronic variant and thus it should come as no surprise, that some of the default values do not work with a generic force-field. Settings that deviate from the defaults are discussed below.
 
-Parallelisation
+Parallelization
 -------------------
 
-The ``xtb`` program uses OMP parallelisation. To calculate larger systems an appropriate OMP stacksize must be provided. Since the system size may easily exceed 5000 atoms in force-field calculations, a large number should be chosen. Otherwise you may encounter a segmentation fault. For 5000 atoms you may choose:
+The ``xtb`` program uses OMP parallelization. To calculate larger systems an appropriate OMP stack size must be provided. Since the system size may easily exceed 5000 atoms in force-field calculations, a large number should be chosen. Otherwise, you may encounter a segmentation fault. For 5000 atoms you may choose:
 
 .. code:: bash
 
@@ -125,7 +125,7 @@ For molecular dynamics simulations, the default time step of 4 ps is not stable 
 GFN-FF specific input
 ============================
 
-``xtb`` accepts various input formats. Especially the possibility to directly read ``pdb`` files as input might be something you want to use in combination with GFN-FF. If the pdb file includes charge information, ``xtb`` reads this information, determines the overall charge of the system automatically and applies this charge constrain per residue. There is no need to further specify the total charge of the system. The following output is generated.
+``xtb`` accepts various input formats. Especially the possibility to directly read ``pdb`` files as input might be something you want to use in combination with GFN-FF. If the pdb file includes charge information, ``xtb`` reads this information, determines the overall charge of the system automatically and applies this charge constraint per residue. There is no need to further specify the total charge of the system. The following output is generated.
 
 .. code:: bash
 
@@ -134,14 +134,14 @@ GFN-FF specific input
 Use of additional charge information
 -------------------------------------
 
-In GFN-FF the computed atomic charges from the EEQ model may be improved by constrains if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information besides using a pdb file. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
+In GFN-FF the computed atomic charges from the EEQ model may be improved by constraints if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information besides using a pdb file. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
 (named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments.
 
 
 2D to 3D structure converter
 ============================
 
-``xtb`` feaetures a 2D to 3D structure converter for ``sdf`` files. If a two-dimensional sdf file input is passed to ``xtb`` and a GFN2-xTB single point calculation is requested, it will automatically perform a combination of GFN-FF optimization and molecular dynamics steps to generate a three dimensional structure, on which the GFN2-xtB calculation is performed.
+``xtb`` feaetures a 2D to 3D structure converter for ``sdf`` files. If a two-dimensional sdf file input is passed to ``xtb`` and a GFN2-xTB single point calculation is requested, it will automatically perform a combination of GFN-FF optimization and molecular dynamics steps to generate a three-dimensional structure, on which the GFN2-xtB calculation is performed.
 
 .. code:: bash
 
@@ -187,18 +187,18 @@ Topology file
    Delete the topology file when there are significant structural changes to the system or when alterations are made to the code parameter.
 
 
-``gfnff-adjacency``
+``gfnff_adjacency``
 
-   GFN-FF automatically generates the file with neighbor list with all atomwise neighbors.
+   GFN-FF automatically generates a neighbor list file containing the atom indices of all neighbors for each atom.
 
 ``gfnff_lists.json``
 
    GFN-FF topology can be selectively written to a JSON file using the keyword ``--wrtopo [args]``. 
-   **[args]** - comma-sepated list of topological data:
+   **[args]** - comma-separated list of topological data:
 
-      **nb**: neighbor list composed of the indices of neighboring atoms for every atoms, as well as the total number of neighbors in the last entry (analogous to the ``gfnff_adjacency``).
+      **nb**: neighbor list composed of the indices of neighboring atoms for every atom, as well as the total number of neighbors in the last entry. In contrast to the compact gfnff_adjacency, this list always has 20 entries per atom and includes the number of neighbors in the last entry.
    
-      **bpair**: packed bond pair matrix filled with the number of bonds between atom pairs. A maximum of five bonds between atoms is considered, setting pairs with more bonds inbetween to this value. 
+      **bpair**: packed bond pair matrix filled with the number of bonds between atom pairs. A maximum of five bonds between atoms is considered, setting pairs with more bonds in between to this value. 
       
       **alist**: angle list with the sets of three bonded atoms forming an angle. 
    
