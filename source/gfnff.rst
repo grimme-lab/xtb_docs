@@ -196,7 +196,7 @@ Topology file
    GFN-FF topology can be selectively written to a JSON file using the keyword ``--wrtopo [args]``. 
    **[args]** - comma-separated list of topological data:
 
-      **nb**: neighbor list composed of the indices of neighboring atoms for every atom, as well as the total number of neighbors in the last entry. In contrast to the compact gfnff_adjacency, this list always has 20 entries per atom and includes the number of neighbors in the last entry.
+      **nb**: neighbor list composed of the indices of neighboring atoms for every atom, as well as the total number of neighbors in the last entry. In contrast to the compact gfnff_adjacency, this list has always 20 entries per atom and includes the number of neighbors in the last entry.
    
       **bpair**: packed bond pair matrix filled with the number of bonds between atom pairs. A maximum of five bonds between atoms is considered, setting pairs with more bonds in between to this value. 
       
