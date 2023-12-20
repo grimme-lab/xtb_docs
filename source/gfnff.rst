@@ -144,6 +144,7 @@ Periodic Boundary Conditions
 The GFN-FF can process periodic boundary conditions, allowing the optimization of three-dimensional unit cells. A reparameterized version for molecular crystals can be called with the ``--mcgfnff`` keyword. The adjustments to the electrostatic, intermolecular dispersion, hydrogen bond, and non-covalent repulsion potential often increase the accuracy with respect to the structure and energy. An example calculation is given below for a unit cell containing four benzene molecules.
 
 .. tab-set::
+
    .. tab-item:: command
   
       .. code:: sh
