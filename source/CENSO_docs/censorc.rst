@@ -10,197 +10,281 @@ General Settings
 ----------------
 
 
-.. list-table:: general settings
-    :widths: 30 100
+.. list-table:: general
+    :widths: 30 100 30 30
     :header-rows: 1
     
     * - keyword
-      - definition
-    * - nconf
-      - how many conformers should be considered. Either a number or the flag *all*.
-    * - charge
-      - molecular charge of the molecule under investigation.
-    * - unpaired
-      - number of unpaired electrons in the molecule under investigation.
-    * - solvent
-      - Solvent if the molecule is in solution phase, else *gas*.
-    * - prog_rrho
-      - QM-code used for the calculation of thermostatistical contributions.
-        This is only feasible with xtb, since normally a large number of hessian
-        calculations have to be performed.
-    * - temperature
-      - Temperature (in Kelvin) used for the Boltzmann evaluations.
-    * - trange
-      - temperature range which is used to calculate free energies at different 
-        temperatures (considered in G\_mRRHO and δG\_solv[only COSMO-RS]). 
-        The temperature range will only be evaluated if multitemp is set to *on*.
-    * - multitemp
-      - Evaluate free energies at different temperatures defined in trange.
-    * - evaluate_rrho
-      - Option to consider /not consider thermostatistical contributions.
-    * - consider_sym
-      - Option to consider symmetry in the thermostatistical contribution (only xtb)
-    * - bhess
-      - Calculate single point hessians (SPH) on the geometry, instead of 
-        "ohess" (optimization + hessian calculation)
-    * - imagthr
-      - threshold for inverting imaginary frequencies for thermostatistical 
-        contributions (in cm\ :sup:`-1` \). Internal defaults are applied if set to *automatic*.
-    * - sthr
-      - rotor cut-off (in cm\ :sup:`-1` \) used for the thermostatical contributions. 
-        Internal defaults are applied if set to *automatic*.
-    * - scale
-      - scaling factor for frequencies in vibrational partition function. 
-        Internal defaults are applied if set to *automatic*.
-    * - rmsdbias
-      - gESC related, using rmsdpot.xyz to be consistent to CREST.
-    * - sm\_rrho
-      - solvent model applied in the GFN\ *n*\-xTB thermostatistical contribution calculation.
-    * - check
-      - Terminate the CENSO run if too many calculations crash.
-    * - prog
-      - QM code used for part0, part1 and part2, this can be TURBOMOLE or ORCA.
-    * - func
-      - functional used in part1 (prescreening) and part2 (optimization)
-    * - basis
-      - basis set used in combination with func in part1 (prescreening) and 
-        part2 (optimization). If basis is set to *automatic* the basis set is 
-        chosen internally.
-    * - maxthreads
-      - Used for parallel calculation. Maxthreads determines the number of independent 
-        calculations running in parallel. E.g. resulting in 4 independent 
-        single-point /optimization calculations.
+      - description
+      - default
+      - allowed options
+    * - maxcores
+      - how many cores should be utilized by CENSO at most.
+      - 4
+      - [4, 256]
     * - omp
-      - Used for parallel calculation. Omp determines the number of cores each 
-        independent calculation can use. Eg. maxthreads = 4 and omp = 5 resulting 
-        in 4 independent calculations and each independent calculation uses 5 cores.
-    * - cosmorsparam
-      - Flag for choosing COSMO-RS parameterizations. If set to *automatic*
-        the input from the COSMO-RS input line is chosen.
+      - how many cores should be used for every subprocess launched by CENSO.
+      - 4
+      - [4, 32]
+    * - imagthr
+      - value of the imagthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
+      - -100.0
+      - [-300.0, 0.0]
+    * - sthr
+      - value of the sthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
+      - 0.0
+      - [0.0, 100.0]
+    * - scale
+      - value of the scale keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
+      - 1.0
+      - [0.0, 1.0]
+    * - temperature
+      - temperature in Kelvin; when calculating Gtot, CENSO will use the G values for this temperature.
+      - 298.15
+      - [1e-5, 2000.0]
+    * - solvent
+      - CENSO will try to use this solvent with the set solvation models (for more details see documentation on solvation).
+      - h2o
+      - 
+    * - sm_rrho
+      - solvation model that should be used for all xtb-only calculations.
+      - alpb
+      - alpb, gbsa
+    * - multitemp
+      - wether GmRRHO should be calculated for a range of temperatures (defined in trange) or not.
+      - True
+      - True, False
+    * - evaluate_rrho
+      - wether to calculate GmRRHO or not.
+      - True
+      - True, False
+    * - consider_sym
+      - wether to determine and use the symmetry of the conformers for xtb-only calculations or not.
+      - True
+      - True, False
+    * - bhess
+      - wether to run the mRRHO calculation on unoptimized geometries (True) or geometries preoptimized by xtb (False), which would result in calling xtb with --ohess.
+      - True
+      - True, False
+    * - rmsdbias
+      - wether to use a RMSD bias (should be defined in a file called rmsdpot.xyz in the working directory).
+      - False
+      - True, False
+    * - balance
+      - wether to use the built-in static load balancing strategy (tries to utilize all the cores as much as possible). If set to False, CENSO will use the number of cores per task assigned with the omp setting.
+      - True
+      - True, False
+    * - gas-phase
+      - wether to turn off all solvation modelling (True) or use solvation (False).
+      - False
+      - True, False
+    * - copy_mo
+      - wether to copy MO-files of previous calculations of a conformer within a run (True) or not (False). **This is highly recommended** to use, since it is likely to reduce the number of SCF cycles per single-point significantly.
+      - True
+      - True, False
+    * - retry_failed
+      - wether to try to recover failed jobs by applying flags hardcoded in CENSO. This is recommended to use if you know that SCFs of your system might be tricky.
+      - True
+      - True, False
+    * - trange
+      - specifies the range of temperatures for which GmRRHO will be calculated ([start, end, stepsize]).
+      - [273.15, 373.15, 5]
+      - 
 
-Part0 - Cheap-Prescreening - Settings
+
+Part0 - Prescreening - Settings
 -------------------------------------
 
-.. list-table:: part0
-    :widths: 30 100
+.. list-table:: prescreening
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part0
-      - Option to turn the "cheap prescreening part" on or off.
-    * - func0
-      - Functional used in part0.
-    * - basis0
-      - Basis set used in combination with func0. If basis0 is set to *automatic*
-        the basis set is chosen internally.
-    * - part0_gfnv
-      - GFN version employed in the thermostatistical contribution in part0.
-    * - part0\_threshold
-      - Threshold/Energy-window (kcal/mol) within which all conformers are considered.
+      - description
+      - default
+      - allowed options
+    * - threshold
+      - the threshold (kcal/mol) for δG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - 4.0
+      - [1.0, 10.0]
+    * - func
+      - the functional/dispersion correction combination used for this step.
+      - pbe-d4
+      - 
+    * - basis 
+      - the basis set used for this step.
+      - def2-SV(P)
+      -
+    * - prog 
+      - program that should be used for this step
+      - ORCA
+      - 
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - grid
+      - grid preset and SCF threshold that should be used for this step.
+      - low 
+      - low, low+, high, high+
+    * - run
+      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - True
+      - True, False
+    * - gcp
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - True
+      - True, False
+    * - template
+      - wether to use a user defined template for this step.
+      - False
+      - True, False
 
 
-Part1 - Prescreening - Settings
+Part1 - Screening - Settings
 -------------------------------
 
-.. list-table:: part1
-    :widths: 30 100
+.. list-table:: screening
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part1
-      - Option to turn the "prescreening part" on or off.
-    * - smgsolv1
-      - Additive solvation contribution employed in part1.
-    * - part1_gfnv
-      - GFN version employed in the thermostatistical contribution in part1.
-    * - part1_threshold
-      - Threshold/Energy-window (kcal/mol) within which all conformers are 
-        considered further.
+      - description
+      - default
+      - allowed options
+    * - threshold
+      - the threshold (kcal/mol) for δG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - 3.5
+      - [0.75, 7.5]
+    * - func
+      - the functional/dispersion correction combination used for this step.
+      - r2scan-3c
+      - 
+    * - basis 
+      - the basis set used for this step.
+      - def2-TZVP
+      -
+    * - prog 
+      - program that should be used for this step
+      - ORCA
+      - 
+    * - sm 
+      - solvation model used for this step.
+      - smd
+      -
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - grid
+      - grid preset and SCF threshold that should be used for this step.
+      - low+
+      - low, low+, high, high+
+    * - run
+      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - True
+      - True, False
+    * - gcp
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - True
+      - True, False
+    * - template
+      - wether to use a user defined template for this step.
+      - False
+      - True, False
+    * - implicit
+      - wether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
+      - True
+      - True, False
 
 
 Part2 - Optimization - Settings
 -------------------------------
 
-.. list-table:: part2
-    :widths: 30 100
+.. list-table:: optimization
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part2
-      - Option to turn the "optimization" part on or off.
-    * - opt_limit
-      - Threshold/Energy-window (kcal/mol) within which all conformers are fully
-        optimized.
-    * - sm2
-      - Implicit solvation model used in the optimization (for the implicit
-        effect on the geometry).
-    * - smgsolv2
-      - Additive solvation model used for calculation of δG_solv in part2
-        (used to calculate contribution to free energy).
-    * - part2_gfnv
-      - GFN version employed in the thermostatistical (G_mRRHO) contribution in
-        part2.
-    * - ancopt
-      - Using ANCoptimizer implemented in xTB for geometry optimization.
-    * - hlow
-      - Lowest force constant in ANC generation, used with ancopt.
-    * - opt_spearman
-      - Using the new *ensemble-optimizer*, employing batch-wise metacycles.
-    * - part2_threshold
-      - Boltzmann threshold in % within which all conformers are considered further.
-        E.g. 90 %; all conformers up to a sum of 90 % are considered.
-    * - optlevel2
-      - Optimization threshold in the geometry optimization. If set to *automatic*
-        internal defaults will be used.
+      - description
+      - default
+      - allowed options
     * - optcycles
-      - Number of optimization iterations performed within one cycle in the ensemble
-        optimizer.
-    * - spearmanthr
-      - Spearman rank correlation coeff. used to determine if PES during geometry
-        optimization can be assumed parallel.
-    * - radsize
-      - Setting of the radial grid size for func used in part2.
+      - number of microcycles per macrocycles if using macrocycle optimization.
+      - 8
+      - [1, 10]
+    * - maxcyc
+      - maximum number of optimization cycles (in the case of macrocycle optimization the maximum number of cumulative microcycles).
+      - 200 
+      - [10, 1000]
+    * - threshold
+      - the **minimum** threshold (kcal/mol) for δG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - 1.5
+      - [0.5, 5.0]
+    * - gradthr
+      - threshold for the gradient below which the normal energy threshold condition will be applied.
+      - 0.01
+      - [0.001, 0.1]
+    * - hlow
+      - value of the hlow keyword will be passed to the xtb keyword of the same name.
+      - 0.01
+      - [0.001, 0.1]
+    * - func
+      - the functional/dispersion correction combination used for this step.
+      - r2scan-3c
+      - 
+    * - basis 
+      - the basis set used for this step.
+      - def2-TZVP
+      -
+    * - prog 
+      - program that should be used for this step
+      - ORCA
+      - 
+    * - sm 
+      - solvation model used for this step.
+      - smd
+      -
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - grid
+      - grid preset and SCF threshold that should be used for this step.
+      - high
+      - low, low+, high, high+
+    * - optlevel
+      - geometry optimization thresholds passed to xtb.
+      - normal
+      - crude, sloppy, loose, lax, normal, tight, vtight, extreme
+    * - run
+      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - True
+      - True, False
+    * - gcp
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - True
+      - True, False
+    * - template
+      - wether to use a user defined template for this step.
+      - False
+      - True, False
+    * - macrocycles
+      - wether to use macrocycle optimization (True) or not.
+      - True
+      - True, False
     * - crestcheck
-      - Automatically sort out conformers which might have become identical or
-        rotamers during DFT geometry optimization. Check is performed using CREST
-        (this is threshold based, so use with care).
+      - wether to use CREST every macrocycle to check the ensemble for rotamers or not.
+      - False
+      - True, False
 
 
-Part3 - Refinement - Settings
------------------------------
 
-.. list-table:: part3
-    :widths: 30 100
-    :header-rows: 1
-
-    * - keyword
-      - definition
-    * - part3
-      - Option to turn the "refinement" part *on* or *off*.
-    * - prog3
-      - QM code used for part3 this can be TURBOMOLE or ORCA.
-    * - func3
-      - functional used in part3 (refinement)
-    * - basis3
-      - basis set employed in combination with func3. If basis3 is set to 
-        *automatic* the basis set is chosen internally (mainly for composite methods).
-    * - smgsolv3
-      - Additive solvation model used for calculation of δG_solv in part3.
-    * - part3_gfnv
-      - GFN version employed in the thermostatistical contribution in part3.
-    * - part3_threshold
-      - Boltzmann threshold in % within which all conformers are considered further.
-        E.g. 90 %, all conformers up to a sum of 90 % are considered.
-
-
-Part4 - NMR- Settings
+NMR - Settings
 ---------------------
 
-.. list-table:: part4
-    :widths: 30 100
+.. list-table:: nmr
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
