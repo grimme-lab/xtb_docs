@@ -92,8 +92,8 @@ General Settings
       - 
 
 
-Part0 - Prescreening - Settings
--------------------------------------
+Prescreening
+------------
 
 .. list-table:: prescreening
     :widths: 30 100 30 30
@@ -141,8 +141,8 @@ Part0 - Prescreening - Settings
       - True, False
 
 
-Part1 - Screening - Settings
--------------------------------
+Screening
+---------
 
 .. list-table:: screening
     :widths: 30 100 30 30
@@ -198,8 +198,8 @@ Part1 - Screening - Settings
       - True, False
 
 
-Part2 - Optimization - Settings
--------------------------------
+Optimization
+------------
 
 .. list-table:: optimization
     :widths: 30 100 30 30
@@ -238,7 +238,7 @@ Part2 - Optimization - Settings
       - def2-TZVP
       -
     * - prog 
-      - program that should be used for this step
+      - program that should be used for this step.
       - ORCA
       - 
     * - sm 
@@ -280,70 +280,130 @@ Part2 - Optimization - Settings
 
 
 
-NMR - Settings
----------------------
+NMR
+---
 
 .. list-table:: nmr
     :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part4
-      - Option to turn the "NMR property part" *on* or *off*.
-    * - couplings
-      - Perform coupling constant calculations [options are *on* or *off*].
-    * - prog4J
-      - QM code (TM, ORCA) used for coupling constant calculations.
-    * - funcJ
-      - Density functional employed for the coupling constant calculation.
-    * - basisJ
-      - basis set employed with the DFA (funcJ) for coupling constant calculations.
-    * - sm4J
-      - implicit solvent model employed in the coupling constant calculation.
-    * - shieldings
-      - Perform shielding constant calculations [options are *on* or *off*].
-    * - prog4S
-      - QM code (TM, ORCA) used for shielding constant calculations.
-    * - funcS
-      - Density functional employed for the shielding constant calculation.
-    * - basisS
-      - basis set employed with the DFA \(funcS\) for shielding constant calculations.
-    * - sm4S
-      - implicit solvent model employed in the shielding constant calculation.
-    * - reference_1H
-      - Reference molecule to convert 1H shielding constants to shifts e.g. TMS.
-    * - reference_13C
-      - Reference molecule to convert 13C shielding constants to shifts e.g. TMS.
-    * - reference_19F
-      - Reference molecule to convert 19F shielding constants to shifts e.g. CFCl3.
-    * - reference_29Si
-      - Reference molecule to convert 29Si shielding constants to shifts e.g. TMS.
-    * - reference_31P
-      - Reference molecule to convert 31P shielding constants to shifts e.g. TMP.
-    * - 1H_active
-      - Calculate 1H NMR properties [options are *on* or *off*].
-    * - 13C_active
-      - Calculate 13C NMR properties [options are *on* or *off*].
-    * - 19F_active
-      - Calculate 19F NMR properties [options are *on* or *off*].
-    * - 29Si_active
-      - Calculate 29Si NMR properties [options are *on* or *off*].
-    * - 31P_active
-      - Calculate 31P NMR properties [options are *on* or *off*].
+      - description
+      - default
+      - allowed options
     * - resonance_frequency
-      - Resonance frequency of the experimental spectrometer (in Hz).
+      - carrier frequency of the microwave radiation in the simulated NMR experiment
+      - 300.0
+      - [150.0, 1000.0]
+    * - threshold_bmw
+      - cumulative Boltzmann population threshold up to which conformers should be considered.
+      - 0.95
+      - [0.01, 0.99]
+    * - prog
+      - program that should be used to calculate the shielding/coupling single-points.
+      - orca
+      - 
+    * - func_j
+      - the functional/dispersion correction combination used in calculating the couplings.
+      - pbe0-d4
+      - 
+    * - basis_j
+      - basis set used in calculating the couplings.
+      - def2-TZVP
+      - 
+    * - sm_j
+      - solvation model used in the calculation of the couplings.
+      - smd
+      - smd, cpcm
+    * - func_s
+      - the functional/dispersion correction combination used in calculating the shieldings.
+      - pbe0-d4
+      - 
+    * - basis_s
+      - basis set used in calculating the shieldings.
+      - def2-TZVP
+      - 
+    * - sm_s
+      - solvation model used in the calculation of the shieldings.
+      - smd
+      - smd, cpcm
+    * - h_ref
+      - 
+      - TMS
+      - 
+    * - c_ref
+      - 
+      - TMS
+      - 
+    * - f_ref
+      - 
+      - CFCl3
+      - 
+    * - si_ref
+      - 
+      - TMS
+      - 
+    * - p_ref
+      - 
+      - TMP
+      - 
+    * - grid
+      - grid preset and SCF threshold that should be used for this step.
+      - high+
+      - low, low+, high, high+
+    * - run
+      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - False
+      - True, False
+    * - template
+      - wether to use a user defined template for this step.
+      - False
+      - True, False
+    * - gcp
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - True
+      - True, False
+    * - couplings
+      - wether to compute the coupling constants.
+      - True
+      - True, False
+    * - shieldings
+      - wether to compute the shieldings.
+      - True
+      - True, False.
+    * - h_active
+      - wether to calculate NMR parameters for Protium.
+      - True
+      - True, False
+    * - c_active
+      - wether to calculate NMR parameters for 13C.
+      - True
+      - True, False
+    * - f_active
+      - wether to calculate NMR parameters for 19F.
+      - False
+      - True, False
+    * - si_active
+      - wether to calculate NMR parameters for 29Si.
+      - False
+      - True, False
+    * - p_active
+      - wether to calculate NMR parameters for 31P.
+      - False
+      - True, False
 
-Optical Rotation Property Settings
-----------------------------------
+Optical Rotation Property
+-------------------------
 
 .. list-table:: part5
     :widths: 30 100
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - optical\_rotation
+      - description
+      - default
+      - allowed options
+    * - optical_rotation
       - Option to turn the "OR property part" *on* or *off*.
     * - funcOR
       - Functional employed to calculate the optical rotatory (OR) dispersion.

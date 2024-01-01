@@ -85,7 +85,7 @@ Ensemble Properties
 -------------------
 
 NMR Spectra
------------
+===========
 
 For the calculation of the NMR spectrum of an ensemble, single-points to compute the 
 nuclear shieldings and couplings will be run. The computational parameters for shieldings
