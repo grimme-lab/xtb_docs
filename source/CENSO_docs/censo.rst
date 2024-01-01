@@ -35,10 +35,10 @@ Ensemble properties available for calculation are:
 3. UV/Vis spectra (**TODO**).
 
 Ensemble Refinement
-===================
+-------------------
 
 Prescreening
--------------
+=============
 
 The first step after obtaining a rough ensemble of the most important conformers, 
 the number of which can range in the hundreds, is to improve on the preliminary
@@ -49,7 +49,7 @@ calculate the energy of solvation using the ALPB or GBSA solvation model. The th
 for this step should be rather high (up to 10 kcal/mol).
 
 Screening
----------
+=========
 
 After prescreening the ensemble in the first step, this step is supposed to further 
 improve on the ranking quality by increasing the quality of the utilized DFT method.
@@ -64,7 +64,7 @@ calculated using DFT, if necessary explicitly, though this will double the compu
 effort due to two required single-point calculations.
 
 Optimization
-------------
+============
 
 To further improve the ranking, the geometries of the conformers in this step will be 
 optimized using DFT gradients. For this, the `xtb` optimizer will be used as driver.
@@ -82,7 +82,7 @@ be applied once the gradient norm of a conformer is below a specified threshold 
 for all the microcycles in the current macrocycle.
 
 Ensemble Properties 
-===================
+-------------------
 
 NMR Spectra
 -----------
@@ -95,11 +95,11 @@ After that, CENSO will generate files for the simulation of the NMR spectrum usi
 Please note that the user needs to setup the `.anmrrc` file.
 
 Optical Rotation
-----------------
+================
 
 TODO
 
 UV/Vis Spectra
---------------
+==============
 
 TODO
