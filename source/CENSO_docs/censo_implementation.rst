@@ -39,7 +39,7 @@ required. It will return the results for the external program calls in form of a
 dictionary with ``(key, value) = (id(conf), res)``, where ``id(conf)`` is the ``id`` of a 
 conformer object contained in the ensemble and ``res`` is a dictionary containing the 
 results of the external programs for the specified jobtype. As a second return value,
-it will return a list of failed conformers, i.e. conformers, for which at least one job 
+it will return a list of the ``id`` of failed conformers, i.e. conformers, for which at least one job 
 failed to execute. These should most likely removed from the ensemble using the 
 ``ensemble.remove_conformers`` method. In the native parts, the results will be inserted
 into the ``results`` dictonary of the ``MoleculeData`` objects (the conformers).
@@ -53,9 +53,91 @@ implementing a custom print method or using the inherited ``self.write_json`` an
 ``ensemble.dump_ensemble`` methods.
 
 Example:
-``python
-test = CensoPart()
-``
+
+.. code:: python
+    from censo.part import CensoPart
+    from censo.parallel import execute
+    from censo.ensembledata import EnsembleData
+
+    class NewPart(CensoPart):
+
+        _options = {
+            ...,
+            "prog": {"default": "orca", "options": ["orca", "tm"]},
+            ...,
+            "threshold": {"default": 0.95, "range": [0.5, 0.99]}
+        }
+
+        _settings = {}
+
+        def __init__(self, ensemble: EnsembleData): 
+            super().__init__(ensemble)
+
+        @timeit
+        @CensoPart._create_dir
+        def run(self) -> None:
+            """
+            docstring
+            """
+
+            # print settings
+            self.print_info()
+
+            # define jobtype
+            jobtype = ["sp"]
+
+            # Setup the prepinfo dict 
+            # NOTE: This method needs to be implemented to be used
+            prepinfo = self.setup_prepinfo()
+
+            results, failed = execute(
+                self.ensemble.conformers,
+                self.dir,
+                self.get_settings()["prog"]
+                prepinfo,
+                jobtype,
+                ...
+                # some other keyword arguments are possible here
+            )
+
+            # Remove failed conformers
+            for confid in failed:
+                self.ensemble.remove_conformers(failed)
+
+            # update results for each conformer
+            for conf in self.ensemble.conformers:
+                # store results of single jobs for each conformer
+                conf.results.setdefault(self._name, {}).update(results[id(conf)])
+
+            # calculate boltzmann weights from values calculated here
+            self.ensemble.calc_boltzmannweights(
+                self.get_general_settings().get("temperature", 298.15), self._name
+            )
+
+            # sort conformers list with specific key
+            self.ensemble.conformers.sort(
+                key=lambda conf: conf.results[self._name]["sp"]["energy"],
+            )
+
+            # write results
+            # NOTE: this method needs to be implemented to be used
+            self.write_results()
+
+            # update conformers with threshold
+            # in this example the threshold is supposed to be a Boltzmann population
+            # threshold
+            threshold = self.get_settings()["threshold"]
+
+            # update the conformer list in ensemble (remove confs if below threshold)
+            for confname in self.ensemble.update_conformers(
+                lambda conf: conf.results[self._name]["bmw"], 
+                threshold,
+                boltzmann=True
+            ):
+                print(f"No longer considering {confname}.")
+
+            # dump ensemble
+            self.ensemble.dump_ensemble(self._name)
 
 Implementing a new jobtype
 ==========================
