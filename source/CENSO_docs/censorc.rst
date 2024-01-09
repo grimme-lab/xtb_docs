@@ -6,6 +6,12 @@ Censorc keyword definitions
 
 .. contents::
 
+The settings should be given in the form of an rcfile (either located in ``$HOME`` and named ``.censo2rc``)
+or passed to CENSO via the ``-inprc`` argument, or read using the ``configure`` function when working from 
+a custom script). If a setting is missing from the rcfile, CENSO will use the default value for that setting.
+The settings will be type checked when the rcfile is parsed, so make sure that the appropiate data type 
+(e.g. int, float, str) can be parsed from the value you defined.
+
 General Settings
 ----------------
 
@@ -112,7 +118,7 @@ Prescreening
       - pbe-d4
       - 
     * - basis 
-      - the basis set used for this step.
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional..
       - def2-SV(P)
       -
     * - prog 
@@ -132,7 +138,7 @@ Prescreening
       - True
       - True, False
     * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
       - True
       - True, False
     * - template
@@ -161,7 +167,7 @@ Screening
       - r2scan-3c
       - 
     * - basis 
-      - the basis set used for this step.
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
       -
     * - prog 
@@ -185,7 +191,7 @@ Screening
       - True
       - True, False
     * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
       - True
       - True, False
     * - template
@@ -234,7 +240,7 @@ Optimization
       - r2scan-3c
       - 
     * - basis 
-      - the basis set used for this step.
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
       -
     * - prog 
@@ -262,7 +268,7 @@ Optimization
       - True
       - True, False
     * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
       - True
       - True, False
     * - template
@@ -308,7 +314,7 @@ NMR
       - pbe0-d4
       - 
     * - basis_j
-      - basis set used in calculating the couplings.
+      - basis set used in calculating the couplings. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
       - 
     * - sm_j
@@ -320,7 +326,7 @@ NMR
       - pbe0-d4
       - 
     * - basis_s
-      - basis set used in calculating the shieldings.
+      - basis set used in calculating the shieldings. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
       - 
     * - sm_s
@@ -360,7 +366,7 @@ NMR
       - False
       - True, False
     * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step.
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
       - True
       - True, False
     * - couplings

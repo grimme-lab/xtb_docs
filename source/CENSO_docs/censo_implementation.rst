@@ -55,6 +55,7 @@ implementing a custom print method or using the inherited ``self.write_json`` an
 Example:
 
 .. code:: python
+
     from censo.part import CensoPart
     from censo.parallel import execute
     from censo.ensembledata import EnsembleData
@@ -138,6 +139,8 @@ Example:
 
             # dump ensemble
             self.ensemble.dump_ensemble(self._name)
+
+
 
 Implementing a new jobtype
 ==========================
