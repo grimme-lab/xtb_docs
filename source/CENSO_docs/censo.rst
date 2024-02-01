@@ -70,8 +70,8 @@ To further improve the ranking, the geometries of the conformers in this step wi
 optimized using DFT gradients. For this, the `xtb` optimizer will be used as driver.
 The level of the chosen DFT method should be roughly equivalent to the Screening step.
 Solvation effects will be included implicitly. Furthermore, thermal contributions will
-be included for the ranking if `evaluate_rrho` is set to True. One can also utilize
-a macrocycle optimizer in CENSO (set `macrocycle` to True). This will run a number
+be included for the ranking if `evaluate_rrho` is set to `True`. One can also utilize
+a macrocycle optimizer in CENSO (set `macrocycle` to `True`). This will run a number
 (`opcycles`) of geometry optimization steps (microcycles) for every macrocycle and 
 update the ensemble every macrocycle. The single-point Hessian evaluation using `xtb` 
 will take place once after at least 6 microcycles and once after all conformers are 
@@ -80,6 +80,20 @@ is determined by a minimum threshold (`threshold`) and a contribution of at most
 kcal/mol based on the (normed) mean trajectory similarity (MTS). This threshold will 
 be applied once the gradient norm of a conformer is below a specified threshold (`gradthr`)
 for all the microcycles in the current macrocycle.
+
+It is also possible to use `xtb`-constraints for this step. The constraints should be 
+provided as a file called `constraints.xtb` in the working directory. Also, the 
+`constrain` option for the optimization part should be set to `True`.
+
+Refinement
+==========
+
+After geometry optimization (usually medium-level DFT parameters are sufficient), a high-
+level DFT calculation should be performed, to acquire highly accurate single-point energies.
+In this step, the threshold is also more rigorous, using a Boltzmann population cutoff.
+The sorted (from highest to lowest) populations (in %) of the conformers after calculating 
+the high-level single-point are summed up until reaching the defined threshold, removing all 
+further conformers from consideration.
 
 Ensemble Properties 
 -------------------

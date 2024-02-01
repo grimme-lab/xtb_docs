@@ -283,7 +283,67 @@ Optimization
       - wether to use CREST every macrocycle to check the ensemble for rotamers or not.
       - False
       - True, False
+    * - constrain
+      - wether to use constraints for the geometry optimization or not. The constraints should be provided as a file `constraints.xtb` in the working directory.
+      - False
+      - True, False
 
+
+Refinement
+---------
+
+.. list-table:: refinement
+    :widths: 30 100 30 30
+    :header-rows: 1
+
+    * - keyword
+      - description
+      - default
+      - allowed options
+    * - threshold
+      - the threshold (%) for the additive Boltzmann population of the ensemble beyond which conformers will be removed from the ensemble.
+      - 0.95
+      - [0.01, 0.99]
+    * - func
+      - the functional/dispersion correction combination used for this step.
+      - wb97x-d3
+      - 
+    * - basis 
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      -
+    * - prog 
+      - program that should be used for this step
+      - ORCA
+      - 
+    * - sm 
+      - solvation model used for this step.
+      - smd
+      -
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - grid
+      - grid preset and SCF threshold that should be used for this step.
+      - low+
+      - low, low+, high, high+
+    * - run
+      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - True
+      - True, False
+    * - gcp
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
+      - True
+      - True, False
+    * - template
+      - wether to use a user defined template for this step.
+      - False
+      - True, False
+    * - implicit
+      - wether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
+      - True
+      - True, False
 
 
 NMR
