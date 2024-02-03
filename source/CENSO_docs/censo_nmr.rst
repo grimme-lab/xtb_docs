@@ -9,7 +9,7 @@ NMR
 
 
 
-For the calculation of NMR spectra with ``CENSO``, the ``anmr`` program is needed.
+For the calculation of NMR spectra with ``CENSO``, the ``ANMR`` program is needed.
 The spectra can be plotted with the python script ``nrmplot.py``. Both programs can be obtained from the latest release page of ENSO:
 https://github.com/grimme-lab/enso/releases/tag/v.2.0.2
 
