@@ -7,29 +7,31 @@ Introduction to CENSO
 Installation
 ------------
 
-To install `CENSO`, simply clone the github repository (). Then, you have two options:
+To install ``CENSO``, simply clone the github repository (). Then, you have two options:
 
-1. install *via* `pip`,
-2. setup usage *via* `$PATH`.
+1. install *via* ``pip``,
+2. setup usage *via* ``$PATH``.
 
-To install in your current environment using `pip`, run:
+To install in your current environment using ``pip``, run:
 
 .. code:: sh 
+
     pip install .
 
-`CENSO` can then be run by configuring a custom runner script (see below) or by calling 
-`python3 -m censo` in the terminal.
+``CENSO`` can then be run by configuring a custom runner script (see below) or by calling 
+``python3 -m censo`` in the terminal.
 
-Alternatively, after cloning the repository, you could also add the `bin` folder to your `$PATH`.
-In this directory, there is a helper script called `censo`, calling the command line entry point of `CENSO`
-as if you were calling it using `python3 -m censo`.
+Alternatively, after cloning the repository, you could also add the ``bin`` folder to your ``$PATH``.
+In this directory, there is a helper script called ``censo``, calling the command line entry point of ``CENSO``
+as if you were calling it using ``python3 -m censo``.
 
 Usage *via* runner script
 =========================
 
-In order to call `CENSO` using a custom runner script, you can use the following example as a template.
+In order to call ``CENSO`` using a custom runner script, you can use the following example as a template.
 
 .. code:: python
+
     from censo.ensembledata import EnsembleData
     from censo.configuration import configure
     from censo.ensembleopt import Screening, Optimization
@@ -100,7 +102,7 @@ The first step after generating an ensemble of the most important conformers, e.
 the number of which can range in the hundreds, is to improve on the preliminary
 ranking using a lightweight DFT method. This should usually already yield significant
 improvements compared to the preliminary ranking, usually obtained using SQM/FF methods.
-In the case that solvation effects should be included, `CENSO` will use `xtb` to 
+In the case that solvation effects should be included, ``CENSO`` will use ``xtb`` to 
 calculate the energy of solvation using the ALPB or GBSA solvation model. The threshold
 for this step should be rather high (up to 10 kcal/mol).
 
@@ -110,10 +112,10 @@ Screening
 After prescreening the ensemble in the first step, this step is supposed to further 
 improve on the ranking quality by increasing the quality of the utilized DFT method.
 Also, in this step one may choose to include thermal contributions to the free enthalpy
-by activating `evaluate_rrho`, which will lead to `CENSO` using `xtb` to calculate
+by activating ``evaluate_rrho``, which will lead to ``CENSO`` using ``xtb`` to calculate
 single-point Hessians. This will also include solvation if the user chose to do so.
 The threshold for this step should be lower than before (up to 7.5 kcal/mol) to account
-for the decreasing uncertainty due to improvements in the ranking method. `CENSO` will 
+for the decreasing uncertainty due to improvements in the ranking method. ``CENSO`` will 
 increase the threshold by up to 1 kcal/mol, proportional to the (exponential of the) 
 standard deviation of the thermal contributions. The solvation contributions will be 
 calculated using DFT, if required explicitly, though explicitly calculating the solvation 
@@ -123,22 +125,22 @@ Optimization
 ============
 
 To further improve the ranking, the geometries of the conformers in this step will be 
-optimized using DFT gradients. For this, the `xtb` optimizer will be used as driver.
+optimized using DFT gradients. For this, the ``xtb`` optimizer will be used as driver.
 The level of the chosen DFT method should be roughly equivalent to the Screening step.
 Solvation effects will be included implicitly. Furthermore, thermal contributions will
-be included for the ranking if `evaluate_rrho` is set to `True`. One can also utilize
-a macrocycle optimizer in `CENSO` (set `macrocycle` to `True`). This will run a number
-(`optcycles`) of geometry optimization steps (microcycles) for every macrocycle and 
-update the ensemble every macrocycle. The single-point Hessian evaluation using `xtb` 
+be included for the ranking if ``evaluate_rrho`` is set to ``True``. One can also utilize
+a macrocycle optimizer in ``CENSO`` (set ``macrocycle`` to ``True``). This will run a number
+(``optcycles``) of geometry optimization steps (microcycles) for every macrocycle and 
+update the ensemble every macrocycle. The single-point Hessian evaluation using ``xtb`` 
 will take place once after at least 6 microcycles and once after finishing the last
-macrocycle. The energy threshold for this step is based on a minimum threshold (`threshold`) 
+macrocycle. The energy threshold for this step is based on a minimum threshold (``threshold``) 
 and
 This threshold will be applied once the gradient norm of a conformer is below a
-specified threshold (`gradthr`) for all the microcycles in the current macrocycle.
+specified threshold (``gradthr``) for all the microcycles in the current macrocycle.
 
-It is also possible to use `xtb`-constraints for this step. The constraints should be 
-provided as a file called `constraints.xtb` in the working directory. Also, the 
-`constrain` option for the optimization part should be set to `True`.
+It is also possible to use ``xtb``-constraints for this step. The constraints should be 
+provided as a file called ``constraints.xtb`` in the working directory. Also, the 
+``constrain`` option for the optimization part should be set to ``True``.
 
 Refinement
 ==========
@@ -160,14 +162,15 @@ For the calculation of the NMR spectrum of an ensemble, single-points to compute
 nuclear shieldings and couplings will be executed. The computational parameters for shieldings
 and couplings can be set to different values. In this case two separate single-points 
 will be run. If the settings are identical, only one single-point will be run for both.
-After that, `CENSO` will generate files for the simulation of the NMR spectrum using `ANMR`.
-Please note that the user needs to setup the `.anmrrc` file.
+After that, ``CENSO`` will generate files for the simulation of the NMR spectrum using ``ANMR``.
+Please note that the user needs to setup the ``.anmrrc`` file.
 
-Since the directory structure changed from `CENSO 1.3` to `CENSO 2.0`, one can use the following
-`bash` script to create a folder called `anmr` in the current working directory, such that
-`ANMR` can be run in this folder after configuring the `.anmrrc`:
+Since the directory structure changed from ``CENSO 1.3`` to ``CENSO 2.0``, one can use the following
+``bash`` script to create a folder called ``anmr`` in the current working directory, such that
+``ANMR`` can be run in this folder after configuring the ``.anmrrc``:
 
 .. code:: bash
+
     # Define the source and destination directories
     src_dir="nmr"
     dest_dir="anmr"

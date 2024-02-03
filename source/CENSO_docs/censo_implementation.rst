@@ -30,9 +30,7 @@ available in the processor types (e.g. ``["sp"]``). For using external programs,
 setting up a ``prepinfo`` dictionary should also be implemented for the new part. It is a 
 dictionary with ``(key, value) = (jt, settings)``, where ``jt`` would be a jobtype key (such
 as ``"sp"``) and ``settings`` another dictionary, containing values that need to be looked
-up by the processor when running a job. Specific jobtypes require specific settings to
-be implemented **at all times**, for this refer to the ``_req_settings`` attribute of the
-``OrcaProc`` class (**WIP**).
+up by the processor when running a job. 
 
 To run jobs of type ``jobtype``, the ``execute`` function from the ``parallel`` module is 
 required. It will return the results for the external program calls in form of a 
@@ -141,9 +139,36 @@ Example:
             self.ensemble.dump_ensemble(self._name)
 
 
-
 Implementing a new jobtype
 ==========================
 
+In order to implement a new jobtype for a specific processor, a new instance method 
+in the respective processor should be created. This method should be marked as *protected*
+(using ``_``). The method should then be added to the ``_jobtypes`` dictionary of the 
+processor class with an appropriate name as key. 
+
+For implementing the functionality, you should first think about if the external program 
+call can be handled by the ``_sp``/``_xtb_sp`` method of the processor. The output files
+are created in the directory provided by the ``jobdir`` argument. You might need to 
+implement the setup of an input file for this job though. In the case of ORCA, this means
+configuring the ``__prep`` method of the ``OrcaProc`` class.
+
 Implementing a new program
 ==========================
+
+To implement a new external program to be used with ``CENSO``, it is necessary to create 
+a new processor class, inheriting from the ``QmProc`` parent class. This is because ``CENSO``
+relies on calling the ``run`` method of the ``QmProc`` class in order to execute jobs.
+The ``run`` method in turn will call the respective methods defined in the ``_jobtypes``
+dictionary and automatically collects results as well as metadata.
+
+Each method to be implemented as a jobtype should return two dictionaries: a ``results``
+dictionary and a ``meta`` dictionary, containing metadata about the jobtype. The external program 
+calls should be handled using the ``_make_call`` method of the ``QmProc`` class. It automatically 
+creates a subprocess to execute the external program. It needs to be provided with a call 
+in form of a list (of strings representing the command line arguments), a directory to execute
+in and a file to redirect ``stdout``.
+
+Finally, the new processor class needs to be added to the ``__proctypes`` dictionary of the 
+``ProcessorFactory`` class. Also, the key used there should be added to the ``PROGS`` parameter
+in ``params.py``.
