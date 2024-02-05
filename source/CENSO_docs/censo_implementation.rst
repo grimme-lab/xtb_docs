@@ -20,6 +20,21 @@ options should be defined in the ``_options`` class attribute. The ``_settings``
 should be defined as an empty dictionary, otherwise the attributes of the parent class
 will be inherited.
 
+.. code:: python
+   :caption: The ``_options`` dictionary of the ``Prescreening`` class as an example.
+
+   _options = {
+       "threshold": {"default": 4.0, "range": [1.0, 10.0]},
+       "func": {"default": "pbe-d4", "options": DfaHelper.find_func("prescreening")},
+       "basis": {"default": "def2-SV(P)", "options": BASIS_SETS},
+       "prog": {"default": "orca", "options": PROGS},
+       "gfnv": {"default": "gfn2", "options": GFNOPTIONS},
+       "grid": {"default": "low", "options": GRIDOPTIONS},
+       "run": {"default": True},
+       "gcp": {"default": True},
+       "template": {"default": False},
+   }
+
 The next step would be implementing the ``run`` method of the new class. By default, 
 it should use the ``timeit`` and ``CensoPart._create_dir`` decorators. Within the function,
 the internal logic of what you would like to achieve should be implemented. Typically,
@@ -32,111 +47,142 @@ dictionary with ``(key, value) = (jt, settings)``, where ``jt`` would be a jobty
 as ``"sp"``) and ``settings`` another dictionary, containing values that need to be looked
 up by the processor when running a job. 
 
+
+.. code:: python
+    :caption: For convenience, there is a parent class specifically for ensemble optimization steps called ``EnsembleOptimizer``, which already includes some boilerplate code.
+
+    @timeit
+    @CensoPart._create_dir
+    def run(self, cut: bool = True) -> None:
+        """
+        Boilerplate run logic for any ensemble optimization step. The 'optimize' method should be implemented for every
+        class respectively.
+        """
+        # print instructions
+        self.print_info()
+
+        # Print information about ensemble before optimization
+        self.print_update()
+
+        # Perform the actual optimization logic
+        self.optimize(cut=cut)
+
+        # Print comparison with previous parts
+        self.print_comparison()
+
+        # Print information about ensemble after optimization
+        self.print_update()
+
+        # dump ensemble
+        self.ensemble.dump_ensemble(self._name)
+
+Note the ``cut`` keyword argument, which indicates wether to apply thresholds to the ensemble or not.
+
 To run jobs of type ``jobtype``, the ``execute`` function from the ``parallel`` module is 
 required. It will return the results for the external program calls in form of a 
 dictionary with ``(key, value) = (id(conf), res)``, where ``id(conf)`` is the ``id`` of a 
 conformer object contained in the ensemble and ``res`` is a dictionary containing the 
-results of the external programs for the specified jobtype. As a second return value,
-it will return a list of the ``id`` of failed conformers, i.e. conformers, for which at least one job 
-failed to execute. These should most likely removed from the ensemble using the 
-``ensemble.remove_conformers`` method. In the native parts, the results will be inserted
-into the ``results`` dictonary of the ``MoleculeData`` objects (the conformers).
+results of the external programs for the specified jobtype.
 
-Using these steps and extending using new functionality, more complex behaviour can be 
-achieved. Typical steps would also include resorting the conformers 
-(``ensemble.conformers.sort``) as well as updating the conformer list using a threshold
-(energy threshold in kcal/mol or Boltzmann population threshold between 0.0 and 1.0)
-(``ensemble.update_conformers``). Lastly, you might want to write your results, e.g. by 
-implementing a custom print method or using the inherited ``self.write_json`` and 
-``ensemble.dump_ensemble`` methods.
+As a second return value, it will return a list of the ``id`` of failed conformers, 
+i.e. conformers, for which at least one job failed to execute. These should most likely 
+be removed from the ensemble using the ``ensemble.remove_conformers`` method. In the 
+native parts, the results will be inserted into the ``results`` dictonary of the 
+``MoleculeData`` objects (the conformers).
 
-Example:
+Using these steps, more complex behaviour can be achieved. Typical steps would also include 
+resorting the conformers (``ensemble.conformers.sort``) as well as updating the conformer
+list using a threshold (energy threshold in kcal/mol or Boltzmann population threshold 
+between 0.0 and 1.0) (``ensemble.update_conformers``). Lastly, you might want to write 
+your results, e.g. by implementing a custom method and/or using the inherited 
+``self.write_json`` and ``ensemble.dump_ensemble`` methods.
 
 .. code:: python
+   :caption: Example for a new class for ensemble optimization.
 
-    from censo.part import CensoPart
-    from censo.parallel import execute
-    from censo.ensembledata import EnsembleData
+   from censo.part import CensoPart
+   from censo.parallel import execute
+   from censo.ensembledata import EnsembleData
 
-    class NewPart(CensoPart):
+   class NewPart(CensoPart):
 
-        _options = {
-            ...,
-            "prog": {"default": "orca", "options": ["orca", "tm"]},
-            ...,
-            "threshold": {"default": 0.95, "range": [0.5, 0.99]}
-        }
+       _options = {
+           ...,
+           "prog": {"default": "orca", "options": ["orca", "tm"]},
+           ...,
+           "threshold": {"default": 0.95, "range": [0.5, 0.99]}
+       }
 
-        _settings = {}
+       _settings = {}
 
-        def __init__(self, ensemble: EnsembleData): 
-            super().__init__(ensemble)
+       def __init__(self, ensemble: EnsembleData): 
+           super().__init__(ensemble)
 
-        @timeit
-        @CensoPart._create_dir
-        def run(self) -> None:
-            """
-            docstring
-            """
+       @timeit
+       @CensoPart._create_dir
+       def run(self) -> None:
+           """
+           docstring
+           """
 
-            # print settings
-            self.print_info()
+           # print settings
+           self.print_info()
 
-            # define jobtype
-            jobtype = ["sp"]
+           # define jobtype
+           jobtype = ["sp"]
 
-            # Setup the prepinfo dict 
-            # NOTE: This method needs to be implemented to be used
-            prepinfo = self.setup_prepinfo()
+           # Setup the prepinfo dict 
+           # NOTE: This method needs to be implemented to be used
+           prepinfo = self.setup_prepinfo()
 
-            results, failed = execute(
-                self.ensemble.conformers,
-                self.dir,
-                self.get_settings()["prog"]
-                prepinfo,
-                jobtype,
-                ...
-                # some other keyword arguments are possible here
-            )
+           results, failed = execute(
+               self.ensemble.conformers,
+               self.dir,
+               self.get_settings()["prog"]
+               prepinfo,
+               jobtype,
+               ...
+               # some other keyword arguments are possible here
+           )
 
-            # Remove failed conformers
-            for confid in failed:
-                self.ensemble.remove_conformers(failed)
+           # Remove failed conformers
+           for confid in failed:
+               self.ensemble.remove_conformers(failed)
 
-            # update results for each conformer
-            for conf in self.ensemble.conformers:
-                # store results of single jobs for each conformer
-                conf.results.setdefault(self._name, {}).update(results[id(conf)])
+           # update results for each conformer
+           for conf in self.ensemble.conformers:
+               # store results of single jobs for each conformer
+               conf.results.setdefault(self._name, {}).update(results[id(conf)])
 
-            # calculate boltzmann weights from values calculated here
-            self.ensemble.calc_boltzmannweights(
-                self.get_general_settings().get("temperature", 298.15), self._name
-            )
+           # calculate boltzmann weights from values calculated here
+           self.ensemble.calc_boltzmannweights(
+               self.get_general_settings().get("temperature", 298.15), self._name
+           )
 
-            # sort conformers list with specific key
-            self.ensemble.conformers.sort(
-                key=lambda conf: conf.results[self._name]["sp"]["energy"],
-            )
+           # sort conformers list with specific key
+           self.ensemble.conformers.sort(
+               key=lambda conf: conf.results[self._name]["sp"]["energy"],
+           )
 
-            # write results
-            # NOTE: this method needs to be implemented to be used
-            self.write_results()
+           # write results
+           # NOTE: this method needs to be implemented to be used
+           self.write_results()
 
-            # update conformers with threshold
-            # in this example the threshold is supposed to be a Boltzmann population
-            # threshold
-            threshold = self.get_settings()["threshold"]
+           # update conformers with threshold
+           # in this example the threshold is supposed to be a Boltzmann population
+           # threshold
+           threshold = self.get_settings()["threshold"]
 
-            # update the conformer list in ensemble (remove confs if below threshold)
-            for confname in self.ensemble.update_conformers(
-                lambda conf: conf.results[self._name]["bmw"], 
-                threshold,
-                boltzmann=True
-            ):
-                print(f"No longer considering {confname}.")
+           # update the conformer list in ensemble (remove confs if below threshold)
+           for confname in self.ensemble.update_conformers(
+               lambda conf: conf.results[self._name]["bmw"], 
+               threshold,
+               boltzmann=True
+           ):
+               print(f"No longer considering {confname}.")
 
-            # dump ensemble
-            self.ensemble.dump_ensemble(self._name)
+           # dump ensemble
+           self.ensemble.dump_ensemble(self._name)
 
 
 Implementing a new jobtype

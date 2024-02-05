@@ -98,7 +98,7 @@ Ensemble Optimization
 Prescreening
 =============
 
-The first step after generating an ensemble of the most important conformers, e.g. using CREST, 
+The first step after generating an ensemble of the most important conformers, e.g. using ``CREST``, 
 the number of which can range in the hundreds, is to improve on the preliminary
 ranking using a lightweight DFT method. This should usually already yield significant
 improvements compared to the preliminary ranking, usually obtained using SQM/FF methods.
