@@ -110,7 +110,7 @@ Prescreening
       - default
       - allowed options
     * - threshold
-      - the threshold (kcal/mol) for δG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 4.0
       - [1.0, 10.0]
     * - func
@@ -159,7 +159,7 @@ Screening
       - default
       - allowed options
     * - threshold
-      - the threshold (kcal/mol) for δG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 3.5
       - [0.75, 7.5]
     * - func
@@ -224,7 +224,7 @@ Optimization
       - 200 
       - [10, 1000]
     * - threshold
-      - the **minimum** threshold (kcal/mol) for δG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - the **minimum** threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 1.5
       - [0.5, 5.0]
     * - gradthr
