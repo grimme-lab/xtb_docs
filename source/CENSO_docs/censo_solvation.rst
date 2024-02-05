@@ -1,11 +1,11 @@
 .. _censo_solvation:
 
+=========
 Solvation
----------
+=========
 
 CENSO uses several QM-packages and not all solvents are available for all solvation
-models throughout the QM-codes. For this reason a user editable file is created 
-in the folder *~/.censo_assets*:
+models throughout the QM-codes.
 
 .. tab-set:: 
 
@@ -16,7 +16,7 @@ in the folder *~/.censo_assets*:
 
     .. tab-item:: censo_solvents.json
         
-        .. code:: sh
+        .. code:: json
 
             {
                 "acetone":{
@@ -248,59 +248,10 @@ available in DCOSMO-RS choose toluene in DCOSMO-RS.
 	:alt: Available solvents in CENSO.
 
 
-.. code:: sh
+.. code:: json
 
-    {   # EXAMPLE
-        "solvent-name-in-CENSO":{
-            "solvent-model1": ["solvent-name in solvent model","solvent-name USED in solvent model"],
-            "solvent-model2": ["null = solvent not found"," replacement solvent USED"],
-            "xtb represents ALPB or GBSA" : ["solvent", "solvent],
-            "DC = Dielectric Constant: Used for COSMO and DCOSMO-RS
-        },
-        # END EXAMPLE
-        "acetonitrile":{
-            "cosmors": ["acetonitrile_c0", "acetonitrile_c0"],
-            "dcosmors": ["acetonitrile", "acetonitrile"],
-            "xtb": ["acetonitrile", "acetonitrile"],
-            "cpcm": ["acetonitrile", "acetonitrile"],
-            "smd": ["ACETONITRILE", "ACETONITRILE"],
-            "DC": 36.6
-        },
-        "ch2cl2":{
-            "cosmors": ["ch2cl2_c0", "ch2cl2_c0"],
-            "dcosmors": [null, "chcl3"],
-            "xtb": ["ch2cl2", "ch2cl2"],
-            "cpcm": ["CH2Cl2", "CH2Cl2"],
-            "smd": ["DICHLOROMETHANE", "DICHLOROMETHANE"],
-            "DC": 9.1
-        },
+    "solvent-name-in-CENSO":{
+        "solvent-model1": ["solvent-name in solvent model", "solvent-name USED in solvent model"],
+        "solvent-model2": ["null = solvent not available", "replacement solvent USED"],
+        "DC": "dielectric constant for use in COSMO"
     }
-
-
-.. warning:: 
-
-    The solvent file is directly used in `censo` and typos will cause the 
-    calculations to crash! 
-
-
-Adding a new solvent is as easy as adding a new dictionary entry to the file.
-
-In CENSO several solvent models can be applied. The intention is either a good 
-description of the free energy (keyword: `smgsolv`) or an implicit effect on a 
-property or geometry (keyword: `sm`).
-
-(`sm`) implicit solvation for properties:
-
-* COSMO                 [TM]
-* CPCM                  [ORCA]
-* DCOSMO-RS             [TM]
-* ALPB                  [xtb]
-* GBSA                  [xtb]
-* SMD                   [ORCA]
-
-(`smgsolv`) implicit solvation for free energies:
-
-* COSMO-RS      [COSMO-RS]
-* SMD_Gsolv      [ORCA]
-* ALPB_Gsolv     [xtb]
-* GBSA_Gsolv     [xtb]

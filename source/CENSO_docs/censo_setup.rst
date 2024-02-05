@@ -1,5 +1,6 @@
 .. _CENSO_setup:
 
+================
 Setting up CENSO
 ================
 
@@ -25,131 +26,11 @@ adjust settings to your needs.
 
 .. hint:: 
 
-    You can use a different .censorc file than the global one for a ``censo`` calculation by the following command line argument:
+    You can use a different .censo2rc file than the global one for a ``censo`` calculation by the following command line argument:
 
     .. code:: sh
 
-        $ censo -inprc /path/to/.censorc
-
-
-.. tab-set::
-
-    .. tab-item:: censorc
-         
-        .. code:: sh
-
-            $ cat ~/.censorc
-            # shown in next tab
-
-    .. tab-item:: Showingfile.censorc
-    
-        .. code:: sh
-
-            $CENSO global configuration file: .censorc
-            $VERSION:1.0.1 
-            ORCA: /path/excluding/binary/
-            ORCA version: 4.2.1
-            GFN-xTB: /path/including/binary/xtb-binary
-            CREST: /path/including/binary/crest-binary
-            mpshift: /path/including/binary/mpshift-binary
-            escf: /path/including/binary/escf-binary
-            #COSMO-RS
-            ctd = BP_TZVP_C30_1601.ctd cdir = "/software/cluster/COSMOthermX16/COSMOtherm/CTDATA-FILES" ldir = "/software/cluster/COSMOthermX16/COSMOtherm/CTDATA-FILES"
-            $ENDPROGRAMS
-            $CRE SORTING SETTINGS:
-            $GENERAL SETTINGS:
-            nconf: all                       # ['all', 'number e.g. 10 up to all conformers'] 
-            charge: 0                        # ['number e.g. 0'] 
-            unpaired: 0                      # ['number e.g. 0'] 
-            solvent: gas                     # ['gas', 'acetone', 'acetonitrile', 'aniline', 'benzaldehyde', 'benzene', 'ccl4', '...'] 
-            prog_rrho: xtb                   # ['xtb', 'prog'] 
-            temperature: 298.15              # ['temperature in K e.g. 298.15'] 
-            trange: [273.15, 378.15, 5]      # ['temperature range [start, end, step]'] 
-            multitemp: on                    # ['on', 'off'] 
-            evaluate_rrho: on                # ['on', 'off'] 
-            consider_sym: off                # ['on', 'off'] 
-            bhess: on                        # ['on', 'off'] 
-            imagthr: automatic               # ['automatic or e.g., -100    # in cm-1'] 
-            sthr: automatic                  # ['automatic or e.g., 50     # in cm-1'] 
-            scale: automatic                 # ['automatic or e.g., 1.0 '] 
-            rmsdbias: off                    # ['on', 'off'] 
-            sm_rrho: alpb                    # ['alpb', 'gbsa'] 
-            check: on                        # ['on', 'off'] 
-            prog: tm                         # ['tm', 'orca'] 
-            func: r2scan-3c                  # ['b97-3c', 'b97-d', 'b97-d3', 'pbe', 'pbeh-3c', 'r2scan-3c', 'tpss'] 
-            basis: automatic                 # ['automatic', 'def2-TZVP', 'def2-mSVP', 'def2-mTZVP', 'def2-mTZVP', '...'] 
-            maxthreads: 1                    # ['number of threads e.g. 2'] 
-            omp: 1                           # ['number cores per thread e.g. 4'] 
-            cosmorsparam: automatic          # ['automatic', '12-fine', '12-normal', '13-fine', '13-normal', '14-fine', '...'] 
-            $PART0 - CHEAP-PRESCREENING - SETTINGS:
-            part0: on                        # ['on', 'off'] 
-            func0: b97-d                     # ['b97-3c', 'b97-d', 'b97-d3', 'pbe', 'pbeh-3c', 'r2scan-3c', 'tpss'] 
-            basis0: def2-SV(P)               # ['automatic', 'def2-TZVP', 'def2-mSVP', 'def2-mTZVP', 'def2-mTZVP', '...'] 
-            part0_gfnv: gfn2                 # ['gfn1', 'gfn2', 'gfnff'] 
-            part0_threshold: 4.0             # ['number e.g. 4.0'] 
-            $PART1 - PRESCREENING - SETTINGS:
-            # func and basis is set under GENERAL SETTINGS
-            part1: on                        # ['on', 'off'] 
-            smgsolv1: cosmors                # ['alpb_gsolv', 'cosmo', 'cosmors', 'cosmors-fine', 'cpcm', 'dcosmors', '...'] 
-            part1_gfnv: gfn2                 # ['gfn1', 'gfn2', 'gfnff'] 
-            part1_threshold: 3.5             # ['number e.g. 5.0'] 
-            $PART2 - OPTIMIZATION - SETTINGS:
-            # func and basis is set under GENERAL SETTINGS
-            part2: on                        # ['on', 'off'] 
-            opt_limit: 2.5                   # ['number e.g. 4.0'] 
-            sm2: default                     # ['cosmo', 'cpcm', 'dcosmors', 'default', 'smd'] 
-            smgsolv2: cosmors                # ['alpb_gsolv', 'cosmo', 'cosmors', 'cosmors-fine', 'cpcm', 'dcosmors', '...'] 
-            part2_gfnv: gfn2                 # ['gfn1', 'gfn2', 'gfnff'] 
-            ancopt: on                       # ['on'] 
-            hlow: 0.01                       # ['lowest force constant in ANC generation, e.g. 0.01'] 
-            opt_spearman: on                 # ['on', 'off'] 
-            part2_threshold: 99              # ['Boltzmann sum threshold in %. e.g. 95 (between 1 and 100)'] 
-            optlevel2: automatic             # ['crude', 'sloppy', 'loose', 'lax', 'normal', 'tight', 'vtight', 'extreme', '...'] 
-            optcycles: 8                     # ['number e.g. 5 or 10'] 
-            spearmanthr: -4.0                # ['value between -1 and 1, if outside set automatically'] 
-            radsize: 10                      # ['number e.g. 8 or 10'] 
-            crestcheck: off                  # ['on', 'off'] 
-            $PART3 - REFINEMENT - SETTINGS:
-            part3: off                       # ['on', 'off'] 
-            prog3: prog                      # ['tm', 'orca', 'prog'] 
-            func3: pw6b95                    # ['b97-d3', 'dsd-blyp', 'pbe0', 'pw6b95', 'r2scan-3c', 'wb97x'] 
-            basis3: def2-TZVPD               # ['DZ', 'QZV', 'QZVP', 'QZVPP', 'SV(P)', 'SVP', 'TZVP', 'TZVPP', 'aug-cc-pV5Z', '...'] 
-            smgsolv3: cosmors                # ['alpb_gsolv', 'cosmo', 'cosmors', 'cosmors-fine', 'cpcm', 'dcosmors', '...'] 
-            part3_gfnv: gfn2                 # ['gfn1', 'gfn2', 'gfnff'] 
-            part3_threshold: 99              # ['Boltzmann sum threshold in %. e.g. 95 (between 1 and 100)'] 
-            $NMR PROPERTY SETTINGS:
-            $PART4 SETTINGS:
-            part4: off                       # ['on', 'off'] 
-            couplings: on                    # ['on', 'off'] 
-            progJ: prog                      # ['tm', 'orca', 'adf', 'prog'] 
-            funcJ: pbe0                      # ['pbe0', 'pbeh-3c', 'r2scan-3c', 'tpss'] 
-            basisJ: def2-TZVP                # ['DZ', 'QZV', 'QZVP', 'QZVPP', 'SV(P)', 'SVP', 'TZVP', 'TZVPP', 'aug-cc-pV5Z', '...'] 
-            sm4J: default                    # ['cosmo', 'cpcm', 'dcosmors', 'smd'] 
-            shieldings: on                   # ['on', 'off'] 
-            progS: prog                      # ['tm', 'orca', 'adf', 'prog'] 
-            funcS: pbe0                      # ['b97-3c', 'dsd-blyp', 'kt1', 'kt2', 'pbe0', 'pbeh-3c', 'r2scan-3c', 'tpss', '...'] 
-            basisS: def2-TZVP                # ['DZ', 'QZV', 'QZVP', 'QZVPP', 'SV(P)', 'SVP', 'TZVP', 'TZVPP', 'aug-cc-pV5Z', '...'] 
-            sm4S: default                    # ['cosmo', 'cpcm', 'dcosmors', 'smd'] 
-            reference_1H: TMS                # ['TMS'] 
-            reference_13C: TMS               # ['TMS'] 
-            reference_19F: CFCl3             # ['CFCl3'] 
-            reference_29Si: TMS              # ['TMS'] 
-            reference_31P: TMP               # ['TMP', 'PH3'] 
-            1H_active: on                    # ['on', 'off'] 
-            13C_active: on                   # ['on', 'off'] 
-            19F_active: off                  # ['on', 'off'] 
-            29Si_active: off                 # ['on', 'off'] 
-            31P_active: off                  # ['on', 'off'] 
-            resonance_frequency: 300.0       # ['MHz number of your experimental spectrometer setup'] 
-            $OPTICAL ROTATION PROPERTY SETTINGS:
-            $PART5 SETTINGS:
-            optical_rotation: off            # ['on', 'off'] 
-            funcOR: pbe                      # ['functional for opt_rot e.g. pbe'] 
-            funcOR_SCF: r2scan-3c            # ['functional for SCF in opt_rot e.g. r2scan-3c'] 
-            basisOR: def2-SVPD               # ['basis set for opt_rot e.g. def2-SVPD'] 
-            frequency_optical_rot: [589.0]   # ['list of freq in nm to evaluate opt rot at e.g. [589, 700]'] 
-            $END CENSORC
-
+        censo -inprc /path/to/censorc
 
 
 Upon the first usage of CENSO a folder *~/.censo_assets/* will be created. It 

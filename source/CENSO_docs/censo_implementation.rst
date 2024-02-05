@@ -1,10 +1,11 @@
 .. _censo_implementation:
 
+==============
 Implementation
---------------
+==============
 
 Implementing a new part
-=======================
+-----------------------
 
 To implement a new part, the ``CensoPart`` class should be used as parent. Depending on 
 specifics of the new part, the constructor of ``CensoPart`` needs to be extended. By
@@ -20,8 +21,8 @@ options should be defined in the ``_options`` class attribute. The ``_settings``
 should be defined as an empty dictionary, otherwise the attributes of the parent class
 will be inherited.
 
+.. The ``_options`` dictionary of the ``Prescreening`` class as an example.
 .. code:: python
-   :caption: The ``_options`` dictionary of the ``Prescreening`` class as an example.
 
    _options = {
        "threshold": {"default": 4.0, "range": [1.0, 10.0]},
@@ -48,8 +49,8 @@ as ``"sp"``) and ``settings`` another dictionary, containing values that need to
 up by the processor when running a job. 
 
 
+.. For convenience, there is a parent class specifically for ensemble optimization steps called ``EnsembleOptimizer``, which already includes some boilerplate code.
 .. code:: python
-    :caption: For convenience, there is a parent class specifically for ensemble optimization steps called ``EnsembleOptimizer``, which already includes some boilerplate code.
 
     @timeit
     @CensoPart._create_dir
@@ -97,8 +98,8 @@ between 0.0 and 1.0) (``ensemble.update_conformers``). Lastly, you might want to
 your results, e.g. by implementing a custom method and/or using the inherited 
 ``self.write_json`` and ``ensemble.dump_ensemble`` methods.
 
+.. Example for a new class for ensemble optimization.
 .. code:: python
-   :caption: Example for a new class for ensemble optimization.
 
    from censo.part import CensoPart
    from censo.parallel import execute
@@ -186,7 +187,7 @@ your results, e.g. by implementing a custom method and/or using the inherited
 
 
 Implementing a new jobtype
-==========================
+--------------------------
 
 In order to implement a new jobtype for a specific processor, a new instance method 
 in the respective processor should be created. This method should be marked as *protected*
@@ -200,7 +201,7 @@ implement the setup of an input file for this job though. In the case of ORCA, t
 configuring the ``__prep`` method of the ``OrcaProc`` class.
 
 Implementing a new program
-==========================
+--------------------------
 
 To implement a new external program to be used with ``CENSO``, it is necessary to create 
 a new processor class, inheriting from the ``QmProc`` parent class. This is because ``CENSO``
