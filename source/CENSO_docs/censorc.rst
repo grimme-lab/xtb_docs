@@ -51,7 +51,7 @@ General Settings
     * - solvent
       - CENSO will try to use this solvent with the set solvation models (for more details see documentation on solvation).
       - h2o
-      - 
+      - :ref:`censo_solv`
     * - sm_rrho
       - solvation model that should be used for all xtb-only calculations.
       - alpb
@@ -116,15 +116,15 @@ Prescreening
     * - func
       - the functional/dispersion correction combination used for this step.
       - pbe-d4
-      - 
+      - :ref:`censo_funcs`
     * - basis 
       - the basis set used for this step. This will be ignored if the chosen functional is a composite functional..
       - def2-SV(P)
-      -
+      - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - ORCA
-      - 
+      - orca
+      - orca
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -165,19 +165,19 @@ Screening
     * - func
       - the functional/dispersion correction combination used for this step.
       - r2scan-3c
-      - 
+      - :ref:`censo_funcs`
     * - basis 
       - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
-      -
+      - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - ORCA
-      - 
+      - orca
+      - orca
     * - sm 
       - solvation model used for this step.
       - smd
-      -
+      - smd, cpcm
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -238,19 +238,19 @@ Optimization
     * - func
       - the functional/dispersion correction combination used for this step.
       - r2scan-3c
-      - 
+      - :ref:`censo_funcs`
     * - basis 
       - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
-      -
+      - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step.
-      - ORCA
-      - 
+      - orca
+      - orca
     * - sm 
       - solvation model used for this step.
       - smd
-      -
+      - smd, cpcm
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -284,7 +284,7 @@ Optimization
       - False
       - True, False
     * - constrain
-      - wether to use constraints for the geometry optimization or not. The constraints should be provided as a file `constraints.xtb` in the working directory.
+      - wether to use ``xtb`` constraints for the geometry optimization or not. The constraints should be provided as a file `constraints.xtb` in the working directory.
       - False
       - True, False
 
@@ -307,19 +307,19 @@ Refinement
     * - func
       - the functional/dispersion correction combination used for this step.
       - wb97x-d3
-      - 
+      - :ref:`censo_funcs`
     * - basis 
       - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
-      -
+      - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - ORCA
-      - 
+      - orca
+      - orca
     * - sm 
       - solvation model used for this step.
       - smd
-      -
+      - smd, cpcm
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -368,15 +368,15 @@ NMR
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
-      - 
+      - orca
     * - func_j
       - the functional/dispersion correction combination used in calculating the couplings.
       - pbe0-d4
-      - 
+      - :ref:`censo_funcs`
     * - basis_j
       - basis set used in calculating the couplings. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
-      - 
+      - :ref:`censo_bs`
     * - sm_j
       - solvation model used in the calculation of the couplings.
       - smd
@@ -384,35 +384,15 @@ NMR
     * - func_s
       - the functional/dispersion correction combination used in calculating the shieldings.
       - pbe0-d4
-      - 
+      - :ref:`censo_funcs`
     * - basis_s
       - basis set used in calculating the shieldings. This will be ignored if the chosen functional is a composite functional.
       - def2-TZVP
-      - 
+      - :ref:`censo_bs`
     * - sm_s
       - solvation model used in the calculation of the shieldings.
       - smd
       - smd, cpcm
-    * - h_ref
-      - 
-      - TMS
-      - 
-    * - c_ref
-      - 
-      - TMS
-      - 
-    * - f_ref
-      - 
-      - CFCl3
-      - 
-    * - si_ref
-      - 
-      - TMS
-      - 
-    * - p_ref
-      - 
-      - TMP
-      - 
     * - grid
       - grid preset and SCF threshold that should be used for this step.
       - high+
@@ -457,25 +437,3 @@ NMR
       - wether to calculate NMR parameters for 31P.
       - False
       - True, False
-
-Optical Rotation Property
--------------------------
-
-.. list-table:: part5
-    :widths: 30 100
-    :header-rows: 1
-
-    * - keyword
-      - description
-      - default
-      - allowed options
-    * - optical_rotation
-      - Option to turn the "OR property part" *on* or *off*.
-    * - funcOR
-      - Functional employed to calculate the optical rotatory (OR) dispersion.
-    * - funcOR_SCF
-      - Functional to generate converged MOs.
-    * - basisOR
-      - Basis set employed for the OR calculation.
-    * - frequency_optical_rot
-      - List of frequencies in nm to evaluate OR at e.g. [589.0].

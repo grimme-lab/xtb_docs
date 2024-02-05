@@ -162,12 +162,12 @@ For the calculation of the NMR spectrum of an ensemble, single-points to compute
 nuclear shieldings and couplings will be executed. The computational parameters for shieldings
 and couplings can be set to different values. In this case two separate single-points 
 will be run. If the settings are identical, only one single-point will be run for both.
-After that, ``CENSO`` will generate files for the simulation of the NMR spectrum using ``ANMR``.
+After that, CENSO will generate files for the simulation of the NMR spectrum using ANMR.
 Please note that the user needs to setup the ``.anmrrc`` file.
 
 Since the directory structure changed from ``CENSO 1.3`` to ``CENSO 2.0``, one can use the following
 ``bash`` script to create a folder called ``anmr`` in the current working directory, such that
-``ANMR`` can be run in this folder after configuring the ``.anmrrc``:
+ANMR can be run in this folder after configuring the ``.anmrrc``:
 
 .. code:: bash
 
@@ -203,9 +203,9 @@ Since the directory structure changed from ``CENSO 1.3`` to ``CENSO 2.0``, one c
 Optical Rotation
 ================
 
-TODO
+**WIP**
 
 UV/Vis Spectra
 ==============
 
-TODO
+**WIP**

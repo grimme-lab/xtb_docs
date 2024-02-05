@@ -16,6 +16,9 @@ the ``execute`` function of the ``censo.parallel`` module. It consists of seven 
 6. collection of results and metadata,
 7. optionally: restarting failed jobs.
 
+.. hint::
+   CENSO cannot be parallelized over multiple nodes.
+
 If using the ``balance`` option from the general settings section, CENSO will assign the 
 number of OpenMP threads per job while trying to maximize core utilization at all times,
 assuming roughly equal computation times for each job. Since parallelization efficiency
