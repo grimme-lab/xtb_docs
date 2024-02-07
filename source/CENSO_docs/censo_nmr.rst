@@ -25,20 +25,29 @@ ANMR requires the files:
 
 * ``coord``, turbomole data group ???
 * ``anmr_nucinfo``, written by CREST using the ``-nmr`` flag
+
   * information on which nuclei can interchange in your molecule (e.g. the hydrogen 
     atoms in a methlygroup)
   * = information on chemical and magnetical equivalent atoms
+
 * ``anmr_rotamer``, written by CREST using the ``-nmr`` flag
+
   * information on the rotamers detected by ``crest``
+
 * ``anmr_enso``, written by CENSO
+
   * information on the contributing conformers, the Boltzmann weight and all 
     contributions to free energy
+
 * ``.anmrrc``, needs to be configured by the user
+
   * ``anmr`` searches for the ``.anmrrc`` file first in the folder of execution and 
     if not found in the home directory of the user
   * The file contains the reference-shieldings of e.g TMS to convert the calculated 
     shielding to shifts
+
 * the folders with the property calculations of the conformers
+
   * e.g. ``CONF1/NMR``
 
 Example ``.anmrrc`` file:
@@ -57,10 +66,10 @@ The first line in .anmrrc informs ANMR to ignore all protons bound to nitrogen
 (N=7) and oxygen (O=8). If you want to calculate protons bound to oxygen or nitrogen,
 simply remove the corresponding number, but leave the rest of the line intact!
 The next line starting with ``ENSO`` informs ANMR that the property calculation 
-was performed by *TM* = TURBOMOLE (or *ORCA* = ORCA). The *mf=* 300 informs ANMR 
-that the magnetic frequency of the NMR spectrometer is set to 300 MHz. The *lw* 
+was performed by ``TM`` = TURBOMOLE (or ``ORCA`` = ORCA). The ``mf= 300`` informs ANMR 
+that the magnetic frequency of the NMR spectrometer is set to 300 MHz. The ``lw`` 
 (linewidth for plotting) is 1.0 and J (couplings) and S (shieldings) are to be evaluated. 
-If *S=* off then ANMR will terminate after calculating and averaging the shifts of the 
+If ``S=`` off then ANMR will terminate after calculating and averaging the shifts of the 
 molecule under consideration. The next line explains how the reference shieldings are 
 calculated: in this case the reference molecule is tetramethylsilane in chloroform and the 
 shielding is calculated with PBE0/def2-TZVP + COSMO on PBEh-3c + DCOSMO-RS geometries. 
