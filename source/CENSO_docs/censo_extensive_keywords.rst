@@ -33,7 +33,14 @@ for the QM program you want to utilize.
 Solvents
 --------
 
-.. list-table:: solvents
-    :widths: 30 100 30 30
+**WIP** extensive list of solvents available coming soon. For now, just use the name of the solvent in 
+the solvation model you want to use.
+
+.. list-table:: Solvents Availability
+    :widths: 30 30 30 30
     :header-rows: 1
 
+* - Name 
+  - CPCM
+  - SMD
+  - GBSA/ALPB

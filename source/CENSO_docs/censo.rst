@@ -176,6 +176,8 @@ will be run. If the settings are identical, only one single-point will be run fo
 After that, CENSO will generate files for the simulation of the NMR spectrum using ANMR.
 Please note that the user needs to setup the ``.anmrrc`` file.
 
+For more detailed instructions see :ref:`nmr`.
+
 Optical Rotation
 ================
 
