@@ -8,15 +8,23 @@ Censorc keyword definitions
 
 The settings should be given in the form of an rcfile (either located in ``$HOME`` and named ``.censo2rc``)
 or passed to CENSO via the ``-inprc`` argument, or read using the ``configure`` function when working from 
-a custom script). If a setting is missing from the rcfile, CENSO will use the default value for that setting.
+a custom script. If a setting is missing from the rcfile, CENSO will use the default value for that setting.
 The settings will be type checked when the rcfile is parsed, so make sure that the appropiate data type 
-(e.g. int, float, str) can be parsed from the value you defined.
+(e.g. int, float, str) can be parsed from the value you've defined.
+
+.. hint::
+
+    In order to write a new rcfile for configuration you can run ``censo -newconfig`` or use the ``write_rcfile``
+    function from the ``censo.configuration`` module.
+
 
 General Settings
 ----------------
 
+General settings are settings that are used throughout all parts of CENSO. This includes but is not limited to 
+the maximum number of cores CENSO should use, single-point Hessian settings, solvent choice, and temperature.
 
-.. list-table:: general
+.. list-table:: General Settings
     :widths: 30 100 30 30
     :header-rows: 1
     
@@ -101,7 +109,7 @@ General Settings
 Prescreening
 ------------
 
-.. list-table:: prescreening
+.. list-table:: Prescreening Settings
     :widths: 30 100 30 30
     :header-rows: 1
 
@@ -150,7 +158,7 @@ Prescreening
 Screening
 ---------
 
-.. list-table:: screening
+.. list-table:: Screening Settings
     :widths: 30 100 30 30
     :header-rows: 1
 
@@ -207,7 +215,7 @@ Screening
 Optimization
 ------------
 
-.. list-table:: optimization
+.. list-table:: Optimization Settings
     :widths: 30 100 30 30
     :header-rows: 1
 
@@ -292,7 +300,7 @@ Optimization
 Refinement
 ---------
 
-.. list-table:: refinement
+.. list-table:: Refinement Settings
     :widths: 30 100 30 30
     :header-rows: 1
 
@@ -349,7 +357,7 @@ Refinement
 NMR
 ---
 
-.. list-table:: nmr
+.. list-table:: NMR Settings
     :widths: 30 100 30 30
     :header-rows: 1
 

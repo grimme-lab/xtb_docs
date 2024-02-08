@@ -7,23 +7,30 @@ Calculation of NMR Spectra
 .. contents::
 
 
-For the calculation of NMR spectra with CENSO, the ANMR program is needed.
+For the calculation of NMR spectra with CENSO, the ANMR program can be used.
 The spectra can be plotted with the python script ``nmrplot.py``. 
 Both programs can be obtained from the latest `release page of ENSO <https://github.com/grimme-lab/enso/releases/tag/v.2.0.2>`_.
 
 
 .. important::
 
-   To calculate NMR Spectra using the CENSO ensemble and the ANMR program, it is necessary to create your
-   initial CREST ensemble using the ``-nmr`` flag.
+   To calculate the weighted NMR parameters with CENSO, it is necessary to create your
+   initial CREST ensemble using the ``-nmr`` flag. This will generate the file ``anmr_nucinfo`` 
+   needed to recognize chemical equivalencies.
 
 
 ANMR
 ----
 
+.. important::
+
+   If you encounter a segmentation fault on startup:
+   ANMR still relies on autmatically created arrays on the stack. For this reason you have to run ``ulimit -s unlimited`` to prevent stackoverflows.
+
+
 ANMR requires the files:
 
-* ``coord``, turbomole data group ???
+* ``coord``, file containing the molecule geometry in the TURBOMOLE format (e.g. the one used for starting the CREST run)
 * ``anmr_nucinfo``, written by CREST using the ``-nmr`` flag
 
   * information on which nuclei can interchange in your molecule (e.g. the hydrogen 
@@ -50,6 +57,40 @@ ANMR requires the files:
 
   * e.g. ``CONF1/NMR``
 
+Since the directory structure changed from CENSO 1.3 to CENSO 2.0, one can use the following
+``bash`` script to create a folder called ``anmr`` in the current working directory, such that
+ANMR can be run in this folder after configuring the ``.anmrrc``:
+
+.. code:: bash
+
+    # Define the source and destination directories
+    src_dir="nmr"
+    dest_dir="anmr"
+
+    # Create the destination directory in the current working directory
+    mkdir -p "$dest_dir"
+
+    # Copy anmr_enso, anmr_nucinfo, anmr_rotamers to the destination
+    cp "anmr_"* "$dest_dir"
+
+    # Loop through the CONF# directories in the source directory
+    for conf_dir in "$src_dir"/CONF*; do
+        # Check if the iteration item is a directory
+        if [ -d "$conf_dir" ]; then
+            # Extract the CONF# directory name
+            conf_name=$(basename "$conf_dir")
+            
+            # Define the path for the new NMR directory inside the corresponding CONF# directory in the destination
+            new_nmr_dir="$dest_dir/$conf_name/NMR"
+            
+            # Create the NMR directory, including parent directories as needed
+            mkdir -p "$new_nmr_dir"
+            
+            # Copy the nmrprop.dat file to the new NMR directory
+            cp "$conf_dir/nmrprop.dat" "$new_nmr_dir"
+        fi
+    done
+
 Example ``.anmrrc`` file:
 
 .. code::
@@ -69,7 +110,7 @@ The next line starting with ``ENSO`` informs ANMR that the property calculation
 was performed by ``TM`` = TURBOMOLE (or ``ORCA`` = ORCA). The ``mf= 300`` informs ANMR 
 that the magnetic frequency of the NMR spectrometer is set to 300 MHz. The ``lw`` 
 (linewidth for plotting) is 1.0 and J (couplings) and S (shieldings) are to be evaluated. 
-If ``S=`` off then ANMR will terminate after calculating and averaging the shifts of the 
+If ``S= off`` then ANMR will terminate after calculating and averaging the shifts of the 
 molecule under consideration. The next line explains how the reference shieldings are 
 calculated: in this case the reference molecule is tetramethylsilane in chloroform and the 
 shielding is calculated with PBE0/def2-TZVP + COSMO on PBEh-3c + DCOSMO-RS geometries. 
@@ -101,10 +142,6 @@ the Boltzmann weights based on the free energies from the ``anmr_enso`` file.
 
 
 Usage of `anmr`:
-
-.. important::
-
-    ANMR still relies on autmatically created arrays on the stack. For this reason you have to run ``ulimit -s unlimited`` to prevent stackoverflows.
 
 
 .. tab-set:: 
@@ -177,7 +214,7 @@ Usage of `anmr`:
 
 .. note:: 
     
-    The usage of the ``-plain`` option is recommended so that the coupling constants are read from the CONFXX/NMR/nmrprop.dat
+    The usage of the ``-plain`` option is recommended so that the coupling constants are read from the ``CONFXX/NMR/nmrprop.dat``
     file written by ``CENSO`` instead of the output files of the used QM program package, whose formatting
     often changes with new versions.
 
@@ -306,39 +343,20 @@ Information on all possible commandline arguments is documented:
 Reference shielding constants
 -----------------------------
 
-For user convenience shielding constants of the reference molecules (TMS (Tetramethylsilane), CFCl3, PH3, TMP 
-(Trimethylphosphine oxide)) were precalculated (for some method combinations) and stored within the CENSO program. 
-The reference shielding values are used in the ANMR program to calculate the shifts and the reference values are 
-written to the file ``.anmrrc``.
-
-To be consistent with your calculation, the reference shielding values were calculated on the
-reference molecules with many possible geometry-optimization-settings eg. {TURBOMOLE/ORCA, PBEh-3c /
-TPSS-D3/def2-TZVP / B97-3c, (gas phase or solvent)}. The shieldings were then calculated either with
-TPSS or PBE0 and depending on ORCA (gas or SMD and def2-TZVP basis set) or TURBOMOLE (gas or
-DCOSMO-RS with the def2-TZVP basis set). At the end of part4 the file ``.anmrrc`` is written into the
-calculation folder and stores the reference shielding values of your settings for the subsequent
-ANMR calculation.
-
-.. note:: 
-   The CENSO program only writes the reference shielding values to the file ``.anmrrc`` but 
-   does not do anything with it. Hence, no results of CENSO are influenced 
-   by a non-matching reference value. If you want to change the reference shielding values, 
-   you can simply modify the file ``.anmrrc`` manually before calling the ANMR program. 
-
-Procedure for generating the refrence shielding constants:
-Geometry optimization with the respective reference molecule with PBEh-3c/B97-3c/TPSS-D3/def2-TZVP + implicit solvation model 
-(either SMD or DCOSMO-RS). NMR shielding constant calculation with the respective functional and the def2-TZVP basis set 
-(again with implicit solvation model).
+In previous versions of CENSO, reference shielding constants were precalculated for user convenience.
+The current version of CENSO does not support this feature, instead the reference shieldings should 
+be calculated by the user and then put into ``.anmrrc``. To do so, the input geometries for the reference
+molecules are provided below. You should use the same functional/basis set/solvation combination as used
+for the CENSO run.
 
 Input structures for the respective reference molecules:
 
 .. tab-set:: 
     
-    .. tab-item:: Tetramethylsilane:
+    .. tab-item:: Tetramethylsilane
 
-        .. code:: bash
+        .. code:: text
 
-            $ cat coord
             $coord
             2.05833045453195     -2.05833045453195      2.05833045453195  c
             3.27901073396930     -3.27901073396930      0.93023223253204  h
@@ -359,11 +377,10 @@ Input structures for the respective reference molecules:
             -0.93023223253204     -3.27901073396930     -3.27901073396930  h
             $end
 
-    .. tab-item:: PH3:
+    .. tab-item:: PH3
 
-        .. code:: bash
+        .. code:: text
 
-            $ cat coord
             $coord
             0.00000000000000      0.00000000000000      1.08780842165939  p
             1.12108786201329      1.94178113675579     -0.36261095596909  h
@@ -371,11 +388,10 @@ Input structures for the respective reference molecules:
             -2.24217572402658      0.00000000000000     -0.36261095596909  h
             $end
 
-    .. tab-item:: TMP = Trimethylphosphine oxide:
+    .. tab-item:: Trimethylphosphine oxide
 
-        .. code:: bash
+        .. code:: text
 
-            $ cat coord
             $coord
             2.10707881159693     -2.37905657209703     -0.95048934768032       c
             -0.00002761513490     -0.00001720463363      0.42981024146152       p
@@ -393,11 +409,10 @@ Input structures for the respective reference molecules:
             2.07522150306901     -2.34774660838157     -3.00060121737073       h
             $end
 
-    .. tab-item:: CFCl3:
+    .. tab-item:: CFCl3
 
-        .. code:: bash
+        .. code:: text
 
-            $ cat coord
             $coord
             0.00000038126763   -0.00000000884504    0.13419916242803      c 
             0.00000870296281    0.00000001369727    2.66116007348966      f 
