@@ -105,10 +105,10 @@ Ensemble properties available for calculation are:
 3. UV/Vis spectra (**TODO**).
 
 Ensemble Optimization
--------------------
+---------------------
 
 Prescreening
-=============
+============
 
 The first step after generating an ensemble of the most important conformers, e.g. using CREST, 
 the number of which can range in the hundreds, is to improve on the preliminary

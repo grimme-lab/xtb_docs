@@ -298,7 +298,7 @@ Optimization
 
 
 Refinement
----------
+----------
 
 .. list-table:: Refinement Settings
     :widths: 30 100 30 30
