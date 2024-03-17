@@ -186,4 +186,14 @@ Optical Rotation
 UV/Vis Spectra
 ==============
 
-**WIP**
+To calculate the ensemble UV/Vis spectrum, CENSO will run single-points to calculate the excitation
+wavelengths and oscillator strengths using TD-DFT. For this, it is important to choose an appropriate 
+number of roots sought (´´nroots´´). After finishing, CENSO will output the population weighted
+excitation parameters to ´´excitations.out´´ in tabular format and to ´´excitations.json´´ for convenience.
+The table contains all weighted excitation wavelengths together with their maximum extinction coefficients 
+and the originating conformer.
+
+When plotting the spectra, it is important to use the same linewidth as used in CENSO, since the 
+maximum extinction coefficients depend on the linewidth. To plot the spectra, the tool ´´uvvisplot´´ 
+provided in the ´´bin´´ directory (where the runner helper is also located)
+can be used. It needs to be provided with a file of the same structure as ´´excitations.json´´.

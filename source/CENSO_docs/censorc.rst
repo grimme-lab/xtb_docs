@@ -137,10 +137,6 @@ Prescreening
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
       - gfnff, gfn1, gfn2
-    * - grid
-      - grid preset and SCF threshold that should be used for this step.
-      - low 
-      - low, low+, high, high+
     * - run
       - when using the command line interface, it tells CENSO wether to run this part or not.
       - True
@@ -190,10 +186,6 @@ Screening
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
       - gfnff, gfn1, gfn2
-    * - grid
-      - grid preset and SCF threshold that should be used for this step.
-      - low+
-      - low, low+, high, high+
     * - run
       - when using the command line interface, it tells CENSO wether to run this part or not.
       - True
@@ -263,10 +255,6 @@ Optimization
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
       - gfnff, gfn1, gfn2
-    * - grid
-      - grid preset and SCF threshold that should be used for this step.
-      - high
-      - low, low+, high, high+
     * - optlevel
       - geometry optimization thresholds passed to xtb.
       - normal
@@ -332,10 +320,6 @@ Refinement
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
       - gfnff, gfn1, gfn2
-    * - grid
-      - grid preset and SCF threshold that should be used for this step.
-      - low+
-      - low, low+, high, high+
     * - run
       - when using the command line interface, it tells CENSO wether to run this part or not.
       - True
@@ -401,10 +385,6 @@ NMR
       - solvation model used in the calculation of the shieldings.
       - smd
       - smd, cpcm
-    * - grid
-      - grid preset and SCF threshold that should be used for this step.
-      - high+
-      - low, low+, high, high+
     * - run
       - when using the command line interface, it tells CENSO wether to run this part or not.
       - False
@@ -444,4 +424,57 @@ NMR
     * - p_active
       - wether to calculate NMR parameters for 31P.
       - False
+      - True, False
+
+UV/Vis
+------
+
+      
+.. list-table:: UV/Vis Settings
+    :widths: 30 100 30 30
+    :header-rows: 1
+
+    * - keyword
+      - description
+      - default
+      - allowed options
+    * - nroots
+      - number of roots sought for TD-DFT.
+      - 20
+      - [1, 100]
+    * - linewidth
+      - standard deviation assumed for the Gaussian fitting around each excitation.
+      - 1.0
+      - [0.01, 50.0]
+    * - threshold_bmw
+      - cumulative Boltzmann population threshold up to which conformers should be considered.
+      - 0.95
+      - [0.01, 0.99]
+    * - prog
+      - program that should be used to calculate the shielding/coupling single-points.
+      - orca
+      - orca
+    * - func
+      - the functional/dispersion correction combination used for TD-DFT.
+      - wb97x-d4
+      - :ref:`censo_funcs`
+    * - basis
+      - basis set used for TD-DFT. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      - :ref:`censo_bs`
+    * - sm
+      - solvation model used for TD-DFT.
+      - smd
+      - smd, cpcm
+    * - run
+      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - False
+      - True, False
+    * - template
+      - wether to use a user defined template for this step.
+      - False
+      - True, False
+    * - gcp
+      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
+      - True
       - True, False
