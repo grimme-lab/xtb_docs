@@ -305,18 +305,24 @@ Topology file
    GFN-FF topology can be selectively written to a JSON file using the keyword ``--wrtopo [args]``. 
    **[args]** - comma-separated list of topological data:
 
-      **nb**: neighbor list composed of the indices of neighboring atoms for every atom, as well as the total number of neighbors in the last entry. In contrast to the compact gfnff_adjacency, this list has always 20 entries per atom and includes the number of neighbors in the last entry.
+      **etot**: total energy of the system in Hartree.
+
+      **gnorm**: gradient norm of the system in Hartree per bohr.
+
+      **nb**: list composed of the indices of neighboring atoms for every atom. nb(j,i,jTr) contains the j-th neighbor of atom i when the j-th neighbor is shifted by the translation vector corresponding to jTr. Entry nb(42,i,jTr) contains the number of neighbors for atom i in the cell defined by jTr. The dimensions of nb are 42, number of atoms, and number of cells.
    
-      **bpair**: packed bond pair matrix filled with the number of bonds between atom pairs. A maximum of five bonds between atoms is considered, setting pairs with more bonds in between to this value. 
+      **bpair**: bpair(j,i,iTr) gives the number of bonds between atoms i and j, when j is shifted by the translation vector correspinding to iTr. A maximum of five bonds between atoms is considered, setting pairs with more bonds in between this value. 
       
-      **alist**: angle list with the sets of three bonded atoms forming an angle. 
+      **alist**: angle list with the sets of three bonded atoms forming an angle. The first dimension is always five, storing the indices of the atoms i, j, k, and the indices of the translation vectors jTr and kTr. The second dimension is the number of angles.
    
-      **blist**: bond list containing all bonded atoms. 
+      **blist**: bond list containing all bonded atoms. The first dimension is three, storing the indices j, i of the neighboring atoms, and the index of the translation vector jTr applied to j. The second dimension is the number of bonds. 
    
-      **tlist**: torsion list with the sets of four bonded atoms forming a torsion angle and a torsion angle prefactor as the last entry. 
+      **tlist**: torsion list with the sets of four bonded atoms forming a torsion angle and a torsion angle prefactor. The first dimension is eight, storing the indices of the atoms l, i, j, k, the torsion angle prefactor, and the indices of the translation vectors lTr, jTr, kTr.
    
       **vbond, vangl, vtors**: bond, angle, torsion parameters, respectively. 
-   
+  
+   The translation vector Tr=[0, 0, 0] has the index 1. Matrix dimension that store the index of applied translation vectors have size 1 without periodic boundary conditions (PBCs) and 27 with PBCs, since only neighboring cells have to be considered for the setup of the given lists.
+
    Example:
 
 .. tab-set:: 
