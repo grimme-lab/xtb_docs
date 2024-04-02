@@ -15,8 +15,8 @@ CENSO will act like it is provided with a GGA without dispersion correction.
 
 .. hint::
 
-   If you want to use a functional unknown to CENSO with a dispersion correction, you might want to use the 
-   template system to add a dispersion correction to the inputs.
+   If you want to use a functional unknown to CENSO, you might want to set the func to dummy and
+   use a template file for configuration.
 
 
 .. _censo_bs:

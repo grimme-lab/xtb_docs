@@ -442,10 +442,6 @@ UV/Vis
       - number of roots sought for TD-DFT.
       - 20
       - [1, 100]
-    * - linewidth
-      - standard deviation assumed for the Gaussian fitting around each excitation.
-      - 1.0
-      - [0.01, 50.0]
     * - threshold_bmw
       - cumulative Boltzmann population threshold up to which conformers should be considered.
       - 0.95

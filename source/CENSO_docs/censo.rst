@@ -104,6 +104,15 @@ Ensemble properties available for calculation are:
 2. Optical rotation (**TODO**),
 3. UV/Vis spectra (**TODO**).
 
+Template files
+==============
+
+Since 2.0, CENSO supports template input files for all steps. They are located in ``$HOME/.censo2_assets``.
+In order to use a template file for e.g. prescreening with ORCA, the file should be called ``prescreening.orca.template``.
+It should contain two keywords: ``{main}`` and ``{geom}``. These are later replaced by the main argument line and the geometry
+block, respectively. All further settings you add are inserted at the respective positions you put them in the
+template file.
+
 Ensemble Optimization
 ---------------------
 
@@ -193,7 +202,6 @@ excitation parameters to ´´excitations.out´´ in tabular format and to ´´ex
 The table contains all weighted excitation wavelengths together with their maximum extinction coefficients 
 and the originating conformer.
 
-When plotting the spectra, it is important to use the same linewidth as used in CENSO, since the 
-maximum extinction coefficients depend on the linewidth. To plot the spectra, the tool ´´uvvisplot´´ 
-provided in the ´´bin´´ directory (where the runner helper is also located)
+To plot the spectra, the tool ´´uvvisplot´´ provided in the ´´bin´´ directory (where the runner helper is also located)
 can be used. It needs to be provided with a file of the same structure as ´´excitations.json´´.
+It outputs a file called ´´contributions.csv´´ which contains all Gaussian signals partitioned by conformer and state.

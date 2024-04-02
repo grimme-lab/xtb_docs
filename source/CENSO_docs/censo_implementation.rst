@@ -4,6 +4,9 @@
 Implementation
 ==============
 
+.. contents::
+
+
 .. hint::
 
    An in-depth documentation for the program structure can be found `here <https://github.com/lmseidler/censo-doc/tree/main>`_.
@@ -188,6 +191,13 @@ your results, e.g. by implementing a custom method and/or using the inherited
 
            # dump ensemble
            self.ensemble.dump_ensemble(self._name)
+
+
+After all these steps, the part can also be added to the core code of CENSO. For this, the class of the 
+new part needs to be added in ´´configuration.py´´ in the ´´configure´´ method, where all parts are imported
+in order to setup their settings by reading the rcfile. Also, make sure that the new class is added in the 
+appropriate ´´__init__.py´´ files, so that it can be imported. In order to make the part run via the commandline,
+it is necessary to also import the class in ´´interface.py´´, where the ´´run´´ settings of each part is checked.
 
 
 Implementing a new jobtype

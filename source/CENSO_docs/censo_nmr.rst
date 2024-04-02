@@ -94,6 +94,10 @@ ANMR can be run in this folder after configuring the ``.anmrrc``:
         fi
     done
 
+.. hint::
+
+   This script is also provided in the ´´bin´´ directory as ´´c2anmr´´.
+
 Example ``.anmrrc`` file:
 
 .. code::
