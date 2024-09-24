@@ -69,3 +69,4 @@ Contributors
 * Sarah Schmitz
 * Jakob Seibert
 * Sebastian Spicher
+* Leopold Seidler
