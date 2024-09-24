@@ -33,13 +33,11 @@ will be inherited.
 
    _options = {
        "threshold": {"default": 4.0, "range": [1.0, 10.0]},
-       "func": {"default": "pbe-d4", "options": DfaHelper.find_func("prescreening")},
-       "basis": {"default": "def2-SV(P)", "options": BASIS_SETS},
+       "func": {"default": "pbe-d4", "options": []},
+       "basis": {"default": "def2-SV(P)", "options": []},
        "prog": {"default": "orca", "options": PROGS},
        "gfnv": {"default": "gfn2", "options": GFNOPTIONS},
-       "grid": {"default": "low", "options": GRIDOPTIONS},
        "run": {"default": True},
-       "gcp": {"default": True},
        "template": {"default": False},
    }
 
@@ -61,7 +59,7 @@ up by the processor when running a job.
 
     @timeit
     @CensoPart._create_dir
-    def run(self, cut: bool = True) -> None:
+    def run(self, ncores: int, cut: bool = True) -> None:
         """
         Boilerplate run logic for any ensemble optimization step. The 'optimize' method should be implemented for every
         class respectively.
@@ -73,7 +71,7 @@ up by the processor when running a job.
         self.print_update()
 
         # Perform the actual optimization logic
-        self.optimize(cut=cut)
+        self.optimize(ncores, cut=cut)
 
         # Print comparison with previous parts
         self.print_comparison()
@@ -84,7 +82,8 @@ up by the processor when running a job.
         # dump ensemble
         self.ensemble.dump_ensemble(self._name)
 
-Note the ``cut`` keyword argument, which indicates wether to apply thresholds to the ensemble or not.
+Note the ``cut`` keyword argument, which indicates wether to apply thresholds to the ensemble or not and also 
+the ``ncores`` argument, which indicates the number of cores to use for running the calculations.
 
 To run jobs of type ``jobtype``, the ``execute`` function from the ``parallel`` module is 
 required. It will return the results for the external program calls in form of a 
@@ -143,7 +142,7 @@ your results, e.g. by implementing a custom method and/or using the inherited
            # NOTE: This method needs to be implemented to be used
            prepinfo = self.setup_prepinfo()
 
-           results, failed = execute(
+           sucess, _, failed = execute(
                self.ensemble.conformers,
                self.dir,
                self.get_settings()["prog"]

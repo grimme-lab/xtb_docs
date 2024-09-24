@@ -7,14 +7,14 @@ Censorc keyword definitions
 .. contents::
 
 The settings should be given in the form of an rcfile (either located in ``$HOME`` and named ``.censo2rc``)
-or passed to CENSO via the ``-inprc`` argument, or read using the ``configure`` function when working from 
+or passed to CENSO via the ``--inprc`` argument, or read using the ``configure`` function when working from 
 a custom script. If a setting is missing from the rcfile, CENSO will use the default value for that setting.
 The settings will be type checked when the rcfile is parsed, so make sure that the appropiate data type 
 (e.g. int, float, str) can be parsed from the value you've defined.
 
 .. hint::
 
-    In order to write a new rcfile for configuration you can run ``censo -newconfig`` or use the ``write_rcfile``
+    In order to write a new rcfile for configuration you can run ``censo --new-config`` or use the ``write_rcfile``
     function from the ``censo.configuration`` module.
 
 
@@ -32,10 +32,6 @@ the maximum number of cores CENSO should use, single-point Hessian settings, sol
       - description
       - default
       - allowed options
-    * - maxcores
-      - how many cores should be utilized by CENSO at most.
-      - 4
-      - [4, 256]
     * - omp
       - how many cores should be used for every subprocess launched by CENSO.
       - 4
@@ -141,10 +137,6 @@ Prescreening
       - when using the command line interface, it tells CENSO wether to run this part or not.
       - True
       - True, False
-    * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
-      - True
-      - True, False
     * - template
       - wether to use a user defined template for this step.
       - False
@@ -188,10 +180,6 @@ Screening
       - gfnff, gfn1, gfn2
     * - run
       - when using the command line interface, it tells CENSO wether to run this part or not.
-      - True
-      - True, False
-    * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
       - True
       - True, False
     * - template
@@ -263,10 +251,6 @@ Optimization
       - when using the command line interface, it tells CENSO wether to run this part or not.
       - True
       - True, False
-    * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
-      - True
-      - True, False
     * - template
       - wether to use a user defined template for this step.
       - False
@@ -280,7 +264,7 @@ Optimization
       - False
       - True, False
     * - constrain
-      - wether to use ``xtb`` constraints for the geometry optimization or not. The constraints should be provided as a file `constraints.xtb` in the working directory.
+      - wether to use ``xtb`` constraints for the geometry optimization or not. The constraints should be provided as a file ``constraints.xtb`` in the working directory.
       - False
       - True, False
 
@@ -324,10 +308,6 @@ Refinement
       - when using the command line interface, it tells CENSO wether to run this part or not.
       - True
       - True, False
-    * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
-      - True
-      - True, False
     * - template
       - wether to use a user defined template for this step.
       - False
@@ -353,10 +333,10 @@ NMR
       - carrier frequency of the microwave radiation in the simulated NMR experiment
       - 300.0
       - [150.0, 1000.0]
-    * - threshold_bmw
-      - cumulative Boltzmann population threshold up to which conformers should be considered.
-      - 0.95
-      - [0.01, 0.99]
+    * - ss_cutoff
+      - cutoff radius for the calculation of spin-spin couplings. Pairs with a larger distance than ss_cutoff will be neglected.
+      - 8.0
+      - [0.1, 100.0]
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
@@ -392,10 +372,6 @@ NMR
     * - template
       - wether to use a user defined template for this step.
       - False
-      - True, False
-    * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
-      - True
       - True, False
     * - couplings
       - wether to compute the coupling constants.
@@ -442,10 +418,6 @@ UV/Vis
       - number of roots sought for TD-DFT.
       - 20
       - [1, 100]
-    * - threshold_bmw
-      - cumulative Boltzmann population threshold up to which conformers should be considered.
-      - 0.95
-      - [0.01, 0.99]
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
@@ -469,8 +441,4 @@ UV/Vis
     * - template
       - wether to use a user defined template for this step.
       - False
-      - True, False
-    * - gcp
-      - wether to use the geometric counter-poise correction by Grimme et al. for this step. This will be ignored if the chosen functional is a composite functional.
-      - True
       - True, False

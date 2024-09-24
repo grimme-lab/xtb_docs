@@ -28,6 +28,10 @@ The policy for basis sets is to take the provided keyword literally without vali
 This means, you need to provide the basis set keyword already with the correct name 
 for the QM program you want to utilize.
 
+.. hint::
+
+   Please note that, when applying composite methods, the basis keyword will be ignored.
+
 .. _censo_solv:
 
 Solvents

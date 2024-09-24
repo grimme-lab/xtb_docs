@@ -46,7 +46,7 @@ In order to call CENSO using a custom runner script, you can use the following e
     ensemble.read_input(input_path, charge=0, unpaired=0)
 
     # If the user wants to use a specific rcfile:
-    configure("/abs/path/to/rcfile")
+    configure(rcpath="/abs/path/to/rcfile")
 
     # Setup all the parts that the user wants to run (don't need to be in a specific order)
     parts = [
@@ -70,7 +70,8 @@ CENSO requires xTB in version 6.4.0 or above. In order to use ORCA, it should be
 4.x or above. It is recommended to use CREST for initial ensemble generation, as well as for better 
 interfacing with ANMR for ensemble NMR spectra calculation.
 
-CENSO requires Python >= 3.8, there are no further dependencies.
+CENSO requires Python >= 3.10, there are no further dependencies. To use the ``uvvisplot`` script 
+``numpy`` and ``pandas`` are required.
 
 
 General information
@@ -84,8 +85,6 @@ General information
 **C**\ommandline **E**\nergetic **SO**\rting (**CENSO**) is a sorting algorithm 
 for efficient evaluation of **S**\tructure **E**\nsembles (**SE**). 
 
-**WIP**
-
 CENSO can be structured into two components:
 
 1. Ensemble optimization,
@@ -98,11 +97,20 @@ The first part (ensemble optimization) can use up to four steps:
 3. (Geometry-)Optimization,
 4. Refinement.
 
+In these steps, the ensemble is optimized, using increasingly accurate settings.
+
 Ensemble properties available for calculation are:
 
 1. NMR spectra,
-2. Optical rotation (**TODO**),
-3. UV/Vis spectra (**TODO**).
+2. UV/Vis spectra.
+
+In the property calculation steps the ensemble is not further modified. However, they require at least 
+one ensemble optimization step to be run beforehand for energy rankings and Boltzmann populations.
+ 
+For now, all calculations can only be performed using the xTB and ORCA programs.
+
+New features in CENSO 2.0.0
+---------------------------
 
 Template files
 ==============
@@ -112,6 +120,73 @@ In order to use a template file for e.g. prescreening with ORCA, the file should
 It should contain two keywords: ``{main}`` and ``{geom}``. These are later replaced by the main argument line and the geometry
 block, respectively. All further settings you add are inserted at the respective positions you put them in the
 template file.
+
+Dummy functionals
+=================
+
+Since only a limited amount of functionals are preconfigured in CENSO, the ``dummy`` option exists as value 
+for ``func``. This tells CENSO to write no functional specific settings automatically into the input (such as 
+``frozencore`` for double-hybrids in ORCA). By combining this with a template file, it is possible to also use 
+functionals that are not defined as keywords in ORCA, such as e.g. revDSD-PBEP86-D4 (J. M. L. Martin et al., J Phys Chem A 2019
+doi: 10.1021/acs.jpca.9b03157).
+
+Running from a script
+=====================
+
+It is possible to run CENSO from a custom runner script. An example might look like this:
+
+.. code :: python
+
+    from censo.ensembledata import EnsembleData
+    from censo.configuration import configure
+    from censo.ensembleopt import Prescreening, Screening, Optimization
+    from censo.properties import NMR
+
+    workdir = "/absolute/path/to/your/workdir" # CENSO will put all files in this directory
+    input_path = "rel/path/to/your/inputfile" # path relative to the working directory
+    ensemble = EnsembleData(workdir)
+    ensemble.read_input(input_path, charge=0, unpaired=0)
+
+    # If the user wants to use a specific rcfile:
+    configure("/abs/path/to/rcfile")
+
+    # Get the number of available cpu cores on this machine
+    # This number can also be set to any other integer value and automatically checked for validity
+    ncores = os.cpu_count()
+
+    # Setup all the parts that the user wants to run
+    parts = [
+        part(ensemble) for part in [Prescreening, Screening, Optimization, NMR]
+    ]
+    
+    # The user can also choose to change specific settings of the parts
+    # Please take note of the following:
+    # - the settings of certain parts, e.g. Prescreening are changed using set_setting(name, value)
+    # - general settings are changed by using set_general_setting(name, value) (it does not matter which part you call it from)
+    # - the values you want to set must comply with limits and the type of the setting
+    Prescreening.set_setting("threshold", 5.0)
+    Prescreening.set_general_setting("solvent", "dmso")
+
+    # It is also possible to use a dict to set multiple values in one step
+    settings = {
+        "threshold": 3.5,
+        "func": "pbeh-3c",
+        "implicit": True,
+    }
+    Screening.set_settings(settings, complete=False)
+
+    # Running a part will return it's runtime in seconds
+    part_timings = []
+    for part in parts:
+        # Running the parts in order, while it is also possible to use a custom order or run some parts multiple times
+        # Note though, that currently this will lead to results being overwritten in your working directory and
+        # the ensembledata object
+        part_timings.append(part.run(ncores))
+
+    # You access the results using the ensemble object
+    # You can also find all the results the <part>.json output files
+    print(ensemble.conformers[0].results["prescreening"]["sp"]["energy"])
+
 
 Ensemble Optimization
 ---------------------
@@ -187,21 +262,16 @@ Please note that the user needs to setup the ``.anmrrc`` file.
 
 For more detailed instructions see :ref:`nmr`.
 
-Optical Rotation
-================
-
-**WIP**
-
 UV/Vis Spectra
 ==============
 
 To calculate the ensemble UV/Vis spectrum, CENSO will run single-points to calculate the excitation
 wavelengths and oscillator strengths using TD-DFT. For this, it is important to choose an appropriate 
-number of roots sought (´´nroots´´). After finishing, CENSO will output the population weighted
-excitation parameters to ´´excitations.out´´ in tabular format and to ´´excitations.json´´ for convenience.
+number of roots sought (``nroots``). After finishing, CENSO will output the population weighted
+excitation parameters to ``excitations.out`` in tabular format and to ``excitations.json`` for convenience.
 The table contains all weighted excitation wavelengths together with their maximum extinction coefficients 
 and the originating conformer.
 
-To plot the spectra, the tool ´´uvvisplot´´ provided in the ´´bin´´ directory (where the runner helper is also located)
-can be used. It needs to be provided with a file of the same structure as ´´excitations.json´´.
-It outputs a file called ´´contributions.csv´´ which contains all Gaussian signals partitioned by conformer and state.
+To plot the spectra, the tool ``uvvisplot`` provided in the ``bin`` directory (where the runner helper is also located)
+can be used. It needs to be provided with a file of the same structure as ``excitations.json``.
+It outputs a file called ``contributions.csv`` which contains all Gaussian signals partitioned by conformer and state.
