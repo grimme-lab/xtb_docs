@@ -81,7 +81,7 @@ the maximum number of cores CENSO should use, single-point Hessian settings, sol
       - False
       - True, False
     * - balance
-      - wether to use the built-in static load balancing strategy (tries to utilize all the cores as much as possible). If set to False, CENSO will use the number of cores per task assigned with the omp setting.
+      - wether to use the built-in static load balancing strategy (tries to utilize all the cores as much as possible). If set to False, CENSO will use the number of cores per task assigned with the omp setting. Note that this feature is not supported for TURBOMOLE.
       - True
       - True, False
     * - gas-phase
