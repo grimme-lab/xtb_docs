@@ -6,11 +6,6 @@ Implementation
 
 .. contents::
 
-
-.. hint::
-
-   An in-depth documentation for the program structure can be found `here <https://github.com/lmseidler/censo-doc/tree/main>`_.
-
 Implementing a new part
 -----------------------
 

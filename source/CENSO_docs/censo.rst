@@ -1,5 +1,10 @@
 .. _CENSO:
 
+.. figure:: ../../figures/CENSO/censo_logo_300dpi.png
+	:scale: 40%
+	:align: center
+	:alt: CENSO logo
+
 =====================
 Introduction to CENSO
 =====================
@@ -79,11 +84,6 @@ CENSO requires Python >= 3.10, there are no further dependencies. To use the ``u
 
 General information
 -------------------
-
-.. figure:: ../../figures/CENSO/censo_logo_300dpi.png
-	:scale: 40%
-	:align: center
-	:alt: CENSO logo
 
 **C**\ommandline **E**\nergetic **SO**\rting (**CENSO**) is a sorting algorithm 
 for efficient evaluation of **S**\tructure **E**\nsembles (**SE**). 
