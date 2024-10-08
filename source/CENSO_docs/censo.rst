@@ -1,5 +1,10 @@
 .. _CENSO:
 
+.. figure:: ../../figures/CENSO/censo_logo_300dpi.png
+	:scale: 40%
+	:align: center
+	:alt: CENSO logo
+
 =====================
 Introduction to CENSO
 =====================
