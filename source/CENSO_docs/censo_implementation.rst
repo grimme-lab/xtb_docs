@@ -27,14 +27,19 @@ will be inherited.
 .. code:: python
 
    _options = {
-       "threshold": {"default": 4.0, "range": [1.0, 10.0]},
-       "func": {"default": "pbe-d4", "options": []},
-       "basis": {"default": "def2-SV(P)", "options": []},
+       "threshold": {"default": 4.0},
+       "func": {"default": "pbe-d4"},  # the 'options' key can be left out if there are no restrictions
+       "basis": {"default": "def2-SV(P)"},
        "prog": {"default": "orca", "options": PROGS},
        "gfnv": {"default": "gfn2", "options": GFNOPTIONS},
        "run": {"default": True},
        "template": {"default": False},
    }
+
+The ``CensoPart`` class implements a general validation methods for the ``_settings`` attribute. 
+It checks for type and value, if options are defined. Each part can and probably should extend the 
+general method (e.g. the ``EnsembleOptimizer`` class extends the ``_validate`` method) in order to check 
+for e.g. setting combinations, such as trying to use DCOSMORS with ORCA.
 
 The next step would be implementing the ``run`` method of the new class. By default, 
 it should use the ``timeit`` and ``CensoPart._create_dir`` decorators. Within the function,
@@ -112,7 +117,7 @@ your results, e.g. by implementing a custom method and/or using the inherited
            ...,
            "prog": {"default": "orca", "options": ["orca", "tm"]},
            ...,
-           "threshold": {"default": 0.95, "range": [0.5, 0.99]}
+           "threshold": {"default": 0.95}
        }
 
        _settings = {}
@@ -226,4 +231,6 @@ in and a file to redirect ``stdout``.
 
 Finally, the new processor class needs to be added to the ``__proctypes`` dictionary of the 
 ``ProcessorFactory`` class. Also, the key used there should be added to the ``PROGS`` parameter
-in ``params.py``.
+in ``params.py``. This will be used by parts to determine available programs in the settings, 
+so be careful to check whether your program supports the necessary jobtypes. You might want to 
+raise a ``NotImplementedError`` for unsupported jobtypes.
