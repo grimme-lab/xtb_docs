@@ -41,7 +41,7 @@ It checks for type and value, if options are defined. Each part can and probably
 general method (e.g. the ``EnsembleOptimizer`` class extends the ``_validate`` method) in order to check 
 for e.g. setting combinations, such as trying to use DCOSMORS with ORCA.
 
-The next step would be implementing the ``__call__`` method of the new class. By default, 
+The next step would be implementing the ``run`` method of the new class. By default, 
 it should use the ``timeit`` and ``CensoPart._create_dir`` decorators. Within the function,
 the internal logic of what you would like to achieve should be implemented. Typically,
 the native parts start by printing out their settings (``self._print_info()``). After that,
