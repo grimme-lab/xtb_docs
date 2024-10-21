@@ -61,39 +61,39 @@ the maximum number of cores CENSO should use, single-point Hessian settings, sol
       - alpb
       - alpb, gbsa
     * - multitemp
-      - wether GmRRHO should be calculated for a range of temperatures (defined in trange) or not.
+      - whether GmRRHO should be calculated for a range of temperatures (defined in trange) or not.
       - True
       - True, False
     * - evaluate_rrho
-      - wether to calculate GmRRHO or not.
+      - whether to calculate GmRRHO or not.
       - True
       - True, False
     * - consider_sym
-      - wether to determine and use the symmetry of the conformers for xtb-only calculations or not.
+      - whether to determine and use the symmetry of the conformers for xtb-only calculations or not.
       - True
       - True, False
     * - bhess
-      - wether to run the mRRHO calculation on unoptimized geometries (True) or geometries preoptimized by xtb (False), which would result in calling xtb with --ohess.
+      - whether to run the mRRHO calculation on unoptimized geometries (True) or geometries preoptimized by xtb (False), which would result in calling xtb with --ohess.
       - True
       - True, False
     * - rmsdbias
-      - wether to use a RMSD bias (should be defined in a file called rmsdpot.xyz in the working directory).
+      - whether to use a RMSD bias (should be defined in a file called rmsdpot.xyz in the working directory).
       - False
       - True, False
     * - balance
-      - wether to use the built-in static load balancing strategy (tries to utilize all the cores as much as possible). If set to False, CENSO will use the number of cores per task assigned with the omp setting.
+      - whether to use the built-in static load balancing strategy (tries to utilize all the cores as much as possible). If set to False, CENSO will use the number of cores per task assigned with the omp setting. Note that this feature is not supported for TURBOMOLE.
       - True
       - True, False
     * - gas-phase
-      - wether to turn off all solvation modelling (True) or use solvation (False).
+      - whether to turn off all solvation modelling (True) or use solvation (False).
       - False
       - True, False
     * - copy_mo
-      - wether to copy MO-files of previous calculations of a conformer within a run (True) or not (False). **This is highly recommended** to use, since it is likely to reduce the number of SCF cycles per single-point significantly.
+      - whether to copy MO-files of previous calculations of a conformer within a run (True) or not (False). **This is highly recommended** to use, since it is likely to reduce the number of SCF cycles per single-point significantly.
       - True
       - True, False
     * - retry_failed
-      - wether to try to recover failed jobs by applying flags hardcoded in CENSO. This is recommended to use if you know that SCFs of your system might be tricky.
+      - whether to try to recover failed jobs by applying flags hardcoded in CENSO. This is recommended to use if you know that SCFs of your system might be tricky.
       - True
       - True, False
     * - trange
@@ -134,11 +134,11 @@ Prescreening
       - gfn2
       - gfnff, gfn1, gfn2
     * - run
-      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - when using the command line interface, it tells CENSO whether to run this part or not.
       - True
       - True, False
     * - template
-      - wether to use a user defined template for this step.
+      - whether to use a user defined template for this step.
       - False
       - True, False
 
@@ -179,15 +179,15 @@ Screening
       - gfn2
       - gfnff, gfn1, gfn2
     * - run
-      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - when using the command line interface, it tells CENSO whether to run this part or not.
       - True
       - True, False
     * - template
-      - wether to use a user defined template for this step.
+      - whether to use a user defined template for this step.
       - False
       - True, False
     * - implicit
-      - wether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
+      - whether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
       - True
       - True, False
 
@@ -248,23 +248,23 @@ Optimization
       - normal
       - crude, sloppy, loose, lax, normal, tight, vtight, extreme
     * - run
-      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - when using the command line interface, it tells CENSO whether to run this part or not.
       - True
       - True, False
     * - template
-      - wether to use a user defined template for this step.
+      - whether to use a user defined template for this step.
       - False
       - True, False
     * - macrocycles
-      - wether to use macrocycle optimization (True) or not.
+      - whether to use macrocycle optimization (True) or not.
       - True
       - True, False
     * - crestcheck
-      - wether to use CREST every macrocycle to check the ensemble for rotamers or not.
+      - whether to use CREST every macrocycle to check the ensemble for rotamers or not.
       - False
       - True, False
     * - constrain
-      - wether to use ``xtb`` constraints for the geometry optimization or not. The constraints should be provided as a file ``constraints.xtb`` in the working directory.
+      - whether to use ``xtb`` constraints for the geometry optimization or not. The constraints should be provided as a file ``constraints.xtb`` in the working directory.
       - False
       - True, False
 
@@ -305,15 +305,15 @@ Refinement
       - gfn2
       - gfnff, gfn1, gfn2
     * - run
-      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - when using the command line interface, it tells CENSO whether to run this part or not.
       - True
       - True, False
     * - template
-      - wether to use a user defined template for this step.
+      - whether to use a user defined template for this step.
       - False
       - True, False
     * - implicit
-      - wether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
+      - whether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
       - True
       - True, False
 
@@ -334,7 +334,7 @@ NMR
       - 300.0
       - [150.0, 1000.0]
     * - ss_cutoff
-      - cutoff radius for the calculation of spin-spin couplings. Pairs with a larger distance than ss_cutoff will be neglected.
+      - cutoff radius for the calculation of spin-spin couplings. Pairs with a larger distance than ss_cutoff will be neglected (only for ORCA).
       - 8.0
       - [0.1, 100.0]
     * - prog
@@ -366,39 +366,43 @@ NMR
       - smd
       - smd, cpcm
     * - run
-      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - when using the command line interface, it tells CENSO whether to run this part or not.
       - False
       - True, False
     * - template
-      - wether to use a user defined template for this step.
+      - whether to use a user defined template for this step.
       - False
       - True, False
     * - couplings
-      - wether to compute the coupling constants.
+      - whether to compute the coupling constants.
       - True
       - True, False
     * - shieldings
-      - wether to compute the shieldings.
+      - whether to compute the shieldings.
       - True
-      - True, False.
+      - True, False
+    * - fc_only
+      - whether to calculate only the Fermi-Contact term for spin-spin couplings.
+      - True 
+      - True, False
     * - h_active
-      - wether to calculate NMR parameters for Protium.
+      - whether to calculate NMR parameters for Protium.
       - True
       - True, False
     * - c_active
-      - wether to calculate NMR parameters for 13C.
+      - whether to calculate NMR parameters for 13C.
       - True
       - True, False
     * - f_active
-      - wether to calculate NMR parameters for 19F.
+      - whether to calculate NMR parameters for 19F.
       - False
       - True, False
     * - si_active
-      - wether to calculate NMR parameters for 29Si.
+      - whether to calculate NMR parameters for 29Si.
       - False
       - True, False
     * - p_active
-      - wether to calculate NMR parameters for 31P.
+      - whether to calculate NMR parameters for 31P.
       - False
       - True, False
 
@@ -435,10 +439,10 @@ UV/Vis
       - smd
       - smd, cpcm
     * - run
-      - when using the command line interface, it tells CENSO wether to run this part or not.
+      - when using the command line interface, it tells CENSO whether to run this part or not.
       - False
       - True, False
     * - template
-      - wether to use a user defined template for this step.
+      - whether to use a user defined template for this step.
       - False
       - True, False
