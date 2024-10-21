@@ -75,7 +75,8 @@ Requirements
 ------------
 
 CENSO requires xTB in version 6.4.0 or above. In order to use ORCA, it should be installed in version
-4.x or above. It is recommended to use CREST for initial ensemble generation, as well as for better 
+4.x or above. TURBOMOLE has been tested with version 7.7.1, a bug when combining D4 and GCP is accounted for. 
+It is recommended to use CREST for initial ensemble generation, as well as for better 
 interfacing with ANMR for ensemble NMR spectra calculation.
 
 CENSO requires Python >= 3.10, there are no further dependencies. To use the ``uvvisplot`` script 
@@ -110,7 +111,7 @@ Ensemble properties available for calculation are:
 In the property calculation steps the ensemble is not further modified. However, they require at least 
 one ensemble optimization step to be run beforehand for energy rankings and Boltzmann populations.
  
-For now, all calculations can only be performed using the xTB and ORCA programs.
+For now, all ensemble optimization steps can be performed using both ORCA and TURBOMOLE for DFT calculations.
 
 New features in CENSO 2.0.0
 ---------------------------
@@ -232,13 +233,13 @@ a macrocycle optimizer in CENSO (set ``macrocycle`` to ``True``). This will run 
 update the ensemble every macrocycle. The single-point Hessian evaluation using ``xtb`` 
 will take place once after at least 6 microcycles and once after finishing the last
 macrocycle. The energy threshold for this step is based on a minimum threshold (``threshold``) 
-and TODO
+and the fraction of converged conformers (this is subject to change).
 This threshold will be applied once the gradient norm of a conformer is below a
 specified threshold (``gradthr``) for all the microcycles in the current macrocycle.
 
-It is also possible to use ``xtb``-constraints for this step. The constraints should be 
-provided as a file called ``constraints.xtb`` in the working directory. Also, the 
-``constrain`` option for the optimization part should be set to ``True``.
+It is also possible to use ``xtb``-constraints for this step if using ANCOPT as driver.
+The constraints should be provided as a file called ``constraints.xtb`` in the working directory.
+Also, the ``constrain`` option for the optimization part should be set to ``True``.
 
 Refinement
 ==========
