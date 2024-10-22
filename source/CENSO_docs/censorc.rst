@@ -446,3 +446,34 @@ UV/Vis
       - whether to use a user defined template for this step.
       - False
       - True, False
+
+
+Paths Settings 
+--------------
+
+.. list-table:: Paths Settings 
+   :widths: 30 100 
+   :header-rows: 1 
+
+   * - setting 
+     - description 
+   * - orcapath 
+     - absolute path to the ``orca`` binary. 
+   * - orcaversion 
+     - version of ORCA you're using, e.g. 5.0.4.
+   * - xtbpath 
+     - absolute path to the ``xtb`` binary.
+   * - mpshiftpath
+     - absolute path to the ``mpshift`` binary (TURBOMOLE).
+   * - escfpath
+     - absolute path to the ``escf`` binary (TURBOMOLE).
+   * - cefinepath
+     - absolute path to the ``cefine`` binary.
+   * - cosmothermpath
+     - absolute path to the ``cosmotherm`` binary (COSMOthermX).
+   * - cosmorssetup
+     - the name of the parameterization file to use for COSMO-RS runs, e.g. ``BP_TZVP_C30_1601.ctd``.
+
+
+All remaining entries are unused for now. CENSO tries to determine the paths of the binaries 
+automatically when creating a new rcfile.
