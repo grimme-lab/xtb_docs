@@ -127,8 +127,8 @@ Prescreening
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -168,12 +168,12 @@ Screening
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - sm 
       - solvation model used for this step.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors, cosmors, cosmors-fine
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -233,12 +233,12 @@ Optimization
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step.
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - sm 
       - solvation model used for this step.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -294,12 +294,12 @@ Refinement
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - sm 
       - solvation model used for this step.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors, cosmors, cosmors-fine
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -340,7 +340,7 @@ NMR
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
-      - orca
+      - orca, tm
     * - func_j
       - the functional/dispersion correction combination used in calculating the couplings.
       - pbe0-d4
@@ -352,7 +352,7 @@ NMR
     * - sm_j
       - solvation model used in the calculation of the couplings.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors
     * - func_s
       - the functional/dispersion correction combination used in calculating the shieldings.
       - pbe0-d4
@@ -364,7 +364,7 @@ NMR
     * - sm_s
       - solvation model used in the calculation of the shieldings.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors
     * - run
       - when using the command line interface, it tells CENSO whether to run this part or not.
       - False
