@@ -89,6 +89,7 @@ It is possible to run CENSO from a custom runner script. An example might look l
     from censo.configuration import configure
     from censo.ensembleopt import Prescreening, Screening, Optimization
     from censo.properties import NMR
+    from censo.params import Params
 
     workdir = "/absolute/path/to/your/workdir" # CENSO will put all files in this directory
     input_path = "rel/path/to/your/inputfile" # path relative to the working directory
@@ -100,13 +101,8 @@ It is possible to run CENSO from a custom runner script. An example might look l
 
     # Get the number of available cpu cores on this machine
     # This number can also be set to any other integer value and automatically checked for validity
-    ncores = os.cpu_count()
+    Params.NCORES = os.cpu_count()
 
-    # Setup all the parts that the user wants to run
-    parts = [
-        part(ensemble) for part in [Prescreening, Screening, Optimization, NMR]
-    ]
-    
     # The user can also choose to change specific settings of the parts
     # Please take note of the following:
     # - the settings of certain parts, e.g. Prescreening are changed using set_setting(name, value)
@@ -121,19 +117,27 @@ It is possible to run CENSO from a custom runner script. An example might look l
         "func": "pbeh-3c",
         "implicit": True,
     }
-    Screening.set_settings(settings, complete=False)
+    Screening.set_settings(settings, complete=False)  
+    # the complete kwarg tells the method whether to set the undefined settings using defaults or leave them on their current value
 
-    # Running a part will return it's runtime in seconds
+
+    # Setup and run all the parts that the user wants to run
+    results = [
+        part(ensemble) for part in [Prescreening, Screening, Optimization, NMR]
+    ]
+    
+    # Running a part will return an instance of the respective type
     part_timings = []
-    for part in parts:
+    for part in results:
         # Running the parts in order, while it is also possible to use a custom order or run some parts multiple times
-        # Note though, that currently this will lead to results being overwritten in your working directory and
-        # the ensembledata object
+        # References to the resulting part instances will be appended to a list in the EnsembleData object (ensemble.results)
+        # Note though, that currently this will lead to results being overwritten in your working directory
+        # (you could circumvent this by moving/renaming the folders)
         part_timings.append(part.run(ncores))
 
     # You access the results using the ensemble object
     # You can also find all the results the <part>.json output files
-    print(ensemble.conformers[0].results["prescreening"]["sp"]["energy"])
+    print(ensemble.results[0].results["CONF5"]["sp"]["energy"])
 
 
 Template files

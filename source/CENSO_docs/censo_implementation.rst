@@ -122,27 +122,24 @@ your results, e.g. by implementing a custom method and/or using the inherited
 
        _settings = {}
 
-       def __init__(self, ensemble: EnsembleData): 
-           super().__init__(ensemble)
-
        @timeit
        @CensoPart._create_dir
-       def run(self) -> None:
+       def __call__(self) -> None:
            """
            docstring
            """
 
            # print settings
-           self.print_info()
+           self._print_info()
 
            # define jobtype
            jobtype = ["sp"]
 
            # Setup the prepinfo dict 
            # NOTE: This method needs to be implemented to be used
-           prepinfo = self.setup_prepinfo()
+           prepinfo = self._setup_prepinfo()
 
-           sucess, _, failed = execute(
+           results, failed = execute(
                self.ensemble.conformers,
                self.dir,
                self.get_settings()["prog"]
@@ -153,27 +150,22 @@ your results, e.g. by implementing a custom method and/or using the inherited
            )
 
            # Remove failed conformers
-           for confid in failed:
-               self.ensemble.remove_conformers(failed)
+           self.ensemble.remove_conformers(failed)
 
            # update results for each conformer
-           for conf in self.ensemble.conformers:
-               # store results of single jobs for each conformer
-               conf.results.setdefault(self._name, {}).update(results[id(conf)])
+           self.results.update(results)
 
            # calculate boltzmann weights from values calculated here
-           self.ensemble.calc_boltzmannweights(
-               self.get_general_settings().get("temperature", 298.15), self._name
-           )
+           self.results.update(self._calc_boltzmannweights())
 
            # sort conformers list with specific key
            self.ensemble.conformers.sort(
-               key=lambda conf: conf.results[self._name]["sp"]["energy"],
+               key=lambda conf: self.results[conf.name]["sp"]["energy"],
            )
 
            # write results
            # NOTE: this method needs to be implemented to be used
-           self.write_results()
+           self._write_results()
 
            # update conformers with threshold
            # in this example the threshold is supposed to be a Boltzmann population
@@ -181,15 +173,15 @@ your results, e.g. by implementing a custom method and/or using the inherited
            threshold = self.get_settings()["threshold"]
 
            # update the conformer list in ensemble (remove confs if below threshold)
-           for confname in self.ensemble.update_conformers(
-               lambda conf: conf.results[self._name]["bmw"], 
-               threshold,
-               boltzmann=True
-           ):
-               print(f"No longer considering {confname}.")
+           limit = min(self.results[conf.name]["sp"]["energy"] for conf in self.ensemble.conformers)
+           filtered = list(filter(lambda conf: self.results[conf.name]["sp"]["energy"] - limit > threshold, self.ensemble.conformers))
+           for conf in filtered:
+               print(f"No longer considering {conf.name}.")
+            
+           self.ensemble.remove_conformers([conf.name for conf in filtered])
 
            # dump ensemble
-           self.ensemble.dump_ensemble(self._name)
+           self.ensemble.dump(self._name)
 
 
 After all these steps, the part can also be added to the core code of CENSO. For this, the class of the 
@@ -231,6 +223,6 @@ in and a file to redirect ``stdout``.
 
 Finally, the new processor class needs to be added to the ``__proctypes`` dictionary of the 
 ``ProcessorFactory`` class. Also, the key used there should be added to the ``PROGS`` parameter
-in ``params.py``. This will be used by parts to determine available programs in the settings, 
+in the ``Params`` class in ``params.py``. This will be used by parts to determine available programs in the settings, 
 so be careful to check whether your program supports the necessary jobtypes. You might want to 
 raise a ``NotImplementedError`` for unsupported jobtypes.
