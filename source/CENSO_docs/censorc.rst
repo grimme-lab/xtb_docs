@@ -32,26 +32,22 @@ the maximum number of cores CENSO should use, single-point Hessian settings, sol
       - description
       - default
       - allowed options
-    * - omp
-      - how many cores should be used for every subprocess launched by CENSO.
-      - 4
-      - [4, 32]
     * - imagthr
       - value of the imagthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
       - -100.0
-      - [-300.0, 0.0]
+      - 
     * - sthr
       - value of the sthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
       - 0.0
-      - [0.0, 100.0]
+      - 
     * - scale
       - value of the scale keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
       - 1.0
-      - [0.0, 1.0]
+      - 
     * - temperature
       - temperature in Kelvin; when calculating Gtot, CENSO will use the G values for this temperature.
       - 298.15
-      - [1e-5, 2000.0]
+      - 
     * - solvent
       - CENSO will try to use this solvent with the set solvation models (for more details see documentation on solvation).
       - h2o
@@ -116,7 +112,7 @@ Prescreening
     * - threshold
       - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 4.0
-      - [1.0, 10.0]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - pbe-d4
@@ -157,7 +153,7 @@ Screening
     * - threshold
       - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 3.5
-      - [0.75, 7.5]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - r2scan-3c
@@ -206,23 +202,23 @@ Optimization
     * - optcycles
       - number of microcycles per macrocycles if using macrocycle optimization.
       - 8
-      - [1, 10]
+      - 
     * - maxcyc
       - maximum number of optimization cycles (in the case of macrocycle optimization the maximum number of cumulative microcycles).
       - 200 
-      - [10, 1000]
+      - 
     * - threshold
       - the **minimum** threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 1.5
-      - [0.5, 5.0]
+      - 
     * - gradthr
       - threshold for the gradient below which the normal energy threshold condition will be applied.
       - 0.01
-      - [0.001, 0.1]
+      - 
     * - hlow
       - value of the hlow keyword will be passed to the xtb keyword of the same name.
       - 0.01
-      - [0.001, 0.1]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - r2scan-3c
@@ -281,9 +277,9 @@ Refinement
       - default
       - allowed options
     * - threshold
-      - the threshold (%) for the additive Boltzmann population of the ensemble beyond which conformers will be removed from the ensemble.
+      - the threshold for the additive Boltzmann population of the ensemble beyond which conformers will be removed from the ensemble.
       - 0.95
-      - [0.01, 0.99]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - wb97x-d3
@@ -332,11 +328,11 @@ NMR
     * - resonance_frequency
       - carrier frequency of the microwave radiation in the simulated NMR experiment
       - 300.0
-      - [150.0, 1000.0]
+      - 
     * - ss_cutoff
       - cutoff radius for the calculation of spin-spin couplings. Pairs with a larger distance than ss_cutoff will be neglected (only for ORCA).
       - 8.0
-      - [0.1, 100.0]
+      - 
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
@@ -421,7 +417,7 @@ UV/Vis
     * - nroots
       - number of roots sought for TD-DFT.
       - 20
-      - [1, 100]
+      - 
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
