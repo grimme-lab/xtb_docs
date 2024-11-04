@@ -73,13 +73,16 @@ up by the processor when running a job.
 
         # Perform the actual optimization logic
         self._optimize(cut=cut)
+        self.results["nconf_out"] = len(self._ensemble.conformers)
+
+        # Write out results
+        self._write_results()
 
         # Print comparison with previous parts
         self._print_comparison()
 
         # Print information about ensemble after optimization
         self._print_update()
-        self.results["nconf_out"] = len(self._ensemble.conformers)
 
         # dump ensemble
         self._ensemble.dump(f"{self._part_nos[self.name]}_{self.name.upper()}")
@@ -167,10 +170,6 @@ custom method and/or using the inherited ``self._write_json`` and ``ensemble.dum
                key=lambda conf: self.data["results"][conf.name]["sp"]["energy"],
            )
 
-           # write results
-           # NOTE: this method needs to be implemented to be used
-           self._write_results()
-
            # update conformers with threshold
            # in this example the threshold is supposed to be a Boltzmann population
            # threshold
@@ -189,11 +188,11 @@ custom method and/or using the inherited ``self._write_json`` and ``ensemble.dum
 
 
 After all these steps, the part can also be added to the core code of CENSO. For this, the class of the 
-new part needs to be added in ´´configuration.py´´ in the ´´configure´´ method, where all parts are imported
+new part needs to be added in ``configuration.py`` in the ``configure`` method, where all parts are imported
 in order to setup their settings by reading the rcfile. Also, make sure that the new class is added in the 
-appropriate ´´__init__.py´´ files, so that it can be imported. It is also necessary to register the constructor 
+appropriate ``__init__.py`` files, so that it can be imported. It is also necessary to register the constructor 
 in the ``Factory``, found in ``utilities``. In order to make the part run via the commandline,
-it is necessary to also import the class in ´´interface.py´´, where the ´´run´´ settings of each part is checked.
+it is necessary to also import the class in ``interface.py``, where the ``run`` settings of each part is checked.
 
 
 Implementing a new jobtype

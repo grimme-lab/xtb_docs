@@ -150,6 +150,9 @@ It should contain two keywords: ``{main}`` and ``{geom}``. These are later repla
 block, respectively. All further settings you add are inserted at the respective positions you put them in the
 template file.
 
+.. hint::
+   Template files are not yet implemented for TURBOMOLE.
+
 Dummy functionals
 =================
 

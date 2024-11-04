@@ -17,6 +17,11 @@ The settings will be type checked when the rcfile is parsed, so make sure that t
     In order to write a new rcfile for configuration you can run ``censo --new-config`` or use the ``write_rcfile``
     function from the ``censo.configuration`` module.
 
+.. hint::
+
+   Please note that currently it is not possible to use ``cosmors`` and ``cosmors-fine`` in the same run 
+   started from the commandline. We are working on an update to make this possible.
+
 
 General Settings
 ----------------
