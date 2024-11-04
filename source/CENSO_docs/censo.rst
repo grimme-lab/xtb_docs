@@ -41,6 +41,8 @@ one ensemble optimization step to be run beforehand for energy rankings and Bolt
  
 For now, all ensemble optimization steps can be performed using both ORCA and TURBOMOLE for DFT calculations.
 
+All output will be provided in formatted text files as well as in json format.
+
 Installation
 ------------
 
@@ -89,7 +91,7 @@ It is possible to run CENSO from a custom runner script. An example might look l
     from censo.configuration import configure
     from censo.ensembleopt import Prescreening, Screening, Optimization
     from censo.properties import NMR
-    from censo.params import Params
+    from censo.params import Config
 
     workdir = "/absolute/path/to/your/workdir" # CENSO will put all files in this directory
     input_path = "rel/path/to/your/inputfile" # path relative to the working directory
@@ -100,8 +102,13 @@ It is possible to run CENSO from a custom runner script. An example might look l
     configure("/abs/path/to/rcfile")
 
     # Get the number of available cpu cores on this machine
+    # This is also the default value that CENSO uses
     # This number can also be set to any other integer value and automatically checked for validity
-    Params.NCORES = os.cpu_count()
+    Config.NCORES = os.cpu_count()
+
+    # Another possibly important setting is OMP, which will get used if you disabled the automatic 
+    # load balancing in the settings
+    Config.OMP = 4
 
     # The user can also choose to change specific settings of the parts
     # Please take note of the following:
@@ -122,22 +129,16 @@ It is possible to run CENSO from a custom runner script. An example might look l
 
 
     # Setup and run all the parts that the user wants to run
-    results = [
-        part(ensemble) for part in [Prescreening, Screening, Optimization, NMR]
-    ]
-    
+    # Running the parts in order here, while it is also possible to use a custom order or run some parts multiple times
     # Running a part will return an instance of the respective type
-    part_timings = []
-    for part in results:
-        # Running the parts in order, while it is also possible to use a custom order or run some parts multiple times
-        # References to the resulting part instances will be appended to a list in the EnsembleData object (ensemble.results)
-        # Note though, that currently this will lead to results being overwritten in your working directory
-        # (you could circumvent this by moving/renaming the folders)
-        part_timings.append(part.run(ncores))
+    # References to the resulting part instances will be appended to a list in the EnsembleData object (ensemble.results)
+    # Note though, that currently this will lead to results being overwritten in your working directory
+    # (you could circumvent this by moving/renaming the folders)
+    results, timings = zip(*[part.run(ensemble) for part in [Prescreening, Screening, Optimization, NMR]])
 
     # You access the results using the ensemble object
     # You can also find all the results the <part>.json output files
-    print(ensemble.results[0].results["CONF5"]["sp"]["energy"])
+    print(ensemble.results[0].results["data"]["CONF5"]["sp"]["energy"])
 
 
 Template files

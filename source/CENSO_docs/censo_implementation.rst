@@ -41,10 +41,10 @@ It checks for type and value, if options are defined. Each part can and probably
 general method (e.g. the ``EnsembleOptimizer`` class extends the ``_validate`` method) in order to check 
 for e.g. setting combinations, such as trying to use DCOSMORS with ORCA.
 
-The next step would be implementing the ``run`` method of the new class. By default, 
+The next step would be implementing the ``__call__`` method of the new class. By default, 
 it should use the ``timeit`` and ``CensoPart._create_dir`` decorators. Within the function,
 the internal logic of what you would like to achieve should be implemented. Typically,
-the native parts start by printing out their settings (``self.print_info()``). After that,
+the native parts start by printing out their settings (``self._print_info()``). After that,
 a jobtype would be defined. This is necessary if CENSO should function as interface for 
 external programs and should be a list, containing strings referring to the jobtypes 
 available in the processor types (e.g. ``["sp"]``). For using external programs, a method 
@@ -59,50 +59,54 @@ up by the processor when running a job.
 
     @timeit
     @CensoPart._create_dir
-    def run(self, ncores: int, cut: bool = True) -> None:
+    def __call__(self, cut: bool = True) -> None:
         """
         Boilerplate run logic for any ensemble optimization step. The 'optimize' method should be implemented for every
         class respectively.
         """
         # print instructions
-        self.print_info()
+        self._print_info()
 
         # Print information about ensemble before optimization
-        self.print_update()
+        self._print_update()
+        self.results["nconf_in"] = len(self._ensemble.conformers)
 
         # Perform the actual optimization logic
-        self.optimize(ncores, cut=cut)
+        self._optimize(cut=cut)
 
         # Print comparison with previous parts
-        self.print_comparison()
+        self._print_comparison()
 
         # Print information about ensemble after optimization
-        self.print_update()
+        self._print_update()
+        self.results["nconf_out"] = len(self._ensemble.conformers)
 
         # dump ensemble
-        self.ensemble.dump_ensemble(self._name)
+        self._ensemble.dump(f"{self._part_nos[self.name]}_{self.name.upper()}")
 
-Note the ``cut`` keyword argument, which indicates wether to apply thresholds to the ensemble or not and also 
-the ``ncores`` argument, which indicates the number of cores to use for running the calculations.
+        # DONE
+
+
+Note the ``cut`` keyword argument, which indicates wether to apply thresholds to the ensemble.
 
 To run jobs of type ``jobtype``, the ``execute`` function from the ``parallel`` module is 
 required. It will return the results for the external program calls in form of a 
-dictionary with ``(key, value) = (id(conf), res)``, where ``id(conf)`` is the ``id`` of a 
-conformer object contained in the ensemble and ``res`` is a dictionary containing the 
+dictionary with ``(key, value) = (conf.name, res)``, where ``conf.name`` is the name of a 
+conformer contained in the ensemble, e.g. CONF23, and ``res`` is a dictionary containing the 
 results of the external programs for the specified jobtype.
 
-As a second return value, it will return a list of the ``id`` of failed conformers, 
+As a second return value, it will return a list of the names of failed conformers, 
 i.e. conformers, for which at least one job failed to execute. These should most likely 
-be removed from the ensemble using the ``ensemble.remove_conformers`` method. In the 
-native parts, the results will be inserted into the ``results`` dictonary of the 
-``MoleculeData`` objects (the conformers).
+be removed from the ensemble using the ``ensemble.remove_conformers`` method. The results 
+are then put into the parts ``data`` attribute under the ``results`` key. Furthermore,
+in the ``run`` method of the ``CensoPart`` class, a reference to the part object will be 
+attached to ``ensemble.results``.
 
 Using these steps, more complex behaviour can be achieved. Typical steps would also include 
 resorting the conformers (``ensemble.conformers.sort``) as well as updating the conformer
 list using a threshold (energy threshold in kcal/mol or Boltzmann population threshold 
-between 0.0 and 1.0) (``ensemble.update_conformers``). Lastly, you might want to write 
-your results, e.g. by implementing a custom method and/or using the inherited 
-``self.write_json`` and ``ensemble.dump_ensemble`` methods.
+between 0.0 and 1.0). Lastly, you might want to write your results, e.g. by implementing a 
+custom method and/or using the inherited ``self._write_json`` and ``ensemble.dump`` methods.
 
 .. Example for a new class for ensemble optimization.
 .. code:: python
@@ -153,14 +157,14 @@ your results, e.g. by implementing a custom method and/or using the inherited
            self.ensemble.remove_conformers(failed)
 
            # update results for each conformer
-           self.results.update(results)
+           self._update_results(results)
 
            # calculate boltzmann weights from values calculated here
-           self.results.update(self._calc_boltzmannweights())
+           self._update_results(self._calc_boltzmannweights())
 
            # sort conformers list with specific key
            self.ensemble.conformers.sort(
-               key=lambda conf: self.results[conf.name]["sp"]["energy"],
+               key=lambda conf: self.data["results"][conf.name]["sp"]["energy"],
            )
 
            # write results
@@ -173,21 +177,22 @@ your results, e.g. by implementing a custom method and/or using the inherited
            threshold = self.get_settings()["threshold"]
 
            # update the conformer list in ensemble (remove confs if below threshold)
-           limit = min(self.results[conf.name]["sp"]["energy"] for conf in self.ensemble.conformers)
-           filtered = list(filter(lambda conf: self.results[conf.name]["sp"]["energy"] - limit > threshold, self.ensemble.conformers))
+           limit = min(self.data["results"][conf.name]["sp"]["energy"] for conf in self.ensemble.conformers)
+           filtered = list(filter(lambda conf: self.data["results"][conf.name]["sp"]["energy"] - limit > threshold, self.ensemble.conformers))
            for conf in filtered:
                print(f"No longer considering {conf.name}.")
             
            self.ensemble.remove_conformers([conf.name for conf in filtered])
 
            # dump ensemble
-           self.ensemble.dump(self._name)
+           self.ensemble.dump(self.name)
 
 
 After all these steps, the part can also be added to the core code of CENSO. For this, the class of the 
 new part needs to be added in ´´configuration.py´´ in the ´´configure´´ method, where all parts are imported
 in order to setup their settings by reading the rcfile. Also, make sure that the new class is added in the 
-appropriate ´´__init__.py´´ files, so that it can be imported. In order to make the part run via the commandline,
+appropriate ´´__init__.py´´ files, so that it can be imported. It is also necessary to register the constructor 
+in the ``Factory``, found in ``utilities``. In order to make the part run via the commandline,
 it is necessary to also import the class in ´´interface.py´´, where the ´´run´´ settings of each part is checked.
 
 
@@ -221,8 +226,8 @@ creates a subprocess to execute the external program. It needs to be provided wi
 in form of a list (of strings representing the command line arguments), a directory to execute
 in and a file to redirect ``stdout``.
 
-Finally, the new processor class needs to be added to the ``__proctypes`` dictionary of the 
-``ProcessorFactory`` class. Also, the key used there should be added to the ``PROGS`` parameter
-in the ``Params`` class in ``params.py``. This will be used by parts to determine available programs in the settings, 
+Finally, the new processor constructor needs to be registered in the ``Factory`` class. 
+Also, the key used there should be added to the ``PROGS`` parameter in the ``Config`` class 
+in ``params.py``. This will be used by parts to determine available programs in the settings, 
 so be careful to check whether your program supports the necessary jobtypes. You might want to 
 raise a ``NotImplementedError`` for unsupported jobtypes.
