@@ -41,7 +41,7 @@ It checks for type and value, if options are defined. Each part can and probably
 general method (e.g. the ``EnsembleOptimizer`` class extends the ``_validate`` method) in order to check 
 for e.g. setting combinations, such as trying to use DCOSMORS with ORCA.
 
-The next step would be implementing the ``run`` method of the new class. By default, 
+The next step would be implementing the ``__call__`` method of the new class. By default, 
 it should use the ``timeit`` and ``CensoPart._create_dir`` decorators. Within the function,
 the internal logic of what you would like to achieve should be implemented. Typically,
 the native parts start by printing out their settings (``self._print_info()``). After that,
@@ -67,25 +67,17 @@ up by the processor when running a job.
         # print instructions
         self._print_info()
 
-        # Print information about ensemble before optimization
-        self._print_update()
-        self.results["nconf_in"] = len(self._ensemble.conformers)
+        # Store number of conformer put in
+        self.data["nconf_in"] = len(self._ensemble.conformers)
 
         # Perform the actual optimization logic
         self._optimize(cut=cut)
-        self.results["nconf_out"] = len(self._ensemble.conformers)
+        self.data["nconf_out"] = len(self._ensemble.conformers)
 
-        # Write out results
-        self._write_results()
-
-        # Print comparison with previous parts
-        self._print_comparison()
-
-        # Print information about ensemble after optimization
-        self._print_update()
-
-        # dump ensemble
-        self._ensemble.dump(f"{self._part_nos[self.name]}_{self.name.upper()}")
+        # Resort the ensemble
+        self._ensemble.conformers.sort(
+            key=lambda conf: self.data["results"][conf.name]["gtot"],
+        )
 
         # DONE
 
