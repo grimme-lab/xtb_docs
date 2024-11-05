@@ -17,6 +17,11 @@ The settings will be type checked when the rcfile is parsed, so make sure that t
     In order to write a new rcfile for configuration you can run ``censo --new-config`` or use the ``write_rcfile``
     function from the ``censo.configuration`` module.
 
+.. hint::
+
+   Please note that currently it is not possible to use ``cosmors`` and ``cosmors-fine`` in the same run 
+   started from the commandline. We are working on an update to make this possible.
+
 
 General Settings
 ----------------
@@ -32,26 +37,22 @@ the maximum number of cores CENSO should use, single-point Hessian settings, sol
       - description
       - default
       - allowed options
-    * - omp
-      - how many cores should be used for every subprocess launched by CENSO.
-      - 4
-      - [4, 32]
     * - imagthr
       - value of the imagthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
       - -100.0
-      - [-300.0, 0.0]
+      - 
     * - sthr
       - value of the sthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
       - 0.0
-      - [0.0, 100.0]
+      - 
     * - scale
       - value of the scale keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
       - 1.0
-      - [0.0, 1.0]
+      - 
     * - temperature
       - temperature in Kelvin; when calculating Gtot, CENSO will use the G values for this temperature.
       - 298.15
-      - [1e-5, 2000.0]
+      - 
     * - solvent
       - CENSO will try to use this solvent with the set solvation models (for more details see documentation on solvation).
       - h2o
@@ -116,7 +117,7 @@ Prescreening
     * - threshold
       - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 4.0
-      - [1.0, 10.0]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - pbe-d4
@@ -127,8 +128,8 @@ Prescreening
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -157,7 +158,7 @@ Screening
     * - threshold
       - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 3.5
-      - [0.75, 7.5]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - r2scan-3c
@@ -168,12 +169,12 @@ Screening
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - sm 
       - solvation model used for this step.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors, cosmors, cosmors-fine
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -206,23 +207,23 @@ Optimization
     * - optcycles
       - number of microcycles per macrocycles if using macrocycle optimization.
       - 8
-      - [1, 10]
+      - 
     * - maxcyc
       - maximum number of optimization cycles (in the case of macrocycle optimization the maximum number of cumulative microcycles).
       - 200 
-      - [10, 1000]
+      - 
     * - threshold
       - the **minimum** threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
       - 1.5
-      - [0.5, 5.0]
+      - 
     * - gradthr
       - threshold for the gradient below which the normal energy threshold condition will be applied.
       - 0.01
-      - [0.001, 0.1]
+      - 
     * - hlow
       - value of the hlow keyword will be passed to the xtb keyword of the same name.
       - 0.01
-      - [0.001, 0.1]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - r2scan-3c
@@ -233,12 +234,12 @@ Optimization
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step.
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - sm 
       - solvation model used for this step.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -281,9 +282,9 @@ Refinement
       - default
       - allowed options
     * - threshold
-      - the threshold (%) for the additive Boltzmann population of the ensemble beyond which conformers will be removed from the ensemble.
+      - the threshold for the additive Boltzmann population of the ensemble beyond which conformers will be removed from the ensemble.
       - 0.95
-      - [0.01, 0.99]
+      - 
     * - func
       - the functional/dispersion correction combination used for this step.
       - wb97x-d3
@@ -294,12 +295,12 @@ Refinement
       - :ref:`censo_bs`
     * - prog 
       - program that should be used for this step
-      - orca
-      - orca
+      - tm
+      - orca, tm
     * - sm 
       - solvation model used for this step.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors, cosmors, cosmors-fine
     * - gfnv
       - Variant of GFN that should be used for xtb calculations in this step.
       - gfn2
@@ -332,15 +333,15 @@ NMR
     * - resonance_frequency
       - carrier frequency of the microwave radiation in the simulated NMR experiment
       - 300.0
-      - [150.0, 1000.0]
+      - 
     * - ss_cutoff
       - cutoff radius for the calculation of spin-spin couplings. Pairs with a larger distance than ss_cutoff will be neglected (only for ORCA).
       - 8.0
-      - [0.1, 100.0]
+      - 
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
-      - orca
+      - orca, tm
     * - func_j
       - the functional/dispersion correction combination used in calculating the couplings.
       - pbe0-d4
@@ -352,7 +353,7 @@ NMR
     * - sm_j
       - solvation model used in the calculation of the couplings.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors
     * - func_s
       - the functional/dispersion correction combination used in calculating the shieldings.
       - pbe0-d4
@@ -364,7 +365,7 @@ NMR
     * - sm_s
       - solvation model used in the calculation of the shieldings.
       - smd
-      - smd, cpcm
+      - smd, cpcm, cosmo, dcosmors
     * - run
       - when using the command line interface, it tells CENSO whether to run this part or not.
       - False
@@ -421,7 +422,7 @@ UV/Vis
     * - nroots
       - number of roots sought for TD-DFT.
       - 20
-      - [1, 100]
+      - 
     * - prog
       - program that should be used to calculate the shielding/coupling single-points.
       - orca
