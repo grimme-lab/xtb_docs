@@ -165,6 +165,24 @@ for ``func``. This tells CENSO to write no functional specific settings automati
 functionals that are not defined as keywords in ORCA, such as e.g. revDSD-PBEP86-D4 (J. M. L. Martin et al., J Phys Chem A 2019
 doi: 10.1021/acs.jpca.9b03157).
 
+Template files
+==============
+
+Since 2.0, CENSO supports template input files for all steps. They are located in ``$HOME/.censo2_assets``.
+In order to use a template file for e.g. prescreening with ORCA, the file should be called ``prescreening.orca.template``.
+It should contain two keywords: ``{main}`` and ``{geom}``. These are later replaced by the main argument line and the geometry
+block, respectively. All further settings you add are inserted at the respective positions you put them in the
+template file.
+
+Dummy functionals
+=================
+
+Since only a limited amount of functionals are preconfigured in CENSO, the ``dummy`` option exists as value 
+for ``func``. This tells CENSO to write no functional specific settings automatically into the input (such as 
+``frozencore`` for double-hybrids in ORCA). By combining this with a template file, it is possible to also use 
+functionals that are not defined as keywords in ORCA, such as e.g. revDSD-PBEP86-D4 (J. M. L. Martin et al., J Phys Chem A 2019
+doi: 10.1021/acs.jpca.9b03157).
+
 Ensemble Optimization
 ---------------------
 
