@@ -70,3 +70,4 @@ Contributors
 * Jakob Seibert
 * Sebastian Spicher
 * Leopold Seidler
+* Marcel Müller
