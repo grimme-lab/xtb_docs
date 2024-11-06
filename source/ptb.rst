@@ -9,14 +9,15 @@ Introducing PTB
 ``PTB`` stands for density (**P**) tight-binding (**TB**), a method that emulates the density matrix of a :math:`{\omega}`\ B97X-3c range-separated hybrid DFT calculation (see also below).
 
    .. figure:: ../figures/ptb_cover_image.png
+      :align: center
 
-PTB is out-of-the-box applicable to various electronic structure properties for molecules composed of all spd-block elements up to *Z=86*.
-The key point is to substitute the so far commonly used minimal atomic orbital basis sets with an extended and properly polarized basis set (vDZP).
+PTB can be used out-of-the-box to various electronic structure properties for molecules composed of all spd-block elements up to *Z=86*.
+The key improvement is the substitution of commonly used minimal atomic orbital basis sets with an extended and properly polarized basis set (vDZP).
 Its main purpose is to provide extremely fast the one-particle electronic density matrix **P** and derived properties, such as atomic charges, shell populations, dipole moments, and geometric derivatives as well as static dipole polarizabilities.
-For a wide range of molecules from various chemical compound classes (organic, inorganic, transition metal complexes, clusters, and aggregates), including multiple anions/cations, an excellent agreement between PTB and :math:`{\omega}`\ B97X-3c computed properties is obtained.
-Typical RMSDs are 0.02 e\ :sup:`-` for atomic charges or shell populations, and deviations of about 5 % to 10 % for dipole moments and dipole polarizabilities.
-Artificial charge transfer in, e.g., zwitterions or SCF convergence problems in electronically difficult small gap systems is largely avoided, which also results from the applied non-iterative, two-step diagonalization scheme.
-No energy expression is available at this point, and the entire development was focused on reproducing the DFT density matrix and some of its response features as accurately as possible. 
+For a wide range of molecules from various chemical compound classes (organic, inorganic, transition metal complexes, clusters, and aggregates), including multiple anions/cations, excellent agreement between PTB and :math:`{\omega}`\ B97X-3c computed properties is obtained.
+Typical RMSDs are 0.02 e\ :sup:`-` for atomic charges or shell populations, with deviations of approximately 5% to 10% for dipole moments and polarizabilities.
+Artificial charge transfer, such as in zwitterions, or SCF convergence issues in electronically challenging small-gap systems is largely avoided, which also results from the applied non-iterative, two-step diagonalization scheme.
+No energy expression is available currently, and the entire development was focused on reproducing the DFT density matrix and some of its response features as accurately as possible.
 
 PTB has been published in `The Journal of Chemical Physics <https://doi.org/10.1063/5.0137838>`_:
 
@@ -563,7 +564,7 @@ It extends the portfolio of the package by the non-self-consistent density tight
             "xtb version": "6.7.1 (1779d8a)"
          }
 
-The output contains the following properties:
+The output as well as the ``JSON`` file contain the following properties:
 
 - orbital energies and occupations
 - atomic partial charges
@@ -576,16 +577,20 @@ The output contains the following properties:
 Vibrational spectroscopy
 ============================
 
-The calculation of infrared and Raman intensities for vibrational spectroscopy simulations is another use case of PTB.
-An example is the following spectrum of endothelin (1EDN):
+Infrared and Raman intensity calculations for vibrational spectroscopy are additional applications of PTB.
+An example is the spectrum of endothelin (1EDN).
+
+   In all spectra, the notation "Method\ **X** [Method\ **Y**]" indicates that frequencies were computed with Method\ **Y** and intensities with Method\ **X**.
+   Within ``xtb``, this procedure is fully automated and requires no additional user input when using the CLI command below.
 
 .. figure:: ../figures/ptb_raman_1edn.png
-   :width: 75%
+   :width: 50%
+   :align: center
    :alt: Raman activities of the polypeptide endothelin (327 atoms) computed by :math:`{\omega}`\ B97X-3c [GFN2-xTB] and PTB [GFN2-xTB]. The notation indicates that intensities were calculated with PTB or :math:`{\omega}`\ B97X-3c, while frequencies were computed with GFN2-xTB. In this example, Raman activities instead of Raman scattering cross-sections (== intensities) are plotted.
 
    Raman activities of the polypeptide endothelin (327 atoms) computed by :math:`{\omega}`\ B97X-3c [GFN2-xTB] and PTB [GFN2-xTB].
    The notation indicates that intensities were calculated with PTB or :math:`{\omega}`\ B97X-3c, while frequencies were computed with GFN2-xTB.
-   In this example, Raman activities instead of Raman scattering cross-sections (== intensities) are plotted.
+   In this example, Raman activities instead of Raman scattering cross-sections (= intensities) are plotted.
 
 .. note::
    Vibrational frequencies are not available with PTB! Instead, mixed GFN\ *n*-xTB and PTB spectra can be calculated.
@@ -665,5 +670,13 @@ The following example shows the output of a vibrational spectrum calculation uti
          $end
 
 
-In the shown example, omitting the ``--raman`` flag would result in a pure IR spectrum calculation.
-Similar to the basic usage example, also here, ``--json`` can be used to obtain the output in JSON format.
+In the shown example, omitting the ``--raman`` flag would result in a pure IR spectrum calculation (examples below).
+Similar to the basic usage example, also here, ``--json`` can be used to obtain the output (all components of the vibrational spectrum) in ``JSON`` format.
+
+.. figure:: ../figures/ptb_ir_spectra.png
+   :width: 75%
+   :align: center
+   :alt: IR spectra of 3-pentenenitrile and 1-nitrosopyrrolidine. The experimental gas phase spectra and the spectra calculated with :math:`{\omega}`\ B97X-3c [GFN2-xTB], full GFN2-xTB, and PTB [GFN2-xTB] are shown.
+
+   IR spectra of 3-pentenenitrile and 1-nitrosopyrrolidine.
+   The experimental gas phase spectra and the spectra calculated with :math:`{\omega}`\ B97X-3c [GFN2-xTB], full GFN2-xTB, and PTB [GFN2-xTB] are shown.
