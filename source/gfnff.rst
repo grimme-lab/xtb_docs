@@ -16,7 +16,7 @@ The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https:/
 .. figure:: ../figures/gfnff.jpg
    :scale: 25 %
    :alt: gfnff
-   
+
 
 Theoretical background
 =================================

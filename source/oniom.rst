@@ -111,7 +111,8 @@ where :math:`[xyz]_{con}` and :math:`[xyz]_{host}` are coordinates of connector 
 .. figure:: ../figures/docs.png
    :align: center
 
-| 
+|
+
 To distinguish between different bonds the topology information from the ``low`` level method is used. 
 
 .. warning:: 

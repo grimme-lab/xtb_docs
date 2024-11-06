@@ -6,86 +6,57 @@ This user guide focuses on the semiempirical quantum mechanical methods GFNn-xTB
 their descendants, and corresponding composite schemes as implemented in the
 `xtb <https://github.com/grimme-lab/xtb>`_ (extended tight binding) program package.
 
-We provide a number of detailed guides dealing with common task that can
+We provide a number of detailed guides dealing with common tasks that can
 be performed easily with the ``xtb`` program.
 All guides are usually structured the same way, starting with some simple
-examples using only the commandline and the default settings followed
-by a trouble shooting section.
-Detailed inputs are provided in a ready to use fashion to solve some
+examples using only the command line and the default settings, followed
+by a troubleshooting section.
+Detailed inputs are provided in a ready-to-use fashion to solve some
 more special but still common tasks with ``xtb`` together with some
-insights into the theory used behind the scences.
+insights into the theory used behind the scenes.
 
 
 -------------
  Quick Links
 -------------
 
-.. panels::
-   :column: + text-center
+.. figure:: https://github.com/awvwgk/xtb-logo/raw/master/xtb.svg
+   :width: 25%
+   :alt: xtb
+   :align: center
 
-   .. image:: https://github.com/awvwgk/xtb-logo/raw/master/xtb.svg
-      :width: 75%
-      :alt: xtb
+   `Documentation for xtb <setup.html>`_
 
-   +++
+.. figure:: https://github.com/grimme-lab/crest/raw/master/assets/crest.png
+   :width: 25%
+   :alt: CREST
+   :align: center
 
-   .. link-button:: setup
-      :type: ref
-      :text: Documentation for xtb
-      :classes: btn-block stretched-link
+   `Documentation for CREST <https://crest-lab.github.io/crest-docs/>`_
 
-   ---
+.. figure:: ../figures/CENSO/censo_logo_300dpi.png
+   :width: 25%
+   :alt: CENSO
+   :align: center
 
-   .. image:: https://github.com/grimme-lab/crest/raw/master/assets/crest.png
-      :width: 50%
-      :alt: CREST
+   `Documentation for CENSO <CENSO_docs/censo.html>`_
 
-   +++
+.. figure:: ../figures/qcxms/qcxms_logo.svg
+   :width: 25%
+   :alt: QCxMS
+   :align: center
 
-   .. link-button:: https://crest-lab.github.io/crest-docs/
-      :type: ref
-      :text: Documentation for CREST
-      :classes: btn-block stretched-link
+   `Documentation for QCxMS <qcxms_doc/qcxms.html>`_
 
-   ---
+.. figure:: ../logo/logo_abtgrimme_desktop.png
+   :width: 25%
+   :alt: Grimme-lab
+   :align: center
 
-   .. image:: ../figures/CENSO/censo_logo_300dpi.png
-      :alt: CENSO
-
-   +++
-
-   .. link-button:: censo
-      :type: ref
-      :text: Documentation for CENSO
-      :classes: btn-block stretched-link
-
-   ---
-
-   .. image:: ../figures/qcxms/qcxms_logo.svg
-      :alt: QCxMS
-
-   +++
-
-   .. link-button:: qcxms
-      :type: ref
-      :text: Documentation for QCxMS
-      :classes: btn-block stretched-link
-
-   ---
-   :column: + col-lg-12 p-2
-
-   .. image:: ../logo/logo_abtgrimme_desktop.png
-      :width: 75%
-      :alt: Grimme-lab
-
-   +++
-
-   .. link-button:: https://github.com/grimme-lab
-      :text: Explore on GitHub
-      :classes: btn-block stretched-link
+   `Explore on GitHub <https://github.com/grimme-lab>`_
 
 --------------------------------------------
- Recent developments, news and publications
+ Recent developments, news, and publications
 --------------------------------------------
 
 .. postlist:: 5
@@ -103,14 +74,13 @@ The xTB-methods are now officially available in other quantum chemistry programs
 
  - in `Orca`_ 4.2 an IO-based interface to the ``xtb`` binary is available
  - `AMS`_ 2019 implements GFN1-xTB in their DFTB module
- - the `entos`_ program implements GFN1-xTB (also available in the webinterface)
+ - the `entos`_ program implements GFN1-xTB (also available in the web interface)
  - the computational chemistry framework `cuby4`_ supports ``xtb``
  - `Turbomole`_ does support GFN1-xTB and GFN2-xTB since version 7.4
  - `QCEngine`_ supports calculations with the ``xtb`` API
- - the `GMIN`_, `OPTIM`_, and `PATHSAMPLE`_ global optimization tools provide a ``xtb`` interface
- - `CP2K`_ has an GFN1-xTB implementation since version 7.1
+ - the `GMIN`_, `OPTIM`_, and `PATHSAMPLE`_ global optimization tools provide an ``xtb`` interface
+ - `CP2K`_ has a GFN1-xTB implementation since version 7.1
  - `DFTB+`_ support GFN1-xTB and GFN2-xTB since version 21.2
-
 
 .. _Orca: https://orcaforum.kofo.mpg.de
 .. _AMS: https://www.scm.com/product/dftb/
@@ -125,9 +95,9 @@ The xTB-methods are now officially available in other quantum chemistry programs
 .. _DFTB+: https://www.dftbplus.org/
 
 We missed your project here?
-No problem, just give us hint at the mailing list or open an issue at `github`_.
+No problem, just give us a hint at the mailing list or open an issue at `GitHub`_.
 
-.. _github: https://github.com/grimme-lab/xtb_docs/issues/new
+.. _GitHub: https://github.com/grimme-lab/xtb_docs/issues/new
 
 
 .. toctree::

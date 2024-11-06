@@ -29,10 +29,11 @@ Mandatory keywords are:
 
 Please find additional keywords in the documentation for the ``thermo`` submodule.
 IR intensities, sometimes also called *Born charges*, can equivalently be obtained from 
-   1. mixed 2nd derivatives of the energy with respect to atomic positions and external
-      electric field
-   2. 1st derivative of dipole moment with respect to atomic positions
-   3. 1st derivative of forces with respect to external electric field
+
+1. mixed 2nd derivatives of the energy with respect to atomic positions and external
+   electric field
+2. 1st derivative of dipole moment with respect to atomic positions
+3. 1st derivative of forces with respect to external electric field
 
 In DFTB+, the second pathway is employed.
 This module aims to easen the calculation of SQM solid state IR spectra for large molecular

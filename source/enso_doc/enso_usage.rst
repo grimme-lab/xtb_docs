@@ -847,12 +847,12 @@ Handling of missing conformers:
   you are not missing a conformer which is high lying in energy at GFNn-xTB level. (See :ref:`backup <flags_settings>`)
 * The conformer might be wrongly sorted into a different conformer group by CREST and counted as a rotamer.
   To check this you can resort the complete CRE (including all rotamers and conformers) and check if the 
-  thresholds employed in the CREGEN sorting routine changes the CRE (See :ref:`crestxmpl` )
+  thresholds employed in the CREGEN sorting routine changes the CRE.
 
   .. code-block:: bash
-      
+
       crest coord -cregen crest_rotamers_6.xyz -bthr 12 -nmr > cregen.out
-   
+
   Here you have to inspect the printout and check if grouping/sorting of conformers is correct.
   If you find that there were conformers wrongly grouped because of sorting-thresholds not 
   suitable for the investigated system. You have to rerun the ENSO calculation on the new ensemble file.
