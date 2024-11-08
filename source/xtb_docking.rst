@@ -100,6 +100,9 @@ Options
 --gfnff
    Perform final optimizations with GFN-FF
 
+--optlvl <method>
+   Perform final optimizations with ``<method>``, *e.g.*, gfn1, gfn2, or gfnff
+
 --alpb [reference]
     analytical linearized Poisson-Boltzmann (ALPB) model,
     available solvents are *acetone*, *acetonitrile*, *aniline*, *benzaldehyde*,
