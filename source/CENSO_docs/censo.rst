@@ -144,6 +144,14 @@ It is possible to run CENSO from a custom runner script. An example might look l
     print(ensemble.results[0].data["results"]["CONF5"]["sp"]["energy"])
 
 
+.. hint:: 
+   By default, CENSO will always print information about what it's doing to stdout, as well as logging additional information 
+   in the file ``censo.log``. It is not possible to call CENSO silently from command line, however you could redirect 
+   stdout if you need a silent run. If you want a silent CENSO run from within Python you could use a context manager 
+   to redirect stdout. To disable logging from the command line use ``--loglevel NONE``. From within Python you can use 
+   ``censo.logging.set_loglevel("NONE")`` or ``censo.logging.set_loglevel(51)`` (which corresponds to ``python.logging.CRITICAL + 1``).
+
+
 Template files
 ==============
 
