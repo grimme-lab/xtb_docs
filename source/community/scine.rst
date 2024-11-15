@@ -16,14 +16,14 @@ into the SCINE tool chain.
 Each method is represented by its own ``Calculator`` and the entire wrapper
 constitutes a SCINE module that can be loaded dynamically at runtime.
 For more information on these concepts see the ``Scine::Core``
-`repository <https://github.com/qcscine/core>`_.
+`SCINE Core repository <https://github.com/qcscine/core>`_.
 
 License and Copyright Information
 ---------------------------------
 
 The SCINE XTB wrapper is distributed under the BSD 3-clause "New" or "Revised"
 License. For more license and copyright information, see the file ``LICENSE.txt``
-in the `repository <https://github.com/qcscine/xtb_wrapper>`_.
+in the `XTB Wrapper repository <https://github.com/qcscine/xtb_wrapper>`_.
 
 Note: this license does not cover the original `xtb` source code.
 

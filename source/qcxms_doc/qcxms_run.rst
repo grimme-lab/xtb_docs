@@ -18,8 +18,7 @@ Workflow of QCxMS
 --------
 
 1. Prepare a file with the equilibrium structure of your desired molecule M. For the CID mode,
-   the molecule has to be protonated. This can be done with the protonation tool of **CREST**
-   (see: :ref:`crestcmd`). 
+   the molecule has to be protonated. This can be done with the protonation tool of **CREST**.
 
 .. Attention:: 
   The structure files can have all formats supported by the `MCTC library <https://github.com/grimme-lab/mctc-lib>`_ ,
@@ -83,7 +82,7 @@ Workflow of QCxMS
    into the *.agr* file and a matching score is provided. Run: `plotms -i file.csv`.
 
 In each *TMPQCXMS/TMP.* file, a production run can be conducted by `qcxms -p` to test settings or take a look into the fragmentation
-processes in detail. Other `commandline`_ options are provided below.
+processes in detail. Other `qcxms_commandline`_ options are provided below.
 
 
 
@@ -400,7 +399,7 @@ Available Basissets in ORCA/TURBOMOLE:
 
 Command line Options
 ====================
-.. _commandline:
+.. _qcxms_commandline:
 
 -**c** / --**check**
     check IEE but do nothing (requires ground state trajectory). Writes IEE distribution in file *eimp.dat*.

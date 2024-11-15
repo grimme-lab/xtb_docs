@@ -25,9 +25,10 @@ The program is designed to run on Linux operating systems.
 
 Move the ``.mass_raw.agr`` file into the ``$HOME`` folder. Change into your working directory, in which you created the 
 *qcxms.res* or *qcxms_cid.res* file and run ``plotms``. This generates three files:
-   - `mass.agr` -> *XMGRACE* file using the `~/.mass_raw.agr` template file
-   - `results.jdx` -> *JCAMP-DX* ( *Joint Committee on Atomic and Molecular Physical* data) file 
-   - `results.csv` -> *CSV* (*comma seperated values*) file for spreadsheet programs (e.g. Excel)
+
+- `mass.agr` -> *XMGRACE* file using the `~/.mass_raw.agr` template file
+- `results.jdx` -> *JCAMP-DX* ( *Joint Committee on Atomic and Molecular Physical* data) file 
+- `results.csv` -> *CSV* (*comma seperated values*) file for spreadsheet programs (e.g. Excel)
 
 The spectra can be plotted as soon as the production run has started by using the `getres` script, which creates an 
 *tmpqcxms.res* file. The file has to be deleted before ``getres`` is used a second time.
@@ -61,23 +62,30 @@ There are some useful command-line options to manipulate your results.
 
 -v, --verbose
     print verbose options
+
 -f, --file <file>
     provide `.res` file for plotting the spectrum
+
 -t <x> <y>
     couting ions with charge *x* to *y* (give the value, e.g. "-t 1 2" for charge 1 to 2)
+
 -w, --width <real>
     broadening the charges by an standard distribution (given in decimal numbers between 0 and 1)
+
 -s, --cascades <integer>
     account only for only secondary and tertiary fragmentations (give the value, e.g. "-s 2" for secondary)
+
 -m, --min <integer>
     set minimum value for m/z, so rel. 100% value will be calculated for higher masses (x-axis)
+
 -i, --mzmin <real>
     set the minimum rel. intensity from which the signals are counted (y-axis)
+
 -p, --noisotope
     do not calculate the isotope pattern 
+
 -e, --exp <file>
     use the following file as input for comparison to the calculated spectrum
-
 
 
 Visualization of Trajectories
