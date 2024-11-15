@@ -23,25 +23,6 @@ PTB has been published in `The Journal of Chemical Physics <https://doi.org/10.1
 
       Grimme, S.; Müller, M.; Hansen, A. A Non-Self-Consistent Tight-Binding Electronic Structure Potential in a Polarized Double-ζ Basis Set for All *spd*-Block Elements up to *Z* = 86. *J. Chem. Phys.* 2023, **158** (12), 124111. DOI: `10.1063/5.0137838 <https://doi.org/10.1063/5.0137838>`_
 
-   .. code-block:: bibtex
-
-      @article{grimme_non-self-consistent_2023,
-      	title = {A non-self-consistent tight-binding electronic structure potential in a polarized double-ζ basis set for all spd-block elements up to {Z} = 86},
-      	volume = {158},
-      	issn = {0021-9606},
-      	url = {https://doi.org/10.1063/5.0137838},
-      	doi = {10.1063/5.0137838},
-      	abstract = {Existing semiempirical molecular orbital methods suffer from the usually minimal atomic-orbital (AO) basis set used to simplify the calculations. Here, a completely new and consistently parameterized tight-binding electronic structure Hamiltonian evaluated in a deeply contracted, properly polarized valence double-zeta basis set (vDZP) is described. The inner-shell electrons are accounted for by standard, large-core effective potentials and approximations to them. The primary target of this so-called density matrix tight-binding method is to reproduce the one-particle density matrix P of a molecular ωB97X-V range-separated hybrid density functional theory (DFT) calculation in exactly the same basis set. Additional properties considered are orbital energies, dipole polarizabilities and dipole moments, and dipole polarizability derivatives. The key features of the method are as follows: (a) it is non-self-consistent with an overall fixed number of only three required matrix diagonalizations; (b) only AO overlap integrals are needed to construct the effective Hamiltonian matrix; (c) new P-dependent terms emulating non-local exchange are included; and (d) only element-specific empirical parameters (about 50 per element) need to be determined. The method globally achieves a high accuracy for the target properties at a speedup compared to the ωB97X-V/vDZP reference of about 3–4 orders of magnitude. It performs robustly for difficult transition metal complexes, for highly charged or zwitterionic systems, and for chemically unusual bonding situations, indicating a generally robust approximation of the (self-consistent) Kohn–Sham potential. As an example application, the vibrational Raman spectrum of an entire protein with 327 atoms with respect to the DFT reference calculation is shown. This method may be used out-of-the-box to generate molecular/atomic features for machine learning applications or as the basis for accurate high-speed DFT methods.},
-      	number = {12},
-      	urldate = {2023-06-09},
-      	journal = {The Journal of Chemical Physics},
-      	author = {Grimme, Stefan and Müller, Marcel and Hansen, Andreas},
-      	month = mar,
-      	year = {2023},
-      	pages = {124111},
-      	file = {Full Text PDF:/Users/marcelmueller/Zotero/storage/LRJJ6T9I/Grimme et al. - 2023 - A non-self-consistent tight-binding electronic str.pdf:application/pdf;Snapshot:/Users/marcelmueller/Zotero/storage/FAT76IUH/A-non-self-consistent-tight-binding-electronic.html:text/html},
-      }
-
 For further information on :math:`{\omega}`\ B97X-3c, see:
 `Müller, M.; Hansen, A.; Grimme, S. J. Chem. Phys. 2023, 158 (1), 014103
 <https://doi.org/10.1063/5.0133026>`_.
