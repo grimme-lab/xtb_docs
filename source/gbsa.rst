@@ -85,12 +85,12 @@ Here is a list of the available solvents.
  CHCl₃           x            x            x            x            x
  CS₂             x            x            x            x            x
  Dioxane         x                         x                         x
- DMF             x                         x                         x
+ DMF             x                         x            x            x
  DMSO            x            x            x            x            x
  Ether           x            x            x            x            x
  Ethylacetate    x                         x                         x
  Furane          x                         x                         x
- Hexadecane     x                         x                         x
+ Hexadecane      x                         x                         x
  Hexane          x                         x            x            x
  Methanol                     x                         x
  Nitromethane    x                         x                         x
