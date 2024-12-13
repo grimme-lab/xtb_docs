@@ -92,7 +92,7 @@ Here is a list of the available solvents.
  Furane          x                         x                         x
  Hexadecane      x                         x                         x
  Hexane          x                         x            x            x
- Methanol                     x                         x
+ Methanol        x            x            x            x            x
  Nitromethane    x                         x                         x
  Octanol         x                         x                         x
  Octanol (wet)   x                         x                         x
