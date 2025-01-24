@@ -6,266 +6,475 @@ Censorc keyword definitions
 
 .. contents::
 
+The settings should be given in the form of an rcfile (either located in ``$HOME`` and named ``.censo2rc``)
+or passed to CENSO via the ``--inprc`` argument, or read using the ``configure`` function when working from 
+a custom script. If a setting is missing from the rcfile, CENSO will use the default value for that setting.
+The settings will be type checked when the rcfile is parsed, so make sure that the appropiate data type 
+(e.g. int, float, str) can be parsed from the value you've defined.
+
+.. hint::
+
+    In order to write a new rcfile for configuration you can run ``censo --new-config`` or use the ``write_rcfile``
+    function from the ``censo.configuration`` module.
+
+.. hint::
+
+   Please note that currently it is not possible to use ``cosmors`` and ``cosmors-fine`` in the same run 
+   started from the commandline. We are working on an update to make this possible.
+
+
 General Settings
 ----------------
 
+General settings are settings that are used throughout all parts of CENSO. This includes but is not limited to 
+the maximum number of cores CENSO should use, single-point Hessian settings, solvent choice, and temperature.
 
-.. list-table:: general settings
-    :widths: 30 100
+.. list-table:: General Settings
+    :widths: 30 100 30 30
     :header-rows: 1
     
     * - keyword
-      - definition
-    * - nconf
-      - how many conformers should be considered. Either a number or the flag *all*.
-    * - charge
-      - molecular charge of the molecule under investigation.
-    * - unpaired
-      - number of unpaired electrons in the molecule under investigation.
-    * - solvent
-      - Solvent if the molecule is in solution phase, else *gas*.
-    * - prog_rrho
-      - QM-code used for the calculation of thermostatistical contributions.
-        This is only feasible with xtb, since normally a large number of hessian
-        calculations have to be performed.
-    * - temperature
-      - Temperature (in Kelvin) used for the Boltzmann evaluations.
-    * - trange
-      - temperature range which is used to calculate free energies at different 
-        temperatures (considered in G\_mRRHO and δG\_solv[only COSMO-RS]). 
-        The temperature range will only be evaluated if multitemp is set to *on*.
-    * - multitemp
-      - Evaluate free energies at different temperatures defined in trange.
-    * - evaluate_rrho
-      - Option to consider /not consider thermostatistical contributions.
-    * - consider_sym
-      - Option to consider symmetry in the thermostatistical contribution (only xtb)
-    * - bhess
-      - Calculate single point hessians (SPH) on the geometry, instead of 
-        "ohess" (optimization + hessian calculation)
+      - description
+      - default
+      - allowed options
     * - imagthr
-      - threshold for inverting imaginary frequencies for thermostatistical 
-        contributions (in cm\ :sup:`-1` \). Internal defaults are applied if set to *automatic*.
+      - value of the imagthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
+      - -100.0
+      - 
     * - sthr
-      - rotor cut-off (in cm\ :sup:`-1` \) used for the thermostatical contributions. 
-        Internal defaults are applied if set to *automatic*.
+      - value of the sthr keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
+      - 0.0
+      - 
     * - scale
-      - scaling factor for frequencies in vibrational partition function. 
-        Internal defaults are applied if set to *automatic*.
+      - value of the scale keyword will be passed to the xtb keyword of the same name (relevant for mRRHO).
+      - 1.0
+      - 
+    * - temperature
+      - temperature in Kelvin; when calculating Gtot, CENSO will use the G values for this temperature.
+      - 298.15
+      - 
+    * - solvent
+      - CENSO will try to use this solvent with the set solvation models (for more details see documentation on solvation).
+      - h2o
+      - :ref:`censo_solv`
+    * - sm_rrho
+      - solvation model that should be used for all xtb-only calculations.
+      - alpb
+      - alpb, gbsa
+    * - multitemp
+      - whether GmRRHO should be calculated for a range of temperatures (defined in trange) or not.
+      - True
+      - True, False
+    * - evaluate_rrho
+      - whether to calculate GmRRHO or not.
+      - True
+      - True, False
+    * - consider_sym
+      - whether to determine and use the symmetry of the conformers for xtb-only calculations or not.
+      - True
+      - True, False
+    * - bhess
+      - whether to run the mRRHO calculation on unoptimized geometries (True) or geometries preoptimized by xtb (False), which would result in calling xtb with --ohess.
+      - True
+      - True, False
     * - rmsdbias
-      - gESC related, using rmsdpot.xyz to be consistent to CREST.
-    * - sm\_rrho
-      - solvent model applied in the GFN\ *n*\-xTB thermostatistical contribution calculation.
-    * - check
-      - Terminate the CENSO run if too many calculations crash.
-    * - prog
-      - QM code used for part0, part1 and part2, this can be TURBOMOLE or ORCA.
+      - whether to use a RMSD bias (should be defined in a file called rmsdpot.xyz in the working directory).
+      - False
+      - True, False
+    * - balance
+      - whether to use the built-in static load balancing strategy (tries to utilize all the cores as much as possible). If set to False, CENSO will use the number of cores per task assigned with the omp setting. Note that this feature is not supported for TURBOMOLE.
+      - True
+      - True, False
+    * - gas-phase
+      - whether to turn off all solvation modelling (True) or use solvation (False).
+      - False
+      - True, False
+    * - copy_mo
+      - whether to copy MO-files of previous calculations of a conformer within a run (True) or not (False). **This is highly recommended** to use, since it is likely to reduce the number of SCF cycles per single-point significantly.
+      - True
+      - True, False
+    * - retry_failed
+      - whether to try to recover failed jobs by applying flags hardcoded in CENSO. This is recommended to use if you know that SCFs of your system might be tricky.
+      - True
+      - True, False
+    * - trange
+      - specifies the range of temperatures for which GmRRHO will be calculated ([start, end, stepsize]).
+      - [273.15, 373.15, 5]
+      - 
+
+
+Prescreening
+------------
+
+.. list-table:: Prescreening Settings
+    :widths: 30 100 30 30
+    :header-rows: 1
+
+    * - keyword
+      - description
+      - default
+      - allowed options
+    * - threshold
+      - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - 4.0
+      - 
     * - func
-      - functional used in part1 (prescreening) and part2 (optimization)
-    * - basis
-      - basis set used in combination with func in part1 (prescreening) and 
-        part2 (optimization). If basis is set to *automatic* the basis set is 
-        chosen internally.
-    * - maxthreads
-      - Used for parallel calculation. Maxthreads determines the number of independent 
-        calculations running in parallel. E.g. resulting in 4 independent 
-        single-point /optimization calculations.
-    * - omp
-      - Used for parallel calculation. Omp determines the number of cores each 
-        independent calculation can use. Eg. maxthreads = 4 and omp = 5 resulting 
-        in 4 independent calculations and each independent calculation uses 5 cores.
-    * - cosmorsparam
-      - Flag for choosing COSMO-RS parameterizations. If set to *automatic*
-        the input from the COSMO-RS input line is chosen.
+      - the functional/dispersion correction combination used for this step.
+      - pbe-d4
+      - :ref:`censo_funcs`
+    * - basis 
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional..
+      - def2-SV(P)
+      - :ref:`censo_bs`
+    * - prog 
+      - program that should be used for this step
+      - tm
+      - orca, tm
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - run
+      - when using the command line interface, it tells CENSO whether to run this part or not.
+      - True
+      - True, False
+    * - template
+      - whether to use a user defined template for this step.
+      - False
+      - True, False
 
-Part0 - Cheap-Prescreening - Settings
--------------------------------------
 
-.. list-table:: part0
-    :widths: 30 100
+Screening
+---------
+
+.. list-table:: Screening Settings
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part0
-      - Option to turn the "cheap prescreening part" on or off.
-    * - func0
-      - Functional used in part0.
-    * - basis0
-      - Basis set used in combination with func0. If basis0 is set to *automatic*
-        the basis set is chosen internally.
-    * - part0_gfnv
-      - GFN version employed in the thermostatistical contribution in part0.
-    * - part0\_threshold
-      - Threshold/Energy-window (kcal/mol) within which all conformers are considered.
+      - description
+      - default
+      - allowed options
+    * - threshold
+      - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - 3.5
+      - 
+    * - func
+      - the functional/dispersion correction combination used for this step.
+      - r2scan-3c
+      - :ref:`censo_funcs`
+    * - basis 
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      - :ref:`censo_bs`
+    * - prog 
+      - program that should be used for this step
+      - tm
+      - orca, tm
+    * - sm 
+      - solvation model used for this step.
+      - smd
+      - smd, cpcm, cosmo, dcosmors, cosmors, cosmors-fine
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - run
+      - when using the command line interface, it tells CENSO whether to run this part or not.
+      - True
+      - True, False
+    * - template
+      - whether to use a user defined template for this step.
+      - False
+      - True, False
+    * - implicit
+      - whether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
+      - True
+      - True, False
 
 
-Part1 - Prescreening - Settings
--------------------------------
+Optimization
+------------
 
-.. list-table:: part1
-    :widths: 30 100
+.. list-table:: Optimization Settings
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part1
-      - Option to turn the "prescreening part" on or off.
-    * - smgsolv1
-      - Additive solvation contribution employed in part1.
-    * - part1_gfnv
-      - GFN version employed in the thermostatistical contribution in part1.
-    * - part1_threshold
-      - Threshold/Energy-window (kcal/mol) within which all conformers are 
-        considered further.
-
-
-Part2 - Optimization - Settings
--------------------------------
-
-.. list-table:: part2
-    :widths: 30 100
-    :header-rows: 1
-
-    * - keyword
-      - definition
-    * - part2
-      - Option to turn the "optimization" part on or off.
-    * - opt_limit
-      - Threshold/Energy-window (kcal/mol) within which all conformers are fully
-        optimized.
-    * - sm2
-      - Implicit solvation model used in the optimization (for the implicit
-        effect on the geometry).
-    * - smgsolv2
-      - Additive solvation model used for calculation of δG_solv in part2
-        (used to calculate contribution to free energy).
-    * - part2_gfnv
-      - GFN version employed in the thermostatistical (G_mRRHO) contribution in
-        part2.
-    * - ancopt
-      - Using ANCoptimizer implemented in xTB for geometry optimization.
-    * - hlow
-      - Lowest force constant in ANC generation, used with ancopt.
-    * - opt_spearman
-      - Using the new *ensemble-optimizer*, employing batch-wise metacycles.
-    * - part2_threshold
-      - Boltzmann threshold in % within which all conformers are considered further.
-        E.g. 90 %; all conformers up to a sum of 90 % are considered.
-    * - optlevel2
-      - Optimization threshold in the geometry optimization. If set to *automatic*
-        internal defaults will be used.
+      - description
+      - default
+      - allowed options
     * - optcycles
-      - Number of optimization iterations performed within one cycle in the ensemble
-        optimizer.
-    * - spearmanthr
-      - Spearman rank correlation coeff. used to determine if PES during geometry
-        optimization can be assumed parallel.
-    * - radsize
-      - Setting of the radial grid size for func used in part2.
+      - number of microcycles per macrocycles if using macrocycle optimization.
+      - 8
+      - 
+    * - maxcyc
+      - maximum number of optimization cycles (in the case of macrocycle optimization the maximum number of cumulative microcycles).
+      - 200 
+      - 
+    * - threshold
+      - the **minimum** threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
+      - 1.5
+      - 
+    * - gradthr
+      - threshold for the gradient below which the normal energy threshold condition will be applied.
+      - 0.01
+      - 
+    * - hlow
+      - value of the hlow keyword will be passed to the xtb keyword of the same name.
+      - 0.01
+      - 
+    * - func
+      - the functional/dispersion correction combination used for this step.
+      - r2scan-3c
+      - :ref:`censo_funcs`
+    * - basis 
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      - :ref:`censo_bs`
+    * - prog 
+      - program that should be used for this step.
+      - tm
+      - orca, tm
+    * - sm 
+      - solvation model used for this step.
+      - smd
+      - smd, cpcm, cosmo, dcosmors
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - optlevel
+      - geometry optimization thresholds passed to xtb.
+      - normal
+      - crude, sloppy, loose, lax, normal, tight, vtight, extreme
+    * - run
+      - when using the command line interface, it tells CENSO whether to run this part or not.
+      - True
+      - True, False
+    * - template
+      - whether to use a user defined template for this step.
+      - False
+      - True, False
+    * - macrocycles
+      - whether to use macrocycle optimization (True) or not.
+      - True
+      - True, False
     * - crestcheck
-      - Automatically sort out conformers which might have become identical or
-        rotamers during DFT geometry optimization. Check is performed using CREST
-        (this is threshold based, so use with care).
+      - whether to use CREST every macrocycle to check the ensemble for rotamers or not.
+      - False
+      - True, False
+    * - constrain
+      - whether to use ``xtb`` constraints for the geometry optimization or not. The constraints should be provided as a file ``constraints.xtb`` in the working directory.
+      - False
+      - True, False
 
 
-Part3 - Refinement - Settings
------------------------------
+Refinement
+----------
 
-.. list-table:: part3
-    :widths: 30 100
+.. list-table:: Refinement Settings
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part3
-      - Option to turn the "refinement" part *on* or *off*.
-    * - prog3
-      - QM code used for part3 this can be TURBOMOLE or ORCA.
-    * - func3
-      - functional used in part3 (refinement)
-    * - basis3
-      - basis set employed in combination with func3. If basis3 is set to 
-        *automatic* the basis set is chosen internally (mainly for composite methods).
-    * - smgsolv3
-      - Additive solvation model used for calculation of δG_solv in part3.
-    * - part3_gfnv
-      - GFN version employed in the thermostatistical contribution in part3.
-    * - part3_threshold
-      - Boltzmann threshold in % within which all conformers are considered further.
-        E.g. 90 %, all conformers up to a sum of 90 % are considered.
+      - description
+      - default
+      - allowed options
+    * - threshold
+      - the threshold for the additive Boltzmann population of the ensemble beyond which conformers will be removed from the ensemble.
+      - 0.95
+      - 
+    * - func
+      - the functional/dispersion correction combination used for this step.
+      - wb97x-d3
+      - :ref:`censo_funcs`
+    * - basis 
+      - the basis set used for this step. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      - :ref:`censo_bs`
+    * - prog 
+      - program that should be used for this step
+      - tm
+      - orca, tm
+    * - sm 
+      - solvation model used for this step.
+      - smd
+      - smd, cpcm, cosmo, dcosmors, cosmors, cosmors-fine
+    * - gfnv
+      - Variant of GFN that should be used for xtb calculations in this step.
+      - gfn2
+      - gfnff, gfn1, gfn2
+    * - run
+      - when using the command line interface, it tells CENSO whether to run this part or not.
+      - True
+      - True, False
+    * - template
+      - whether to use a user defined template for this step.
+      - False
+      - True, False
+    * - implicit
+      - whether to calculate the solvation contribution to Gtot implicitely (True) or not (False). If set to True, only one single-point needs to be calculated in this step.
+      - True
+      - True, False
 
 
-Part4 - NMR- Settings
----------------------
+NMR
+---
 
-.. list-table:: part4
-    :widths: 30 100
+.. list-table:: NMR Settings
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - part4
-      - Option to turn the "NMR property part" *on* or *off*.
-    * - couplings
-      - Perform coupling constant calculations [options are *on* or *off*].
-    * - prog4J
-      - QM code (TM, ORCA) used for coupling constant calculations.
-    * - funcJ
-      - Density functional employed for the coupling constant calculation.
-    * - basisJ
-      - basis set employed with the DFA (funcJ) for coupling constant calculations.
-    * - sm4J
-      - implicit solvent model employed in the coupling constant calculation.
-    * - shieldings
-      - Perform shielding constant calculations [options are *on* or *off*].
-    * - prog4S
-      - QM code (TM, ORCA) used for shielding constant calculations.
-    * - funcS
-      - Density functional employed for the shielding constant calculation.
-    * - basisS
-      - basis set employed with the DFA \(funcS\) for shielding constant calculations.
-    * - sm4S
-      - implicit solvent model employed in the shielding constant calculation.
-    * - reference_1H
-      - Reference molecule to convert 1H shielding constants to shifts e.g. TMS.
-    * - reference_13C
-      - Reference molecule to convert 13C shielding constants to shifts e.g. TMS.
-    * - reference_19F
-      - Reference molecule to convert 19F shielding constants to shifts e.g. CFCl3.
-    * - reference_29Si
-      - Reference molecule to convert 29Si shielding constants to shifts e.g. TMS.
-    * - reference_31P
-      - Reference molecule to convert 31P shielding constants to shifts e.g. TMP.
-    * - 1H_active
-      - Calculate 1H NMR properties [options are *on* or *off*].
-    * - 13C_active
-      - Calculate 13C NMR properties [options are *on* or *off*].
-    * - 19F_active
-      - Calculate 19F NMR properties [options are *on* or *off*].
-    * - 29Si_active
-      - Calculate 29Si NMR properties [options are *on* or *off*].
-    * - 31P_active
-      - Calculate 31P NMR properties [options are *on* or *off*].
+      - description
+      - default
+      - allowed options
     * - resonance_frequency
-      - Resonance frequency of the experimental spectrometer (in Hz).
+      - carrier frequency of the microwave radiation in the simulated NMR experiment
+      - 300.0
+      - 
+    * - ss_cutoff
+      - cutoff radius for the calculation of spin-spin couplings. Pairs with a larger distance than ss_cutoff will be neglected (only for ORCA).
+      - 8.0
+      - 
+    * - prog
+      - program that should be used to calculate the shielding/coupling single-points.
+      - orca
+      - orca, tm
+    * - func_j
+      - the functional/dispersion correction combination used in calculating the couplings.
+      - pbe0-d4
+      - :ref:`censo_funcs`
+    * - basis_j
+      - basis set used in calculating the couplings. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      - :ref:`censo_bs`
+    * - sm_j
+      - solvation model used in the calculation of the couplings.
+      - smd
+      - smd, cpcm, cosmo, dcosmors
+    * - func_s
+      - the functional/dispersion correction combination used in calculating the shieldings.
+      - pbe0-d4
+      - :ref:`censo_funcs`
+    * - basis_s
+      - basis set used in calculating the shieldings. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      - :ref:`censo_bs`
+    * - sm_s
+      - solvation model used in the calculation of the shieldings.
+      - smd
+      - smd, cpcm, cosmo, dcosmors
+    * - run
+      - when using the command line interface, it tells CENSO whether to run this part or not.
+      - False
+      - True, False
+    * - template
+      - whether to use a user defined template for this step.
+      - False
+      - True, False
+    * - couplings
+      - whether to compute the coupling constants.
+      - True
+      - True, False
+    * - shieldings
+      - whether to compute the shieldings.
+      - True
+      - True, False
+    * - fc_only
+      - whether to calculate only the Fermi-Contact term for spin-spin couplings.
+      - True 
+      - True, False
+    * - h_active
+      - whether to calculate NMR parameters for Protium.
+      - True
+      - True, False
+    * - c_active
+      - whether to calculate NMR parameters for 13C.
+      - True
+      - True, False
+    * - f_active
+      - whether to calculate NMR parameters for 19F.
+      - False
+      - True, False
+    * - si_active
+      - whether to calculate NMR parameters for 29Si.
+      - False
+      - True, False
+    * - p_active
+      - whether to calculate NMR parameters for 31P.
+      - False
+      - True, False
 
-Optical Rotation Property Settings
-----------------------------------
+UV/Vis
+------
 
-.. list-table:: part5
-    :widths: 30 100
+      
+.. list-table:: UV/Vis Settings
+    :widths: 30 100 30 30
     :header-rows: 1
 
     * - keyword
-      - definition
-    * - optical\_rotation
-      - Option to turn the "OR property part" *on* or *off*.
-    * - funcOR
-      - Functional employed to calculate the optical rotatory (OR) dispersion.
-    * - funcOR_SCF
-      - Functional to generate converged MOs.
-    * - basisOR
-      - Basis set employed for the OR calculation.
-    * - frequency_optical_rot
-      - List of frequencies in nm to evaluate OR at e.g. [589.0].
+      - description
+      - default
+      - allowed options
+    * - nroots
+      - number of roots sought for TD-DFT.
+      - 20
+      - 
+    * - prog
+      - program that should be used to calculate the shielding/coupling single-points.
+      - orca
+      - orca
+    * - func
+      - the functional/dispersion correction combination used for TD-DFT.
+      - wb97x-d4
+      - :ref:`censo_funcs`
+    * - basis
+      - basis set used for TD-DFT. This will be ignored if the chosen functional is a composite functional.
+      - def2-TZVP
+      - :ref:`censo_bs`
+    * - sm
+      - solvation model used for TD-DFT.
+      - smd
+      - smd, cpcm
+    * - run
+      - when using the command line interface, it tells CENSO whether to run this part or not.
+      - False
+      - True, False
+    * - template
+      - whether to use a user defined template for this step.
+      - False
+      - True, False
+
+
+Paths Settings 
+--------------
+
+.. list-table:: Paths Settings 
+   :widths: 30 100 
+   :header-rows: 1 
+
+   * - setting 
+     - description 
+   * - orcapath 
+     - absolute path to the ``orca`` binary. 
+   * - orcaversion 
+     - version of ORCA you're using, e.g. 5.0.4.
+   * - xtbpath 
+     - absolute path to the ``xtb`` binary.
+   * - mpshiftpath
+     - absolute path to the ``mpshift`` binary (TURBOMOLE).
+   * - escfpath
+     - absolute path to the ``escf`` binary (TURBOMOLE).
+   * - cefinepath
+     - absolute path to the ``cefine`` binary.
+   * - cosmothermpath
+     - absolute path to the ``cosmotherm`` binary (COSMOthermX).
+   * - cosmorssetup
+     - the name of the parameterization file to use for COSMO-RS runs, e.g. ``BP_TZVP_C30_1601.ctd``.
+
+
+All remaining entries are unused for now. CENSO tries to determine the paths of the binaries 
+automatically when creating a new rcfile.

@@ -96,7 +96,7 @@ For this example we additonally choose to change the linear algebra backend to O
 .. code-block::
 
    export FC=gfortran CC=gcc
-   meson setup build --buildtype=release -Dla_backend=openblas
+   meson setup build --buildtype=release -Dlapack=openblas
 
 The build system will check if the OpenBLAS library provides LAPACK features as well, if this is not the case it will additionally search for LAPACK.
 If you are compiling ``xtb`` on Darwin platforms, ensure that GCC is the actual GCC and not clang.
@@ -189,7 +189,7 @@ With the NVHPC compilers available, configure a build with
 .. code-block:: none
 
    export FC=nvfortran CC=nvc
-   meson setup build_gpu --prefix=$HOME/.local -Dla_backend=netlib -Dgpu=true -Dcusolver=true
+   meson setup build_gpu --prefix=$HOME/.local -Dlapack=netlib -Dgpu=true -Dcusolver=true
 
 You can select the correct compute capability of your device with ``-Dgpu_arch=70``.
 

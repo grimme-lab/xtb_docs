@@ -16,21 +16,21 @@ The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https:/
 .. figure:: ../figures/gfnff.jpg
    :scale: 25 %
    :alt: gfnff
-   
+
 
 Theoretical background
 =================================
 
-The latest progress in the field of semi empirical methods, regarding the evolution of GFN1, GFN2 and GFN0-xTB, inspired the development of a generic force-field. 
+The latest progress in the field of semi-empirical methods, regarding the evolution of GFN1, GFN2 and GFN0-xTB, inspired the development of a generic force-field. 
 The main focus of this GFN force-field (GFN-FF) is directed towards the description of bio-macromolecular systems such as (metallo-) proteins, supramolecular assemblies 
 and metal-organic frameworks. 
-It is intended for the usage as a versatile tool for drug design in life sciences and structure screening in various fields of chemistry.
-Therefore, GFN-FF introduces an approximation to the remaining quantum mechanics in GFN0-xTB by replacing the extended Hückel theory by molecular mechanical bond strech, 
+It is intended for usage as a versatile tool for drug design in life sciences and structure screening in various fields of chemistry.
+Therefore, GFN-FF introduces an approximation to the remaining quantum mechanics in GFN0-xTB by replacing the extended Hückel theory with molecular mechanical bond stretch, 
 bond angle angle and torsion angle terms for the description of covalent bonds. 
 To remain accurate in the description of conjugated systems, GFN-FF retains an iterative Hückel scheme for a selected set of atoms. 
-The resulting bond orders obtained by a Hückel calculation have an influence on force constants and energy relevant parameters of the system.
+The resulting bond orders obtained by a Hückel calculation have an influence on force constants and energy-relevant parameters of the system.
 To yield accurate results the FF parameters are fitted to reproduce B97-3c minimum geometries and frequencies. 
-Thereby a strictly global and element specific parameter strategy is applied and no element pair specific parameters are employed.
+Thereby a strictly global and element-specific parameter strategy is applied and no element pair-specific parameters are employed.
 Special attention is paid to the simple application. As input only Cartesian coordinates and elemental composition are required from which fully automatically all potential energy terms are constructed.
 The total GFN-FF energy expression is given by
 
@@ -38,18 +38,18 @@ The total GFN-FF energy expression is given by
    E_{GFN-FF} = E_{cov} + E_{NCI},
 
 where :math:`E_{cov}` refers to the bonded FF energy and :math:`E_{NCI}` describes the intra- and intermolecular noncovalent interactions.
-In the covalent part interactions are described by asymptotically correct (dissociative) bonding, angular and torsional terms. 
+In the covalent part, interactions are described by asymptotically correct (dissociative) bonding, angular and torsional terms. 
 Repulsive terms are added for bonded and non-bonded interactions separately. 
-Additionally a three-body correction to the nuclear repulsion is added, that extends beyond the sum of pair-wise interactions.
+Additionally, a three-body correction to the nuclear repulsion is added, that extends beyond the sum of pair-wise interactions.
 
 .. math::
    E_{intra} = E_{bond} + E_{bend} + E_{tors} + E_{rep}^{bond} + E_{abc}^{bond}
 
-In the noncovalent part, electrostatic interactions are described by an electronegativity equilibrium (EEQ) model. 
+In the non-covalent part, electrostatic interactions are described by an electronegativity equilibrium (EEQ) model. 
 It is employed to calculate the isotropic electrostatic energy and atomic partial charges. 
-Overall GFN-FF uses two sets of EEQ charges. One set depends on the standard geometry, whereas another set of charges is exclusively topology based, introducing partial polarizability to the FF method.
-Dispersion interactions are taken into account by a topology based version of the D4 scheme, in which the dispersion coefficients are scaled by atomic charges instead of atomic polarizabilities.
-For the description of hydrogen and halogen bonds additional charge scaled H- and X- bond corrections are applied to yield the right binding motifs.
+Overall GFN-FF uses two sets of EEQ charges. One set depends on the standard geometry, whereas another set of charges is exclusively topology-based, introducing partial polarizability to the FF method.
+Dispersion interactions are taken into account by a topology-based version of the D4 scheme, in which the dispersion coefficients are scaled by atomic charges instead of atomic polarizabilities.
+For the description of hydrogen and halogen bonds, additional charge-scaled H- and X- bond corrections are applied to yield the right binding motifs.
 
 .. math::
    E_{NCI} = E_{IES} + E_{disp} + E_{HB} + E_{XB} + E_{rep}^{NCI}
@@ -65,7 +65,7 @@ GFN-FF is implemented in the ``xtb`` program. It extends the portfolio of differ
 
   > xtb --gfnff <geometry> [options]
 
-Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request of electronic structure properties will be ignored, since those are not available at the force-field level of theory. With GFN-FF you can perform single point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types. A GFN-FF calculation is indicated in the output by:
+Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request for electronic structure properties will be ignored since those are not available at the force-field level of theory. With GFN-FF you can perform single-point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types. A GFN-FF calculation is indicated in the output by:
 
 .. code:: bash
 
@@ -75,10 +75,10 @@ Thus, the usage is in line with its semiempirical QM siblings and (almost) the s
   |                  Version 1.0.1                  | 
    ------------------------------------------------- 
 
-Additional torsion potential for diphenylacetylene like systems
+Additional torsion potential for diphenylacetylene-like systems
 ----------------------------------------------------------------
 
-An additional torsion potential for rotations around triple bonded carbons is added to the GFN-FF total energy. The potential is calculated according to 
+An additional torsion potential for rotations around triple-bonded carbons is added to the GFN-FF total energy. The potential is calculated according to 
 
 .. math::
   E_\text{cctors} = -\frac{E_\text{ref}}{2} \cdot \cos (2 \cdot \phi ) + \frac{E_\text{ref}}{2}
@@ -89,21 +89,241 @@ using the reference energy :math:`E_\text{ref}` from a DLPNO-CCSD(T)/CBS calcula
   :scale: 100 %
   :alt: gfnff
 
-The potential is applied under the following conditions: Atoms three and four must be carbons with a triple bond between them (distance smaller than 2.37 bohr) and have exactly one other bond partner each. Atoms two and five must be carbons. At least one of the atoms one or one prime and six or six prime must be an sp2 hybridized carbon. In the case that there are multiple choices for atoms 1 and 6 the latter is chosen according to the sorting in the input file. The dihedral angle is then calculated between atoms one, two, five and six. 
+The potential is applied under the following conditions: Atoms three and four must be carbons with a triple bond between them (distance smaller than 2.37 Bohr) and have exactly one other bond partner each. Atoms two and five must be carbons. At least one of the atoms one or one prime and six or six prime must be an sp2 hybridized carbon. In the case that there are multiple choices for atoms 1 and 6 the latter is chosen according to the sorting in the input file. The dihedral angle is then calculated between atoms one, two, five and six. 
 
 
-The topology file
---------------------
 
-GFN-FF generates a topology file named ``gfnff_topo`` automatically upon first use on an input structure. This file saves system specific parameters and derived force constants as well as the entire topological information. If the force-field calculation is repeated, the topology file is read. 
+GFN-FF specific settings
+============================
+
+``xtb`` is a semiempirical extended tight-binding program package and its default values are chosen to yield robust and accurate results for all GFN-xTB methods. GFN-FF represents the first non-electronic variant and thus it should come as no surprise, that some of the default values do not work with a generic force-field. Settings that deviate from the defaults are discussed below.
+
+Parallelization
+-------------------
+
+The ``xtb`` program uses OMP parallelization. To calculate larger systems an appropriate OMP stack size must be provided. Since the system size may easily exceed 5000 atoms in force-field calculations, a large number should be chosen. Otherwise, you may encounter a segmentation fault. For 5000 atoms you may choose:
+
+.. code:: bash
+
+  > export OMP_STACKSIZE=5G
+  
+As a rule of thumb, add 1G for every additional 1000 atoms. 
+  
+MD Simulations
+------------------
+
+For molecular dynamics simulations, the default time step of 4 ps is not stable in GFN-FF. Below you can find our recommended settings for a stable MD run.
+
+.. code:: bash
+
+   $md
+     step=2.0
+     hmass=4.0
+     shake=0
+   $end
+
+GFN-FF specific input
+============================
+
+``xtb`` accepts various input formats. Especially the possibility to directly read ``pdb`` files as input might be something you want to use in combination with GFN-FF. If the pdb file includes charge information, ``xtb`` reads this information, determines the overall charge of the system automatically and applies this charge constraint per residue. There is no need to further specify the total charge of the system. The following output is generated.
+
+.. code:: bash
+
+   charge from pdb residues: <integer>
+
+Use of additional charge information
+-------------------------------------
+
+In GFN-FF the computed atomic charges from the EEQ model may be improved by constraints if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information besides using a pdb file. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
+(named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments.
+
+
+Periodic Boundary Conditions
+============================
+
+The GFN-FF can process periodic boundary conditions, allowing the optimization of three-dimensional unit cells. A reparameterized version for molecular crystals can be called with the ``--mcgfnff`` keyword. The adjustments to the electrostatic, intermolecular dispersion, hydrogen bond, and non-covalent repulsion potential often increase the accuracy with respect to the structure and energy. An example calculation is given below for a unit cell containing four benzene molecules.
+
+.. tab-set::
+
+   .. tab-item:: command
+  
+      .. code:: sh
+  
+         xtb benzene.coord --gfnff
+  
+   .. tab-item:: benzene.coord
+  
+      .. code:: sh
+  
+         $coord
+             7.10986726811546E+00    1.39803317039751E+01    9.79695027924021E+00      C
+             7.11375821259805E+00    8.76795203096078E+00    3.36407395831929E+00      C
+             8.60482372324771E+00    5.13823133707231E+00    1.25907033747429E+01      C
+             9.75112376027930E+00    7.53368379774428E+00    1.25988946977277E+01      C
+             5.96704128865761E+00    6.37267695865231E+00    3.35549866706958E+00      C
+             9.00267279659253E+00    9.34854414468852E+00    1.58886068020756E+00      C
+             6.71563121464733E+00    4.55781661170807E+00    1.56671851026428E+00      C
+             2.01592612889045E+00    1.34582777502016E+01    1.56454269009644E+00      C
+             1.36276161633625E+01    5.11410651963663E-01    1.59001258500230E+00      C
+             2.76479397948607E+00    1.52711868251473E+01    3.35524268822630E+00      C
+             1.28790262373728E+01    1.64375153151443E+01    1.25977427929330E+01      C
+             1.62071733930167E+00    5.14124693925177E+00    9.79797419461331E+00      C
+             1.27150507198922E-01    8.76741986587029E+00    6.22310165885711E+00      C
+             2.76687841403031E+00    7.53687678828724E+00    9.78696710435249E+00      C
+             1.28772197274344E+01    6.37179001683482E+00    6.23423673853957E+00      C
+             2.01689886501110E+00    9.34978586323301E+00    7.99677906390919E+00      C
+             1.27706356410721E-01    1.40413533010183E+01    1.25881435863102E+01      C
+             1.61946667857512E+00    1.76671714509098E+01    3.36548184195730E+00      C
+             8.99919873901879E+00    1.33969013764314E+01    8.02314488476650E+00      C
+             5.96523477871927E+00    1.63766711064646E+01    9.78632715724430E+00      C
+             9.74959517494686E+00    1.52094556746502E+01    6.23270086547992E+00      C
+             8.60482372324771E+00    1.76057950771396E+01    6.22182176464074E+00      C
+             6.71535329004143E+00    4.50389054920479E-01    7.99562715911445E+00      C
+             1.36270603141507E+01    4.55888094188905E+00    8.02442477898288E+00      C
+             1.12337125704490E+01    7.97130089049293E+00    1.12071377268419E+01      H
+             5.79806312827085E+00    2.31828852255051E+00    7.97514885165245E+00      H
+             9.14344160948052E+00    3.72249480799774E+00    1.11681009532424E+01      H
+             6.57555721327409E+00    1.01835111716719E+01    4.78718833750633E+00      H
+             4.24696590274695E+00    1.48321506254907E+01    4.74712764853380E+00      H
+             1.27099091146831E+01    2.37913273123019E+00    1.60972295593447E+00      H
+             2.93391110217578E+00    1.15907330592985E+01    1.54457634032100E+00      H
+             1.13967153518090E+01    1.68763741264374E+01    1.12061138114688E+01      H
+             4.48473040309378E+00    5.93505986590366E+00    4.74751161679871E+00      H
+             2.15975211244333E+00    3.72728429381217E+00    1.12222404785951E+01      H
+             5.79667350524135E+00    2.69080408589553E+00    1.54803205470521E+00      H
+             9.92149154369556E+00    1.12155566705011E+01    1.60729115692336E+00      H
+             1.34851798028391E+01    1.26270358788517E+01    1.11638773023284E+01      H
+             1.13944919549618E+01    5.93293120554168E+00    4.84311971476190E+00      H
+             4.25002307341184E+00    7.97555821121688E+00    1.11778281492869E+01      H
+             1.27082415670477E+01    2.69186841607651E+00    8.04490308644487E+00      H
+             2.93557864981118E+00    1.12169757774090E+01    7.97591678818228E+00      H
+             6.56985975885316E+00    1.25663690585355E+01    1.12210885738004E+01      H
+             9.14510915711592E+00    1.28092137281638E+00    4.79793944892387E+00      H
+             1.12321839851166E+01    1.47700646982665E+01    4.84171183112389E+00      H
+             4.48153427012594E+00    1.68157073061212E+01    1.11765482550705E+01      H
+             9.91718371230412E+00    1.15293566855284E+01    8.04375118165014E+00      H
+             1.34839291421126E+01    1.01815598996734E+01    4.79909135371861E+00      H
+             2.15794560250498E+00    1.34247513495005E+00    4.79000410478235E+00      H
+         $periodic 3
+         $lattice bohr
+             13.89623029496416    0.00000000000000    0.00000000000000
+              0.00000000000000   17.73883634976286    0.00000000000000
+              0.00000000000000    0.00000000000000   12.79894216374709
+         $end
+  
+   .. tab-item:: output
+  
+      .. code:: sh
+  
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+         ::                     SUMMARY                     ::
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+         :: total energy              -9.522300429916 Eh    ::
+         :: gradient norm              0.083513313043 Eh/a0 ::
+         ::.................................................::
+         :: bond energy               -9.912614118262 Eh    ::
+         :: angle energy               0.000109071765 Eh    ::
+         :: torsion energy             0.000120628823 Eh    ::
+         :: repulsion energy           0.540632558040 Eh    ::
+         :: electrostat energy        -0.018671598408 Eh    ::
+         :: dispersion energy         -0.102359487957 Eh    ::
+         :: HB energy                 -0.015730852142 Eh    ::
+         :: XB energy                  0.000000000000 Eh    ::
+         :: bonded atm energy         -0.013786631774 Eh    ::
+         :: external energy            0.000000000000 Eh    ::
+         :: add. restraining           0.000000000000 Eh    ::
+         :: total charge              -0.000000000000 e     ::
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+         
+          -------------------------------------------------
+         |                Property Printout                |
+          -------------------------------------------------
+         Periodic properties
+         
+          -------------------------------------------------
+         | TOTAL ENERGY               -9.522300429916 Eh   |
+         | GRADIENT NORM               0.083513313043 Eh/α |
+          -------------------------------------------------
+
+If an optimization is performed with the ``--opt`` keyword, the trajectory is written to a file named `xtboptlog.cif`. The CIF format is used to concatenate the periodic strucures in one file. Here, the corresponding energies are included as a comment line at the beginning of each data entry in the CIF file. The potential energy surface (PES) of the force-field with periodic boundary conditions is very rough and can sometimes lead to convergence issues. Two features have been implemented to allow optimization despite challenging potential energy surfaces. First, the calculated displacement of the LBFGS optimizer is damped depending on the optimization step and second, if the final structure of an optimization does not have the lowest energy, the structure with the lowest energy is written to a file named `xtbopt_emin.coord`. Due to the initial damping, restarting the calculation with the lowest energy structure can allow passing a difficult point in the PES. It can be beneficial to perform an initial optimization of periodic systems with fixed lattice parameters. This can be achieved by utilizing the ``--nocellopt`` keyword, which restricts the optimization to atomic positions while keeping the lattice parameters constant.
+
+2D to 3D structure converter
+============================
+
+``xtb`` feaetures a 2D to 3D structure converter for ``sdf`` files. If a two-dimensional sdf file input is passed to ``xtb`` and a GFN2-xTB single point calculation is requested, it will automatically perform a combination of GFN-FF optimization and molecular dynamics steps to generate a three-dimensional structure, on which the GFN2-xtB calculation is performed.
+
+.. code:: bash
+
+  > xtb 2d_input.sdf --gfn 2 --sp
+  
+The keyword ``--gfnff`` is not needed here. The start of the structure conversion is indicated in the output by,
+
+.. code:: bash
+
+   ------------------------------------------------- 
+  |                     2D => 3D                    |
+  |          A structure converter based on         |
+  |                   G F N - F F                   |
+   ------------------------------------------------- 
+
+and the successful conversion is confirmed by:
+
+.. code:: bash
+   
+   ------------------------------------------------- 
+  |           2D => 3D conversion done!             |
+   -------------------------------------------------
+   converted geometry written to: gfnff_convert.sdf
+
+GNF-FF specific output
+====================== 
+
+Topology file
+-------------
+
+``gfnff_topo``
+
+   GFN-FF automatically generates a topology file upon first use on an input structure. 
+   This file stores system-specific parameters, derived force constants, and the entire topological information. 
+   If the force-field calculation is repeated, the topology file is read, which can speed up the calculation.  
 
 .. code:: bash
 
    GFN-FF topology read from file successfully!
 
-Depending on the system size, this speeds up you the overall computation time If large structural changes are applied to the structure, the topology file should better be deleted. The next calculation will generate a new one, according to the modified structure. If parameters are changes in the code, the topology file should also be deleted, as the old parameters are also saved there.
 
-The following lists from the GFN-FF topology can be exported to a JSON file named ``gfnff_lists.json`` using the keyword ``--wrtopo``. The neighbor list **nb** contains the indices of neighboring atoms for each atom and the number of its neighbors in the last entry. The bond pair list **bpair** is a packed matrix holding the number of bonds between atom pairs. A maximum of five bonds between atoms is considered, setting pairs with more bonds inbetween to this value. The angle list **alist** contains sets of three bonded atoms forming an angle. The bond list **blist** contains all bonded atoms. The torsion list **tlist** contains sets of four bonded atoms forming a torsion and a torsion angle prefactor as the last entry. The bond, angle and torsion parameters are requested with **vbond**, **vangl** and **vtors** respectively. The requested lists have to be separated with a comma, as shown in the example below.
+.. warning::
+   Delete the topology file when there are significant structural changes to the system or when alterations are made to the code parameter.
+
+
+``gfnff_adjacency``
+
+   GFN-FF automatically generates a neighbor list file containing the atom indices of all neighbors for each atom.
+
+``gfnff_lists.json``
+
+   GFN-FF topology can be selectively written to a JSON file using the keyword ``--wrtopo [args]``. 
+   **[args]** - comma-separated list of topological data:
+
+      **etot**: total energy of the system in Hartree.
+
+      **gnorm**: gradient norm of the system in Hartree per bohr.
+
+      **nb**: list composed of the indices of neighboring atoms for every atom. nb(j,i,jTr) contains the j-th neighbor of atom i when the j-th neighbor is shifted by the translation vector corresponding to jTr. Entry nb(42,i,jTr) contains the number of neighbors for atom i in the cell defined by jTr. The dimensions of nb are 42, number of atoms, and number of cells.
+   
+      **bpair**: bpair(j,i,iTr) gives the number of bonds between atoms i and j, when j is shifted by the translation vector correspinding to iTr. A maximum of five bonds between atoms is considered, setting pairs with more bonds in between this value. 
+      
+      **alist**: angle list with the sets of three bonded atoms forming an angle. The first dimension is always five, storing the indices of the atoms i, j, k, and the indices of the translation vectors jTr and kTr. The second dimension is the number of angles.
+   
+      **blist**: bond list containing all bonded atoms. The first dimension is three, storing the indices j, i of the neighboring atoms, and the index of the translation vector jTr applied to j. The second dimension is the number of bonds. 
+   
+      **tlist**: torsion list with the sets of four bonded atoms forming a torsion angle and a torsion angle prefactor. The first dimension is eight, storing the indices of the atoms l, i, j, k, the torsion angle prefactor, and the indices of the translation vectors lTr, jTr, kTr.
+   
+      **vbond, vangl, vtors**: bond, angle, torsion parameters, respectively. 
+  
+   The translation vector Tr=[0, 0, 0] has the index 1. Matrix dimension that store the index of applied translation vectors have size 1 without periodic boundary conditions (PBCs) and 27 with PBCs, since only neighboring cells have to be considered for the setup of the given lists.
+
+   Example:
 
 .. tab-set:: 
 
@@ -412,75 +632,207 @@ The following lists from the GFN-FF topology can be exported to a JSON file name
             "xtb version": "6.4.1 (546be4a)"
          }
 
-GFN-FF specific settings
-============================
-
-``xtb`` is a semiempirical extended tight-binding program package and its default values are chosen to yield robust and accurate results for all GFN-xTB methods. GFN-FF represents the first non-electronic variant and thus it should come as no surprise, that some of the default values do not work with a generic force-field. Settings that deviate from the defaults are discussed below.
-
-Parallelisation
--------------------
-
-The ``xtb`` program uses OMP parallelisation. To calculate larger systems an appropriate OMP stacksize must be provided. Since the system size may easily exceed 5000 atoms in force-field calculations, a large number should be chosen. Otherwise you may encounter a segmentation fault. For 5000 atoms you may choose:
-
-.. code:: bash
-
-  > export OMP_STACKSIZE=5G
-  
-As a rule of thumb, add 1G for every additional 1000 atoms. 
-  
-MD Simulations
-------------------
-
-For molecular dynamics simulations, the default time step of 4 ps is not stable in GFN-FF. Below you can find our recommended settings for a stable MD run.
-
-.. code:: bash
-
-   $md
-     step=2.0
-     hmass=4.0
-     shake=0
-   $end
-
-GFN-FF specific input
-============================
-
-``xtb`` accepts various input formats. Especially the possibility to directly read ``pdb`` files as input might be something you want to use in combination with GFN-FF. If the pdb file includes charge information, ``xtb`` reads this information, determines the overall charge of the system automatically and applies this charge constrain per residue. There is no need to further specify the total charge of the system. The following output is generated.
-
-.. code:: bash
-
-   charge from pdb residues: <integer>
-
-Use of additional charge information
--------------------------------------
-
-In GFN-FF the computed atomic charges from the EEQ model may be improved by constrains if additional information about the charge distribution in the system is known. There are two further ways to incorporate this information besides using a pdb file. If the system consists of more than one NCI fragment, the charges per fragment can be written by the user into a specific file
-(named ``.CHRG``) and will be constrained accordingly in the EEQ model, thus preventing artificial charge transfer between the NCI fragments. If a GFN-xTB calculation is performed in advance, the written file ``charges`` is read by the program and the corresponding QM charges are used to constrain the values on the molecular fragments.
 
 
-2D to 3D structure converter
-============================
+Charge file
+-----------
 
-``xtb`` feaetures a 2D to 3D structure converter for ``sdf`` files. If a two-dimensional sdf file input is passed to ``xtb`` and a GFN2-xTB single point calculation is requested, it will automatically perform a combination of GFN-FF optimization and molecular dynamics steps to generate a three dimensional structure, on which the GFN2-xtB calculation is performed.
+``gfnff_charges``
+   GFN-FF automatically saves EEQ charges in a separate file after calculation.
 
-.. code:: bash
+.. note::
+   As previously mentioned, within GFN-FF, there are two sets of intrinsically used EEQ charges. 
+   Here, only geometry-dependent variant will be printed.
 
-  > xtb 2d_input.sdf --gfn 2 --sp
-  
-The keyword ``--gfnff`` is not needed here. The start of the structure conversion is indicated in the output by,
 
-.. code:: bash
+Manual neighbor list setup
+=================================
 
-   ------------------------------------------------- 
-  |                     2D => 3D                    |
-  |          A structure converter based on         |
-  |                   G F N - F F                   |
-   ------------------------------------------------- 
+The GFN-FF topology, precisely the bonds between atoms, can be defined manually via the detailed input file (see :ref:`Detailed Input <detailed-input>`). 
+Please ensure that changes are made pairwise, updating both neighbors, as this is not handled automatically. 
+The syntax used for adjusting the neighbor list is explained in the following example. 
+Note: This is an expert feature, please check if your output is as intended.
 
-and the successful conversion is confirmed by:
 
-.. code:: bash
-   
-   ------------------------------------------------- 
-  |           2D => 3D conversion done!             |
-   -------------------------------------------------
-   converted geometry written to: gfnff_convert.sdf
+.. tab-set::
+
+   .. tab-item ::  command
+
+      .. code:: sh
+
+         xtb La-complex.xyz --gfnff --input xcontrol --wrtopo nb --opt
+
+   .. tab-item ::  xcontrol
+
+      .. code:: sh
+
+         $ffnb
+           nb = 1:5, 24, 27, 28, 41
+           nb = 2:3,  9, 10
+           nb = 8:7, 20, 21
+         $end
+
+   .. tab-item ::  La-complex.xyz
+
+       .. code:: sh
+
+          41
+
+          La           0.72786000000000        0.12391000000000       -0.08628000000000
+          N            1.00416000000000        2.77325000000000       -0.22511000000000
+          C           -0.38824000000000        3.25084000000000       -0.25618000000000
+          C           -1.08765000000000        2.78027000000000       -1.51853000000000
+          N           -1.11782000000000        1.31094000000000       -1.64701000000000
+          C           -2.43618000000000        0.67362000000000       -1.46323000000000
+          C           -2.68421000000000        0.23921000000000       -0.03208000000000
+          N           -1.66632000000000       -0.73533000000000        0.37904000000000
+          H            1.42751000000000        3.03853000000000        0.66748000000000
+          H            1.55240000000000        3.24148000000000       -0.94974000000000
+          H           -0.45253000000000        4.35033000000000       -0.18966000000000
+          H           -0.89219000000000        2.85336000000000        0.64062000000000
+          H           -0.56916000000000        3.20001000000000       -2.39649000000000
+          H           -2.10911000000000        3.19478000000000       -1.54298000000000
+          H           -0.79182000000000        1.05191000000000       -2.57777000000000
+          H           -2.46498000000000       -0.21568000000000       -2.11269000000000
+          H           -3.24634000000000        1.34395000000000       -1.79772000000000
+          H           -3.70449000000000       -0.17241000000000        0.04822000000000
+          H           -2.64135000000000        1.09662000000000        0.66000000000000
+          H           -1.77601000000000       -1.60108000000000       -0.15808000000000
+          H           -1.78341000000000       -0.97444000000000        1.37351000000000
+          S           -1.18295000000000       -0.59297000000000        3.85809000000000
+          C           -0.22699000000000        0.31138000000000        2.94360000000000
+          N            0.46256000000000        0.95064000000000        2.20256000000000
+          C            3.53573000000000       -3.44259000000000       -1.04159000000000
+          O            3.35606000000000       -3.31729000000000        0.36847000000000
+          P            2.85469000000000       -1.95320000000000        1.04260000000000
+          O            1.17475000000000       -2.11560000000000        1.07406000000000
+          C            0.51020000000000       -3.30623000000000        1.53102000000000
+          O            3.27039000000000       -2.34141000000000        2.54426000000000
+          C            2.98605000000000       -1.46746000000000        3.63325000000000
+          H            4.22423000000000       -4.28154000000000       -1.19720000000000
+          H            3.97428000000000       -2.52981000000000       -1.47479000000000
+          H            2.57747000000000       -3.65186000000000       -1.53820000000000
+          H            0.05574000000000       -3.81208000000000        0.66768000000000
+          H           -0.25298000000000       -3.00813000000000        2.26220000000000
+          H            1.23665000000000       -3.97515000000000        2.01184000000000
+          H            1.94096000000000       -1.58083000000000        3.96023000000000
+          H            3.17021000000000       -0.41383000000000        3.36804000000000
+          H            3.65610000000000       -1.75312000000000        4.45272000000000
+          Cl           2.54962000000000        0.34758000000000       -1.62990000000000
+
+   .. tab-item :: original gfnff_lists.json
+
+      .. code:: sh
+
+         {
+            "nb":[
+            [      2,      5,      8,     24,     27,     28,     41,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      7],
+            [      1,      3,      9,     10,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      4],
+            [      2,      4,     11,     12,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      3,      5,     13,     14,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      1,      4,      6,     15,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      4],
+            [      5,      7,     16,     17,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      6,      8,     18,     19,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      1,      7,     20,     21,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      4],
+            [      2,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      2,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      3,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      3,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      4,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      4,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      5,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      6,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      6,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      7,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      7,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      8,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      8,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     23,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     22,     24,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [      1,     23,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [     26,     32,     33,     34,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [     25,     27,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [      1,     26,     28,     30,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      1,     27,     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      3],
+            [     28,     35,     36,     37,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [     27,     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [     30,     38,     39,     40,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [     25,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     25,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     25,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      1,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1]
+            ],
+            "program call": "../../../build/xtb adj_coord.xyz --gfnff --wrtopo nb --opt",
+            "method": "GFN-FF",
+            "xtb version": "6.7.1 (1779d8a)"
+         }
+
+
+   .. tab-item :: adjusted gfnff_lists.json
+
+      .. code:: sh
+
+         {
+            "nb":[
+            [     5,      24,     27,     28,     41,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      5],
+            [      3,      9,     10,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      3],
+            [      2,      4,     11,     12,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      3,      5,     13,     14,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      1,      4,      6,     15,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      4],
+            [      5,      7,     16,     17,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      6,      8,     18,     19,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      7,     20,     21,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      3],
+            [      2,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      2,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      3,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      3,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      4,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      4,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      5,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      6,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      6,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      7,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      7,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      8,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      8,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     23,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     22,     24,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [      1,     23,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [     26,     32,     33,     34,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [     25,     27,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [      1,     26,     28,     30,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [      1,     27,     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      3],
+            [     28,     35,     36,     37,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [     27,     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      2],
+            [     30,     38,     39,     40,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      4],
+            [     25,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     25,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     25,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     29,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [     31,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1],
+            [      1,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1]
+            ],
+            "program call": "../../../build/xtb adj_coord.xyz --gfnff --input xcontrol --wrtopo nb --opt",
+            "method": "GFN-FF",
+            "xtb version": "6.7.1 (1779d8a)"
+         }
+
+In the given example, atoms 2 and 8 are removed from the neighbors of atom 1. Consequently, atom 1 has to be removed from the neighbor lists of atom 2 and 8. 
+This is done with the given "xcontrol" file: 
+The block for adjusting the force field's topology is indicated by the ``$ffnb`` flag and closed by ``$end``. 
+Each line for adjusting the neighbors of an atom ``i`` should have the format ``nb = i:n1, n2, n3, ...``, where n1, n2, n3, and so on are the indices of the adjusted neighbors. 
+To comprehend these changes, the original and the adjusted neighbor lists are provided in the JSON files. 
+These JSON files named gfnff_lists.json can be generated with the ``--wrtopo nb`` keyword, as described previously. 
+They can help obtain and adjust the neighbor list. 
+The keywords ``--wrtopo nb`` and ``--opt`` in the example are not necessary but have been added to show the effect on the neighbor list and optimization. 
+Running this example should result in atoms 2 and 8 dissociating from the La atom during the optimization (see xtbopt.log file).

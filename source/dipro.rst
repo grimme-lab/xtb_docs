@@ -1,5 +1,8 @@
 .. _dipro:
 
+.. |J(AB)| replace:: :math:`J_{AB}`
+.. |J(AB,eff)| replace:: :math:`J_{AB,eff}`
+
 -------
  DIPRO
 -------
@@ -226,10 +229,14 @@ This is a very simple example of a cofacial NCI complex of benzene and nitrobenz
             * wall-time:     0 d,  0 h,  0 min,  0.084 sec
             *  cpu-time:     0 d,  0 h,  0 min,  0.337 sec
             * ratio c/w:     3.996 speedup
-   
-DIPRO first performs a singlepoint calculation on the complex and yields the fragmentation of your input coordinates. Then, two singlepoint calculations on the fragments structures are performed. The DIPRO output lists which orbitals from the couplings fragments were considered for the coupling calculations, e.g. the HOMO from fragment 1 (here nitrobenzene) and the HOMO-1 from fragment 2 (here benzene), and their corresponding energies. The most important parts are the results for the coupling integrals |J(AB)| and |J(AB,eff)|. Furthermore, a total coupling averaged over the square sum of all individual couplings is printed. 
+
+DIPRO first performs a singlepoint calculation on the complex and yields the fragmentation of your input coordinates.
+Then, two singlepoint calculations on the fragments structures are performed.
+The DIPRO output lists which orbitals from the couplings fragments were considered for the coupling calculations, e.g. the HOMO from fragment 1 (here nitrobenzene) and the HOMO-1 from fragment 2 (here benzene), and their corresponding energies. 
+The most important parts are the results for the coupling integrals |J(AB)| and |J(AB,eff)|.
+Furthermore, a total coupling averaged over the square sum of all individual couplings is printed. 
 
 .. math:: 
-   total |J(AB,eff)| = \sqrt{\sum J(AB,eff)_i^2}
+   total |J(AB,eff)| = \sqrt{\sum |J(AB,eff)_i^2|}
 
 Please find more information on the theory and our implementation of DIPRO in our publication (J.Kohn, N.Gildemeister, D.Fazzi, S.Grimme, A.Hansen, `Efficient Calculation of Electronic Coupling Integrals with the Dimer Projection Method via a Density Matrix Tight-Binding Potential`, JCP **2023**, submitted).

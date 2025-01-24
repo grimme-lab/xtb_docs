@@ -219,6 +219,60 @@ The number of iterations allowed for the SCC calculation can be adjusted from th
 
 The default number of iterations in the SCC is set to 250.
 
+Total Energy
+============
+
+The typical xtb single-point calculation printout (caffeine molecule):
+
+.. code:: none
+
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+         ::                     SUMMARY                     ::
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+         :: total energy             -22.309760665714 Eh    ::
+         :: total w/o Gsasa/hb       -22.299230529202 Eh    ::
+         :: gradient norm              0.000330125512 Eh/a0 ::
+         :: HOMO-LUMO gap              1.534507143520 eV    ::
+         ::.................................................::
+         :: HOMO orbital eigv.        -9.741902793395 eV    ::
+         :: LUMO orbital eigv.        -8.207395649875 eV    ::
+         ::.................................................::
+         :: SCC energy               -22.495400344195 Eh    ::
+         :: -> isotropic ES            0.006057647012 Eh    ::
+         :: -> anisotropic ES          0.001333461084 Eh    ::
+         :: -> anisotropic XC          0.007847608550 Eh    ::
+         :: -> dispersion             -0.012026935702 Eh    ::
+         :: -> Gsolv                  -0.011119204396 Eh    ::
+         ::    -> Gelec               -0.000589067884 Eh    ::
+         ::    -> Gsasa               -0.015054016384 Eh    ::
+         ::    -> Ghb                  0.000000000000 Eh    ::
+         ::    -> Gshift               0.004523879872 Eh    ::
+         :: repulsion energy           0.185639678481 Eh    ::
+         :: add. restraining           0.000000000000 Eh    ::
+         :: total charge               0.000000000000 e     ::
+         ::.................................................::
+         :: atomisation energy         3.110573871656 Eh    ::
+         :::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Here, total energy :math:`E_{tot}` is evaluated as the sum of the following terms:
+
+.. math::
+    E_{tot} = E_{SCC} + E_{rep} + E_{constrain}  [+ E_{XB}^{GFN1}]
+ 
+
+where :math:`E_{SCC}` self-consistent charge energy, :math:`E_{rep}` repulsion energy, :math:`E_{constrain}` 
+the additional energy due to the constraints and confinements which modify PES (for more details, :ref:`detailed-input`), 
+and :math:`E_{XB}^{GFN1}` halogen-bond correction (for GFN1-xTB). 
+
+The :math:`E_{SCC}` term can be further split as:
+
+.. math::
+    E_{SCC} = E_{EHT} + E_{\gamma} + E_{disp} + ...
+
+where :math:`E_{EHT}` extended Hückel energy, :math:`E_{disp}` dispersion (D3/D4), :math:`E_{\gamma}` 
+isotropic electrostatic and XC energy, and further method-specific energy contrubutions 
+(can be found in the corresponding `reference <https://wires.onlinelibrary.wiley.com/doi/10.1002/wcms.1493>`_).
+
 Fermi-smearing
 ==============
 
@@ -518,8 +572,6 @@ One example of the H\ :sub:`0`\  tuning can be found at `Angew. Chemie Int. Ed.,
    :scale: 70 %
    :alt: h0tuning
    :align: center
-
-
 
 
 

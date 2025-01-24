@@ -37,8 +37,8 @@ Options
 --help
    Display the help window
 
--I, --input FILE
-   Use FILE as an input source for ``xcontrol(7)`` instructions
+-I, --input <FILE>
+   Use <FILE> as an input source for ``xcontrol(7)`` instructions
 
 --pocket
    Performs additionally a pocket search
@@ -55,40 +55,40 @@ Options
 --atm
    Include ATM term for screening and optimization
 
---stepr REAL
+--stepr <REAL>
    Radial step size (default = 2.5 Å)
 
---stepa REAL
+--stepa <REAL>
    Angular step size (default = 45°)
 
---maxgen INT
+--maxgen <INT>
    Number of cycles for genetic optimization (default = 10)
 
---maxparent INT
+--maxparent <INT>
    Number of parents for genetic optimization (default = 100)
    
---nstack INT
+--nstack <INT>
    Number of gridpoints in one direction of the stack search (default = 1000)
 
---nfinal INT
+--nfinal <INT>
    Number of final optimizations (default = 15)
 
 --ensemble
    Optimizes every structure with a negative xTB-IFF interaction energy and sorts out replicates to yield an NCI ensemble
 
---etemp REAL
+--etemp <REAL>
    Electronic temperature (default = 300K)
 
---iterations INT
+--iterations <INT>
    Maximum iterations for SCF cycle
 
--a, --acc REAL
+-a, --acc <REAL>
    Accuracy for SCC calculation, lower is better (default = 1.0)
 
 --opt <level>
    Precision of the optimization. See :ref:`geometry` for available options
 
---cycles INT
+--cycles <INT>
    Maximum number of optimization cycles
 
 --gfn2
@@ -99,6 +99,21 @@ Options
 
 --gfnff
    Perform final optimizations with GFN-FF
+
+--chrg1 <REAL>
+   Set the total charge of first input structure
+
+--chrg2 <REAL>
+   Set the total charge of second input structure
+
+--uhf1 <REAL>
+   Set the number of unpaired electrons of first input structure
+
+--uhf2 <REAL>
+   Set the number of unpaired electrons of second input structure
+
+--optlvl <method>
+   Perform final optimizations with ``<method>``, *e.g.*, gfn1, gfn2, or gfnff
 
 --alpb [reference]
     analytical linearized Poisson-Boltzmann (ALPB) model,
@@ -562,16 +577,19 @@ Now, we want to add the amine selectively and thus provide the following ``xtb.i
    .. code:: sh
 
       $directed
+         scaling factor= 1.0
          atoms: 5,16,17
       $end
 
-and invoke ``xtb`` with 
+The scaling factor can be used to adjust the attractive potential in a multiplicatively fashion.
+The default is 1.0. A value greater than 1.0 increases the potential, a value lower than 1.0 decreases it.
+After invoking ``xtb`` with 
  
   .. code:: sh
   
      xtb dock amine.xyz cat.xyz --alpb dmso --input xtb.inp
 
-This will result to a structure where the amine moiety is bound to the catalyst, as proposed for the mechanism:
+a structure results where the amine moiety is bound to the catalyst, as proposed for the mechanism:
 
 .. figure:: ../figures/directed.png
    :width: 40 %
