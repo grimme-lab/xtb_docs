@@ -48,6 +48,14 @@ insights into the theory used behind the scenes.
 
    `Documentation for QCxMS <qcxms_doc/qcxms.html>`_
 
+
+.. figure:: ../figures/qcxms2/qcxms2_logo.svg
+   :width: 25%
+   :alt: QCxMS2
+   :align: center
+
+   `Documentation for QCxMS2 <qcxms2_doc/qcxms2.html>`_   
+
 .. figure:: ../logo/logo_abtgrimme_desktop.png
    :width: 25%
    :alt: Grimme-lab
@@ -185,6 +193,18 @@ No problem, just give us a hint at the mailing list or open an issue at `GitHub`
    qcxms_doc/qcxms_plot
    qcxms_doc/qcxms_ex
    qcxms_doc/qcxms_cites
+
+.. toctree::
+   :maxdepth: 3
+   :caption: QCxMS2
+   
+   qcxms2_doc/qcxms2
+   qcxms2_doc/qcxms2_setup
+   qcxms2_doc/qcxms2_run
+   qcxms2_doc/qcxms2_plot
+   qcxms2_doc/qcxms2_ex
+   qcxms2_doc/qcxms2_cites
+
 
 .. toctree::
    :maxdepth: 3
