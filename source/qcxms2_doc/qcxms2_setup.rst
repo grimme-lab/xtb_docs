@@ -42,6 +42,7 @@ with **exactly** the name as stated in the following Table.
 You should check that each of these programs works on your system before running QCxMS2.
 The QCxMS2 program will only check for the presence of these programs at the beginning of the calculation.
 
+
 +----------------------------------+----------------------------+----------------------------------------------------------------------+
 | required name of the executable  | required version           |    link to the software repository                                   |
 +----------------------------------+----------------------------+----------------------------------------------------------------------+
