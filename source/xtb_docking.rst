@@ -86,7 +86,7 @@ Options
    Accuracy for SCC calculation, lower is better (default = 1.0)
 
 --opt <level>
-   Precision of the optimization. See :ref:`geometry` for available options
+   Precision of the optimization. See :ref:`geometry optimization` for available options
 
 --cycles <INT>
    Maximum number of optimization cycles
