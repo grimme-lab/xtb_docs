@@ -17,11 +17,6 @@ The settings will be type checked when the rcfile is parsed, so make sure that t
     In order to write a new rcfile for configuration you can run ``censo --new-config`` or use the ``write_rcfile``
     function from the ``censo.configuration`` module.
 
-.. hint::
-
-   Please note that currently it is not possible to use ``cosmors`` and ``cosmors-fine`` in the same run 
-   started from the commandline. We are working on an update to make this possible.
-
 
 General Settings
 ----------------
@@ -61,10 +56,6 @@ the maximum number of cores CENSO should use, single-point Hessian settings, sol
       - solvation model that should be used for all xtb-only calculations.
       - alpb
       - alpb, gbsa
-    * - multitemp
-      - whether GmRRHO should be calculated for a range of temperatures (defined in trange) or not.
-      - True
-      - True, False
     * - evaluate_rrho
       - whether to calculate GmRRHO or not.
       - True
@@ -93,14 +84,6 @@ the maximum number of cores CENSO should use, single-point Hessian settings, sol
       - whether to copy MO-files of previous calculations of a conformer within a run (True) or not (False). **This is highly recommended** to use, since it is likely to reduce the number of SCF cycles per single-point significantly.
       - True
       - True, False
-    * - retry_failed
-      - whether to try to recover failed jobs by applying flags hardcoded in CENSO. This is recommended to use if you know that SCFs of your system might be tricky.
-      - True
-      - True, False
-    * - trange
-      - specifies the range of temperatures for which GmRRHO will be calculated ([start, end, stepsize]).
-      - [273.15, 373.15, 5]
-      - 
 
 
 Prescreening
@@ -213,8 +196,8 @@ Optimization
       - 200 
       - 
     * - threshold
-      - the **minimum** threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers will be removed from the ensemble.
-      - 1.5
+      - the threshold (kcal/mol) for ΔG to the lowest conformer beyond which conformers can be removed from the ensemble if the gradient is too small.
+      - 3.0
       - 
     * - gradthr
       - threshold for the gradient below which the normal energy threshold condition will be applied.
@@ -260,13 +243,9 @@ Optimization
       - whether to use macrocycle optimization (True) or not.
       - True
       - True, False
-    * - crestcheck
-      - whether to use CREST every macrocycle to check the ensemble for rotamers or not.
-      - False
-      - True, False
-    * - constrain
-      - whether to use ``xtb`` constraints for the geometry optimization or not. The constraints should be provided as a file ``constraints.xtb`` in the working directory.
-      - False
+    * - xtb_opt
+      - whether to use ANCOPT as driver for the geometry optimization or to use the native optimizer (only available for ORCA).
+      - True
       - True, False
 
 
