@@ -181,7 +181,6 @@ No problem, just give us a hint at the mailing list or open an issue at `GitHub`
    CENSO_docs/abbreviations
    CENSO_docs/censo_extensive_keywords
    CENSO_docs/censo_parallel
-   CENSO_docs/censo_implementation
 
 .. toctree::
    :maxdepth: 3
