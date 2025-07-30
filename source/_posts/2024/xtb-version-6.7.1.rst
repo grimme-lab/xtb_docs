@@ -10,7 +10,7 @@ xtb version 6.7.1 released
    :alt: xtb logo
 
 We are happy to release a bugfix version of ``xtb``.
-Please note that due to the deprecation of the C++ compiler, the Windows version is 6.7.1pre, as the compilation excluded C-API tests for xtb and CPCM-X and used the previous version of dftd4 (v3.4.0). 
+Please note that due to the deprecation of the currently used MSVC C++ compiler, the Windows version is 6.7.1pre, as the compilation excluded C-API tests for xtb and CPCM-X and used the previous version of dftd4 (v3.4.0). 
 In the next release, we will likely fully switch to the icx-cl compiler.
 
 Many thanks to Sebastian Ehlert (`@awvwgk <https://github.com/awvwgk>`_), 
