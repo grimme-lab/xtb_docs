@@ -89,6 +89,7 @@ Here is a list of the available solvents.
  Dioxane         x                         x                         x
  DMF             x                         x            x            x
  DMSO            x            x            x            x            x
+ Ethanol         x                         x                         x
  Ether           x            x            x            x            x
  Ethylacetate    x                         x                         x
  Furane          x                         x                         x
