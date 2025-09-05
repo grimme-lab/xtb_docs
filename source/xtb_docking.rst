@@ -71,7 +71,7 @@ Options
    Number of gridpoints in one direction of the stack search (default = 1000)
 
 --nfinal <INT>
-   Number of final optimizations (default = 15)
+   Number of final optimizations (default = 15). Setting it to 0 skips the final geometry optimizations.
 
 --ensemble
    Optimizes every structure with a negative xTB-IFF interaction energy and sorts out replicates to yield an NCI ensemble
@@ -86,7 +86,7 @@ Options
    Accuracy for SCC calculation, lower is better (default = 1.0)
 
 --opt <level>
-   Precision of the optimization. See :ref:`geometry` for available options
+   Precision of the optimization. See :ref:`geometry optimization` for available options
 
 --cycles <INT>
    Maximum number of optimization cycles

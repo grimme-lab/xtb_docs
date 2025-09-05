@@ -28,27 +28,29 @@ As an example the energy printout of a singlepoint calculation of a H₂O molecu
 
 .. code:: bash
 
- :::::::::::::::::::::::::::::::::::::::::::::::::::::
- ::                     SUMMARY                     ::
- :::::::::::::::::::::::::::::::::::::::::::::::::::::
- :: total energy               -5.080052453799 Eh   ::
- :: total w/o Gsasa/hb         -5.072629830168 Eh   ::
- :: gradient norm               0.004391355361 Eh/α ::
- :: HOMO-LUMO gap              14.784541887474 eV   ::
- ::.................................................::
- :: SCC energy                 -5.113963912352 Eh   ::
- :: -> isotropic ES             0.042951967946 Eh   ::
- :: -> anisotropic ES          -0.000414697277 Eh   ::
- :: -> anisotropic XC          -0.000390138125 Eh   ::
- :: -> dispersion              -0.000131341861 Eh   ::
- :: -> Gsolv                   -0.011759733450 Eh   ::
- ::    -> Gborn                -0.004337109820 Eh   ::
- ::    -> Gsasa                 0.000220003644 Eh   ::
- ::    -> Ghb                  -0.009500070401 Eh   ::
- ::    -> Gshift                0.001857443127 Eh   ::
- :: repulsion energy            0.033911458523 Eh   ::
- :: add. restraining            0.000000000000 Eh   ::
- :::::::::::::::::::::::::::::::::::::::::::::::::::::
+   :::::::::::::::::::::::::::::::::::::::::::::::::::::
+   ::                     SUMMARY                     ::
+   :::::::::::::::::::::::::::::::::::::::::::::::::::::
+   :: total energy              -5.080125650447 Eh    ::
+   :: total w/o Gsasa/hb        -5.072630011432 Eh    ::
+   :: gradient norm              0.000116027126 Eh/a0 ::
+   :: HOMO-LUMO gap             14.677994988515 eV    ::
+   ::.................................................::
+   :: SCC energy                -5.114015528669 Eh    ::
+   :: -> isotropic ES            0.042942180411 Eh    ::
+   :: -> anisotropic ES         -0.000536031457 Eh    ::
+   :: -> anisotropic XC         -0.000425709023 Eh    ::
+   :: -> dispersion             -0.000131265012 Eh    ::
+   :: -> Gsolv                  -0.011732627293 Eh    ::
+   ::    -> Gelec               -0.004236988278 Eh    ::
+   ::    -> Gsasa                0.000208166036 Eh    ::
+   ::    -> Ghb                 -0.009561248178 Eh    ::
+   ::    -> Gshift               0.001857443127 Eh    ::
+   :: repulsion energy           0.033889878222 Eh    ::
+   :: add. restraining           0.000000000000 Eh    ::
+   :: total charge               0.000000000000 e     ::
+   :::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 The solvation free energy is printed as ``Gsolv`` and is also added
 to all total energy printouts.
@@ -85,14 +87,14 @@ Here is a list of the available solvents.
  CHCl₃           x            x            x            x            x
  CS₂             x            x            x            x            x
  Dioxane         x                         x                         x
- DMF             x                         x                         x
+ DMF             x                         x            x            x
  DMSO            x            x            x            x            x
  Ether           x            x            x            x            x
  Ethylacetate    x                         x                         x
  Furane          x                         x                         x
- Hexadecane     x                         x                         x
+ Hexadecane      x                         x                         x
  Hexane          x                         x            x            x
- Methanol                     x                         x
+ Methanol        x            x            x            x            x
  Nitromethane    x                         x                         x
  Octanol         x                         x                         x
  Octanol (wet)   x                         x                         x
@@ -149,15 +151,24 @@ would otherwise not converge due to numerical noise.
 Reference States
 ================
 
-The default reference state option is ``bar1M`` which should not
-be changed for normal production runs.
-In order to compare the solvation free energy with
-solvation free energies from COSMO-RS the reference state can be set to ``reference`` which corresponds
-to the same ``reference`` option as in COSMO-RS. This could be done with
+For solvation free energies, the state of the inital gas and final liquid solution can be changed with a solution state correction.
+This is explained in detail in the following table and in [A Universal pH Scale for All Solvents: Background, Theory, and Justification (IUPAC Technical Report)](https://doi.org/10.1515/pac-2019-0504), section 2.2.
+By default no solution state correction is applied (gsolv, default), which is comparable with most other solvation models (SMD, COSMO-RS, ...).
+For normal production runs, the option ``bar1mol`` should be used. For explicit comparisons with ``reference`` state corrected COSMO-RS, the ``reference`` option should be used (includes solvent-specific correction for infinite dilution).
+Solution state correction is available for the ALPB and GBSA solvation models.
 
+================== ====================================================================
+ Name               Definition
+================== ====================================================================
+ gsolv (default)    1 L of ideal gas and 1 L of liquid solution 
+ bar1mol            1 bar of ideal gas and 1 mol/L liquid solution 
+ reference          1 bar of ideal gas and 1 mol/L liquid solution at infinite dilution
+================== ====================================================================
+
+The reference state can be set via 
 .. code:: bash
 
-  > xtb coord --opt --alpb water reference
+   xtb coord --opt --alpb water reference
 
 Extended Functionality
 ======================

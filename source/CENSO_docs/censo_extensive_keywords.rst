@@ -39,4 +39,4 @@ Solvents
 --------
 
 For each solvation model all available solvents should also be found by CENSO. If there are solvents 
-missing please file an issue on GitHub.
+missing please file an issue on GitHub or add them to the lookup file yourself (found in ``src/censo/assets```).

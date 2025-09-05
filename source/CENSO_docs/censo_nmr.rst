@@ -8,8 +8,8 @@ Calculation of NMR Spectra
 
 
 For the calculation of NMR spectra with CENSO, the ANMR program can be used.
-The spectra can be plotted with the python script ``nmrplot.py``. 
-Both programs can be obtained from the latest `release page of ENSO <https://github.com/grimme-lab/enso/releases/tag/v.2.0.2>`_.
+The spectra can be plotted with the python script ``nmrplot``. 
+ANMR can be obtained from the latest `release page of ENSO <https://github.com/grimme-lab/enso/releases/tag/v.2.0.2>`_.
 
 
 .. important::
@@ -57,46 +57,9 @@ ANMR requires the files:
 
   * e.g. ``CONF1/NMR``
 
-Since the directory structure changed from CENSO 1.3 to CENSO 2.0, one can use the following
-``bash`` script to create a folder called ``anmr`` in the current working directory, such that
-ANMR can be run in this folder after configuring the ``.anmrrc``:
-
-.. code:: bash
-
-    #!/bin/bash
-
-    # Define the source and destination directories
-    src_dir="4_NMR"
-    dest_dir="anmr"
-
-    # Create the destination directory in the current working directory
-    mkdir -p "$dest_dir"
-
-    # Copy anmr_enso, anmr_nucinfo, anmr_rotamers to the destination
-    cp "anmr_"* "$dest_dir"
-
-    # Loop through the CONF# directories in the source directory
-    for conf_dir in "$src_dir"/CONF*; do
-        # Check if the iteration item is a directory
-        if [ -d "$conf_dir" ]; then
-            # Extract the CONF# directory name
-            conf_name=$(basename "$conf_dir")
-
-            # Define the path for the new NMR directory inside the corresponding CONF# directory in the destination
-            new_nmr_dir="$dest_dir/$conf_name/NMR"
-
-            # Create the NMR directory, including parent directories as needed
-            mkdir -p "$new_nmr_dir"
-
-            # Copy the nmrprop.dat and coord files to the new NMR directory
-            cp "$conf_dir/nmrprop.dat" "$new_nmr_dir"
-            cp "$conf_dir/coord" "$new_nmr_dir"
-        fi
-    done
-
-.. hint::
-
-   This script is also provided in the ``bin`` directory as ``c2anmr``.
+Since the directory structure changed from CENSO 1.3 to CENSO 2.0, one can use the ``c2anmr`` script 
+to create a folder called ``anmr`` in the current working directory, such that
+ANMR can be run in this folder after configuring the ``.anmrrc``.
 
 Example ``.anmrrc`` file:
 
@@ -263,89 +226,9 @@ zero with either this awk or python code:
 Spectra Plotting
 ----------------
 
-The NMR spectrum can be plotted from the file `anmr.dat`. It contains the 
+The NMR spectrum can be plotted from the file ``anmr.dat``. It contains the 
 information ppm vs intensity and can be plotted with any plotting tool 
-(e.g GNUPLOT ...).
-
-The provided `nmrplot.py` plotting tool uses `matplotlib` for plotting. 
-Information on all possible commandline arguments is documented:
-
-.. code-block:: text
-
-	$ nmrplot.py --help
-
-	     __________________________________________________
-	    |                                                  |
-	    |                    NMRPLOT                       |
-	    |          Plotting of NMR spectral data           |
-	    |             University of Bonn, MCTC             |
-	    |                 January 2019                     |
-	    |                     v 1.05                       |
-	    |                   F. Bohle                       |
-	    |__________________________________________________|
-
-	Information on arguments:
-
-	     End     Endremove    Startremove                 Start
-	    +               +    +                               +
-	    +---------------+----+-------------------------------+
-	    lower field                               higher field
-	                        delta /ppm
-	    
-	optional arguments:
-	  -h, --help            show this help message and exit
-	  -start START, --startppm START
-	                        Start plotting from '<start>' ppm. (default: 0)
-	  -end END, --endppm END
-	                        End plotting at '<end>' ppm. Value of end has to be
-	                        larger than value of start. (default: 11)
-	  -startremove STARTREMOVE, --startremove STARTREMOVE
-	                        Start cutting from spectrum at '<startremove>' ppm.
-	                        (default: None)
-	  -endremove ENDREMOVE, --endremove ENDREMOVE
-	                        End cutting from spectrum at '<endremove>' ppm. Value
-	                        of endremove has to be larger than value of
-	                        startremove. (default: None)
-	  -title TITLE, --title TITLE
-	                        Set title of entire plot. If no title is required use
-	                        '<--title ''>'. (default: NMR-PLOT)
-	  -lw LINEWIDTH, --linewidth LINEWIDTH
-	                        Set linewidth. (default: 0.8)
-	  -i FILE [FILE ...], --input FILE [FILE ...]
-	                        Provide input_file(s) [max 3 files] -i input1(theory1)
-	                        input2(theory2) input3(experiment/predicition);
-	                        inputfiles format is two columns: column1 ppm ,
-	                        column2 intensity; if several files are provided the
-	                        last one will be inverted (default: None)
-	  -l LABEL [LABEL ...], --label LABEL [LABEL ...]
-	                        Provide labels for all files provided [max 3 files] -l
-	                        label1 label2 label3, if no labels are provided,
-	                        filename is used as label (default: [])
-	  -fontsize FONTSIZE, --fontsize FONTSIZE
-	                        Set fontsize for entire plot. (default: 15)
-	  -keybox, --keybox     Set Frame around key. (default: False)
-	  -ontop, --ontop       Plot all spectra ontop of each other. (default: False)
-	  -stacked, --stacked   Plot all spectra stacked over each other. (default:
-	                        False)
-	  -orientation ORIENTATION [ORIENTATION ...], --orientation ORIENTATION [ORIENTATION ...]
-	                        Up (1) or down (-1). (default: [1, 1, 1, 1, 1, 1, 1,
-	                        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
-	  -c  [ ...], --colors  [ ...]
-	                        Select colors. Possible are: ['gray', 'blue', 'cyan',
-	                        'red', 'green', 'magenta', 'yellow', 'black']
-	                        (default: ['blue', 'black', 'red', 'magenta',
-	                        'green'])
-	  -cut CUT [CUT ...], --cut CUT [CUT ...]
-	                        Cut intensity. Accepts values from 0.0 (flat line) to
-	                        1.0 (full intensity). (default: [1.0, 1.0, 1.0, 1.0,
-	                        1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
-	  -o OUT, --output OUT  Provide name of the output file without fileending.
-	                        (default: nmrplot)
-	  -s SHIFT [SHIFT ...], --shift SHIFT [SHIFT ...]
-	                        Shift ppm of each inputfile separately using: --shift
-	                        float float float, e.g. --shift 10.0 0.0 -5.0, each
-	                        file needs its own value (default: [])
-
+(e.g GNUPLOT ...). The provided ``nmrplot`` plotting tool uses ``matplotlib``` for plotting. 
 
 Reference shielding constants
 -----------------------------
