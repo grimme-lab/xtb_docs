@@ -57,8 +57,8 @@ found in the respective `publication`_.
 .. _publication: https://doi.org/10.1021/jasms.5c00234
 
 .. note::
-    In QCxMS2, the CID mode does not simulate explicit collisions like in QCxMS but accounts implicitly
-    for collisions similar to QCxMS' ``temprun``. To this end, a Gaussian distribution of the internal energy is assumed.
-    It is recommended to use an upper estimate of the average energy, e.g. ``-esiatom 0.5 eV``, and simulate after
-    the QCxMS2 calculation with the ``-esim`` mode different energies from e.g. 0.2 to 0.5 eV to find good settings
-    for your respective molecule and experimental setup.
+    It is recommended to start with an upper estimate of the average energy,
+    e.g. ``-esiatom 0.5 eV`` for an initial QCxMS2 calculation, and then
+    simulate afterwards in the same directory with the ``-esim`` mode
+    different energies (e.g. 0.2-0.5 eV) to find suitable settings for your respective molecule
+    and experimental setup.
