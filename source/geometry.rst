@@ -15,13 +15,17 @@ Currently the following input formats are supported by ``xtb``.
  Format                  Basename          Suffix                  molecular   periodic
 ======================= ================= ======================= =========== ==========
  Turbomole               coord             coord, tmol             x           3D
- xyz file                                  xyz                     x
+ xyz file                                  xyz, log                x
  mol file                                  mol                     x
  Structure-Data file                       sdf                     x
  Protein Database file                     pdb                     x
  Vasp's POSCAR/CONTCAR   poscar, contcar   vasp, poscar, contcar               3D
  genFormat                                 gen                     x           3D
  Gaussian external                         ein                     x
+ QCSchema JSON                             json                    x
+ Chemical JSON                             cjson                   x           3D
+ FHI-aims geometry.in    geometry.in                               x           3D
+ QChem molecule format                     qchem                   x
 ======================= ================= ======================= =========== ==========
 
 .. note:: The default format is always Turbomole and neither the suffix nor the
