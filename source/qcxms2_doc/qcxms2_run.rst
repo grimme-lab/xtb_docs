@@ -22,6 +22,8 @@ Settings of a QCxMS2 run can be changed via the following command line options:
      -
    * - ``-ei``    
      - Compute an electron impact (EI) spectrum (default).
+    * - ``-cid``    
+     - Compute a collission-induced dissociation (CID) spectrum.  
    * - ``-esim``  
      - Simulate only different IEE distributions for a given reaction network from a previous calculation.
    * - ``-oplot``  
@@ -32,15 +34,21 @@ Settings of a QCxMS2 run can be changed via the following command line options:
      - Give charge of the input molecule.
    * - ``-edist`` 
      - Choose distribution for IEE ("poisson" (default) or "gaussian").
-   * - ``-eimp0`` 
+   * - ``-eimp0 [real]`` 
      - Specify impact energy of electrons in eV (default: 70).
-   * - ``-eimpw`` 
+   * - ``-eimpw [real]`` 
      - Specify width of energy distribution (default: 0.1).
-   * - ``-ieeatm`` 
-     - Specify energy per atom in eV (default: 0.8).
+   * - ``-ieeatm [real]`` 
+     - Specify energy per atom in eV (default: 0.8), works only for EI mode.
+   * - ``-esiatom [real]`` 
+     - Specify energy per atom in eV, works only for CID mode.
+   * - ``-esi [real]``
+     - increase average internal energy in eV for CID mode (default 0.0)
+   * - ``esiw [real]``
+     - Specify width of ionization energy distribution in eV, works only for CID mode.
    * - ``-nots`` 
      - Take reaction energy instead of barrier → no path search (quick mode for fragments).
-   * - ``-T``
+   * - ``-T [integer]``
      - Select the number of overall cores (default: 4). 
    * - ``-nfrag [integer]``
      - Select the number of subsequent fragmentations you want to simulate (default: 6). 

@@ -28,7 +28,7 @@ This process not only ionizes the molecule, but simultaneously increases the int
 in turn leads to bond breaking, fragmentation, rearrangement, etc of the ion. A more detailed description can be 
 found in the `original publication`_. 
 
-.. _original publication: https://doi.org/10.26434/chemrxiv-2025-277zm
+.. _original publication: https://doi.org/10.1039/D5CP00316D
 
 
 Dissociative Electron Attachment
@@ -49,11 +49,16 @@ Ionization of molecules can be done by (de)protonation, *e.g.*, by the popular e
 This ionization process produces *closed-shell* ions (even number of valence electrons) and is softer than the EI or DEA methods.
 It is often implemented by (de-)protonation of the molecule under study, leading to positivly or negativly charged
 molecular ions. The following Collision Induced Dissociation (**CID**) leads to a spectrum normally under lower energy conditions than in 
-the other MS methods. 
+the other MS methods.
+
+A more detailed description can be 
+found in the respective `publication`_. 
+
+.. _publication: https://doi.org/10.1021/jasms.5c00234
 
 .. note::
-    A special CID mode is not yet implemented for QCxMS2. However, the EI mode can be used to simulate CID spectra.
-    However, special settings for the energy distribution (probably lower than the default settings for EI-MS) 
-    should be tested to reproduce experimental spectra.
-    Investigations on the ability of QCxMS2 to simulate CID spectra are ongoing. For now, we recommend to use the
-    predecessor QCxMS :ref:`qcxms` for CID simulations.
+    In QCxMS2, the CID mode does not simulate explicit collisions like in QCxMS but accounts implicitly
+    for collisions similar to QCxMS' ``temprun``. To this end, a Gaussian distribution of the internal energy is assumed.
+    It is recommended to use an upper estimate of the average energy, e.g. ``-esiatom 0.5 eV``, and simulate after
+    the QCxMS2 calculation with the ``-esim`` mode different energies from e.g. 0.2 to 0.5 eV to find good settings
+    for your respective molecule and experimental setup.
