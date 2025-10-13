@@ -34,12 +34,15 @@ In these steps, the ensemble is optimized, using increasingly accurate settings.
 Ensemble properties available for calculation are:
 
 1. NMR spectra,
+2. Optical Rotation,
 2. UV/Vis spectra.
 
 In the property calculation steps the ensemble is not further modified. However, they require at least 
 one ensemble optimization step to be run beforehand for energy rankings and Boltzmann populations.
  
 For now, all ensemble optimization steps can be performed using both ORCA and TURBOMOLE for DFT calculations.
+Which program is available for property calculations currently depends on the property: 
+NMR supports ORCA and TURBOMOLE, OR supports TURBOMOLE, UV/Vis supports ORCA.
 
 All output will be provided in formatted text files as well as in json format.
 
@@ -66,6 +69,37 @@ In this directory, there is a helper script called ``censo``, calling the comman
 as if you were calling it using ``python3 -m censo``. Additionally, you would want to add ``CENSO/src`` to 
 your ``$PYTHONPATH``.
 
+Configuration
+-------------
+
+To configure CENSO in the command line version, you can use a mix of command line arguments and a configuration file, 
+which can be newly generated using 
+
+.. code:: sh
+
+    censo --new-config
+
+This will create a new configuration file containing default parameters. You can then adapt the settings to your needs.
+The configuration file can then be either moved into the ``$HOME`` directory with the name ``.censo2rc``, which will result 
+in this file being used by default for the CLI tool. Otherwise, you can use a specific file by invoking:
+
+.. code:: sh
+
+    censo --inprc /path/to/rcfile
+
+When you need to configure CENSO in a Python runtime, you can proceed like this:
+
+.. code:: python
+
+    from censo.config import PartsConfig
+    config = PartsConfig()
+
+This will provide a configuration instance that needs to be passed to the separate functions like ``prescreening``.
+There is no assignment validation since setting multiple settings at once is not possible, except on initialization.
+Therefore, the user needs to make sure that the settings are valid, e.g. by using ``model_validate``.
+However, before each ensemble optimization/property function is run, the specific settings are validated automatically.
+It should not be possible to run CENSO with invalid settings if the settings are actually being used.
+
 Requirements
 ------------
 
@@ -73,17 +107,20 @@ CENSO requires xTB in version 6.4.0 or above. In order to use ORCA, it should be
 4.x or above. TURBOMOLE has been tested with version 7.7.1, a bug when combining D4 and GCP is accounted for. 
 It is recommended to use CREST for initial ensemble generation, as well as for better 
 interfacing with ANMR for ensemble NMR spectra calculation.
+However, any ensemble input can be used as long as the file format conforms to xyz-format (e.g. the GOAT output works OOTB).
 
-CENSO requires Python >= 3.10, there are no further dependencies. To use the ``uvvisplot`` script 
-``numpy`` and ``pandas`` are required.
+CENSO requires Python >= 3.12, ``pydantic`` and the ``tabulate`` package.
+To use the ``nmrplot``/``uvvisplot`` scripts, ``numpy``, ``matplotlib`` and ``pandas`` are required.
 
 New features in CENSO 2.0.0
 ---------------------------
 
-Usage *via* runner script
-=========================
+Python API
+==========
 
-It is possible to run CENSO from a custom runner script. An example might look like this:
+CENSO now implements a fully modular Python API. The user can use the API to run CENSO from within Python
+and create custom workflows that go beyond the funnel-like approach of previous versions.
+Below is an example of how to use the API:
 
 .. code :: python
 
@@ -182,15 +219,6 @@ will yield:
 .. hint::
    Template files are not yet implemented for TURBOMOLE.
 
-Dummy functionals
-=================
-
-Since only a limited amount of functionals are preconfigured in CENSO, the ``dummy`` option exists as value 
-for ``func``. This tells CENSO to write no functional specific settings automatically into the input (such as 
-``frozencore`` for double-hybrids in ORCA). By combining this with a template file, it is possible to also use 
-functionals that are not defined as keywords in ORCA, such as e.g. revDSD-PBEP86-D4 (J. M. L. Martin et al., J Phys Chem A 2019
-doi: 10.1021/acs.jpca.9b03157).
-
 Ensemble Optimization
 ---------------------
 
@@ -213,12 +241,12 @@ improve on the ranking quality by increasing the quality of the utilized DFT met
 Also, in this step one may choose to include thermal contributions to the free enthalpy
 by activating ``evaluate_rrho``, which will lead to CENSO using ``xtb`` to calculate
 single-point Hessians. This will also include solvation if the user chose to do so.
-The threshold for this step should be lower than before (up to 7.5 kcal/mol) to account
+The threshold for this step should be lower than before to account
 for the decreasing uncertainty due to improvements in the ranking method. CENSO will 
-increase the threshold by up to 1 kcal/mol, proportional to the (exponential of the) 
-standard deviation of the thermal contributions. The solvation contributions will be 
-calculated using DFT, if required explicitly, though explicitly calculating the solvation 
-contribution will double the computational effort due to two required single-point calculations.
+increase the threshold by up to 1 kcal/mol, depending on the standard deviation of the 
+thermal contributions. The solvation contributions will be calculated using DFT.
+If you explicitly need the values of the solvation free enthalpy, 
+you need to set ``gsolv_included`` to ``False``.
 
 Optimization
 ============
@@ -250,14 +278,16 @@ Ensemble Properties
 NMR Spectra
 ===========
 
-For the calculation of the NMR spectrum of an ensemble, single-points to compute the 
-nuclear shieldings and couplings will be executed. The computational parameters for shieldings
-and couplings can be set to different values. In this case two separate single-points 
-will be run. If the settings are identical, only one single-point will be run for both.
-After that, CENSO will generate files for the simulation of the NMR spectrum using ANMR.
-Please note that the user needs to setup the ``.anmrrc`` file.
+For the calculation of the NMR spectrum of an ensemble, single-points to compute the nuclear shieldings and couplings will be executed.
+After that, CENSO can generate files for the simulation of the NMR spectrum using ANMR.
+For this, you can use the ``c2anmr`` tool.
 
 For more detailed instructions see :ref:`nmr`.
+
+Optical Rotatory Disperson
+==========================
+
+nnn
 
 UV/Vis Spectra
 ==============
@@ -269,6 +299,5 @@ excitation parameters to ``excitations.out`` in tabular format and to ``excitati
 The table contains all weighted excitation wavelengths together with their maximum extinction coefficients 
 and the originating conformer.
 
-To plot the spectra, the tool ``uvvisplot`` provided in the ``bin`` directory (where the runner helper is also located)
-can be used. It needs to be provided with a file of the same structure as ``excitations.json``.
+To plot the spectra, the tool ``uvvisplot`` can be used. It needs to be provided with a file of the same structure as ``excitations.json``.
 It outputs a file called ``contributions.csv`` which contains all Gaussian signals partitioned by conformer and state.

@@ -18,5 +18,4 @@ Plotting the spectrum
 
 The calculated extinction coefficients are to be used to calculate a spectrum as a superposition of Gaussians.
 The maximum extinction coefficients are calculated for every excitation. Furthermore, the coefficients get weighted
-by the population of the originating conformer. For plotting the spectrum, the ``uvvisplot`` script provided in the
-``bin`` directory can be used.
+by the population of the originating conformer. For plotting the spectrum, the ``uvvisplot`` tool can be used.
