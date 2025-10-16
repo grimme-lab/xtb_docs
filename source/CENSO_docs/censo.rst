@@ -55,16 +55,15 @@ Then, you have two options:
 1. install *via* ``pip``,
 2. setup usage *via* ``$PATH``.
 
-To install in your current environment using ``pip``, run:
+To install in your current environment (e.g. after creating a new conda environment using ``conda create -f environment.yaml``) using ``pip``, run:
 
 .. code:: sh 
 
     pip install .
 
-CENSO can then be run by configuring a custom runner script (see below) or by calling 
-``python3 -m censo`` in the terminal.
+CENSO can then be called using ``censo``.
 
-Alternatively, after cloning the repository, you could also add the ``bin`` folder to your ``$PATH``.
+Alternatively, after cloning the repository, you could also add the CENSO directory to your ``$PATH``.
 In this directory, there is a helper script called ``censo``, calling the command line entry point of CENSO
 as if you were calling it using ``python3 -m censo``. Additionally, you would want to add ``CENSO/src`` to 
 your ``$PYTHONPATH``.
@@ -79,7 +78,9 @@ which can be newly generated using
 
     censo --new-config
 
-This will create a new configuration file containing default parameters. You can then adapt the settings to your needs.
+This will create a new configuration file containing default parameters.
+An example configuration file is also provided as ``example.censo2rc``.
+You can then adapt the settings to your needs.
 The configuration file can then be either moved into the ``$HOME`` directory with the name ``.censo2rc``, which will result 
 in this file being used by default for the CLI tool. Otherwise, you can use a specific file by invoking:
 
@@ -87,7 +88,7 @@ in this file being used by default for the CLI tool. Otherwise, you can use a sp
 
     censo --inprc /path/to/rcfile
 
-When you need to configure CENSO in a Python runtime, you can proceed like this:
+When you need to configure CENSO with the Python API, you can proceed like this:
 
 .. code:: python
 
@@ -112,8 +113,8 @@ However, any ensemble input can be used as long as the file format conforms to x
 CENSO requires Python >= 3.12, ``pydantic`` and the ``tabulate`` package.
 To use the ``nmrplot``/``uvvisplot`` scripts, ``numpy``, ``matplotlib`` and ``pandas`` are required.
 
-New features in CENSO 2.0.0
----------------------------
+New features since CENSO 2.0.0
+------------------------------
 
 Python API
 ==========
@@ -122,70 +123,55 @@ CENSO now implements a fully modular Python API. The user can use the API to run
 and create custom workflows that go beyond the funnel-like approach of previous versions.
 Below is an example of how to use the API:
 
-.. code :: python
+.. code:: python
 
-  from censo.ensembledata import EnsembleData
-  from censo.configuration import configure
-  from censo.ensembleopt import Prescreening, Screening, Optimization
-  from censo.properties import NMR
-  from censo.params import Config
+    from censo.ensemble import EnsembleData
+    from censo.config.setup import configure
+    from censo.ensembleopt import prescreening, screening, optimization
+    from censo.properties import nmr
+    from censo.config import PartsConfig
+    from censo.config.parallel_config import ParallelConfig
+    from censo.parallel import get_client
 
-  # CENSO will put all files in the current working directory (os.getcwd())
-  input_path = "rel/path/to/your/inputfile" # path relative to the working directory
-  ensemble = EnsembleData(input_file=input_path) 
-  # the above can be used if you molecule is neutral and closed shell, otherwise
-  # it is necessary to proceed with e.g.
-  # ensemble = EnsembleData()
-  # ensemble.read_input(input_path, charge=-1, unpaired=1)
+    # CENSO outputs files in the current working directory (os.getcwd())
+    # When called from the CLI version, the output dir will be the same as the input file's location
+    input_path = "rel/path/to/your/inputfile"  # Relative to working directory
+    ensemble = EnsembleData()
+    ensemble.read_input(input_path)
 
-  # If the user wants to use a specific rcfile:
-  configure("/abs/path/to/rcfile")
+    # For charged/open-shell systems:
+    # ensemble = EnsembleData()
+    # ensemble.read_input(input_path, charge=-1, unpaired=1)
 
-  # Get the number of available cpu cores on this machine
-  # This is also the default value that CENSO uses
-  # This number can also be set to any other integer value and automatically checked for validity
-  Config.NCORES = os.cpu_count()
+    # Load a custom rcfile (optional)
+    config = configure(rcpath="/path/to/rcfile")
 
-  # Another possibly important setting is OMP, which will get used if you disabled the automatic 
-  # load balancing in the settings
-  Config.OMP = 4
+    # Configure parallelization
+    parallel_config = ParallelConfig(ncores=os.cpu_count(), ompmin=4)
+    # ompmin denotes the minimum number of OMP threads assigned to each task
 
-  # The user can also choose to change specific settings of the parts
-  # Please take note of the following:
-  # - the settings of certain parts, e.g. Prescreening are changed using set_setting(name, value)
-  # - general settings are changed by using set_general_setting(name, value) (it does not matter which part you call it from)
-  # - the values you want to set must comply with limits and the type of the setting
-  Prescreening.set_setting("threshold", 5.0)
-  Prescreening.set_general_setting("solvent", "dmso")
+    # Ensure valid configuration
+    config.general.solvent = "dmso"
+    config = config.model_validate(config)
 
-  # It is also possible to use a dict to set multiple values in one step
-  settings = {
-      "threshold": 3.5,
-      "func": "pbeh-3c",
-      "implicit": True,
-  }
-  Screening.set_settings(settings, complete=False)  
-  # the complete kwarg tells the method whether to set the undefined settings using defaults or leave them on their current value
+    # Set up task management
+    client, cluster = get_client(parallel_config)
 
+    # Execute workflow steps
+    timings = [
+        part(ensemble, config, parallel_config, client=client)
+        for part in [prescreening, screening, optimization, nmr]
+    ]
 
-  # Setup and run all the parts that the user wants to run
-  # Running the parts in order here, while it is also possible to use a custom order or run some parts multiple times
-  # Running a part will return an instance of the respective type
-  # References to the resulting part instances will be appended to a list in the EnsembleData object (ensemble.results)
-  # Note though, that currently this will lead to results being overwritten in your working directory
-  # (you could circumvent this by moving/renaming the folders)
-  results, timings = zip(*[part.run(ensemble) for part in [Prescreening, Screening, Optimization, NMR]])
-
-  # You access the results using the ensemble object
-  # You can also find all the results the <part>.json output files
-  print(ensemble.results[0].data["results"]["CONF5"]["sp"]["energy"])
+    # The results are then output to json files in the working directory
+    # Also, the molecules stored in the ensemble contain the most up-to-date energy values and geometries
 
 
 .. hint:: 
    By default, CENSO will always print information about what it's doing to stdout, as well as logging additional information 
    in the file ``censo.log``. It is not possible to call CENSO silently from command line, however you could redirect 
    stdout if you need a silent run. If you want a silent CENSO run from within Python you could use a context manager 
-   to redirect stdout. To disable logging from the command line use ``--loglevel NONE``. From within Python you can use 
+   to redirect stdout. To disable logging from the command line use ``--loglevel NONE``. With Python you can use 
    ``censo.logging.set_loglevel("NONE")`` or ``censo.logging.set_loglevel(51)`` (which corresponds to ``python.logging.CRITICAL + 1``).
 
 
@@ -193,12 +179,13 @@ Template files
 ==============
 
 Since 2.0, CENSO supports template input files for all steps. They are located in ``$HOME/.censo2_assets``.
+Since 3.0, template files are also supported for TURBOMOLE.
 In order to use a template file for e.g. prescreening with ORCA, the file should be called ``prescreening.orca.template``.
 It should contain two keywords: ``{main}`` and ``{geom}``. These are later replaced by the main argument line and the geometry
 block, respectively. All further settings you add are inserted at the respective positions you put them in the
 template file. Example:
 
-.. code ::
+.. code::
    {main}
    ! notrah
 
@@ -207,7 +194,7 @@ template file. Example:
    
 will yield:
 
-.. code ::
+.. code::
    ! pbe-d4 def2-sv(p) def2/j ri defgrid1 loosescf gcp(dft/sv(p)) printgap
    ! notrah
    ...
@@ -216,8 +203,11 @@ will yield:
    *
    # some comment
 
+For TURBOMOLE, the file should be called ``prescreening.tm.template`` and the template file's content will just be inserted above the final ``$end`` line.
+
 .. hint::
-   Template files are not yet implemented for TURBOMOLE.
+   Be careful when writing templates since generated input files will not be checked for validity.
+
 
 Ensemble Optimization
 ---------------------
@@ -287,7 +277,9 @@ For more detailed instructions see :ref:`nmr`.
 Optical Rotatory Disperson
 ==========================
 
-nnn
+CENSO will use TURBOMOLE to calculate the optical rotatory dispersion for the ensemble.
+It will output the rotatory dispersion values averaged over the ensemble in length and velocity representation.
+The separate conformer values can be found in the json output.
 
 UV/Vis Spectra
 ==============
