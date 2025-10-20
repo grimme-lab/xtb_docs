@@ -20,10 +20,8 @@ large ensembles the new algorithm approaches the efficiency of the basic load ba
 of assigning the same number of OpenMP threads for each job. Generally it is recommended
 to enable the ``balance`` option.
 
-.. warning::
-
-   In order for CENSO to be able to correctly determine the number of OpenMP threads per job,
-   the number of cores needs to be set appropriately. If you use a workload manager such 
-   as PBS or Slurm, it is probably a good idea to set the number of cores according to the queue
-   you're submitting to. Please note that the number of cores provided to CENSO should be equal to 
-   ``nthreads`` provided in SLURM.
+.. hint::
+   CENSO will try to automatically detect the CPU resources that are available in your current environment.
+   It well first look for a provided argument to ``--maxcores`` or argument to the ``get_cluster`` function.
+   If nothing was provided, it will look first for SLURM environment variables. If none are found, it will try to
+   determine the number of CPUs with ``os.cpu_count()``. Make sure that you provide a valid number of cores.
