@@ -158,13 +158,13 @@ Below is an example of how to use the API:
     client, cluster = get_client(parallel_config)
 
     # Execute workflow steps
-    timings = [
+    results = [
         part(ensemble, config, parallel_config, client=client)
         for part in [prescreening, screening, optimization, nmr]
     ]
 
-    # The results are then output to json files in the working directory
-    # Also, the molecules stored in the ensemble contain the most up-to-date energy values and geometries
+    # The results are then also output to json files in the working directory
+    # The molecules stored in the ensemble contain the most up-to-date energy values and geometries
 
 
 .. hint:: 
