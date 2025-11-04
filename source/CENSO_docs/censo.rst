@@ -61,6 +61,12 @@ To install in your current environment (e.g. after creating a new conda environm
 
     pip install .
 
+or
+
+.. code:: sh
+    
+    pip install censo
+
 CENSO can then be called using ``censo``.
 
 Alternatively, after cloning the repository, you could also add the CENSO directory to your ``$PATH``.
