@@ -99,7 +99,7 @@ This is a very simple example of a cofacial NCI complex of benzene and nitrobenz
       
          > xtb coord.xyz --dipro --gfn 1 
 
-   .. tab-item:: input.xyz
+   .. tab-item:: coord.xyz
       
       .. code-block:: none
       
@@ -179,35 +179,35 @@ This is a very simple example of a cofacial NCI complex of benzene and nitrobenz
            --------------------------------------
            E_mon(orb) frag1 frag2             -12.966   -12.094 eV
            |J(AB)|:                0.001 eV
-           S(AB):             0.00002581 Eh
+           S(AB):             0.00002581 
            |J(AB,eff)|:            0.000 eV
    
            Fragment 1 HOMO   Fragment 2 HOMO
            --------------------------------------
            E_mon(orb) frag1 frag2             -12.966   -12.099 eV
            |J(AB)|:                0.238 eV
-           S(AB):            -0.00998928 Eh
+           S(AB):            -0.00998928 
            |J(AB,eff)|:            0.113 eV
    
            Fragment 1 HOMO   Fragment 2 LUMO
            --------------------------------------
            E_mon(orb) frag1 frag2             -12.966    -7.366 eV
            |J(AB)|:                0.002 eV
-           S(AB):            -0.00009192 Eh
+           S(AB):            -0.00009192 
            |J(AB,eff)|:            0.001 eV
    
            Fragment 1 HOMO   Fragment 2 LUMO+1
            -------------------------------------
            E_mon(orb) frag1 frag2             -12.966    -7.361 eV
            |J(AB)|:                0.000 eV
-           S(AB):             0.00001124 Eh
+           S(AB):             0.00001124 
            |J(AB,eff)|:            0.000 eV
    
            Fragment 1 LUMO   Fragment 2 HOMO-1
            --------------------------------------
            E_mon(orb) frag1 frag2              -9.417   -12.094 eV
            |J(AB)|:                0.035 eV
-           S(AB):            -0.00153946 Eh
+           S(AB):            -0.00153946 
            |J(AB,eff)|:            0.019 eV
            .
            .
@@ -239,4 +239,4 @@ Furthermore, a total coupling averaged over the square sum of all individual cou
 .. math:: 
    total |J(AB,eff)| = \sqrt{\sum |J(AB,eff)_i^2|}
 
-Please find more information on the theory and our implementation of DIPRO in our publication (J.Kohn, N.Gildemeister, D.Fazzi, S.Grimme, A.Hansen, `Efficient Calculation of Electronic Coupling Integrals with the Dimer Projection Method via a Density Matrix Tight-Binding Potential`, JCP **2023**, submitted).
+Please find more information on the theory and our implementation of DIPRO in our publication (J.Kohn, N.Gildemeister, D.Fazzi, S.Grimme, A.Hansen), `Efficient Calculation of Electronic Coupling Integrals with the Dimer Projection Method via a Density Matrix Tight-Binding Potential, J. Chem. Phys. 159, 144106 (2023) <https://doi.org/10.1063/5.0167484>`_.
