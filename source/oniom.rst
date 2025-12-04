@@ -137,6 +137,17 @@ flags
       
       > xtb <geometry_file> --oniom <orca/turbomole>:<xtb> <inner_region> --chrg <inner_region_charge>:<system_charge> 
 
+\--uhf 'int:int':
+   extension of the classical ``--uhf`` flag, allows to specify unpaired electrons for inner region and whole molecule as **inner_region_uhf:system_uhf**. If only one value is given, it is used as **system_uhf**, and the **inner_region_uhf** automatically.
+
+.. note::
+   If **inner_region_uhf** is specified in the external input format file(``*.inp`` or ``control``), one has to provide the same charge to the ``xtb`` as: 
+   
+   .. code-block:: sh
+      
+      > xtb <geometry_file> --oniom <orca/turbomole>:<xtb> <inner_region> --uhf <inner_region_uhf>:<system_uhf> 
+
+
 
 \--cut:
    write the geometry of the specified inner region without performing any calculations. Note that hydrogen-linked atoms are not present, due to the absence of the Wiberg bond orders. In addition, this procedure can be used to test the abovementioned automatic inner region charge determination.
