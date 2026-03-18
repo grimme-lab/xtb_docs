@@ -1,5 +1,5 @@
 Need Help
 =========
 
-If you're heading trouble please contact xtb@thch.uni-bonn.de
+If you're heading trouble please contact xtb@uni-bonn.de
 
