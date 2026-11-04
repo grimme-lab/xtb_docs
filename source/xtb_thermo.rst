@@ -19,26 +19,56 @@ To run the thermo submodule use
 
 The geometry can be any format accepted by ``xtb``, while the hessian format
 depends on the options passed to the thermo submodule.
-It defaults to the non-massweigthed, projected Turbomole hessian data group.
+It defaults to a Cartesian, non-mass-weighted Turbomole Hessian data group,
+as written by ``xtb`` to the ``hessian`` file in a frequency calculation.
+The thermo submodule mass-weights this Hessian itself; it does not project
+out translations and rotations for Turbomole input, so the Hessian should
+already be projected (the ``hessian`` file written by ``xtb`` is).
 
 Possible options are:
 
 --sthr REAL
-   Rotor cutoff for RRHO partition function in rcm
+   Rotor cutoff for RRHO partition function in rcm (default: 50.0)
 
---temp REAL
+--ithr REAL
+   Imaginary frequency cutoff for RRHO in rcm,
+   enter a positive value, the sign will be inverted (default: 20.0)
+
+--scale REAL
+   Frequency scaling factor for RRHO (default: 1.0)
+
+--desy REAL
+   Threshold for symmetry recognition (default: 0.1)
+
+--temp REAL[,...]
    Temperature for thermodynamic functions in K,
-   takes a comma separated list of temperatures
+   takes a comma separated list of temperatures (default: 298.15)
 
 --turbomole
-   Read a Turbomole Hessian file,
-   use this only when $nomw is not present in control
+   Read a non-mass-weighted Turbomole Hessian file (default format)
+
+--mass-weighted, --massweighted
+   Assume the input Hessian is already mass-weighted, so no mass-weighting
+   is applied before diagonalization.
+   Can be combined with any of the Hessian formats.
 
 --orca
-   Read a Orca .hess file, projection will be performed automatically
-   
---dftb+
+   Read an Orca .hess file, projection will be performed automatically
+
+--dftb+, --dftbplus
    Read a DFTB+ hessian.out file, projection will be performed automatically
+
+--bhess
+   Read an additional ``hessian_sph`` file from a previous ``xtb`` SPH calculation
+   (``--bhess``) and remove the frequency shift caused by the biasing potential,
+   usage is ``xtb thermo --bhess <geometry> hessian hessian_sph``
+
+.. note::
+   Up to version 6.7.1, ``--turbomole`` also marked the Hessian as mass-weighted.
+   Since then, ``--turbomole`` only selects the file format, and a
+   mass-weighted Hessian (e.g. from a Turbomole calculation without
+   ``$nomw`` in the ``control`` file) has to be requested explicitly with
+   ``--mass-weighted``.
 
 An example calculation is given here, reevaluating at a different rotor cutoff
 for multiple temperatures
