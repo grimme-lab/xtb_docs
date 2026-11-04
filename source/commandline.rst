@@ -108,7 +108,8 @@ Geometry optimization
      approximate normal coordinate optimization, performs an initial singlepoint
      calculation and a final singlepoint calculation on the optimized structure.
      *LEVEL* can be chosen from ``crude``, ``sloppy``, ``loose``, ``normal``
-     (default), ``tight``, ``verytight`` to ``extreme``.
+     (default), ``tight``, ``verytight`` to ``extreme``, and also sets the
+     default SCC accuracy setting (overwritten by ``--acc`` flag).
      See :ref:`geometry optimization` for details.
    :queue:
      setup, SP, ANCopt, SP, properties
@@ -151,8 +152,8 @@ Optimized frequency calculation
    :description:
      perform a numerical Hessian calculation on an ANCopt optimized geometry
      (with optional optimization *LEVEL*, default = ``normal``), see
-     :ref:`frequencies`. Tightens the default SCC accuracy setting to 0.2
-     (overwritten by ``--acc`` flag).
+     :ref:`frequencies`. The numerical Hessian uses 0.2 SCC accuracy by default
+     and follows tighter optimization levels (overwritten by ``--acc`` flag).
    :queue:
      setup, SP, ANCopt, SP, SP, Hessian, properties
 
@@ -160,8 +161,9 @@ Biased frequency calculation
    :flag: ``--bhess [LEVEL]``
    :description:
      perform a biased numerical Hessian calculation on an ANCopt optimized
-     geometry (with optional optimization *LEVEL*, default = ``normal``),
-     tightens default SCC accuracy setting to 0.2 (overwritten by ``--acc`` flag)
+     geometry (with optional optimization *LEVEL*, default = ``normal``).
+     The numerical Hessian uses 0.2 SCC accuracy by default and follows tighter
+     optimization levels (overwritten by ``--acc`` flag).
    :queue:
      setup, SP, ANCopt, SP, SP, Hessian, properties
 
@@ -252,8 +254,8 @@ Options
     electronic temperature (default = 300K)
 
 -a, --acc REAL
-    accuracy for SCC calculation, lower is better (default = 1.0), overwrites
-    also tighter defaults for optimization and hessians
+    accuracy for SCC calculation, lower is better (default = 1.0), overrides
+    automatic optimization and Hessian accuracy settings
 
 --iterations, --maxiterations INT
     maximum number of SCC iterations per single point calculation (default = 250)

@@ -26,11 +26,11 @@ Three Hessian run types are available on the command line:
 
 - ``--bhess [LEVEL]``: performs a biased (SPH) geometry optimization to keep the structure close to the input geometry and then calculates the biased Hessian (see :ref:`SPH`). Accepts the same optional optimization *LEVEL* (default ``normal``).
 
-Note that *LEVEL* in ``--ohess`` and ``--bhess`` only controls the optimization thresholds. 
+Accuracy settings:
 
-Accuracy settings:** ``xtb`` distinguishes between the general calculator accuracy and the displacement accuracy inside the numerical Hessian:
-general calculator accuracy to ``0.2`` unless ``--acc REAL`` is explicitly supplied on the command line (which overrides this default). For ``--ohess`` and ``--bhess``, this general accuracy of ``0.2`` is also used during the preceding geometry optimization; unlike ordinary ``--opt``, the selected optimization *LEVEL* does not change this default.
-- **Numerical Hessian displacement accuracy:** During the finite-difference gradient evaluations of the Hessian itself, ``xtb`` switches the calculator accuracy to ``$hess sccacc`` (default ``0.3``) and restores the general calculator accuracy afterwards. Because ``--acc`` and ``$hess sccacc`` are separate settings, the Hessian printout reports ``SCC accuracy : 0.30000`` by default even though the Hessian run type sets the general calculator accuracy to ``0.2``.
+- Standalone Hessian (``--hess``): uses an SCC accuracy of ``0.2`` by default.
+- Optimized and biased Hessians (``--ohess [LEVEL]``, ``--bhess [LEVEL]``): the optimization uses the accuracy associated with the selected *LEVEL*. The Hessian uses ``0.2``, or the *LEVEL* accuracy if it is tighter.
+- ``--acc REAL`` sets the accuracy for both optimization and Hessian calculations. ``$hess sccacc`` can be used to set a separate accuracy for the displaced Hessian evaluations.
 
 When a conventional Hessian run is combined with ``--ptb`` (or ``--raman [TEMP [WAVELENGTH]] --ptb``), ``xtb`` computes the energetic Hessian with GFN2-xTB and evaluates the response properties and intensities (such as IR and Raman activities) using PTB; PTB itself does not provide an energetic Hessian, and ``--o1nh`` cannot be combined with PTB. Phonon/Hessian calculations under periodic boundary conditions are not supported (``Phonon calculations under PBC are not implemented``).
 
@@ -190,7 +190,10 @@ Of course, the calculated frequencies depend on the masses used for each atom. S
 
    $hess
        sccacc=real
-           SCC/calculator accuracy level for numerical Hessian displacements (default: 0.3)
+           SCC/calculator accuracy level for displaced numerical Hessian
+           evaluations (default: 0.2, or the optimization level accuracy in
+           ohess/bhess runs if tighter; overrides --acc for the displaced
+           Hessian evaluations)
 
        step=real
            Cartesian displacement increment for numerical Hessian (default: 0.005)
