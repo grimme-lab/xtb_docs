@@ -11,10 +11,8 @@ This guide is intended to help developers to get our programs running.
 The ``xtb`` source code is hosted at `GitHub <https://github.com/grimme-lab/xtb>`_.
 The ``xtb`` project officially supports both the
 `Meson <https://mesonbuild.com>`_ and `CMake <https://cmake.org>`_ build
-systems; additional instructions on compiling with Meson and CMake can also be
-found on the `xtb GitHub repository <https://github.com/grimme-lab/xtb>`_
-(including the `Meson guide <https://github.com/grimme-lab/xtb/blob/main/meson/README.adoc>`_
-and `CMake guide <https://github.com/grimme-lab/xtb/blob/main/cmake/README.adoc>`_).
+systems; additional information on compiling with Meson and CMake can also be
+found on the `xtb GitHub repository <https://github.com/grimme-lab/xtb>`_.
 
 .. contents::
 
@@ -250,25 +248,25 @@ in the ``xtb`` repository.
 Below is a non-comprehensive historical list of tested compilers for ``xtb``
 6.4 with the meson build system:
 
-========= ================ ===================== ================== ======================
+========= ================ ===================== ================== ===============
 Compiler   Version          Platform              Architecture       ``xtb``
-========= ================ ===================== ================== ======================
- GCC       10.2             Ubuntu 20.04          x86_64                    6.4.1, latest
+========= ================ ===================== ================== ===============
+ GCC       10.2             Ubuntu 20.04          x86_64                    6.4.1
  GCC       10.2, 11.1       Manjaro Linux         x86_64             6.4.0, 6.4.1
- GCC       10.2             Windows Server 2019   x86_64             6.4.0, 6.4.1, latest
+ GCC       10.2             Windows Server 2019   x86_64             6.4.0, 6.4.1
  GCC        9.3             Ubuntu 18.04          x86_64             6.4.0
- GCC        9.3             Ubuntu 20.04          x86_64                    6.4.1, latest
+ GCC        9.3             Ubuntu 20.04          x86_64                    6.4.1
  GCC        9.3             Centos 7              ppc64le, aarch64   6.4.0, 6.4.1
  GCC        9.3             Centos 6              x86_64             6.4.0, 6.4.1
- GCC        9.3             MacOS 10.15.7         x86_64             6.4.0, 6.4.1, latest
- GCC        8.4             Ubuntu 20.04          x86_64                    6.4.1, latest
+ GCC        9.3             MacOS 10.15.7         x86_64             6.4.0, 6.4.1
+ GCC        8.4             Ubuntu 20.04          x86_64                    6.4.1
  GCC        7.5             Ubuntu 18.04          x86_64             6.4.0
- Intel     2021.1, 2021.2   Ubuntu 20.04          x86_64             6.4.0, 6.4.1, latest
+ Intel     2021.1, 2021.2   Ubuntu 20.04          x86_64             6.4.0, 6.4.1
  Intel      18.0.2          OpenSuse 42.1         x86_64             6.4.0, 6.4.1
  NVHPC      20.11, 21.1     Manjaro Linux         x86_64             6.4.0
  NVHPC      20.9            Centos 8              x86_64 + cc70      6.4.0
  NVHPC      20.7            OpenSuse 42.1         x86_64 + cc35      6.4.0
-========= ================ ===================== ================== ======================
+========= ================ ===================== ================== ===============
 
 For GPU enabled builds the compute-capability is given together with the architecture.
 

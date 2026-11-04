@@ -26,7 +26,7 @@ To get the newest features an automatically generated
 `development version <https://github.com/grimme-lab/xtb/releases/tag/bleed>`_
 is available for the latest commit on the default branch.
 At the release page you find a compressed archive (``tar xf xtb*.tar.xz``)
-usually containing the following content:
+whose package directory typically has the following layout:
 
 .. code-block:: none
 
@@ -38,7 +38,9 @@ usually containing the following content:
    │   └── xtb.h
    ├── lib
    │   ├── libcpx.a
-   │   └── libxtb.a
+   │   ├── libxtb.a
+   │   └── pkgconfig
+   │       └── xtb.pc
    └── share
        ├── licenses
        │   └── ...
@@ -47,6 +49,10 @@ usually containing the following content:
        │   │   └── xtb.1
        │   └── man7
        │       └── xcontrol.7
+       ├── modules
+       │   └── modulefiles
+       │       └── xtb
+       │           └── <version>
        └── xtb
            ├── param_gfn2-xtb.txt
            ├── param_gfn1-xtb.txt
@@ -55,8 +61,10 @@ usually containing the following content:
            ├── param_ipea-xtb.txt
            └── .param_gfnff.xtb
 
-The binary is statically linked and includes static libraries as well as
-the header specification of the C-API.
+The release packages contain the executables, static libraries, C-API header,
+parameter files, man pages, and dependency licences. Third-party runtime
+dependencies are linked statically in the packaged binaries where supported by
+the platform.
 
 At the `development version <https://github.com/grimme-lab/xtb/releases/tag/bleed>`_
 (bleeding-edge) release page, precompiled packages for our five supported
@@ -206,12 +214,18 @@ separately by setting
 
   > export MKL_NUM_THREADS=<ncores>
 
-For binaries compiled with OpenBLAS, linear algebra parallelisation is
-controlled via a separate environment variable:
+For binaries linked against OpenBLAS, the number of BLAS threads can usually
+be controlled with
 
 .. code:: bash
 
   > export OPENBLAS_NUM_THREADS=<ncores>
+
+.. note::
+
+   OpenBLAS builds using its OpenMP threading backend ignore
+   ``OPENBLAS_NUM_THREADS`` and instead use ``OMP_NUM_THREADS``.
+   This applies, for example, to the current precompiled Windows release.
 
 
 Environment Variables for ``xtb``
@@ -262,8 +276,8 @@ you should be able to load ``xtb`` with
 Sourceable Shell Scripts
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Example scripts to be sourced in your shells rc file are included in the
-distributed tarball:
+Example scripts to be sourced in your shells rc file are generated and
+installed by the Meson installation workflow:
 
 .. code-block:: bash
 
@@ -313,9 +327,10 @@ We recommend to create a symbolic link to your local ``xtb`` binary by
    
 .. note:: *Historical note (Orca 4.2 / xTB 6.2.3):* ``xtb`` version 6.2.3
           produced an energy printout which could not be processed by the
-          reader in Orca 4.2; for that version, the provided `script`_ was used
-          to wrap the ``xtb`` binary instead of creating a symbolic link.
-          Current Orca and ``xtb`` versions do not need this workaround.
+          reader in Orca 4.2; for that specific combination, the provided
+          `script`_ was used to wrap the ``xtb`` binary instead of creating a
+          symbolic link. This workaround is specific to Orca 4.2 with ``xtb``
+          6.2.3 and is not general current ``xtb`` setup guidance.
 
           .. _script: https://github.com/grimme-lab/xtb/releases/download/v6.2.3/otool_xtb
 
