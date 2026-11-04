@@ -13,7 +13,7 @@ Optimization levels
 ====================
 
 
-``xtb`` has a build-in geometry optimizer called approximate normal coordinate rational function optimizer (ANCopt) which uses a Lindh-type model Hessian to generate an approximate normal coordinate system. It is activated by the flag ``--opt [level]``. For periodic systems, ``--opt [level]`` automatically uses the periodic L-BFGS optimizer (``pbc_lbfgs``) instead of ANCopt, relaxing both atomic coordinates and unit-cell lattice vectors unless ``--nocellopt`` is specified (see :ref:`pbc` for details). The following levels are available:
+``xtb`` has a build-in geometry optimizer called approximate normal coordinate rational function optimizer (ANCopt) which uses a Lindh-type model Hessian to generate an approximate normal coordinate system. It is activated by the flag ``--opt [level]``. For periodic systems, ``--opt [level]`` automatically uses the periodic L-BFGS optimizer (``pbc_lbfgs``) instead of ANCopt, relaxing both atomic coordinates and unit-cell lattice vectors unless ``--nocellopt`` is specified (see :ref:`pbc` for details). For ``pbc_lbfgs``, the optimizer convergence thresholds currently retain the historical fixed PBC settings and are not changed by ``level``; the selected level still controls the default electronic-structure accuracy where applicable. The following levels are available:
 
 +---------+----------+--------------+----------+
 |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |

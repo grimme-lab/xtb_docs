@@ -49,8 +49,9 @@ The following methods can be used for 3D periodic systems in ``xtb``:
   examples.
 
 * GFN0-xTB:
-  The non-self-consistent GFN0-xTB method (``--gfn 0``) is available for 3D
-  periodic systems via the native ``xtb`` implementation.
+  The legacy native GFN0-xTB implementation (``--gfn 0``) remains available for
+  3D periodic systems. Known limitations in its PBC treatment remain, including
+  loss of translational invariance for some structures near periodic boundaries.
 
 Periodic Geometry Input
 =======================
@@ -101,7 +102,10 @@ Geometry optimizations of periodic structures are requested with ``--opt [LEVEL]
 For periodic systems, ``--opt`` automatically selects the periodic L-BFGS
 optimizer (``pbc_lbfgs``) instead of ``ANCopt``, while the optimization engine
 can also be set in the :ref:`detailed-input` file (e.g., ``engine=pbc_lbfgs`` or
-``engine=inertial``, see :ref:`geometry optimization`). By default, both atomic
+``engine=inertial``, see :ref:`geometry optimization`). For ``pbc_lbfgs``, the
+optimizer convergence thresholds currently retain the historical fixed PBC
+settings and are not changed by *LEVEL*; the selected level still controls the
+default electronic-structure accuracy where applicable. By default, both atomic
 coordinates and unit-cell lattice vectors are relaxed simultaneously.
 
 To optimize only the atomic coordinates while keeping the unit-cell lattice
