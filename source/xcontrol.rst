@@ -150,14 +150,18 @@ refinement use
 Atom numbers and element symbols can be mixed in the same list, e.g.
 ``free: H,1201-1245``. Note that numbers in ``free`` always refer to atoms,
 not to atomic numbers as in the ``elements`` keyword.
+In contrast to the other keywords, ``free`` does not skip invalid entries:
+entries other than atom numbers, ranges of atom numbers or element symbols
+are treated as input errors and stop the calculation. This includes an empty
+list, atom numbers larger than the number of atoms, malformed ranges such as
+``2-``, words such as ``all`` and combinations such as ``C1``.
 The ``free`` keyword can be given multiple times and the free atoms of all
 entries are combined, i.e. ``free: H`` and ``free: O`` in two separate lines
 is equivalent to ``free: H,O``.
-The ``free`` keyword can be combined with ``atoms`` and ``elements``.
-All keywords in the ``$fix`` group only add atoms to the set of fixed atoms,
-therefore atoms selected by ``atoms`` or ``elements`` stay fixed even if
-they are listed in ``free``, independent of the order of the keywords.
-For example
+The ``atoms``, ``elements`` and ``free`` selections are combined such that
+atoms or elements selected by ``atoms`` or ``elements`` always remain fixed,
+even if the same atoms are selected by ``free``, independent of the order of
+the keywords. For example
 
 .. code:: text
 
@@ -241,8 +245,15 @@ roughly in place while relaxing all hydrogen atoms use
      free: H
   $end
 
-Multiple ``free`` entries are combined and atoms selected by ``atoms`` or
-``elements`` stay constrained even if they are listed in ``free``.
+The same rules as for ``$fix`` apply: multiple ``free`` entries are
+combined, atoms selected by ``atoms`` or ``elements`` stay constrained even if
+they are listed in ``free``, and entries other than atom numbers, ranges of
+atom numbers or element symbols are treated as input errors.
+Since the potential acts between pairs of atoms, at least two atoms have to
+be constrained. If only a single atom remains constrained after all
+``atoms``, ``elements`` and ``free`` entries are combined, e.g. ``free: 2-6``
+for a molecule with six atoms, the position constraint is discarded with a
+warning.
 Since a harmonic potential is generated for every pair of constrained atoms,
 the cost grows quadratically with the number of selected atoms. For large
 systems exact fixing with ``$fix`` is cheaper.
