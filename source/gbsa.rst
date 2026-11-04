@@ -8,9 +8,8 @@ In this chapter, all necessary information will be given in order
 to use the implicit solvation models available in xTB calculations,
 with a focus on ALPB and GBSA.
 In addition to ALPB and GBSA, ``xtb`` provides GBe, GB, ddCOSMO, ddCPCM,
-ddPCM, Turbomole-style COSMO output via ``--tmcosmo``, and CPCM-X;
-some of these models use the native xTB implementation while others require
-the ``tblite`` backend.
+ddPCM, and CPCM-X; some of these models use the native xTB implementation
+while others require the ``tblite`` backend.
 Parameterized solvents and available grids are given as well.
 
 .. contents::
@@ -66,7 +65,8 @@ The order of the flags can be altered and the input
 is not case sensitive.
 Like in an optimization without ALPB the optimized coordinates are
 written to a new file (``xtbopt.coord``).
-Implicit solvation is available for the usual xTB single-point, gradient,
+Except for CPCM-X (which is restricted to single-point calculations), implicit
+solvation is available for the usual xTB single-point, gradient,
 optimization, Hessian, and related workflows where supported by the selected
 electronic-structure method and backend. PTB does not support implicit solvation.
 
@@ -74,7 +74,6 @@ Parameterized Solvents
 ======================
 
 The ALPB model and the generalized Born (GB) model with surface area (SA) contributions, dubbed GBSA, are available for GFN1-xTB, GFN2-xTB, GFN0-xTB, and GFN-FF.
-For GFN0-xTB (ALPB and GBSA) and GFN-FF (GBSA), the available solvents are the same as for GFN2-xTB.
 Here is a list of the available solvents.
 
 =============== ============ ============ ============ ============ ========
@@ -107,12 +106,6 @@ Here is a list of the available solvents.
  Water (H₂O)     x            x            x            x            x
 =============== ============ ============ ============ ============ ========
 
-While ``--alpb`` selects ALPB, the GBSA model is selected on the command line with ``--gbsa``:
-
-.. code:: bash
-
-  > xtb coord --gbsa water
-
 By default, the native ALPB implementation uses the P16 Born kernel 
 and the native GBSA implementation uses the Still Born kernel. If needed, 
 the Born kernel can be changed in the detailed input via ``$gbsa`` 
@@ -136,21 +129,6 @@ Available solvation models
  ``--cpcmx SOLVENT``             CPCM-X                        x                 Minnesota Solvation Database solvent             requires CPCM-X support; post-SCF model parameterized for GFN2-xTB; not available for geometry optimization or GFN-FF
 =============================== ============================= ======== ======== ================================================ ==================================================================================================================================================================
 
-While ALPB and GBSA have native xTB implementations, they can also be evaluated 
-through ``tblite`` for GFN1-xTB and GFN2-xTB. For example,
-
-.. code:: bash
-
-   xtb coord --gfn 2 --tblite --alpb water
-
-evaluates GFN2-xTB through ``tblite`` with ALPB. Likewise,
-
-.. code:: bash
-
-   xtb coord --gfn 2 --tblite --cpcm water
-
-uses ddCPCM, provided ``xtb`` was built with ddX support.
-
 ALPB and GBSA require a named, parameterized solvent, whereas GBe, GB, ddCOSMO, ddCPCM, 
 and ddPCM can use either a recognized solvent name or a numerical dielectric constant 
 where supported. In addition, the purely electrostatic GBe and GB models do not contain 
@@ -161,7 +139,8 @@ Available Grids
 ===============
 
 Different Lebedev grids for the calculation of the SASA term are
-implemented in ``xtb`` for the native xTB ALPB/GBSA implementation. 
+implemented in ``xtb`` for the native xTB ALPB/GBSA implementation (the
+solvation grid cannot be changed when ``tblite`` is used as a backend).
 The grids are independent of the used GFNn method and are set in the 
 detailed input as
 
