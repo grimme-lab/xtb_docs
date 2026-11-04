@@ -38,24 +38,98 @@ The HOMO-LUMO gap and the Fermi-level are summed up.
              Fermi-level           -0.1818551 Eh           -4.9485 eV
 
 
-The information provided by the printout can be modified and extended.
-This can be done either by using the option-flags when calling the program (:ref:`commandline`), 
-or by editing the input file (:ref:`detailed-input`). The kind of default information given is determined by the GFN-xTB version used. The default values called by the program are given:
+The information provided by the property printout can be modified and extended
+either via command-line option flags (:ref:`commandline`) or via the ``$write``
+block in the detailed input file (:ref:`detailed-input`). Some properties are
+calculated and printed by default, whereas others must be requested explicitly.
 
---pop      
-    requests printout of Mulliken population analysis 
---molden
-    requests printout of molden file                  
---dipole   
-    requests printout of dipole moments
+Default property outputs (enabled by default):
+
+--pop
+    Mulliken population analysis; enabled by default.
+
+--dipole
+    molecular dipole output; enabled by default.
+
 --wbo
-    requests Wiberg bond order printout              
+    Wiberg/Mayer bond-order output; enabled by default.
+
+Optional property flags (not enabled by default):
+
+--molden
+    writes canonical molecular orbitals to ``molden.input``; not enabled by default.
+
+--quadrupole
+    requests quadrupole output for ``tblite`` calculations; not enabled by default.
+
+--lmo
+    requests Foster-Boys localized orbitals; not enabled by default.
+
+--fod
+    requests FOD analysis; native xTB functionality, not enabled by default.
+
+Within ``xtb``, the native implementation supports GFN0-xTB, GFN1-xTB, and
+GFN2-xTB, whereas the ``--tblite`` backend is available for GFN1-xTB and
+GFN2-xTB (not GFN0-xTB). The table below summarizes property support across
+the native xTB and ``tblite`` property paths:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 27 12 12 49
+
+   * - Property
+     - Native xTB
+     - tblite
+     - Notes
+   * - Orbital energies / occupations
+     - ✓
+     - ✓
+     - standard property output
+   * - Mulliken populations / atomic charges
+     - ✓
+     - ✓
+     - enabled by default (``--pop``)
+   * - Wiberg/Mayer bond orders
+     - ✓
+     - ✓
+     - enabled by default (``--wbo``)
+   * - Dipole moment
+     - ✓
+     - ✓
+     - enabled by default (``--dipole``)
+   * - Quadrupole moment
+     - GFN2-specific native output
+     - ✓
+     - native GFN2 includes quadrupoles in its standard multipole printout; ``--quadrupole`` enables quadrupole output for ``tblite`` (GFN1-xTB and GFN2-xTB)
+   * - Molden orbital file
+     - ✓
+     - ✓
+     - ``molden.input`` (``--molden``); ``tblite`` uses its own Molden writer
+   * - Localized orbitals
+     - ✓
+     - ✓
+     - Foster-Boys localization (``--lmo``); see restrictions below
+   * - FOD
+     - ✓
+     - —
+     - native xTB property path (``--fod``)
+   * - Density / spin-density cube files
+     - ✓
+     - —
+     - native xTB property path
+   * - JSON property output
+     - ✓
+     - —
+     - ``xtbout.json`` (``--json``) is supported for native xTB and PTB; ordinary ``--tblite`` calculations do not write ``xtbout.json``
 
 GFN1-xTB
 _________
 
-Default settings for GFN1-xTB first prints the Mulliken and CM5 charges. n(x) denotes the 
-population partioned to the x = s/p/d shells:
+The following example shows the default property printout from the native xTB
+backend for GFN1-xTB (output with ``--tblite`` differs in formatting and in how
+optional properties such as quadrupoles are requested).
+With default settings, native GFN1-xTB first prints the Mulliken and CM5 charges. ``n(x)`` denotes the
+population partitioned to the ``x = s/p/d`` shells:
 
 .. code-block:: none
 
@@ -75,8 +149,8 @@ Wiberg bond orders describe the partial bond orders and their disposition onto t
      2  H   0.892        O    1 0.891
      3  H   0.892        O    1 0.891
 
-The molecular dipole moment and its cartesian components calculated from the electron density.
-The components are given in atomic units while the total dipole moment is given in Debye, to convert from atomic units to Debye multiply by 2.5417 D/au.
+Next, native GFN1-xTB prints the molecular dipole moment and its Cartesian components calculated from the electron density (native GFN1-xTB does not print a molecular quadrupole table).
+The components are given in atomic units while the total dipole moment is given in Debye; to convert from atomic units to Debye multiply by 2.5417 D/au.
 
 .. code-block:: none
 
@@ -88,7 +162,9 @@ The components are given in atomic units while the total dipole moment is given 
 GFN2-xTB
 ________
 
-Default settings for GFN2-xTB first prints populations and coefficients.
+The following example shows the default property printout from the native xTB
+backend for GFN2-xTB.
+With default settings, native GFN2-xTB first prints populations and dispersion/polarizability coefficients.
 From left to right, these are the atomic number Z, 
 Coordination number CN,
 Atomic partial charge q, 
@@ -122,8 +198,12 @@ Wiberg bond orders:
       2  H   0.919        O    1 0.919
       3  H   0.919        O    1 0.919
 
-Molecular dipole and quadropole moments. The contributions are seperated into their respective cartesian dimensions. 
-'Full' represents the corresponding contributions of the molecular dipole or quadropole moments.
+Molecular dipole and quadrupole moments are printed next as part of the standard
+native GFN2-xTB multipole output (pass ``--quadrupole`` to activate with ``--tblite``). 
+The contributions are separated into their respective Cartesian components, 
+showing the cumulative atomic multipole terms (``q only`` for monopoles, 
+``q+dip`` for monopoles plus atomic dipoles, and ``full`` for the complete 
+molecular dipole or traceless quadrupole moment):
 
 
 .. code-block:: none
@@ -155,12 +235,17 @@ All is summed up in the end in both GFN-xTB versions:
 Density Properties
 ===================
 
+.. note::
+   The density, spin-density, FOD, and electrostatic potential (ESP) grid
+   features described in this section are implemented in the native xTB
+   property path and are not available through the ``--tblite`` property writer.
+
 Cube Files
 __________
 
-The ``xtb`` program is able to calculate the density, spin-density and the fractional occupation number weighted density (FOD). 
-For these caclualtions, the program first creates a proper cube grid. The corresponding file is created in your working directory and marked as ``.cub`` file. 
-It provides density and step size informations. An overview is already given in the printout:
+In the native xTB property path, ``xtb`` is able to calculate the electron density, spin-density, and the fractional occupation number weighted density (FOD). 
+For these calculations, the program first creates a proper cube grid. The corresponding file is created in your working directory and marked as a ``.cub`` file. 
+It provides density and step size information. An overview is already given in the printout:
 
 .. code-block:: none
 
@@ -176,31 +261,40 @@ It provides density and step size informations. An overview is already given in 
  cpu  time for cube    0.01 s
  wall time for cube    0.01 s
 
-Here, various information are provided, like the density matrix neglect threshold ``cube_pthr`` and the grid step size ``cube_step`` (in Bohr). These values can be changed in the input (xcontrol) file (:ref:`detailed-input`). 
+Here, various parameters are provided, such as the density matrix neglect threshold ``cube_pthr`` and the grid step size ``cube_step`` (in Bohr). These values can be changed in the input (``xcontrol``) file (:ref:`detailed-input`).
+
+For electrostatic potential (ESP) calculations on a van der Waals surface (requested via ``--esp`` or ``esp=true`` in ``$write``), the number of Lebedev angular grid points per atom used to generate the ESP surface can be controlled in the ``$write`` block:
+
+.. code-block:: text
+
+   $write
+      gridpoints=INTEGER
+
+The default is ``86``; typical valid Lebedev grid sizes include ``38, 86, 230, 590``.
 
 For visualization, programs like chimera can be used, for which the ``.cub`` file can be loaded as volume data. 
 
 Density and Spin-Density
 ________________________
 
-To calculate the density or the spin denisty, the input (xcontrol) file has to be manipulated. Here, the bools ``density='bool'`` 
-or respectively ``spin density='bool'`` have to be set to ``'true'``. This will create a ``.cub`` cube file, where the corresponding information is gathered.
+To calculate the density or the spin density (native xTB only), the input (``xcontrol``) file has to be manipulated. Here, the booleans ``density='bool'`` 
+or respectively ``spin density='bool'`` have to be set to ``'true'`` in ``$write``. This will create a ``.cub`` cube file (``density.cub`` or ``spindensity.cub``), where the corresponding information is gathered.
 
 For visualization, programs like *chimera* can be used, for which the ``.cub`` file can be loaded as volume data. 
 
 Fractional Occupation Density (FOD) calculation
 ________________________________________________
 
-The fractional occupation density analysis (FOD) is a diagnostic scheme that displays the static electron correlation localized on a molecule.
+The fractional occupation density analysis (FOD) is a diagnostic scheme in the native xTB property path that displays the static electron correlation localized on a molecule.
 The density is hereby obtained by performing a computationally cheap Finite-Temperature DFT computation. 
-The electrons are therefore self-consistenly smeared over the molecular orbitals according to a Fermi-Dirac distribution. For a more detailed insight and the theory behind 
+The electrons are therefore self-consistently smeared over the molecular orbitals according to a Fermi-Dirac distribution. For a more detailed insight and the theory behind 
 the FOD analytics, please see the `original publication`_. To use FOD for selecting active spaces in CASSCF calculations, refer to our `later work`_ on this topic.
 
 .. _original publication: https://onlinelibrary.wiley.com/doi/full/10.1002/anie.201501887
 .. _later work: https://onlinelibrary.wiley.com/doi/full/10.1002/chem.201604682
 
-To access the FOD analysis, simply use the flag ``--fod`` or set ``fod='true'`` in the input (xcontrol) file. This will create a ``fod.cub`` file and calculate the FOD on the cube grid. 
-Be sure to set the electronic temperature to a higher value, e.g. 5000 K (``--etemp 5000``). The FOD population will be displayed in the printout section as:
+To access the FOD analysis in native xTB calculations, simply use the flag ``--fod`` (which automatically sets the electronic temperature to 5000 K) or set ``fod='true'`` in the input (``xcontrol``) file. This will create a ``fod.cub`` file and calculate the FOD on the cube grid. 
+When enabling FOD via the ``xcontrol`` file, be sure to set the electronic temperature to a higher value, e.g. 5000 K (``--etemp 5000``). The FOD population will be displayed in the printout section as:
 
 .. code-block:: none
 
@@ -218,17 +312,17 @@ Be sure to set the electronic temperature to a higher value, e.g. 5000 K (``--et
     9 H   0.0039   0.004  0.000  0.000
    10 H   0.0039   0.004  0.000  0.000
 
-The NFOD number indicates the static electon correlation 
+The NFOD number indicates the static electron correlation.
 
-If you do not want to write a full ``fod.cub`` file, but still want to analyse the FOD population at least qualitatively, change the ``fod population ='bool'`` in the input (xcontrol) file to ``true``. This will display the fractional loewdin 
+If you do not want to write a full ``fod.cub`` file, but still want to analyse the FOD population at least qualitatively, change ``fod population='bool'`` in the input (``xcontrol``) file to ``true``. This will display the fractional Loewdin 
 population of the system (see above) and only writes the ``fod`` file, where this information is stored.
 
 Redirecting Property Printout
 =============================
 
-For large systems the property printout can become quite lenghty and will
+For large systems the property printout can become quite lengthy and will
 clutter maybe thousands of lines in the standard output.
-One possibility is to rigourously deactivate all printouts using the
+One possibility is to rigorously deactivate all printouts using the
 ``$write`` instruction in the input file,
 but if one might need this information later it is hard to recover,
 as an alternative the property printout can be redirected.
@@ -249,20 +343,23 @@ standard output will show something like
 
 instead of the header, the usual printout can be found in ``properties.out``.
 In the file the command line call and current time is saved additionally to
-ensure that the printout is reproducable.
+ensure that the printout is reproducible.
 
 Machine Readable Data Dump
 ==========================
 
-``xtb`` is able to dump parts of the calculated data in a machine-readable way
-using the json-format. To activate the dump into a json file use the input
+For native xTB and PTB calculations, ``xtb`` is able to dump parts of the
+calculated data in a machine-readable way using the JSON format (ordinary
+``--tblite`` GFN1-xTB and GFN2-xTB calculations do not write ``xtbout.json``).
+To activate the dump into a JSON file, pass ``--json`` on the command line or use
+the input
 
 .. code:: text
 
    $write
       json=true
 
-which will write a ``xtbout.json`` file containing partial charges,
-cumulative atomic multipole moments, occupation number and orbtial energies
+which will write an ``xtbout.json`` file containing partial charges,
+cumulative atomic multipole moments, occupation numbers and orbital energies
 for single point calculations or frequencies, reduced masses and IR intensities
-from hessian calculations.
+from Hessian calculations.
