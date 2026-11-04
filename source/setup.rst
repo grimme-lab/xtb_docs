@@ -250,8 +250,8 @@ has to be adjusted accordingly
 
 .. code-block:: diff
 
-   --- ./share/modules/modulefiles/xtb/6.3.1
-   +++ ./share/modules/modulefiles/xtb/6.3.1
+   --- ./share/modules/modulefiles/xtb/<version>
+   +++ ./share/modules/modulefiles/xtb/<version>
    @@ -1,5 +1,5 @@
     #%Module
    -set prefix /
@@ -260,7 +260,7 @@ has to be adjusted accordingly
     module-whatis "Semiempirical Extended Tight-Binding Program Package"
     
 
-If the ``share/modules/modulesfiles`` directory is included in your ``MODULEPATH``
+If the ``share/modules/modulefiles`` directory is included in your ``MODULEPATH``
 you should be able to load ``xtb`` with
 
 .. code-block:: none
