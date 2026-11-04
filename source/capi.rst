@@ -53,7 +53,12 @@ parametrisation before it can be used for a calculation.
 GFN0-xTB, GFN1-xTB, GFN2-xTB, and GFN-FF all use their standard
 parametrisation when ``NULL`` is passed as the parameter file name,
 with built-in parameter data available as a fallback. A custom parameter
-file may still be provided when needed.
+file may still be provided when needed. ``xtb_loadGFN1xTB`` and
+``xtb_loadGFN2xTB`` use the native ``xtb`` calculator and therefore only
+support nonperiodic structures. Periodic GFN1-xTB and GFN2-xTB are not
+available through the ``xtb`` C API and should instead be performed with the
+``tblite``. Periodic GFN0-xTB and GFN-FF remain available through the
+``xtb`` C API.
 Solvation can be added to a loaded calculator with ``xtb_setSolvent``
 and removed with ``xtb_releaseSolvent``. ``xtb_setSolvent`` also allows
 the solvation model to be selected. See ``xtb.h`` for the complete
