@@ -50,9 +50,9 @@ constraints).
 The actual calculation can be performed with a single point
 calculator ``xtb_TCalculator`` which must be loaded with a particular
 parametrisation before it can be used for a calculation.
-GFN2-xTB and GFN1-xTB can safely load their parametrisation without
-a parameter file. For the experimental GFN0-xTB a parameter file
-is required in the ``XTBPATH`` or must be provided by the API.
+GFN0-xTB, GFN1-xTB, and GFN2-xTB can safely load their built-in
+parametrisation without requiring a separate parameter file, though a
+custom parameter file may still be provided when needed.
 The GFN-FF can also provide its own parameters internally but
 API support is still experimental.
 
@@ -124,10 +124,12 @@ GFN2-xTB calculation is given here.
 
      /*
       * Load a parametrisation, the last entry is a char* which can
-      * be used to provide a particular parameter file.
+      * be used to specify a custom parameter file.
       *
-      * Otherwise the XTBPATH environment variable is used to find
-      * parameter files.
+      * Passing NULL selects the standard parametrisation, which is
+      * available as built-in parameter data for GFN0-xTB, GFN1-xTB,
+      * and GFN2-xTB (or loaded from the normal search locations,
+      * such as XTBPATH, when applicable).
       *
       * The calculator has to be reconstructed if the molecular
       * structure is reconstructed.

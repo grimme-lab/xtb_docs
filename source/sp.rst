@@ -172,7 +172,7 @@ parametrizations/methods, which differ mostly in the cost--accuracy ratio,
   > xtb --gfnff coord
 
 GFN2-xTB is the default parametrization. Also
-available are GFN1-xTB, GFN0-xTB (Notice: separate parameter file necessary!) as well as the GFN-FF force-field.
+available are GFN1-xTB, GFN0-xTB, and the GFN-FF force field.
 
 Accuracy and Iterations
 =======================
