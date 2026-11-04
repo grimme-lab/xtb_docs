@@ -50,9 +50,10 @@ constraints).
 The actual calculation can be performed with a single point
 calculator ``xtb_TCalculator`` which must be loaded with a particular
 parametrisation before it can be used for a calculation.
-GFN0-xTB, GFN1-xTB, GFN2-xTB, and GFN-FF all load their built-in
+GFN0-xTB, GFN1-xTB, GFN2-xTB, and GFN-FF all use their standard
 parametrisation when ``NULL`` is passed as the parameter file name,
-though a custom parameter file may still be provided when needed.
+with built-in parameter data available as a fallback. A custom parameter
+file may still be provided when needed.
 Solvation can be added to a loaded calculator with ``xtb_setSolvent``
 and removed with ``xtb_releaseSolvent``. ``xtb_setSolvent`` also allows
 the solvation model to be selected. See ``xtb.h`` for the complete
