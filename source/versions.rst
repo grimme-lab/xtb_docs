@@ -4,7 +4,12 @@
  Versions and Changelog
 ------------------------
 
-.. note:: Release candidates and beta versions are not listed here.
+.. note::
+
+   This page archives historical release notes up to version 6.2 (excluding
+   release candidates and beta versions). For all newer ``xtb`` releases, see
+   the `GitHub Releases page <https://github.com/grimme-lab/xtb/releases>`_
+   for the complete changelog and release notes.
 
 Version 6.2
    - Bugfix: Fukui index calculation
