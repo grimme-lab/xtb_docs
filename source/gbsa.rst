@@ -4,8 +4,13 @@
  Implicit Solvation
 --------------------
 
-In this chapter, all neccessary information will be given in order
-to use the implicit solvent model ALPB in xTB calculations.
+In this chapter, all necessary information will be given in order
+to use the implicit solvation models available in xTB calculations,
+with a focus on ALPB and GBSA.
+In addition to ALPB and GBSA, ``xtb`` provides GBe, GB, ddCOSMO, ddCPCM,
+ddPCM, Turbomole-style COSMO output via ``--tmcosmo``, and CPCM-X;
+some of these models use the native xTB implementation while others require
+the ``tblite`` backend.
 Parameterized solvents and available grids are given as well.
 
 .. contents::
@@ -13,11 +18,7 @@ Parameterized solvents and available grids are given as well.
 General command-line control
 ============================
 
-.. note::
-
-   The ALPB solvation model is implemented in version 6.3.3 or newer, use ``--gbsa`` in older versions instead.
-
-The analytical linearized Poisson-Boltzmann (ALPB) model is envoked with the flag ``--alpb [Solvent]``.
+The analytical linearized Poisson-Boltzmann (ALPB) model is invoked with the flag ``--alpb SOLVENT [STATE]``.
 As an example the single point calculation employing the ALPB model for solvation in water would be started by
 
 .. code:: bash
@@ -65,14 +66,15 @@ The order of the flags can be altered and the input
 is not case sensitive.
 Like in a optimization without ALPB the optimized coordinates are
 written to a new file (``xtbopt.coord``).
-In General the ALPB can be used in combination with all available run types
-implemented in the `xtb`.
+Implicit solvation is available for the usual xTB single-point, gradient,
+optimization, Hessian, and related workflows where supported by the selected
+electronic-structure method and backend. PTB does not support implicit solvation.
 
 Parameterized Solvents
 ======================
 
 The ALPB model is parameterized for the Hamiltonian of GFN1-xTB, GFN2-xTB, and the GFN-FF, but not for GFN0-xTB.
-For the GFN1-xTB and GFN2-xTB Hamltonians also a generalized Born (GB) model with surface area (SA) contributions, dubbed GBSA is available.
+For the GFN1-xTB and GFN2-xTB Hamiltonians also a generalized Born (GB) model with surface area (SA) contributions, dubbed GBSA is available.
 Here is a list of the available solvents.
 
 =============== ============ ============ ============ ============ ========
@@ -105,29 +107,63 @@ Here is a list of the available solvents.
  Water (H₂O)     x            x            x            x            x
 =============== ============ ============ ============ ============ ========
 
-To get the legacy GBSA model setup a detailed input with
+While ``--alpb`` selects ALPB, the GBSA model is selected on the command line with ``--gbsa``:
 
-.. code-block:: text
+.. code:: bash
 
-   $gbsa
-      kernel=still
+  > xtb coord --gbsa water
 
-and invoke the program with the ``--gbsa`` flag instead of the ``--alpb`` flag.
+By default, the native ALPB implementation uses the P16 Born kernel and the native GBSA implementation uses the Still Born kernel. If needed, the Born kernel can be changed in the detailed input via ``$gbsa`` (``kernel=p16`` or ``kernel=still``).
+
+
+Available solvation models
+==========================
+
+=============================== ============================= ============================= ================================================ ===========================================================================================================================================================================================
+ Option                          Model                         Backend                       Input                                            Notes
+=============================== ============================= ============================= ================================================ ===========================================================================================================================================================================================
+ ``--alpb SOLVENT [STATE]``      ALPB                          native xTB or ``tblite``      named solvent                                    includes electrostatic and non-electrostatic contributions; default solution state is ``gsolv``
+ ``--gbsa SOLVENT [STATE]``      GBSA                          native xTB or ``tblite``      named solvent                                    includes electrostatic and non-electrostatic contributions; default solution state is ``gsolv``
+ ``--gbe SOLVENT/EPSILON``       GBe                           ``tblite`` required           solvent name or dielectric constant              generalized Born for finite dielectric constant; purely electrostatic, no SASA/CDS contribution
+ ``--gb SOLVENT/EPSILON``        GB                            ``tblite`` required           solvent name or dielectric constant              generalized Born; purely electrostatic, no SASA/CDS contribution
+ ``--cosmo SOLVENT/EPSILON``     ddCOSMO / legacy COSMO        ``tblite``/ddX or native xTB  solvent name, dielectric constant, ``infinity``  ddCOSMO when used through ``tblite``/ddX; legacy native xTB implementation lacks density response to continuum polarization (non-variational); ``infinity`` selects an ideal conductor
+ ``--cpcm SOLVENT/EPSILON``      ddCPCM                        ``tblite`` required (ddX)     solvent name, dielectric constant, ``infinity``  requires ddX support in the xTB build; ``infinity`` selects the ideal-conductor limit
+ ``--pcm SOLVENT/EPSILON``       ddPCM                         ``tblite`` required (ddX)     solvent name, dielectric constant, ``infinity``  requires ddX support in the xTB build; ``infinity`` selects the ideal-conductor limit
+ ``--tmcosmo SOLVENT/EPSILON``   native COSMO variant          native xTB                    solvent name, dielectric constant, ``infinity``  same basic continuum treatment as legacy ``--cosmo``; writes ``.cosmo`` files using the Turbomole convention
+ ``--cpcmx SOLVENT``             CPCM-X                        native xTB (CPCM-X build)     Minnesota Solvation Database solvent             requires an xTB build with CPCM-X support; calculated post-SCF and not available for geometry optimization
+=============================== ============================= ============================= ================================================ ===========================================================================================================================================================================================
+
+While ALPB and GBSA have native xTB implementations, they can also be evaluated through ``tblite``. For example,
+
+.. code:: bash
+
+   xtb coord --gfn 2 --tblite --alpb water
+
+evaluates GFN2-xTB through ``tblite`` with ALPB. Likewise,
+
+.. code:: bash
+
+   xtb coord --gfn 2 --tblite --cpcm water
+
+uses ddCPCM, provided ``xtb`` was built with ddX support.
+
+ALPB and GBSA require a named, parameterized solvent, whereas GBe, GB, ddCOSMO, ddCPCM, and ddPCM can use either a recognized solvent name or a numerical dielectric constant where supported. In addition, the purely electrostatic GBe and GB models do not contain the non-electrostatic SASA/CDS contribution used by the parameterized ALPB and GBSA models.
 
 
 Available Grids
 ===============
 
 Different Lebedev grids for the calculation of the SASA term are
-implemented in ``xtb``. The grids are independent of the used GFNn method
+implemented in ``xtb`` for the native xTB ALPB/GBSA implementation. The grids are independent of the used GFNn method
 and are set in the detailed input as
 
 .. code-block:: text
 
   $gbsa
-     gbsagrid=tight
+     grid=tight
 
 
+The keyword ``gbsagrid`` is retained as an alias for ``grid``.
 The default grid level is ``normal``.
 The available grid levels are given in the table below
 with the corresponding number of gridpoints.
@@ -144,6 +180,7 @@ with the corresponding number of gridpoints.
 | extreme       |     5810     |
 +---------------+--------------+
 
+``vtight`` is accepted as an alias for ``verytight``.
 Larger grids increase the computation time and
 reduce numerical noise in the energy. They may help to converge
 geometry optimizations with ALPB for large molecules which
@@ -153,16 +190,16 @@ Reference States
 ================
 
 For solvation free energies, the state of the inital gas and final liquid solution can be changed with a solution state correction.
-This is explained in detail in the following table and in [A Universal pH Scale for All Solvents: Background, Theory, and Justification (IUPAC Technical Report)](https://doi.org/10.1515/pac-2019-0504), section 2.2.
+This is explained in detail in the following table and in `A Universal pH Scale for All Solvents: Background, Theory, and Justification (IUPAC Technical Report) <https://doi.org/10.1515/pac-2019-0504>`_, section 2.2.
 By default no solution state correction is applied (gsolv, default), which is comparable with most other solvation models (SMD, COSMO-RS, ...).
-For normal production runs, the option ``bar1mol`` should be used. For explicit comparisons with ``reference`` state corrected COSMO-RS, the ``reference`` option should be used (includes solvent-specific correction for infinite dilution).
-Solution state correction is available for the ALPB and GBSA solvation models.
+For normal production runs, the option ``bar1M`` should be used. For explicit comparisons with ``reference`` state corrected COSMO-RS, the ``reference`` option should be used (includes solvent-specific correction for infinite dilution).
+Solution state correction is available for the ALPB and GBSA solvation models, which support ``gsolv``, ``bar1M``, and ``reference``. The ``tblite`` ddX models (``ddCOSMO``, ``ddCPCM``, and ``ddPCM``) currently support only the default ``gsolv`` state in ``xtb``.
 
 ================== ====================================================================
  Name               Definition
 ================== ====================================================================
  gsolv (default)    1 L of ideal gas and 1 L of liquid solution 
- bar1mol            1 bar of ideal gas and 1 mol/L liquid solution 
+ bar1M              1 bar of ideal gas and 1 mol/L liquid solution 
  reference          1 bar of ideal gas and 1 mol/L liquid solution at infinite dilution
 ================== ====================================================================
 
@@ -174,13 +211,13 @@ The reference state can be set via
 Extended Functionality
 ======================
 
-Solvent Accessable Surface Area
+Solvent Accessible Surface Area
 -------------------------------
 
 .. note:: feature implemented in version 6.2
 
 To get more insights and diagnostics for a ALPB calculation the Born radii
-and the solvent accessable surface area can be printed by toggling the
+and the solvent accessible surface area can be printed by toggling the
 property-printout with
 
 .. code-block:: none
@@ -224,6 +261,6 @@ The printout for a branched octane isomer using ALPB(Water) looks like
 
     total SASA / Å² :      244.491
 
-The quartary carbon atoms are shown with no solvent accessable surface area,
+The quartary carbon atoms are shown with no solvent accessible surface area,
 which means they are completely buried in the molecule leading to large
 Born radii.
