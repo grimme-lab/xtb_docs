@@ -182,6 +182,39 @@ An input file for the directed docking might look like this:
      elements: N
   $end
 
+The atom numbers in the ``$directed`` group refer to molecule 1.
+
+
+Fixing and Constraining Atoms
+-----------------------------
+
+The ``$fix`` and ``$constrain`` groups (see :ref:`detailed-input`) are
+used in the same way as for a normal geometry optimization, but two points
+differ from a calculation on a single input geometry.
+
+**Atom numbering.**
+The atom numbers in ``$fix`` and ``$constrain`` refer to the combined
+complex, in which the atoms of molecule 1 come first and the atoms of
+molecule 2 follow. For a molecule 1 with :math:`N_1` atoms and a molecule 2
+with :math:`N_2` atoms, molecule 1 has the atom numbers 1 to :math:`N_1` and
+molecule 2 the atom numbers :math:`N_1+1` to :math:`N_1+N_2`.
+
+
+**When the constraints are applied.**
+
+* The interaction site screening and the genetic optimization with xTB-IFF
+  treat both molecules as rigid. Fixing and constraints have no effect
+  during these steps, and the structures in ``best_after_gen.xyz`` always
+  have the intramolecular geometries of the input molecules.
+* The final geometry optimizations (and the optimizations of the pocket
+  search) use ``$fix`` and ``$constrain`` for the whole complex. Every
+  optimization starts from a docked structure, so fixed atoms stay at their
+  positions in that structure, and constraints that refer to the starting
+  geometry, such as position constraints or distances without an explicit
+  value, refer to it as well.
+* With ``--nfinal 0`` no final optimization is done, so ``$fix`` and
+  ``$constrain`` have no effect on the results.
+
 
 Examples
 ========

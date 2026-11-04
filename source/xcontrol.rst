@@ -125,6 +125,53 @@ fixed atoms:
 
    Since version 6.3 the input is sorted and duplicates are removed automatically.
 
+For larger systems it is often easier to state which atoms should be
+optimized instead of which atoms should be fixed. The ``free`` keyword
+fixes all atoms *except* the listed ones, e.g. to optimize only a ligand
+with the atom numbers 1201--1245 in an otherwise fixed protein use
+
+.. code:: text
+
+  $fix
+     free: 1201-1245
+  $end
+
+The ``free`` keyword uses the same atom numbering and list syntax as the
+``atoms`` keyword. Additionally, whole elements can be kept free by their
+element symbol, e.g. to optimize only the hydrogen atoms as in X-ray structure
+refinement use
+
+.. code:: text
+
+  $fix
+     free: H
+  $end
+
+Atom numbers and element symbols can be mixed in the same list, e.g.
+``free: H,1201-1245``. Note that numbers in ``free`` always refer to atoms,
+not to atomic numbers as in the ``elements`` keyword.
+In contrast to the other keywords, ``free`` does not skip invalid entries:
+entries other than atom numbers, ranges of atom numbers or element symbols
+are treated as input errors and stop the calculation. This includes an empty
+list, atom numbers larger than the number of atoms, malformed ranges such as
+``2-``, words such as ``all`` and combinations such as ``C1``.
+The ``free`` keyword can be given multiple times and the free atoms of all
+entries are combined, i.e. ``free: H`` and ``free: O`` in two separate lines
+is equivalent to ``free: H,O``.
+The ``atoms``, ``elements`` and ``free`` selections are combined such that
+atoms or elements selected by ``atoms`` or ``elements`` always remain fixed,
+even if the same atoms are selected by ``free``, independent of the order of
+the keywords. For example
+
+.. code:: text
+
+  $fix
+     free: 1201-1245
+     elements: C
+  $end
+
+only optimizes the non-carbon atoms within 1201--1245.
+
 Constraining Potentials
 -----------------------
 
@@ -187,6 +234,29 @@ spotted in the verbose output of the constraints summary.
 
 Note that in some versions of ``xtb`` this leads to ``NaN`` for the
 gradient, therefore double-check the constrained atom list for duplicates.
+
+As in the ``$fix`` group, the ``free`` keyword selects all atoms *except*
+the listed atom numbers and elements, e.g. to keep the heavy atom framework
+roughly in place while relaxing all hydrogen atoms use
+
+.. code:: text
+
+  $constrain
+     free: H
+  $end
+
+The same rules as for ``$fix`` apply: multiple ``free`` entries are
+combined, atoms selected by ``atoms`` or ``elements`` stay constrained even if
+they are listed in ``free``, and entries other than atom numbers, ranges of
+atom numbers or element symbols are treated as input errors.
+Since the potential acts between pairs of atoms, at least two atoms have to
+be constrained. If only a single atom remains constrained after all
+``atoms``, ``elements`` and ``free`` entries are combined, e.g. ``free: 2-6``
+for a molecule with six atoms, the position constraint is discarded with a
+warning.
+Since a harmonic potential is generated for every pair of constrained atoms,
+the cost grows quadratically with the number of selected atoms. For large
+systems exact fixing with ``$fix`` is cheaper.
 
 To constrain the atoms more tightly the force constant can be adjusted
 
