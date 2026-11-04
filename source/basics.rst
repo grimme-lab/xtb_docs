@@ -213,14 +213,18 @@ Characterisation of Stationary Points
 In ``xtb`` second derivatives are implemented by finite differences methods
 (numerical second derivatives). Normally you want to calculate the Hessian
 directly after a successful geometry optimization, this is done by using
+``--ohess [LEVEL]`` (where the optional optimization *LEVEL* defaults to
+``normal``):
 
 .. code:: bash
 
   > xtb coord --ohess
 
-For the calculation on the input geometry use ``--hess`` instead.
-For large systems the cheaper O1NumHess variant can be chosen with ``--o1nh``,
-see :ref:`frequencies` for details.
+For the calculation on the input geometry without prior optimization use
+``--hess`` instead, or ``--bhess [LEVEL]`` for a biased Single Point Hessian
+(SPH) calculation on a non-equilibrium geometry. For large systems the cheaper
+O1NumHess variant can be chosen with ``--o1nh``. See :ref:`frequencies` for
+details on the Hessian workflows and accuracy settings.
 
 Dealing with Small Imaginary Frequencies
 ----------------------------------------

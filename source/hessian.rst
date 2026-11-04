@@ -10,7 +10,29 @@ In this chapter, all necessary information about the calculation of vibrational 
 Performing simple Vibrational Frequency calculations
 ____________________________________________________
 
-Vibrational frequency calculations are available only through two-sided numerical differentiation of analytical gradients. 
+Vibrational frequency calculations are performed numerically from analytical gradients: 
+the conventional semi-numerical Hessian uses two-sided finite differences, while O1NumHess 
+(``--o1nh``, see below) reconstructs the Hessian using an ODLR approximation requiring 
+only O(1) gradient evaluations.
+
+Three Hessian run types are available on the command line:
+
+- ``--hess``: calculates the numerical Hessian on the input geometry.
+- ``--ohess [LEVEL]``: first performs an ANCopt geometry optimization and then calculates the Hessian on the optimized geometry. The optional *LEVEL* selects the optimization convergence level from ``crude``, ``sloppy``, ``loose``, ``normal`` (default), ``tight``, ``verytight`` to ``extreme``, e.g.:
+
+  .. code:: bash
+
+      xtb coord --ohess tight
+
+- ``--bhess [LEVEL]``: performs a biased (SPH) geometry optimization to keep the structure close to the input geometry and then calculates the biased Hessian (see :ref:`SPH`). Accepts the same optional optimization *LEVEL* (default ``normal``).
+
+Note that *LEVEL* in ``--ohess`` and ``--bhess`` only controls the optimization thresholds. 
+
+Accuracy settings:** ``xtb`` distinguishes between the general calculator accuracy and the displacement accuracy inside the numerical Hessian:
+general calculator accuracy to ``0.2`` unless ``--acc REAL`` is explicitly supplied on the command line (which overrides this default). For ``--ohess`` and ``--bhess``, this general accuracy of ``0.2`` is also used during the preceding geometry optimization; unlike ordinary ``--opt``, the selected optimization *LEVEL* does not change this default.
+- **Numerical Hessian displacement accuracy:** During the finite-difference gradient evaluations of the Hessian itself, ``xtb`` switches the calculator accuracy to ``$hess sccacc`` (default ``0.3``) and restores the general calculator accuracy afterwards. Because ``--acc`` and ``$hess sccacc`` are separate settings, the Hessian printout reports ``SCC accuracy : 0.30000`` by default even though the Hessian run type sets the general calculator accuracy to ``0.2``.
+
+When a conventional Hessian run is combined with ``--ptb`` (or ``--raman [TEMP [WAVELENGTH]] --ptb``), ``xtb`` computes the energetic Hessian with GFN2-xTB and evaluates the response properties and intensities (such as IR and Raman activities) using PTB; PTB itself does not provide an energetic Hessian, and ``--o1nh`` cannot be combined with PTB. Phonon/Hessian calculations under periodic boundary conditions are not supported (``Phonon calculations under PBC are not implemented``).
 
 Consider a simple example like the following hydrogen abstraction reaction:
 
@@ -26,7 +48,7 @@ Consider a simple example like the following hydrogen abstraction reaction:
     O           2.45008586500521    0.26032015001761    0.01133571198248
     H           2.61210033905108    0.98358191645276    0.62026402303033
 
-By invoking the ``--hess`` command line argument, ``xtb`` executes a calculation of the Hessian matrix. The  ``--ohess`` keyword may be used instead if a prior optimization of the structure is desired. 
+By invoking the ``--hess`` command line argument, ``xtb`` executes a calculation of the Hessian matrix on the input geometry:
 
 .. code:: text
     
@@ -48,11 +70,11 @@ At the end of the frequency job you get an output like this:
     1:  4.63   2: 12.19   3: 12.31   4:  9.70   5:  9.30   6: 12.74   7:  1.74   8: 12.17
     9:  1.45  10:  1.77  11:  1.92  12:  1.45  13:  2.39  14:  2.02  15:  2.03  16:  2.07
     17:  2.17  18:  1.07  19:  2.09  20:  2.09  21:  1.86
-    IR intensities (amu)
+    IR intensities (km·mol⁻¹)
     1:  0.17   2:  0.46   3:  0.44   4:  0.41   5:  0.08   6:  0.35   7:  0.48   8:  0.26
     9:  0.26  10:  0.27  11:  0.25  12:  0.41  13:  0.30  14:  0.04  15:  0.07  16:  0.52
     17:  0.51  18:  0.06  19:  0.14  20:  0.12  21:  0.18
-    Raman intensities (amu)
+    Raman intensities (Å⁴·amu⁻¹)
     1:  0.00   2:  0.00   3:  0.00   4:  0.00   5:  0.00   6:  0.00   7:  0.00   8:  0.00
     9:  0.00  10:  0.00  11:  0.00  12:  0.00  13:  0.00  14:  0.00  15:  0.00  16:  0.00
     17:  0.00  18:  0.00  19:  0.00  20:  0.00  21:  0.00
@@ -60,10 +82,10 @@ At the end of the frequency job you get an output like this:
     writing <g98.out> molden fake output.
     recommended (thermochemical) frequency scaling factor: 1.0
    
-This output consists of the calculated vibrational frequencies and the vibrational modes. In the example above there are six frequencies which are identically zero. These frequencies correspond to the rotations and translations of the molecule. They have been projected out of the Hessian before the calculation of the frequencies and thus, the zero values do not tell you anything about the quality of the Hessian that has been diagonalized.
+This output consists of the calculated vibrational frequencies and the vibrational modes (note that ordinary Hessian runs report zero Raman intensities unless Raman/PTB response properties are explicitly requested via ``--raman`` and ``--ptb``). In the example above there are six frequencies which are identically zero. These frequencies correspond to the rotations and translations of the molecule. They have been projected out of the Hessian before the calculation of the frequencies and thus, the zero values do not tell you anything about the quality of the Hessian that has been diagonalized.
 
 ``xtb`` writes an ``g98.out`` file in *GAUSSIAN*-format, which can be opened with the popular *MOLDEN* program to visualize the vibrational modes.
-Further, a ``hessian`` file is written, containing the projected Hessian matrix in *turbomole* format.
+Further, a ``hessian`` file is written, containing the Cartesian, non-mass-weighted Hessian matrix in *Turbomole* format (the user-selected ``$hess scale`` factor is applied only to the Hessian used for vibrational analysis, not to the Cartesian ``hessian`` output file).
 
 Calculation of thermochemical properties
 ________________________________________
@@ -168,10 +190,14 @@ Of course, the calculated frequencies depend on the masses used for each atom. S
 
    $hess
        sccacc=real
-           SCC accuracy level in Hessian runs
+           SCC/calculator accuracy level for numerical Hessian displacements (default: 0.3)
 
        step=real
-           Cartesian displacement increment for numerical Hessian
+           Cartesian displacement increment for numerical Hessian (default: 0.005)
+
+       scale=real
+           Hessian scaling factor applied to the Hessian used for vibrational
+           analysis, not to the Cartesian hessian output file (default: 1.0)
 
        isotope: int,real
            set mass of atom number int to real (synonym to modify mass)
@@ -214,10 +240,11 @@ frequency calculations on large systems considerably cheaper.
 
     xtb min.xyz --hess --o1nh
 
-The ``--o1nh`` flag should be combined with ``--hess``, ``--ohess``, or
-``--bhess``. It is not compatible with frozen atoms, PTB calculations or
-single atoms, and falls back to the default semi-numerical Hessian for the
-latter.
+The ``--o1nh`` flag is used together with ``--hess``, ``--ohess``, or
+``--bhess``, and respects the same ``$hess`` displacement ``step`` and
+``sccacc`` controls described above. Frozen atoms and PTB calculations are not
+supported (rejected with an error), whereas for single atoms O1NumHess is
+disabled and ``xtb`` falls back to the default semi-numerical Hessian path.
 
 Compliance constants
 ____________________
@@ -283,8 +310,8 @@ Each block lists up to 20 off-diagonal couplings, ordered by decreasing
 absolute value. Couplings with absolute values below :math:`10^{-12}`
 are omitted.
 
-Dealing with imaginary modes
-____________________________
+O1NumHess imaginary-mode repair
+_______________________________
 
 In the O1NumHess Hessian, small imaginary frequencies arising from
 numerical noise can be repaired automatically by iteratively adding gradient
@@ -309,13 +336,19 @@ The thermostatistical calculations can be influenced by the ``$thermo`` block of
        sthr=real
            rotor cut-off (cm-1) in thermo (default: 50.0)
 
+       imagthr=real
+           threshold (cm-1) for inverting imaginary modes in thermo (default: -20.0)
+
+       scale=real
+           frequency scaling factor for thermostatistical calculation (default: 1.0)
+
 .. _SPH:
 
 Single Point Hessian (SPH) calculations
 _______________________________________________________
 
 A prerequisite for accurate thermostatistics so far was to optimize the molecular input structures in order to avoid imaginary frequencies as discussed above.  This inevitably leads to changes in the geometry if different theoretical levels are applied for geometry optimization and frequency calculations. Therefore, we propose a new method termed single-point Hessian (SPH) for the computation of HVF and thermodynamic contributions to the free energy within the modified RRHO approximation for general nonequilibrium molecular geometries. The main publication for ``SPH`` can be found at: `JCTC <https://doi.org/10.1021/acs.jctc.0c01306>`_.
-A SPH calculation is invoked using the ``--bhess`` command line argument. *xTB* automatically applies a biasing potential given as Gaussian functions expressed with the RMSD in Cartesian space in order to retain the initial geometry. In the *xTB* printout this is indicated by e.g.:
+A SPH calculation is invoked using the ``--bhess [LEVEL]`` command line argument (where the optional optimization *LEVEL* defaults to ``normal``). *xTB* automatically applies a biasing potential given as Gaussian functions expressed with the RMSD in Cartesian space in order to retain the initial geometry. In the *xTB* printout this is indicated by e.g.:
 
 .. code:: text
 
