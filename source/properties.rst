@@ -88,7 +88,7 @@ the native xTB and ``tblite`` property paths:
    * - Mulliken populations / atomic charges
      - ✓
      - ✓
-     - enabled by default (``--pop``);
+     - enabled by default (``--pop``)
    * - Wiberg/Mayer bond orders
      - ✓
      - ✓
@@ -108,7 +108,7 @@ the native xTB and ``tblite`` property paths:
    * - Localized orbitals
      - ✓
      - ✓
-     - Foster-Boys localization (``--lmo``);
+     - Foster-Boys localization (``--lmo``)
    * - FOD
      - ✓
      - —
