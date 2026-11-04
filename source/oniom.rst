@@ -28,7 +28,7 @@ where :math:`E_{whole, low}` and :math:`E_{model, low}` terms are the single-poi
 Input
 =====
 
-To perform an ONIOM calculation with ``xtb`` the ``--oniom`` option is used. The inner region has to be defined by providing the atom numbers contained in it and two calculation methods (``high:low``) can be chosen. The ONIOM calculation is then invoked by callinig:
+To perform an ONIOM calculation with ``xtb`` the ``--oniom`` option is used. The inner region has to be defined by providing the atom numbers contained in it and two calculation methods (``high:low``) can be chosen. The ONIOM calculation is then invoked by calling:
 
 .. code:: sh
    
@@ -44,7 +44,13 @@ Methods
 
 * **gfnff, gfn1, gfn2**
 
-These methods are available in the ``xtb``  and can be utilized both as high and low-level approaches in the ONIOM framework.
+These methods are available in ``xtb`` and can be utilized both as high and low-level approaches in the ONIOM framework. GFN1-xTB (``gfn1``) and GFN2-xTB (``gfn2``) ONIOM layers can also be evaluated with the ``tblite`` backend by adding ``--tblite`` (see :ref:`commandline` for general ``--tblite`` options):
+
+.. code:: sh
+
+   > xtb coord.xyz --oniom gfn2:gfn1 1,15-17 --tblite
+
+The ``--tblite`` flag applies to the ``gfn1`` and ``gfn2`` ONIOM calculations; ``gfnff`` and external ``ORCA``/``TURBOMOLE`` layers remain unchanged.
 
 
 .. important::
@@ -176,6 +182,8 @@ In addition to the above-mentioned ``xcontrol`` instructions deeper control over
 
 *silent=[bool]*
    redirecting the output of the external programs into files.
+
+Fixing, constraints, and bias or restraint potentials configured via ``xcontrol`` (such as ``$fix``, ``$constrain``, or wall and bias potentials; see :ref:`detailed-input`) are applied only to the full-system low-level term (:math:`E_{whole, low}`) and are not applied again to the capped inner-region low-level and high-level calculations (:math:`E_{model, low}` and :math:`E_{model, high}`). Consequently, the corresponding restraint or bias energy and gradient contributions enter the subtractive ONIOM expression only once, including when a constraint spans atoms belonging to different ONIOM regions. Likewise, exact fixing affects the requested full-system atom gradients (setting them to zero) without being remapped or duplicated in the capped model system.
 
 
 Example:  S30L-23
