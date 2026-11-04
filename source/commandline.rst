@@ -204,10 +204,11 @@ Options
 
 --ptb
     performs single-point calculation with the density tight-binding method
-    PTB. Provides electronic structure and properties, such as, e.g., atomic
-    charges, bond orders, and dipole moments. PTB itself does not provide
-    total energies, nuclear gradients, or an energetic Hessian; Hessian
-    workflows combine GFN2-xTB with PTB response properties.
+    PTB (requires tblite support). Provides electronic structure and
+    properties, such as, e.g., atomic charges, bond orders, and dipole moments.
+    PTB itself does not provide total energies, nuclear gradients, or an
+    energetic Hessian; Hessian workflows combine GFN2-xTB with PTB response
+    properties.
 
 --spinpol
     enables spin-polarization for xTB methods (tblite required)
