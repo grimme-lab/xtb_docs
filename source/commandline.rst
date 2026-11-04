@@ -7,7 +7,7 @@
 For ``xtb`` we usually enjoy to build our workflows via commandline,
 so most tasks can be performed without ever writing any kind of input file
 (except for the geometry input, of course).
-The man page can be found `here <https://github.com/grimme-lab/xtb/blob/master/man/xtb.1.adoc>`_.
+The man page can be found `here <https://github.com/grimme-lab/xtb/blob/main/man/xtb.1.adoc>`_.
 
 .. note:: If you need more control you should resort to the :ref:`detailed-input`
           file.
@@ -80,10 +80,11 @@ Fukui Indices
      setup, SP, SP, SP, properties
 
 Dimer Projection Method DIPRO     
-   :flag: ``--dipro``
+   :flag: ``--dipro [REAL]``
    :description:
      calculates the electronic coupling integrals J_ab and J_ab,eff between
-     two fragments 
+     two fragments (requires tblite support). *REAL* sets the threshold for
+     nearly degenerate orbitals to still be considered (default = 0.1 eV).
    :queue:
      setup, SP, SP, SP, properties
 
@@ -181,11 +182,11 @@ Options
 -c, --chrg INT
     specify molecular charge as *INT*, overrides ``.CHRG`` file and ``xcontrol`` option
 
---ceh <grad> [REAL]
+--ceh [grad [REAL]]
     calculate CEH (Charge-Extended Hückel model) charges and write them to
-    the ``ceh.charges`` file; optionally, calculate numerical gradients and
-    write them to the ``ceh.charges.numgrad`` file with an adjustable step size
-    for the numerical gradients.
+    the ``ceh.charges`` file (requires tblite support); optionally, calculate
+    numerical gradients and write them to the ``ceh.charges.numgrad`` file with
+    an adjustable step size for the numerical gradients.
 
 -u, --uhf INT
     specify number of unpaired electrons as *INT*, overrides ``.UHF`` file and
@@ -211,14 +212,14 @@ Options
 --spinpol
     enables spin-polarization for xTB methods (tblite required)
 
---oniom METHOD LIST
+--oniom [METHOD] LIST
     use subtractive embedding via ONIOM method. *METHOD* is given as
-    ``inner:outer`` where ``inner`` can be ``orca``, ``turbomole``, ``gfn2``,
-    ``gfn1``, or ``gfnff`` and ``outer`` can be ``gfn2``, ``gfn1``, or
-    ``gfnff``. The inner region is given as comma-separated indices directly
-    in the commandline or in a file with each index on a separate line.
-    Combine with ``--tblite`` to evaluate ``gfn2`` and ``gfn1`` with the
-    tblite library.
+    ``inner:outer`` (default: ``gfn2:gfnff``) where ``inner`` can be ``orca``,
+    ``turbomole``, ``gfn2``, ``gfn1``, or ``gfnff`` and ``outer`` can be
+    ``gfn2``, ``gfn1``, or ``gfnff``. The inner region is given as
+    comma-separated indices directly in the commandline or in a file with each
+    index on a separate line. Combine with ``--tblite`` to evaluate ``gfn2``
+    and ``gfn1`` with the tblite library.
 
 --efield REAL,REAL,REAL
     static electric field in Cartesian coordinates, overrides ``.EFIELD`` file,
@@ -231,16 +232,16 @@ Options
     accuracy for SCC calculation, lower is better (default = 1.0), overwrites
     also tighter defaults for optimization and hessians
 
---vparam FILE
-    Parameter file for vTB calculation
+--iterations, --maxiterations INT
+    maximum number of SCC iterations per single point calculation (default = 250)
 
---xparam FILE
-    Parameter file for xTB calculation (not used)
+--vparam FILE
+    Parameter file for xTB calculation
 
 --alpb SOLVENT [STATE]
     analytical linearized Poisson-Boltzmann (ALPB) model,
     available solvents are *acetone*, *acetonitrile*, *aniline*, *benzaldehyde*,
-    *benzene*, *ch2cl2*, *chcl3*, *cs2*, *dioxane*, *dmf*, *dmso*, *ether*,
+    *benzene*, *ch2cl2*, *chcl3*, *cs2*, *dioxane*, *dmf*, *dmso*, *ethanol*, *ether*,
     *ethylacetate*, *furane*, *hexadecane*, *hexane*, *methanol*, *nitromethane*,
     *octanol*, *woctanol*, *phenol*, *toluene*, *thf*, *water*.
     The solvent input is not case-sensitive.
@@ -248,7 +249,7 @@ Options
 
 -g, --gbsa SOLVENT [STATE]
     generalized born (GB) model with solvent accessible surface (SASA) model,
-    available solvents are *acetone*, *acetonitrile*, *benzene* (only GFN1-xTB),
+    available solvents are *acetone*, *acetonitrile*, *benzene*,
     *CH2Cl2*, *CHCl3*, *CS2*, *DMF* (only GFN2-xTB), *DMSO*, *ether*, *H2O*,
     *methanol*, *n-hexane* (only GFN2-xTB), *THF* and *toluene*.
     The solvent input is not case-sensitive.
@@ -291,13 +292,14 @@ Options
     same as ``--cosmo``, but uses TM convention for writing the ``.cosmo`` files.
 
 --cpcmx SOLVENT
-    extended conduction-like polarizable continuum solvation model (CPCM-X),
-    available solvents are all solvents included in the Minnesota Solvation
-    Database.
+    extended conductor-like polarizable continuum solvation model (CPCM-X,
+    requires CPCM-X support; single-point only, not available for geometry
+    optimization), available solvents are all solvents included in the
+    Minnesota Solvation Database.
 
 --cma 
     shifts molecule to center of mass and transforms cartesian coordinates
-    into the coordinate system of the principle axis (not affected by
+    into the coordinate system of the principal axis (not affected by
     ``isotopes``-file).
 
 --pop
@@ -313,16 +315,16 @@ Options
 --quadrupole
     requests quadrupole printout
 
---raman
+--raman [TEMP [WAVELENGTH]]
     requests Raman spectrum calculation via combination of GFN2-xTB and PTB
-    using the temperature *REAL* (default 298.15 K) and the wavelength of the
-    incident laser which must be given in nm *REAL* (default 514 nm).
+    (requires ``--ptb``) using the temperature *TEMP* in K (default 298.15 K)
+    and the wavelength of the incident laser *WAVELENGTH* in nm (default 514 nm).
 
 --alpha
     requests the extension of electrical properties to static molecular
-    dipole polarizabilities.
+    dipole polarizabilities (requires ``--ptb``).
 
---cycles [int]
+--cycles INT
     maximum number of optimization cycles
 
 --o1nh
@@ -336,10 +338,6 @@ Options
 --imagmax REAL
     deepest imaginary frequency (cm⁻¹) considered in the O1NumHess
     imaginary frequency repair (default 200)
-
---ithr REAL
-    imaginary frequencies between this cutoff (cm⁻¹) and zero are treated as
-    vibrations in the RRHO calculation (default 20)
 
 --wbo
     requests Wiberg bond order printout
