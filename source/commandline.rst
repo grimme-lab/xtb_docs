@@ -107,6 +107,8 @@ Geometry optimization
    :description:
      approximate normal coordinate optimization, performs an initial singlepoint
      calculation and a final singlepoint calculation on the optimized structure.
+     *LEVEL* can be chosen from ``crude``, ``sloppy``, ``loose``, ``normal``
+     (default), ``tight``, ``verytight`` to ``extreme``.
      See :ref:`geometry optimization` for details.
    :queue:
      setup, SP, ANCopt, SP, properties
@@ -145,8 +147,9 @@ Frequency calculation
 Biased frequency calculation
    :flag: ``--bhess [LEVEL]``
    :description:
-     perform a biased numerical Hessian calculation on an optimized geometry,
-     tightens default accuracy setting to 0.2 (overwritten by ``--acc`` flag)
+     perform a biased numerical Hessian calculation on an optimized geometry
+     (with optional optimization *LEVEL*, default = ``normal``), tightens
+     default SCC accuracy setting to 0.2 (overwritten by ``--acc`` flag)
    :queue:
      setup, SP, ANCopt, SP, SP, Hessian, properties
 
@@ -186,7 +189,8 @@ Options
     calculate CEH (Charge-Extended Hückel model) charges and write them to
     the ``ceh.charges`` file (requires tblite support); optionally, calculate
     numerical gradients and write them to the ``ceh.charges.numgrad`` file with
-    an adjustable step size for the numerical gradients.
+    an adjustable step size *REAL* (default = 1e-5 Bohr) for the numerical
+    gradients.
 
 -u, --uhf INT
     specify number of unpaired electrons as *INT*, overrides ``.UHF`` file and
@@ -197,10 +201,11 @@ Options
     specify parametrisation of GFN-xTB (default = 2)
 
 --gfnff, --gff
-    specify parametrisation of GFN-FF
+    use the GFN-FF force field
 
 --tblite
-    use tblite library as implementation for xTB
+    use tblite library as implementation for xTB (available for GFN1-xTB and
+    GFN2-xTB)
 
 --ptb
     performs single-point calculation with the density tight-binding method
