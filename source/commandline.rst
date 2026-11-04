@@ -205,9 +205,9 @@ Options
 --ptb
     performs single-point calculation with the density tight-binding method
     PTB. Provides electronic structure and properties, such as, e.g., atomic
-    charges, bond orders, and dipole moments, but does not provide any
-    energy-related properties, such as, e.g., total energy, nuclear
-    gradients, or vibrational frequencies.
+    charges, bond orders, and dipole moments. PTB itself does not provide
+    total energies, nuclear gradients, or an energetic Hessian; Hessian
+    workflows combine GFN2-xTB with PTB response properties.
 
 --spinpol
     enables spin-polarization for xTB methods (tblite required)
@@ -221,9 +221,14 @@ Options
     index on a separate line. Combine with ``--tblite`` to evaluate ``gfn2``
     and ``gfn1`` with the tblite library.
 
+--cut
+    create inner region for ``--oniom`` calculation without performing any
+    calculation
+
 --efield REAL,REAL,REAL
-    static electric field in Cartesian coordinates, overrides ``.EFIELD`` file,
-    works only via tblite for the xTB Hamiltonians, or with GFN-FF and PTB.
+    static electric field in Cartesian coordinates (in atomic units), overrides
+    ``.EFIELD`` file, works only via tblite for the xTB Hamiltonians, or with
+    GFN-FF and PTB.
 
 --etemp REAL
     electronic temperature (default = 300K)
@@ -271,31 +276,32 @@ Options
     domain decomposition conductor-like screening model (ddCOSMO), available
     solvents are all solvents that are available for alpb. Additionally, the
     dielectric constant can be set manually or an ideal conductor can be
-    chosen by setting epsilon to infinity. Available via tblite or in the
-    legacy version in xtb lacking density response to the continuum
-    polarization (non-variational).
+    chosen by setting epsilon to infinity. Available via tblite (requires ddX
+    support) or in the native legacy version in xtb lacking density response
+    to the continuum polarization (non-variational).
 
 --cpcm SOLVENT/EPSILON
     domain decomposition conductor-like polarizable continuum solvation model
     (ddCPCM), available solvents are all solvents that are available for
     alpb. Additionally, the dielectric constant can be set manually or an
-    ideal conductor can be chosen by setting epsilon to infinity. Only
-    available via tblite.
+    ideal conductor can be chosen by setting epsilon to infinity. Requires
+    tblite with ddX support.
 
 --pcm SOLVENT/EPSILON
     domain decomposition polarizable continuum model (ddPCM), available
     solvents are all solvents that are available for alpb. Additionally, the
     dielectric constant can be set manually or an ideal conductor can be
-    chosen by setting epsilon to infinity. Only available via tblite.
+    chosen by setting epsilon to infinity. Requires tblite with ddX support.
 
 --tmcosmo SOLVENT/EPSILON
-    same as ``--cosmo``, but uses TM convention for writing the ``.cosmo`` files.
+    same as ``--cosmo``, but uses TM convention for writing the ``.cosmo``
+    files (native xTB only).
 
 --cpcmx SOLVENT
     extended conductor-like polarizable continuum solvation model (CPCM-X,
-    requires CPCM-X support; single-point only, not available for geometry
-    optimization), available solvents are all solvents included in the
-    Minnesota Solvation Database.
+    requires CPCM-X support; parameterized for GFN2-xTB; single-point only,
+    not available for geometry optimization or with GFN-FF), available
+    solvents are all solvents included in the Minnesota Solvation Database.
 
 --cma 
     shifts molecule to center of mass and transforms cartesian coordinates
@@ -303,17 +309,17 @@ Options
     ``isotopes``-file).
 
 --pop
-    requests printout of Mulliken population analysis
+    requests printout of Mulliken population analysis (enabled by default)
 
 --molden
     requests printout of molden file (name: ``molden.input``), format differs
     with ``--tblite``
 
 --dipole
-    requests dipole printout
+    requests dipole printout (enabled by default)
 
 --quadrupole
-    requests quadrupole printout
+    requests quadrupole printout for tblite calculations
 
 --raman [TEMP [WAVELENGTH]]
     requests Raman spectrum calculation via combination of GFN2-xTB and PTB
@@ -340,7 +346,7 @@ Options
     imaginary frequency repair (default 200)
 
 --wbo
-    requests Wiberg bond order printout
+    requests Wiberg bond order printout (enabled by default)
 
 --lmo
     requests localization of orbitals
@@ -368,7 +374,7 @@ Options
      performs automatic check of input and terminate
 
 --json
-     write xtbout.json file
+     write ``xtbout.json`` file for native xTB and PTB calculations
 
 --citation
      print citation and terminate
