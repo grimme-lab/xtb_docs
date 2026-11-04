@@ -138,18 +138,30 @@ Modefollowing
      setup, SP, properties, ANCopt, ...
 
 Frequency calculation
-   :flag: ``--[o]hess``
+   :flag: ``--hess``
    :description:
-     second derivative calculation, see :ref:`frequencies`
+     perform a numerical Hessian calculation on the input geometry, see
+     :ref:`frequencies`. Tightens the default SCC accuracy setting to 0.2
+     (overwritten by ``--acc`` flag).
    :queue:
-     setup, SP, [ANCopt, SP,] SP, Hessian, properties
+     setup, SP, SP, Hessian, properties
+
+Optimized frequency calculation
+   :flag: ``--ohess [LEVEL]``
+   :description:
+     perform a numerical Hessian calculation on an ANCopt optimized geometry
+     (with optional optimization *LEVEL*, default = ``normal``), see
+     :ref:`frequencies`. Tightens the default SCC accuracy setting to 0.2
+     (overwritten by ``--acc`` flag).
+   :queue:
+     setup, SP, ANCopt, SP, SP, Hessian, properties
 
 Biased frequency calculation
    :flag: ``--bhess [LEVEL]``
    :description:
-     perform a biased numerical Hessian calculation on an optimized geometry
-     (with optional optimization *LEVEL*, default = ``normal``), tightens
-     default SCC accuracy setting to 0.2 (overwritten by ``--acc`` flag)
+     perform a biased numerical Hessian calculation on an ANCopt optimized
+     geometry (with optional optimization *LEVEL*, default = ``normal``),
+     tightens default SCC accuracy setting to 0.2 (overwritten by ``--acc`` flag)
    :queue:
      setup, SP, ANCopt, SP, SP, Hessian, properties
 
