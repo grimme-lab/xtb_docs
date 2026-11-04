@@ -64,7 +64,7 @@ Optimizing a geometry with the ALPB model can be done with the following input
 
 The order of the flags can be altered and the input
 is not case sensitive.
-Like in a optimization without ALPB the optimized coordinates are
+Like in an optimization without ALPB the optimized coordinates are
 written to a new file (``xtbopt.coord``).
 Implicit solvation is available for the usual xTB single-point, gradient,
 optimization, Hessian, and related workflows where supported by the selected
@@ -122,19 +122,19 @@ the Born kernel can be changed in the detailed input via ``$gbsa``
 Available solvation models
 ==========================
 
-=============================== ============================= ============================= ================================================ ===========================================================================================================================================================================================
- Option                          Model                         Backend                       Input                                            Notes
-=============================== ============================= ============================= ================================================ ===========================================================================================================================================================================================
- ``--alpb SOLVENT [STATE]``      ALPB                          native xTB or ``tblite``      named solvent                                    includes electrostatic and non-electrostatic contributions; default solution state is ``gsolv``
- ``--gbsa SOLVENT [STATE]``      GBSA                          native xTB or ``tblite``      named solvent                                    includes electrostatic and non-electrostatic contributions; default solution state is ``gsolv``
- ``--gbe SOLVENT/EPSILON``       GBe                           ``tblite`` required           solvent name or dielectric constant              generalized Born for finite dielectric constant; purely electrostatic, no SASA/CDS contribution
- ``--gb SOLVENT/EPSILON``        GB                            ``tblite`` required           solvent name or dielectric constant              generalized Born; purely electrostatic, no SASA/CDS contribution
- ``--cosmo SOLVENT/EPSILON``     ddCOSMO / legacy COSMO        ``tblite``/ddX or native xTB  solvent name, dielectric constant, ``infinity``  ddCOSMO when used through ``tblite``/ddX; legacy native xTB implementation lacks density response to continuum polarization (non-variational); ``infinity`` selects an ideal conductor
- ``--cpcm SOLVENT/EPSILON``      ddCPCM                        ``tblite`` required (ddX)     solvent name, dielectric constant, ``infinity``  requires ddX support in the xTB build; ``infinity`` selects the ideal-conductor limit
- ``--pcm SOLVENT/EPSILON``       ddPCM                         ``tblite`` required (ddX)     solvent name, dielectric constant, ``infinity``  requires ddX support in the xTB build; ``infinity`` selects the ideal-conductor limit
- ``--tmcosmo SOLVENT/EPSILON``   native COSMO variant          native xTB                    solvent name, dielectric constant, ``infinity``  same basic continuum treatment as legacy ``--cosmo``; writes ``.cosmo`` files using the Turbomole convention
- ``--cpcmx SOLVENT``             CPCM-X                        native xTB (CPCM-X build)     Minnesota Solvation Database solvent             requires CPCM-X support; only post-SCF parameterized for GFN2-xTB; not available for geometry optimization
-=============================== ============================= ============================= ================================================ ===========================================================================================================================================================================================
+=============================== ============================= ======== ======== ================================================ ==================================================================================================================================================================
+ Option                          Model                         Native   tblite   Input                                            Notes
+=============================== ============================= ======== ======== ================================================ ==================================================================================================================================================================
+ ``--alpb SOLVENT [STATE]``      ALPB                          x        x        named solvent                                    includes electrostatic and non-electrostatic contributions; default solution state is ``gsolv``
+ ``--gbsa SOLVENT [STATE]``      GBSA                          x        x        named solvent                                    includes electrostatic and non-electrostatic contributions; default solution state is ``gsolv``
+ ``--gbe SOLVENT/EPSILON``       GBe                                    x        solvent name or dielectric constant              generalized Born for finite dielectric constant; purely electrostatic, no SASA/CDS contribution
+ ``--gb SOLVENT/EPSILON``        GB                                     x        solvent name or dielectric constant              generalized Born; purely electrostatic, no SASA/CDS contribution
+ ``--cosmo SOLVENT/EPSILON``     ddCOSMO / legacy COSMO        x        x        solvent name, dielectric constant, ``infinity``  ddCOSMO when used through ``tblite`` (requires ddX support); native xTB legacy implementation lacks density response to continuum polarization (non-variational)
+ ``--cpcm SOLVENT/EPSILON``      ddCPCM                                 x        solvent name, dielectric constant, ``infinity``  requires ddX support in the xTB build; ``infinity`` selects the ideal-conductor limit
+ ``--pcm SOLVENT/EPSILON``       ddPCM                                  x        solvent name, dielectric constant, ``infinity``  requires ddX support in the xTB build; ``infinity`` selects the ideal-conductor limit
+ ``--tmcosmo SOLVENT/EPSILON``   native COSMO variant          x                 solvent name, dielectric constant, ``infinity``  same basic continuum treatment as legacy ``--cosmo``; writes ``.cosmo`` files using the Turbomole convention
+ ``--cpcmx SOLVENT``             CPCM-X                        x                 Minnesota Solvation Database solvent             requires CPCM-X support; post-SCF model parameterized for GFN2-xTB; not available for geometry optimization or GFN-FF
+=============================== ============================= ======== ======== ================================================ ==================================================================================================================================================================
 
 While ALPB and GBSA have native xTB implementations, they can also be evaluated 
 through ``tblite`` for GFN1-xTB and GFN2-xTB. For example,
@@ -197,7 +197,7 @@ would otherwise not converge due to numerical noise.
 Reference States
 ================
 
-For solvation free energies, the state of the inital gas and final liquid solution can be changed 
+For solvation free energies, the state of the initial gas and final liquid solution can be changed 
 with a solution state correction. This is explained in detail in the following table and in 
 `A Universal pH Scale for All Solvents: Background, Theory, and Justification (IUPAC Technical Report) <https://doi.org/10.1515/pac-2019-0504>`_, section 2.2.
 By default no solution state correction is applied (gsolv, default), which is comparable with most 
