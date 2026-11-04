@@ -59,7 +59,9 @@ The following input for a MgO crystal utilize this data groups:
     5.798338236 5.798338236 5.798338236 60. 60. 60.
    $end
 
-.. note:: In previous version the coord data group had to start in the
+.. note:: Periodic GFN1-xTB and GFN2-xTB calculations require the ``--tblite``
+          flag (e.g., ``xtb coord --tblite``); see :ref:`pbc` for details.
+          In previous versions the coord data group had to start in the
           first line, this constraint has been relaxed by now.
 
 Any valid xyz file can be used to provide coordinates and requires the

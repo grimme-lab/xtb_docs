@@ -105,14 +105,15 @@ STM picture
 Geometry optimization
    :flag: ``-o, --opt [LEVEL]``
    :description:
-     approximate normal coordinate optimization, performs an initial singlepoint
+     perform a geometry optimization (nonperiodic: ``ANCopt``, periodic with
+     lattice-vector relaxation: ``pbc_lbfgs``), performs an initial singlepoint
      calculation and a final singlepoint calculation on the optimized structure.
      *LEVEL* can be chosen from ``crude``, ``sloppy``, ``loose``, ``normal``
      (default), ``tight``, ``verytight`` to ``extreme``, and also sets the
      default SCC accuracy setting (overwritten by ``--acc`` flag).
-     See :ref:`geometry optimization` for details.
+     See :ref:`geometry optimization` and :ref:`pbc` for details.
    :queue:
-     setup, SP, ANCopt, SP, properties
+     setup, SP, ANCopt / pbc_lbfgs, SP, properties
 
 Minimum Hopping
    :flag: ``--metaopt``
@@ -218,8 +219,8 @@ Options
     use the GFN-FF force field
 
 --tblite
-    use tblite library as implementation for xTB (available for GFN1-xTB and
-    GFN2-xTB)
+    use tblite library as implementation for xTB (required for periodic GFN1-xTB
+    and GFN2-xTB calculations)
 
 --ptb
     performs single-point calculation with the density tight-binding method
@@ -349,6 +350,10 @@ Options
 --alpha
     requests the extension of electrical properties to static molecular
     dipole polarizabilities (requires ``--ptb``).
+
+--nocellopt
+    keep lattice vectors fixed during periodic geometry optimization (atomic
+    coordinates are optimized with fixed unit cell)
 
 --cycles INT
     maximum number of optimization cycles

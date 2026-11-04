@@ -13,7 +13,7 @@ Optimization levels
 ====================
 
 
-``xtb`` has a build-in geometry optimizer called approximate normal coordinate rational function optimizer (ANCopt) which uses a Lindh-type model Hessian to generate an approximate normal coordinate system. It is activated by the flag ``--opt [level]``. The following levels are available:
+``xtb`` has a build-in geometry optimizer called approximate normal coordinate rational function optimizer (ANCopt) which uses a Lindh-type model Hessian to generate an approximate normal coordinate system. It is activated by the flag ``--opt [level]``. For periodic systems, ``--opt [level]`` automatically uses the periodic L-BFGS optimizer (``pbc_lbfgs``) instead of ANCopt, relaxing both atomic coordinates and unit-cell lattice vectors unless ``--nocellopt`` is specified (see :ref:`pbc` for details). The following levels are available:
 
 +---------+----------+--------------+----------+
 |  level  | Econv/Eh | Gconv/Eh·α⁻¹ | Accuracy |
@@ -352,18 +352,26 @@ input with
 possible optimizers are
 
 Approximate Normal Coordinate Rational Function optimizer (ANCopt)
-    - ``engine=rf`` (default)
+    - ``engine=rf`` (default for nonperiodic systems with up to 500 atoms)
     - rational function for optimal step
     - BFGS update of Hessian
     - approximate normal coordinate system
+    - nonperiodic systems only
 
 L-BFGS Approximate Normal Coordinate optimizer (L-ANCopt)
-    - ``engine=lbfgs``
+    - ``engine=lbfgs`` (default for nonperiodic systems with more than 500 atoms)
     - L-BFGS step and update of Hessian
     - approximate normal coordinate system
+    - nonperiodic systems only
+
+Periodic L-BFGS optimizer
+    - ``engine=pbc_lbfgs`` (default for periodic systems)
+    - L-BFGS step in Cartesian coordinates and lattice vectors
+    - relaxes both atomic coordinates and unit-cell lattice vectors (use ``--nocellopt`` for fixed-cell optimization)
+    - writes trajectory to ``xtboptlog.cif`` (and lowest-energy structure to ``xtbopt_emin.coord`` if it differs from the final structure)
 
 Fast Inertial Relaxation Engine (FIRE)
     - ``engine=inertial``
     - MD propagation with preconditioning
     - BFGS update of Hessian
-    - cartesian coordinate system
+    - Cartesian coordinate system (supports both nonperiodic and periodic systems, respecting ``--nocellopt``)

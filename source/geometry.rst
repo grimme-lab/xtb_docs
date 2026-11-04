@@ -62,6 +62,8 @@ The following input for a MgO crystal utilize this data groups:
    $end
 
 .. note:: ``crest`` only supporting a plain coord data group without modifiers.
+          For periodic calculations in ``xtb`` (which require ``--tblite`` for
+          GFN1-xTB and GFN2-xTB), see :ref:`pbc`.
 
 xyz Input
 ---------
