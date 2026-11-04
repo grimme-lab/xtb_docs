@@ -46,11 +46,17 @@ Options
 --onlypocket
    Perform only the pocket search (switches off stack and angular search)
 
+--stack
+   Perform a stack search (default)
+
 --nostack
    Switch off the stack search
 
 --onlystack
    Perform only the stack search
+
+--angular
+   Perform an angular search (default)
 
 --noangular
    Switch off the angular search
@@ -143,7 +149,7 @@ Options
    The optional solution state ``[STATE]`` defaults to ``gsolv`` (``bar1M`` and ``reference`` are also available).
    See :ref:`gbsa` for supported solvents, solvation models, reference states, and defaults.
 
--v, --verbose
+--verbose
    Increase printout verbosity
 
 

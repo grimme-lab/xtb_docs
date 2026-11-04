@@ -53,6 +53,10 @@ parametrisation before it can be used for a calculation.
 GFN0-xTB, GFN1-xTB, GFN2-xTB, and GFN-FF all load their built-in
 parametrisation when ``NULL`` is passed as the parameter file name,
 though a custom parameter file may still be provided when needed.
+Solvation can be added to a loaded calculator with ``xtb_setSolvent``
+and removed with ``xtb_releaseSolvent``. ``xtb_setSolvent`` also allows
+the solvation model to be selected. See ``xtb.h`` for the complete
+interface.
 
 Finally, the calculation results are stored in the ``xtb_TResults``
 object which can also be used to restart calculations from previous
@@ -66,6 +70,9 @@ Generally, the API tries to be particular flexible in this case
 and will try to reallocate the individual components as necessary.
 Note that this can fail in particular if the total charge or
 multiplicity of the molecular structure has changed.
+
+Numerical Hessians can be calculated through the ``xtb_hessian`` API
+function. See ``xtb.h`` for the complete interface.
 
 A simple example program to obtain the total energy from a
 GFN2-xTB calculation is given here.
