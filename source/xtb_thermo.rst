@@ -28,21 +28,21 @@ already be projected (the ``hessian`` file written by ``xtb`` is).
 Possible options are:
 
 --sthr REAL
-   Rotor cutoff for RRHO partition function in rcm
+   Rotor cutoff for RRHO partition function in rcm (default: 50.0)
 
 --ithr REAL
    Imaginary frequency cutoff for RRHO in rcm,
-   enter a positive value, the sign will be inverted
+   enter a positive value, the sign will be inverted (default: 20.0)
 
 --scale REAL
-   Frequency scaling factor for RRHO
+   Frequency scaling factor for RRHO (default: 1.0)
 
 --desy REAL
-   Threshold for symmetry recognition
+   Threshold for symmetry recognition (default: 0.1)
 
 --temp REAL[,...]
    Temperature for thermodynamic functions in K,
-   takes a comma separated list of temperatures
+   takes a comma separated list of temperatures (default: 298.15)
 
 --turbomole
    Read a non-mass-weighted Turbomole Hessian file (default format)
