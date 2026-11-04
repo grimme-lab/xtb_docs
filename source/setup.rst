@@ -25,44 +25,53 @@ on GitHub.
 To get the newest features an automatically generated
 `development version <https://github.com/grimme-lab/xtb/releases/tag/bleed>`_
 is available for the latest commit on the default branch.
-At the release page you find the a compressed tarball (``tar xf xtb*.tar.xz``)
-usually containing the following content:
+At the release page you find a compressed archive (``tar xf xtb*.tar.xz``)
+whose package directory typically has the following layout:
 
 .. code-block:: none
 
    .
    ├── bin
-   │   └── xtb
+   │   ├── cpx
+   │   └── xtb
    ├── include
-   │   └── xtb
-   │       └── xtb.h
+   │   └── xtb.h
    ├── lib
-   │   ├── libxtb.so -> libxtb.so.6
-   │   ├── libxtb.so.6 -> libxtb.so.6.*.*
-   │   ├── libxtb.so.6.*.*
-   │   └── pkgconfig
-   │       └── xtb.pc
+   │   ├── libcpx.a
+   │   ├── libxtb.a
+   │   └── pkgconfig
+   │       └── xtb.pc
    └── share
+       ├── licenses
+       │   └── ...
        ├── man
-       │   ├── man1
-       │   │   └── xtb.1
-       │   └── man7
-       │       └── xcontrol.7
+       │   ├── man1
+       │   │   └── xtb.1
+       │   └── man7
+       │       └── xcontrol.7
        ├── modules
-       │   └── modulefiles
-       │       └── xtb
-       │           └── 6.*.*
+       │   └── modulefiles
+       │       └── xtb
+       │           └── <version>
        └── xtb
            ├── param_gfn2-xtb.txt
            ├── param_gfn1-xtb.txt
+           ├── param_gfn1-si-xtb.txt
            ├── param_gfn0-xtb.txt
            ├── param_ipea-xtb.txt
            └── .param_gfnff.xtb
 
-The binary is usually compiled with the Intel Fortran compiler and statically
-linked against Intel's Math Kernel Library (Intel MKL).
-Newer versions of ``xtb`` (6.2 and newer) additionally include a shared library,
-the header specification of the C-API.
+The release packages contain the executables, static libraries, C-API header,
+parameter files, man pages, and dependency licences. Third-party runtime
+dependencies are linked statically in the packaged binaries where supported by
+the platform.
+
+At the `development version <https://github.com/grimme-lab/xtb/releases/tag/bleed>`_
+(bleeding-edge) release page, precompiled packages for our five supported
+targets (Linux ``x86_64``, Linux ``aarch64``, macOS ``arm64``, macOS
+``x86_64``, and Windows ``x86_64``) are provided and updated automatically for
+each commit to ``main``. When encountering a bug, it is always helpful to first
+check if the bleeding-edge version still has the problem.
 
 First check the version by
 
@@ -78,20 +87,18 @@ First check the version by
        |                    University of Bonn                     |     
         -----------------------------------------------------------      
   
-     * xtb version 6.2.1 (bf8695d) compiled by 'ehlert@majestix' on 2019-10-25
+     * xtb version 6.7.1 (cb480bd) compiled by 'runner@runnervmeorf1' on 2026-04-28
   
   normal termination of xtb
 
-This should print some fancy banner, the version number, say 6.2.1, the
-git commit hash, the user and host name of the programmer compiled the
+This should print some fancy banner, the version number, say 6.7.1, the
+git commit hash, the user and host name of the system that compiled the
 program and at date.
 Make sure the version is matching the version from the release page and
 the commit hash is the actual commit hash of the release, also the date
 of the compilation should match.
-We compile the program on our clusters in Bonn, so the host name is usually
-``majestix`` (or ``hedy20`` for the old-kernel version).
-You get also the user name of the programmer drafting the release,
-testing the binary and packing the tarball.
+We now use GitHub continuous integration to generate releases, so the user
+and host name usually correspond to the CI runner.
 
 This line is very important when reporting a bug to us, because we can
 validate the binary you were using and easier reproduce it.
@@ -198,14 +205,27 @@ You might want to deactivate nested OMP constructs by
    for many threads the ``dynamic`` schedule has proven to give a good load-balance
    between all threads.
 
-The default linear algebra backend of `xtb` is the Math Kernel Library,
-which usually comes as OpenMP threaded version and respects the settings
+When ``xtb`` is linked against the Intel Math Kernel Library (MKL),
+it usually uses OpenMP threading and respects the settings
 of ``OMP_NUM_THREADS``. You can however still adjust the MKL parallelisation
 separately by setting
 
 .. code:: bash
 
   > export MKL_NUM_THREADS=<ncores>
+
+For binaries linked against OpenBLAS, the number of BLAS threads can usually
+be controlled with
+
+.. code:: bash
+
+  > export OPENBLAS_NUM_THREADS=<ncores>
+
+.. note::
+
+   OpenBLAS builds using its OpenMP threading backend ignore
+   ``OPENBLAS_NUM_THREADS`` and instead use ``OMP_NUM_THREADS``.
+   This applies, for example, to the current precompiled Windows release.
 
 
 Environment Variables for ``xtb``
@@ -230,8 +250,8 @@ has to be adjusted accordingly
 
 .. code-block:: diff
 
-   --- ./share/modules/modulefiles/xtb/6.3.1
-   +++ ./share/modules/modulefiles/xtb/6.3.1
+   --- ./share/modules/modulefiles/xtb/<version>
+   +++ ./share/modules/modulefiles/xtb/<version>
    @@ -1,5 +1,5 @@
     #%Module
    -set prefix /
@@ -240,7 +260,7 @@ has to be adjusted accordingly
     module-whatis "Semiempirical Extended Tight-Binding Program Package"
     
 
-If the ``share/modules/modulesfiles`` directory is included in your ``MODULEPATH``
+If the ``share/modules/modulefiles`` directory is included in your ``MODULEPATH``
 you should be able to load ``xtb`` with
 
 .. code-block:: none
@@ -249,15 +269,15 @@ you should be able to load ``xtb`` with
 
 .. important::
 
-   If you plan to use the ``xtb`` shared library in your build system you have
+   If you plan to use the ``xtb`` library in your build system you have
    to do a similar adjustment to the ``lib/pkgconfig/xtb.pc`` file.
 
 
 Sourceable Shell Scripts
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Example scripts to be sourced in your shells rc file are included in the
-distributed tarball:
+Example scripts to be sourced in your shells rc file are generated and
+installed by the Meson installation workflow:
 
 .. code-block:: bash
 
@@ -275,8 +295,7 @@ Beside this manual you can check the in-program help by
 
   > xtb --help
 
-Unfortunately, this might be outdated,
-therefore, you should refer to the man-pages distributed with the ``xtb`` program.
+You can also refer to the man-pages distributed with the ``xtb`` program.
 Please check for the man-pages of ``xtb(1)`` and ``xcontrol(7)``.
 There is also an online documentation, but you already now that one, of course.
 
@@ -306,12 +325,14 @@ We recommend to create a symbolic link to your local ``xtb`` binary by
 
    > ln -s $(which xtb) otool_xtb
    
-.. important:: ``xtb`` version 6.2.3 produces an energy printout which cannot
-               be processes by the reader in Orca, to fix this issue, use
-               the provided `script`_ to wrap the ``xtb`` binary instead
-               of creating a symbolic link.
+.. note:: *Historical note (Orca 4.2 / xTB 6.2.3):* ``xtb`` version 6.2.3
+          produced an energy printout which could not be processed by the
+          reader in Orca 4.2; for that specific combination, the provided
+          `script`_ was used to wrap the ``xtb`` binary instead of creating a
+          symbolic link. This workaround is specific to Orca 4.2 with ``xtb``
+          6.2.3 and is not general current ``xtb`` setup guidance.
 
-               .. _script: https://github.com/grimme-lab/xtb/releases/download/v6.2.3/otool_xtb
+          .. _script: https://github.com/grimme-lab/xtb/releases/download/v6.2.3/otool_xtb
 
 You can invoke xTB calculations in Orca by using one of the simple keywords
 

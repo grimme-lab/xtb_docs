@@ -9,22 +9,19 @@ This guide is intended to help developers to get our programs running.
           worked for you, why not drop us a hint at the issue tracker?
 
 The ``xtb`` source code is hosted at `GitHub <https://github.com/grimme-lab/xtb>`_.
+The ``xtb`` project officially supports both the
+`Meson <https://mesonbuild.com>`_ and `CMake <https://cmake.org>`_ build
+systems; additional information on compiling with Meson and CMake can also be
+found on the `xtb GitHub repository <https://github.com/grimme-lab/xtb>`_.
 
 .. contents::
-
 
 Building with meson
 ===================
 
-The ``xtb`` program source comes with a meson build-system
-(see `mesonbuild.com <https://mesonbuild.com/index.html>`_ for details).
-Despite being a rather young build-system, we decided to commit to the
-idea of using it for ``xtb`` due to its simplicity and speed compared
-to competing build-systems like Scons or Make.
-
-To build ``xtb`` from the source the `meson build system <https://mesonbuild.com>`_ can be used.
-For a decent Fortran support verson 0.51 of meson or newer is required,
-additionally the default backend `ninja <https://ninja-build.org/>`_ is required with version 1.7 or newer.
+To build ``xtb`` with Meson, version 0.62.0 or newer is required, along with
+`ninja <https://ninja-build.org/>`_ (1.7 or newer). Note that Meson versions
+1.8.0 and 1.8.1 have known issues and are explicitly unsupported.
 
 Getting meson
 -------------
@@ -48,13 +45,14 @@ Make sure to select the conda-forge channel for searching packages.
 Configure Intel Fortran build with MKL
 --------------------------------------
 
-The recommended build for ``xtb`` is with Intel Parallel Studio using the Intel Fortran compiler and the Math Kernel Library as default backend.
-Precompiled, statically linked ``xtb`` binaries for Linux are provided at the `release page <https://github.com/grimme-lab/xtb/releases/latest>`_.
-The setup for the linear algebra backend defaults to MKL, therefore, only the compilers have to exported before configuring the build:
+``xtb`` can be built with the Intel oneAPI compilers (``ifx``/``icx``, or the
+classic ``ifort`` compiler) and Intel's Math Kernel Library (MKL).
+With the default ``-Dlapack=auto`` setting, Meson automatically selects MKL
+when an Intel Fortran compiler is used:
 
 .. code-block::
 
-   export FC=ifort CC=icc
+   export FC=ifx CC=icx
    meson setup build --buildtype=release
 
 After the configuration step the build can be performed with ninja:
@@ -69,18 +67,19 @@ Note, ninja will by default use all the threads available on your system.
 
    If you share the build machine with others it might be helpful to reduce the number of concurrent jobs using the ``-j`` flag.
 
-By default the binary will be linked statically, other supported backends are:
+The linear algebra backend can be selected explicitly via ``-Dlapack=...``.
+The supported ``lapack`` options in Meson are:
 
-============ ======================================
+============ ============================================================
  backend      linked against
-============ ======================================
- mkl-static   static MKL (default)
- mkl          shared MKL
- mkl-rt       MKL real time library
+============ ============================================================
+ auto         MKL for Intel compilers, standard BLAS/LAPACK otherwise (default)
+ mkl          Intel MKL
+ mkl-rt       Intel MKL single dynamic library (``mkl_rt``)
  openblas     OpenBLAS and if required LAPACK
- netlib       BLAS and LAPACK
+ netlib       reference BLAS and LAPACK
  custom       ``-Dcustom_libraries=...``
-============ ======================================
+============ ============================================================
 
 .. note::
 
@@ -90,8 +89,8 @@ By default the binary will be linked statically, other supported backends are:
 Configure GCC build with OpenBLAS
 ---------------------------------
 
-``xtb`` can also be compiled with GCC version 8 or later.
-For this example we additonally choose to change the linear algebra backend to OpenBLAS, if you have Intel Parallel Studio installed, you can leave out the last argument to get the MKL backend.
+``xtb`` can also be compiled with GCC (``gfortran`` and ``gcc``).
+For this example we choose to set the linear algebra backend to OpenBLAS:
 
 .. code-block::
 
@@ -137,6 +136,24 @@ To perform the actual installation run
    ninja -C build install
 
 Depending on the installation prefix and your user rights ninja might ask for the ``root`` access to perform the installation.
+
+
+Building with CMake
+===================
+
+Alternatively, ``xtb`` can be built with CMake (version 3.18 or newer):
+
+.. code-block:: none
+
+   export FC=gfortran CC=gcc
+   cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+   cmake --build build
+
+To run the unit test suite after building with CMake:
+
+.. code-block:: none
+
+   ctest --test-dir build --output-on-failure
 
 
 Building with GPU support
@@ -193,11 +210,6 @@ With the NVHPC compilers available, configure a build with
 
 You can select the correct compute capability of your device with ``-Dgpu_arch=70``.
 
-.. note::
-
-   Support for NVHPC in meson is available since version
-   `0.56.0 <https://mesonbuild.com/Release-notes-for-0-56-0.html#added-nvidia-hpc-sdk-compilers>`_.
-
 Compile and install the project with
 
 .. code-block:: none
@@ -227,36 +239,41 @@ at runtime with ``CUDA_VISIBLE_DEVICES=<int>``.
 Supported Compilers
 ===================
 
-This is a non-comprehensive list of tested compilers for ``xtb`` with the meson build system.
+``xtb`` is developed and tested with GCC (``gfortran``/``gcc``) and Intel
+oneAPI (``ifx``/``icx`` as well as classic ``ifort``). Current compiler and
+platform coverage is defined and continuously verified by the
+`GitHub Actions CI workflows <https://github.com/grimme-lab/xtb/blob/main/.github/workflows/fortran-build.yml>`_
+in the ``xtb`` repository.
 
-========= ================ ===================== ================== ======================
+Below is a non-comprehensive historical list of tested compilers for ``xtb``
+6.4 with the meson build system:
+
+========= ================ ===================== ================== ===============
 Compiler   Version          Platform              Architecture       ``xtb``
-========= ================ ===================== ================== ======================
- GCC       10.2             Ubuntu 20.04          x86_64                    6.4.1, latest
+========= ================ ===================== ================== ===============
+ GCC       10.2             Ubuntu 20.04          x86_64                    6.4.1
  GCC       10.2, 11.1       Manjaro Linux         x86_64             6.4.0, 6.4.1
- GCC       10.2             Windows Server 2019   x86_64             6.4.0, 6.4.1, latest
+ GCC       10.2             Windows Server 2019   x86_64             6.4.0, 6.4.1
  GCC        9.3             Ubuntu 18.04          x86_64             6.4.0
- GCC        9.3             Ubuntu 20.04          x86_64                    6.4.1, latest
+ GCC        9.3             Ubuntu 20.04          x86_64                    6.4.1
  GCC        9.3             Centos 7              ppc64le, aarch64   6.4.0, 6.4.1
  GCC        9.3             Centos 6              x86_64             6.4.0, 6.4.1
- GCC        9.3             MacOS 10.15.7         x86_64             6.4.0, 6.4.1, latest
- GCC        8.4             Ubuntu 20.04          x86_64                    6.4.1, latest
+ GCC        9.3             MacOS 10.15.7         x86_64             6.4.0, 6.4.1
+ GCC        8.4             Ubuntu 20.04          x86_64                    6.4.1
  GCC        7.5             Ubuntu 18.04          x86_64             6.4.0
- Intel     2021.1, 2021.2   Ubuntu 20.04          x86_64             6.4.0, 6.4.1, latest
+ Intel     2021.1, 2021.2   Ubuntu 20.04          x86_64             6.4.0, 6.4.1
  Intel      18.0.2          OpenSuse 42.1         x86_64             6.4.0, 6.4.1
  NVHPC      20.11, 21.1     Manjaro Linux         x86_64             6.4.0
  NVHPC      20.9            Centos 8              x86_64 + cc70      6.4.0
  NVHPC      20.7            OpenSuse 42.1         x86_64 + cc35      6.4.0
-========= ================ ===================== ================== ======================
+========= ================ ===================== ================== ===============
 
-The list was started with version 6.4.0 and will be continued for future released.
-The *latest* version refers to the continuously tested compiler tool chains in the ``xtb`` repository.
 For GPU enabled builds the compute-capability is given together with the architecture.
 
 .. note::
 
    First class compiler support in ``xtb`` comes only with continuous testing, if you
-   want to see a particular compiler, platform or architecture in the list above,
+   want to see a particular compiler, platform or architecture supported,
    please reach out to us at the `discussion board <https://github.com/grimme-lab/xtb/discussions>`_,
    `open an issue <https://github.com/grimme-lab/xtb/issues/new/choose>`_ or submit
    a continuous integration workflow with a pull request to ``xtb``.
