@@ -60,7 +60,7 @@ Optional property flags (not enabled by default):
     writes canonical molecular orbitals to ``molden.input``; not enabled by default.
 
 --quadrupole
-    requests quadrupole output for ``tblite`` calculations; not enabled by default.
+    requests molecular quadrupole output with ``--tblite``; not enabled by default (native GFN2-xTB prints quadrupoles by default).
 
 --lmo
     requests Foster-Boys localized orbitals; not enabled by default.
@@ -88,7 +88,7 @@ the native xTB and ``tblite`` property paths:
    * - Mulliken populations / atomic charges
      - ✓
      - ✓
-     - enabled by default (``--pop``)
+     - enabled by default (``--pop``);
    * - Wiberg/Mayer bond orders
      - ✓
      - ✓
@@ -108,7 +108,7 @@ the native xTB and ``tblite`` property paths:
    * - Localized orbitals
      - ✓
      - ✓
-     - Foster-Boys localization (``--lmo``); see restrictions below
+     - Foster-Boys localization (``--lmo``);
    * - FOD
      - ✓
      - —
@@ -220,7 +220,7 @@ molecular dipole or traceless quadrupole moment):
     full:        0.495      -0.000      -1.436      -0.632      -0.000       0.942
 
 
-All is summed up in the end in both GFN-xTB versions:
+Finally, a summary of the total energy, gradient norm, and HOMO–LUMO gap is printed for both GFN1-xTB and GFN2-xTB.
 
 .. code-block:: none
 
