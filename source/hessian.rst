@@ -29,7 +29,7 @@ Three Hessian run types are available on the command line:
 Accuracy settings:
 
 - Standalone Hessian (``--hess``): uses an SCC accuracy of ``0.2`` by default.
-- Optimized and biased Hessians (``--ohess [LEVEL]``, ``--bhess [LEVEL]``): the optimization uses the accuracy associated with the selected *LEVEL*. The Hessian uses ``0.2``, or the *LEVEL* accuracy if it is tighter.
+- Optimized and biased Hessians (``--ohess [LEVEL]``, ``--bhess [LEVEL]``): the optimization uses the accuracy associated with the selected *LEVEL*. The displaced Hessian evaluations use ``0.2``, or the *LEVEL* accuracy if it is tighter.
 - ``--acc REAL`` sets the accuracy for both optimization and Hessian calculations. ``$hess sccacc`` can be used to set a separate accuracy for the displaced Hessian evaluations.
 
 When a conventional Hessian run is combined with ``--ptb`` (or ``--raman [TEMP [WAVELENGTH]] --ptb``), ``xtb`` computes the energetic Hessian with GFN2-xTB and evaluates the response properties and intensities (such as IR and Raman activities) using PTB; PTB itself does not provide an energetic Hessian, and ``--o1nh`` cannot be combined with PTB. Phonon/Hessian calculations under periodic boundary conditions are not supported (``Phonon calculations under PBC are not implemented``).
@@ -378,7 +378,7 @@ A SPH calculation is invoked using the ``--bhess [LEVEL]`` command line argument
    kpush                :  -0.10547
    alpha                :   1.00000
    step length          :   0.00500
-   SCC accuracy         :   0.30000
+   SCC accuracy         :   0.20000
    Hessian scale factor :   1.00000
    frozen atoms in %    :   0.00000    0
    RMS gradient         :   0.00028
