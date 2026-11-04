@@ -43,11 +43,23 @@ Options
 --pocket
    Performs additionally a pocket search
 
+--onlypocket
+   Perform only the pocket search (switches off stack and angular search)
+
 --nostack
    Switch off the stack search
 
+--onlystack
+   Perform only the stack search
+
 --noangular
    Switch off the angular search
+
+--onlyangular
+   Perform only the angular search
+
+--cs
+   Exploit :math:`C_s` symmetry of molecule 1 to reduce the search grid
 
 --fast
    Fast mode for screening and genetic optimization
@@ -73,7 +85,7 @@ Options
 --nfinal <INT>
    Number of final optimizations (default = 15). Setting it to 0 skips the final geometry optimizations.
 
---ensemble
+--ensemble, --ens
    Optimizes every structure with a negative xTB-IFF interaction energy and sorts out replicates to yield an NCI ensemble
 
 --etemp <REAL>
@@ -85,11 +97,14 @@ Options
 -a, --acc <REAL>
    Accuracy for SCC calculation, lower is better (default = 1.0)
 
---opt <level>
+-o, --opt [level]
    Precision of the optimization. See :ref:`geometry optimization` for available options
 
 --cycles <INT>
    Maximum number of optimization cycles
+
+--gfn <method>
+   Specify the method (``1``, ``2``, or ``ff``) for the final optimizations
 
 --gfn2
    Perform final optimizations with GFN2-xTB (default)
@@ -97,8 +112,14 @@ Options
 --gfn1
    Perform final optimizations with GFN1-xTB
 
---gfnff
+--gfnff, --gff
    Perform final optimizations with GFN-FF
+
+--optlvl <method>
+   Perform final optimizations with ``<method>``, *e.g.*, ``gfn1``, ``gfn2``, or ``gfnff`` (``gff``). GFN0-xTB is not supported for docking.
+
+--tblite
+   Use the ``tblite`` library as backend for GFN1-xTB and GFN2-xTB calculations (requires an ``xtb`` build with ``tblite`` support; see :ref:`commandline`)
 
 --chrg1 <REAL>
    Set the total charge of first input structure
@@ -112,25 +133,18 @@ Options
 --uhf2 <REAL>
    Set the number of unpaired electrons of second input structure
 
---optlvl <method>
-   Perform final optimizations with ``<method>``, *e.g.*, gfn1, gfn2, or gfnff
+--alpb <SOLVENT> [STATE]
+   Analytical linearized Poisson-Boltzmann (ALPB) implicit solvation model.
+   The optional solution state ``[STATE]`` defaults to ``gsolv`` (``bar1M`` and ``reference`` are also available).
+   See :ref:`gbsa` for supported solvents, solvation models, reference states, and defaults.
 
---alpb [reference]
-    analytical linearized Poisson-Boltzmann (ALPB) model,
-    available solvents are *acetone*, *acetonitrile*, *aniline*, *benzaldehyde*,
-    *benzene*, *ch2cl2*, *chcl3*, *cs2*, *dioxane*, *dmf*, *dmso*, *ether*,
-    *ethylacetate*, *furane*, *hexadecane*, *hexane*, *methanol*, *nitromethane*,
-    *octanol*, *woctanol*, *phenol*, *toluene*, *thf*, *water*.
-    The solvent input is not case-sensitive.
-    The Gsolv reference state can be chosen as *reference* or *bar1M* (default).
+-g, --gbsa <SOLVENT> [STATE]
+   Generalized Born (GB) model with solvent accessible surface area (SASA).
+   The optional solution state ``[STATE]`` defaults to ``gsolv`` (``bar1M`` and ``reference`` are also available).
+   See :ref:`gbsa` for supported solvents, solvation models, reference states, and defaults.
 
--g, --gbsa SOLVENT [reference]
-    generalized born (GB) model with solvent accessible surface (SASA) model,
-    available solvents are *acetone*, *acetonitrile*, *benzene* (only GFN1-xTB),
-    *CH2Cl2*, *CHCl3*, *CS2*, *DMF* (only GFN2-xTB), *DMSO*, *ether*, *H2O*,
-    *methanol*, *n-hexane* (only GFN2-xTB), *THF* and *toluene*.
-    The solvent input is not case-sensitive.
-    The Gsolv reference state can be chosen as *reference* or *bar1M* (default).
+-v, --verbose
+   Increase printout verbosity
 
 
 Detailed Input
@@ -211,7 +225,9 @@ molecule 2 the atom numbers :math:`N_1+1` to :math:`N_1+N_2`.
   optimization starts from a docked structure, so fixed atoms stay at their
   positions in that structure, and constraints that refer to the starting
   geometry, such as position constraints or distances without an explicit
-  value, refer to it as well.
+  value, refer to it as well. Complex-indexed ``$fix`` and ``$constrain``
+  settings are suspended during isolated-monomer reference single-point
+  evaluations so that monomer energies remain unaffected.
 * With ``--nfinal 0`` no final optimization is done, so ``$fix`` and
   ``$constrain`` have no effect on the results.
 
@@ -462,6 +478,8 @@ Lastly, the structures are optimized and the resulting GFN2-xTB interaction ener
      14       -49.34
      15       -49.34
 
+
+The best rigid structure after the genetic optimization is written to ``best_after_gen.xyz`` (and all genetic-optimization structures to ``structures_after_gen.xyz`` when ``--nfinal 0`` or ``--verbose`` is used). After the final geometry optimizations, all optimized complexes sorted by energy are written to ``final_structures.xyz`` (with pocket-optimized structures additionally written to ``pocket.xyz`` when ``--pocket`` is active), and the lowest-energy structure is saved to ``best.xyz`` (as well as in the coordinate format of the larger input molecule if it differs from ``.xyz``).
 
 The second example is the use of the directed interaction site screening feature. For this, we have a look at the Buchwald-Hartwig amination and want to add an amine to the catalyst. The normal run-mode with
 
