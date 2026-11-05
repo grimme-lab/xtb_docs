@@ -114,7 +114,7 @@ As a rule of thumb, add 1G for every additional 1000 atoms.
 MD Simulations
 ------------------
 
-For molecular dynamics simulations, the default time step of 4 ps is not stable in GFN-FF. Below you can find our recommended settings for a stable MD run.
+For molecular dynamics simulations, the default time step of 4 fs is not stable in GFN-FF. Below you can find our recommended settings for a stable MD run.
 
 .. code:: bash
 
