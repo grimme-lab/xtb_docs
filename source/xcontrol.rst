@@ -668,7 +668,7 @@ The random-number generator can be initialized from a single integer with
 If no explicit seed is supplied, ``xtb`` obtains an initial state from the
 Fortran runtime and derives a replayable scalar seed from it. The scalar seed
 is printed in the *Calculation Setup* output and written as ``$seed <int>`` to
-the generated ``xcontrol`` file when ``--copy`` is used. The legacy
+the generated ``xcontrol`` file when ``--copy`` is used. The
 ``$samerand`` instruction corresponds to using the fixed seed ``41``
 (``$seed 41``).
 
