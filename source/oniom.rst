@@ -15,7 +15,7 @@ This guide is aimed to give a general overview of the ONIOM implementation withi
 General description
 ===================
 
-The ONIOM scheme is a multiscale calculation approach used to treat large molecular systems efficiently. A detailed review of the ONIOM scheme and its possible applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_.
+The ONIOM scheme is a multiscale calculation approach used to treat large molecular systems efficiently. A detailed review of the ONIOM scheme and its possible applications can be found at: `Chung2015 <https://pubs.acs.org/doi/10.1021/cr5004419>`_, and the implementation within ``xtb`` is described in: `Plett2023 <https://doi.org/10.1039/D3CP02178E>`_.
 
 The total two-layer ONIOM energy is defined as
 

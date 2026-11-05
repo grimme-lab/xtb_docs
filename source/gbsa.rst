@@ -6,9 +6,11 @@
 
 In this chapter, all necessary information will be given in order
 to use the implicit solvation models available in xTB calculations,
-with a focus on ALPB and GBSA.
+with a focus on ALPB and GBSA (`J. Chem. Theory Comput. <https://doi.org/10.1021/acs.jctc.1c00471>`_).
 In addition to ALPB and GBSA, ``xtb`` provides GBe, GB, ddCOSMO, ddCPCM,
-ddPCM, and CPCM-X; some of these models use the native xTB implementation
+ddPCM (`WIREs Comput. Mol. Sci. <https://doi.org/10.1002/wcms.1726>`_), 
+and CPCM-X (`J. Phys. Chem. A <https://doi.org/10.1021/acs.jpca.3c04382>`_); 
+some of these models use the native xTB implementation
 while others require the ``tblite`` backend.
 Parameterized solvents and available grids are given as well.
 
