@@ -13,7 +13,7 @@ Methods
 
 **General Reference to xtb and the implemented GFN methods:** Bannwarth, C.; Caldeweyher, E.; Ehlert, S.; Hansen, A.; Pracht, P.; Seibert, J.; Spicher, S.; Grimme, S.
 *Extended tight-binding quantum chemistry methods*
-*WIREs Comput. Mol. Sci.* **2020**, *11 (2)*, e01493
+*WIREs Comput. Mol. Sci.* **2021**, *11 (2)*, e1493
 `DOI: 10.1002/wcms.1493 <https://doi.org/10.1002/wcms.1493>`_
 
 **xTB software:** Katbashev, A.; Stahn, M.; Rose, T.; Alizadeh, V.; Friede, M.; Plett, C.; Steinbach, P.; Ehlert, S.
