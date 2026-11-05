@@ -239,4 +239,4 @@ Furthermore, a total coupling averaged over the square sum of all individual cou
 .. math:: 
    total |J(AB,eff)| = \sqrt{\sum |J(AB,eff)_i^2|}
 
-Please find more information on the theory and our implementation of DIPRO in our publication (J.Kohn, N.Gildemeister, D.Fazzi, S.Grimme, A.Hansen), `Efficient Calculation of Electronic Coupling Integrals with the Dimer Projection Method via a Density Matrix Tight-Binding Potential, J. Chem. Phys. 159, 144106 (2023) <https://doi.org/10.1063/5.0167484>`_.
+Please find more information on the theory and our implementation of DIPRO in our publication (J. T. Kohn, N. Gildemeister, S. Grimme, D. Fazzi, A. Hansen), `Efficient Calculation of Electronic Coupling Integrals with the Dimer Projection Method via a Density Matrix Tight-Binding Potential, J. Chem. Phys. 159, 144106 (2023) <https://doi.org/10.1063/5.0167484>`_.

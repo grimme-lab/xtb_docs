@@ -11,7 +11,8 @@ Introducing GFN-FF
 ``GFN-FF`` is a completely automated partially polarizable generic force-field for the accurate description of 
 structures and dynamics of large molecules across the periodic table. This method combines force-field speed 
 with almost quantum mechanical accuracy.
-The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.202004239>`_.
+The main publication for ``GFN-FF`` can be found at: `Angewandte Chemie <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.202004239>`_, 
+and the extended parameterization for lanthanide and actinide complexes at: `Inorganic Chemistry <https://doi.org/10.1021/acs.inorgchem.4c03215>`_.
 
 .. figure:: ../figures/gfnff.jpg
    :scale: 25 %
@@ -143,7 +144,7 @@ In GFN-FF the computed atomic charges from the EEQ model may be improved by cons
 Periodic Boundary Conditions
 ============================
 
-The GFN-FF can process periodic boundary conditions, allowing the optimization of three-dimensional unit cells. A reparameterized version for molecular crystals can be called with the ``--mcgfnff`` keyword. The adjustments to the electrostatic, intermolecular dispersion, hydrogen bond, and non-covalent repulsion potential often increase the accuracy with respect to the structure and energy. An example calculation is given below for a unit cell containing four benzene molecules.
+The GFN-FF can process periodic boundary conditions, allowing the optimization of three-dimensional unit cells. A reparameterized version for molecular crystals can be called with the ``--mcgfnff`` keyword (see `Z. Naturforsch. B <https://doi.org/10.1515/znb-2023-0088>`_). The adjustments to the electrostatic, intermolecular dispersion, hydrogen bond, and non-covalent repulsion potential often increase the accuracy with respect to the structure and energy. An example calculation is given below for a unit cell containing four benzene molecules.
 
 .. tab-set::
 

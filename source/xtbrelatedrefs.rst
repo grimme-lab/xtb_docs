@@ -11,9 +11,15 @@ xTB related Publications
 Methods
 ==========================
 
-C. Bannwarth, E. Caldeweyher, S. Ehlert, A. Hansen, P. Pracht, J. Seibert, S. Spicher, S. Grimme
-*WIREs Comput. Mol. Sci.*, **2020**, 11, e01493.
+**General Reference to xtb and the implemented GFN methods:** Bannwarth, C.; Caldeweyher, E.; Ehlert, S.; Hansen, A.; Pracht, P.; Seibert, J.; Spicher, S.; Grimme, S.
+*Extended tight-binding quantum chemistry methods*
+*WIREs Comput. Mol. Sci.* **2021**, *11 (2)*, e1493
 `DOI: 10.1002/wcms.1493 <https://doi.org/10.1002/wcms.1493>`_
+
+**xTB software:** Katbashev, A.; Stahn, M.; Rose, T.; Alizadeh, V.; Friede, M.; Plett, C.; Steinbach, P.; Ehlert, S.
+*Overview on Building Blocks and Applications of Efficient and Robust Extended Tight Binding*
+*J. Phys. Chem. A* **2025**, *129 (10)*, 2667–2682
+`DOI: 10.1021/acs.jpca.4c08263 <https://doi.org/10.1021/acs.jpca.4c08263>`_
 
 **GFN1-xTB:** Grimme, S.; Bannwarth, C.; Shushkov, P. *A Robust and Accurate Tight-Binding 
 Quantum Chemical Method for Structures, Vibrational Frequencies, and Noncovalent Interactions 
@@ -26,15 +32,86 @@ Self-Consistent Tight-Binding Quantum Chemical Method with Multipole Electrostat
 Density-Dependent Dispersion Contributions* *J. Chem. Theory Comput.* **2019**, *15 (3)*, 1652–1671
 `DOI: 10.1021/acs.jctc.8b01176 <https://pubs.acs.org/doi/10.1021/acs.jctc.8b01176>`_
 
-**GFN-FF:** Spicher, S.; Grimme, S. *Robust atomistic modeling of materials, organometallic and biochemical systems* *Angew. Chem. Int. Ed.* **2020**, *accepted article*,
-`DOI: 10.1002/anie.202004239 <https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.202004239>`_
+**GFN0-xTB:** Pracht, P.; Caldeweyher, E.; Ehlert, S.; Grimme, S. *A Robust Non-Self-Consistent Tight-Binding Quantum Chemistry Method for large Molecules*
+*ChemRxiv* **2019**, preprint
+`DOI: 10.26434/chemrxiv.8326202.v1 <https://doi.org/10.26434/chemrxiv.8326202.v1>`_
 
-**DFT-D4:** Caldeweyher, E.; Ehlert, S.; Hansen, A.; Neugebauer, H.; Spicher, S.; Bannwarth, C.; Grimme, S.
-*A generally applicable atomic-charge dependent London dispersion correction* *J. Chem. Phys.* **2019**, *150*, 154122
-`DOI: 10.1063/1.5090222 <https://doi.org/10.1063/1.5090222>`_
+**spGFNn-xTB (spin-polarization):** Neugebauer, H.; Bädorf, B.; Ehlert, S.; Hansen, A.; Grimme, S.
+*High-throughput screening of spin states for transition metal complexes with spin-polarized extended tight-binding methods*
+*J. Comput. Chem.* **2023**, *44 (27)*, 2120–2129
+`DOI: 10.1002/jcc.27185 <https://doi.org/10.1002/jcc.27185>`_
+
+**GFN-FF:** Spicher, S.; Grimme, S. *Robust atomistic modeling of materials, organometallic and biochemical systems* *Angew. Chem. Int. Ed.* **2020**, *59 (36)*, 15665–15673
+`DOI: 10.1002/anie.202004239 <https://doi.org/10.1002/anie.202004239>`_;
+Rose, T.; Bursch, M.; Mewes, J.-M.; Grimme, S.
+*Fast and Robust Modeling of Lanthanide and Actinide Complexes, Biomolecules, and Molecular Crystals with the Extended GFN-FF Model*
+*Inorg. Chem.* **2024**, *63 (41)*, 19364–19374
+`DOI: 10.1021/acs.inorgchem.4c03215 <https://doi.org/10.1021/acs.inorgchem.4c03215>`_
+
+**Periodic GFN-FF (mcGFN-FF):** Grimme, S.; Rose, T.
+*mcGFN-FF: an accurate force field for optimization and energetic screening of molecular crystals*
+*Z. Naturforsch. B* **2024**, *79 (4)*, 191–200
+`DOI: 10.1515/znb-2023-0088 <https://doi.org/10.1515/znb-2023-0088>`_
+
+**PTB:** Grimme, S.; Müller, M.; Hansen, A.
+*A Non-Self-Consistent Tight-Binding Electronic Structure Potential in a Polarized Double-ζ Basis Set for All spd-Block Elements up to Z = 86*
+*J. Chem. Phys.* **2023**, *158 (12)*, 124111
+`DOI: 10.1063/5.0137838 <https://doi.org/10.1063/5.0137838>`_
+
+**CEH:** Müller, M.; Froitzheim, T.; Hansen, A.; Grimme, S.
+*Advanced Charge Extended Hückel (CEH) Model and a Consistent Adaptive Minimal Basis Set for the Elements Z = 1–103*
+*J. Phys. Chem. A* **2024**, *128 (49)*, 10723–10736
+`DOI: 10.1021/acs.jpca.4c06989 <https://doi.org/10.1021/acs.jpca.4c06989>`_
+
+**GBSA and ALPB implicit solvation:** Ehlert, S.; Stahn, M.; Spicher, S.; Grimme, S.
+*Robust and Efficient Implicit Solvation Model for Fast Semiempirical Methods*
+*J. Chem. Theory Comput.* **2021**, *17 (7)*, 4250–4261
+`DOI: 10.1021/acs.jctc.1c00471 <https://doi.org/10.1021/acs.jctc.1c00471>`_
+
+**CPCM-X implicit solvation:** Stahn, M.; Ehlert, S.; Grimme, S.
+*Extended Conductor-like Polarizable Continuum Solvation Model (CPCM-X) for Semiempirical Methods*
+*J. Phys. Chem. A* **2023**, *127 (33)*, 7036–7043
+`DOI: 10.1021/acs.jpca.3c04382 <https://doi.org/10.1021/acs.jpca.3c04382>`_
+
+**ddX implicit solvation:** Nottoli, M.; Herbst, M. F.; Mikhalev, A.; Jha, A.; Lipparini, F.; Stamm, B.
+*ddX: Polarizable continuum solvation from small molecules to proteins*
+*WIREs Comput. Mol. Sci.* **2024**, *14 (4)*, e1726
+`DOI: 10.1002/wcms.1726 <https://doi.org/10.1002/wcms.1726>`_
+
+**DFT-D4:** Caldeweyher, E.; Bannwarth, C.; Grimme, S.
+*Extension of the D3 dispersion coefficient model* *J. Chem. Phys.* **2017**, *147 (3)*, 034112
+`DOI: 10.1063/1.4993215 <https://doi.org/10.1063/1.4993215>`_;
+Caldeweyher, E.; Ehlert, S.; Hansen, A.; Neugebauer, H.; Spicher, S.; Bannwarth, C.; Grimme, S.
+*A generally applicable atomic-charge dependent London dispersion correction* *J. Chem. Phys.* **2019**, *150 (15)*, 154122
+`DOI: 10.1063/1.5090222 <https://doi.org/10.1063/1.5090222>`_;
+Caldeweyher, E.; Mewes, J.-M.; Ehlert, S.; Grimme, S.
+*Extension and evaluation of the D4 London-dispersion model for periodic systems* *Phys. Chem. Chem. Phys.* **2020**, *22 (16)*, 8499–8512
+`DOI: 10.1039/D0CP00502A <https://doi.org/10.1039/D0CP00502A>`_;
+Wittmann, L.; Gordiy, I.; Friede, M.; Helmich-Paris, B.; Grimme, S.; Hansen, A.; Bursch, M.
+*Extension of the D3 and D4 London dispersion corrections to the full actinides series* *Phys. Chem. Chem. Phys.* **2024**, *26 (32)*, 21379–21394
+`DOI: 10.1039/D4CP01514B <https://doi.org/10.1039/D4CP01514B>`_
 
 **sTDA-xTB:** Grimme, S.; Bannwarth, C.  *Ultra-fast computation of electronic spectra for large systems by tight-binding based simplified Tamm-Dancoff approximation (sTDA-xTB)* *J. Chem. Phys.* **2016**, *145*, 054103
 `DOI: 10.1063/1.4959605 <https://aip.scitation.org/doi/10.1063/1.4959605>`_
+
+**FOD:** Grimme, S.; Hansen, A.
+*A Practicable Real-Space Measure and Visualization of Static Electron-Correlation Effects*
+*Angew. Chem. Int. Ed.* **2015**, *54 (42)*, 12308–12313
+`DOI: 10.1002/anie.201501887 <https://doi.org/10.1002/anie.201501887>`_;
+Bauer, C. A.; Hansen, A.; Grimme, S.
+*The Fractional Occupation Number Weighted Density as a Versatile Analysis Tool for Molecules with a Complicated Electronic Structure*
+*Chem. Eur. J.* **2017**, *23 (25)*, 6150–6164
+`DOI: 10.1002/chem.201604682 <https://doi.org/10.1002/chem.201604682>`_
+
+**ONIOM:** Plett, C.; Katbashev, A.; Ehlert, S.; Grimme, S.; Bursch, M.
+*ONIOM meets xtb: efficient, accurate, and robust multi-layer simulations across the periodic table*
+*Phys. Chem. Chem. Phys.* **2023**, *25 (27)*, 17860–17868
+`DOI: 10.1039/D3CP02178E <https://doi.org/10.1039/D3CP02178E>`_
+
+**DIPRO:** Kohn, J. T.; Gildemeister, N.; Grimme, S.; Fazzi, D.; Hansen, A.
+*Efficient calculation of electronic coupling integrals with the dimer projection method via a density matrix tight-binding potential*
+*J. Chem. Phys.* **2023**, *159 (14)*, 144106
+`DOI: 10.1063/5.0167484 <https://doi.org/10.1063/5.0167484>`_
 
 Applications
 ==========================
@@ -102,11 +179,23 @@ Chemical Method* *Inorg. Chem.* **2017**, *56 (20)*, 12485–12491
 **Transition State Localization in Organometallic Complexes:** Dohm, S.; Bursch, M.; Hansen, A.; Grimme, S. *Semiautomated Transition State Localization for Organometallic Complexes with Semiempirical Quantum Chemical Methods*, *J. Chem. Theory Comput.*, **2020**, *16*, 2002–2012 
 `DOI: 10.1021/acs.jctc.9b01266 <https://pubs.acs.org/doi/10.1021/acs.jctc.9b01266>`_ 
 
-**Electron Ionization Mass Spectra:**
+**Electron Ionization and CID Mass Spectra:**
+Ásgeirsson, V.; Bauer, C. A.; Grimme, S.
+*Quantum chemical calculation of electron ionization mass spectra for general organic and inorganic molecules*,
+*Chem. Sci.* **2017**, *8 (7)*, 4879–4895.
+`DOI: 10.1039/C7SC00601B <https://doi.org/10.1039/C7SC00601B>`_;
 Koopman, J.; Grimme, S.
 *Calculation of Electron Ionization Mass Spectra with Semiempirical GFNn-xTB Methods*,
 *ACS Omega* **2019**, *4 (12)*, 15120-15133.
-`DOI: 10.1021/acsomega.9b02011 <https://pubs.acs.org/doi/10.1021/acsomega.9b02011>`_
+`DOI: 10.1021/acsomega.9b02011 <https://pubs.acs.org/doi/10.1021/acsomega.9b02011>`_;
+Koopman, J.; Grimme, S.
+*From QCEIMS to QCxMS: A Tool to Routinely Calculate CID Mass Spectra Using Molecular Dynamics*,
+*J. Am. Soc. Mass Spectrom.* **2021**, *32 (7)*, 1735–1751.
+`DOI: 10.1021/jasms.1c00098 <https://doi.org/10.1021/jasms.1c00098>`_;
+Gorges, J.; Grimme, S.
+*QCxMS2 – a program for the calculation of electron ionization mass spectra via automated reaction network discovery*,
+*Phys. Chem. Chem. Phys.* **2025**, *27 (14)*, 6899–6911.
+`DOI: 10.1039/D5CP00316D <https://doi.org/10.1039/D5CP00316D>`_
 
 **ECD spectra calculation for entire proteins:** Seibert, J.; Bannwarth, C.; Grimme, S.  *Biomolecular structure information from high-speed quantum mechanical electronic spectra calculation.*  *J. Am. Chem. Soc.* **2017**, jacs.7b05833 `DOI: 10.1021/jacs.7b05833 <https://doi.org/10.1021/jacs.7b05833>`_
 
