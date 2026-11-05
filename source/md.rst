@@ -40,31 +40,35 @@ Parameters
 In order to change the parameters of the MD simulation the ``$md`` block
 in the input file has to be modified.
 
-  +---------+---------+-----------+-----------------------------------------+
-  |  key    | value   | default   | description                             |
-  +=========+=========+===========+=========================================+
-  | dump    | real    | 50 fs     | interval for trajectory printout        |
-  +---------+---------+-----------+-----------------------------------------+
-  | hmass   | integer | 4 times   | mass of hydrogen atoms                  |
-  +---------+---------+-----------+-----------------------------------------+
-  | nvt     | boolean | true      | perform simulation in NVT ensemble      |
-  +---------+---------+-----------+-----------------------------------------+
-  | restart | boolean | false     | read velocities from ``mdrestart``      |
-  +---------+---------+-----------+-----------------------------------------+
-  | temp    | real    | 298.15 K  | thermostat temperature                  |
-  +---------+---------+-----------+-----------------------------------------+
-  | time    | real    | 50 ps     | total run time of simulation            |
-  +---------+---------+-----------+-----------------------------------------+
-  | sccacc  | real    | 2.0       | accuracy of xTB calculation in dynamics |
-  +---------+---------+-----------+-----------------------------------------+
-  | shake   | integer | 2         | use SHAKE algorithm to constrain bonds  |
-  +         +         +           +                                         +
-  |         |         |           | 0 = off, 1 = X-H only, 2 = all bonds    |   
-  +---------+---------+-----------+-----------------------------------------+
-  | step    | real    | 4 fs      | time step for propagation               |
-  +---------+---------+-----------+-----------------------------------------+
-  | velo    | boolean | false     | also write out velocities               |
-  +---------+---------+-----------+-----------------------------------------+
+  +------------+---------+-----------+-----------------------------------------+
+  |  key       | value   | default   | description                             |
+  +============+=========+===========+=========================================+
+  | dump       | real    | 50 fs     | interval for trajectory printout        |
+  +------------+---------+-----------+-----------------------------------------+
+  | hmass      | integer | 4 times   | mass of hydrogen atoms                  |
+  +------------+---------+-----------+-----------------------------------------+
+  | nvt        | boolean | true      | perform simulation in NVT ensemble      |
+  +------------+---------+-----------+-----------------------------------------+
+  | restart    | boolean | false     | read velocities from ``mdrestart``      |
+  +------------+---------+-----------+-----------------------------------------+
+  | temp       | real    | 298.15 K  | thermostat temperature                  |
+  +------------+---------+-----------+-----------------------------------------+
+  | time       | real    | 50 ps     | total run time of simulation            |
+  +------------+---------+-----------+-----------------------------------------+
+  | sccacc     | real    | 2.0       | accuracy of xTB calculation in dynamics |
+  +------------+---------+-----------+-----------------------------------------+
+  | shake      | integer | 2         | use SHAKE algorithm to constrain bonds  |
+  +            +         +           +                                         +
+  |            |         |           | 0 = off, 1 = X-H only, 2 = all bonds    |   
+  +------------+---------+-----------+-----------------------------------------+
+  | shakeprint | boolean | false     | write SHAKE constraint forces to        |
+  +            +         +           +                                         +
+  |            |         |           | ``xtb.shake`` (in Eh/bohr)              |
+  +------------+---------+-----------+-----------------------------------------+
+  | step       | real    | 4 fs      | time step for propagation               |
+  +------------+---------+-----------+-----------------------------------------+
+  | velo       | boolean | false     | also write out velocities               |
+  +------------+---------+-----------+-----------------------------------------+
 
 The above default setting should look like below in your input file
 
@@ -79,8 +83,15 @@ The above default setting should look like below in your input file
       nvt =true
       hmass=4
       shake=2
+      shakeprint=false
       sccacc=2.0
    $end
+
+When SHAKE bond constraints are active (controlled separately via ``shake``),
+setting ``shakeprint=true`` in the ``$md`` block (``false`` by default) causes
+``xtb`` to write the SHAKE constraint forces in ``Eh/bohr`` for every MD step
+to ``xtb.shake`` (or to numbered files such as ``xtb.shake.<n>`` in multi-MD
+workflows).
 
 .. important :: 
    For MD simulations with GFN-FF the time step must be reduced, for more information see section :ref:`gfnff`

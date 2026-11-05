@@ -7,7 +7,7 @@
 The ``xcontrol`` instruction set is inspired by the Turbomole ``control``
 file syntax. I decided to call it ``xcontrol`` instructions back than,
 but here we will just call it (detailed) input for convenience.
-The man page can be found `here <https://github.com/grimme-lab/xtb/blob/master/man/xcontrol.7.adoc>`_.
+The man page can be found `here <https://github.com/grimme-lab/xtb/blob/main/man/xcontrol.7.adoc>`_.
 
 .. note:: The parser implemented is more general and limited by
           arbitrary choice to this syntax. At some point more common
@@ -232,9 +232,6 @@ spotted in the verbose output of the constraints summary.
 
    Since version 6.3 the input is sorted and duplicates are removed automatically.
 
-Note that in some versions of ``xtb`` this leads to ``NaN`` for the
-gradient, therefore double-check the constrained atom list for duplicates.
-
 As in the ``$fix`` group, the ``free`` keyword selects all atoms *except*
 the listed atom numbers and elements, e.g. to keep the heavy atom framework
 roughly in place while relaxing all hydrogen atoms use
@@ -285,11 +282,15 @@ are distances, angles and dihedral angles as done here
 
 .. note::
 
-   This printout is not yet fully integrated in the released versions and
-   might not work as expected.
-   For the experimental constraining potentials supporting this features
-   use the all-caps keyword variants (``DISTANCE``, ``ANGLE`` and ``DIHEDRAL``).
-   Note that those are not available for the scan feature.
+   The standard lowercase keywords (``distance``, ``angle`` and ``dihedral``)
+   print a one-line summary per constraint when read and can be combined with
+   the ``$scan`` feature.
+   The all-caps keyword variants (``DISTANCE``, ``ANGLE`` and ``DIHEDRAL``)
+   use an alternative constraint implementation that produces the detailed
+   ``Constraints`` summary printout shown below when run with ``--verbose``
+   (and ``DISTANCE`` accepts an optional fourth argument for an even spring
+   exponent :math:`\ge 2`). Note that the uppercase variants are not
+   available for the ``$scan`` feature.
 
 Distance constraints are given in Ångström, while angle constraints are given
 in degrees.
@@ -299,9 +300,8 @@ dihedral angles by four atoms, in any case the atoms do not have to
 be connected by bonds. The last argument is always the value which should
 be used in the constraining potential as reference, if you decide to
 use the current value ``auto`` can be passed. The constraints will be
-printed to the screen (the newer implementation may require the verbose mode,
-to trigger the printout of the constraint summary), we check this setup
-for the caffeine molecule
+printed to the screen (in verbose mode for the detailed constraint summary),
+we check this setup for the caffeine molecule
 
 .. code-block:: text
    :emphasize-lines: 33
@@ -655,6 +655,27 @@ of interest.
 
 .. tip:: If you are happy with all this setting you can just use this file as
          your ``.xtbrc`` and place it somewhere in your ``XTBPATH``.
+
+Random Number Seed
+------------------
+
+The random-number generator can be initialized from a single integer with
+
+.. code:: text
+
+   $seed 12345
+
+If no explicit seed is supplied, ``xtb`` obtains an initial state from the
+Fortran runtime and derives a replayable scalar seed from it. The scalar seed
+is printed in the *Calculation Setup* output and written as ``$seed <int>`` to
+the generated ``xcontrol`` file when ``--copy`` is used. The legacy
+``$samerand`` instruction corresponds to using the fixed seed ``41``
+(``$seed 41``).
+
+Reusing the printed seed with ``$seed`` reproduces the random-number sequence
+when using the same compiler, runtime, and thread configuration. Because the
+Fortran random-number algorithm is not standardized, the same seed is not
+guaranteed to produce the same sequence with a different compiler.
 
 Global Configuration File
 -------------------------
