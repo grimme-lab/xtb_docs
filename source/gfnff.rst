@@ -120,7 +120,7 @@ For molecular dynamics simulations, the default time step of 4 fs is not stable 
 
    $md
      step=2.0
-     hmass=4.0
+     hmass=4
      shake=0
    $end
 
