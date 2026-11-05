@@ -65,6 +65,8 @@ GFN-FF is implemented in the ``xtb`` program. It extends the portfolio of differ
 
   > xtb --gfnff <geometry> [options]
 
+Alternatively, GFN-FF can be selected in the :ref:`detailed input <detailed-input>` file via the ``$gfn`` data group (``$gfn method=ff``).
+
 Thus, the usage is in line with its semiempirical QM siblings and (almost) the same options are available. Only the request for electronic structure properties will be ignored since those are not available at the force-field level of theory. With GFN-FF you can perform single-point calculations, geometry optimizations, frequency calculations and molecular dynamics simulations, just to mention the most prominent run types. A GFN-FF calculation is indicated in the output by:
 
 .. code:: bash
@@ -112,13 +114,13 @@ As a rule of thumb, add 1G for every additional 1000 atoms.
 MD Simulations
 ------------------
 
-For molecular dynamics simulations, the default time step of 4 ps is not stable in GFN-FF. Below you can find our recommended settings for a stable MD run.
+For molecular dynamics simulations, the default time step of 4 fs is not stable in GFN-FF. Below you can find our recommended settings for a stable MD run.
 
 .. code:: bash
 
    $md
      step=2.0
-     hmass=4.0
+     hmass=4
      shake=0
    $end
 

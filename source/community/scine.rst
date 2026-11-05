@@ -91,7 +91,7 @@ for the actual `xtb` code it wraps.
 For the latter code and its citations, we refer you to the original `xtb`
 repository. There you will find the references of the actual methods used.
 They are listed in the
-`README.md <https://github.com/grimme-lab/xtb/blob/master/README.md>`_.
+`README.md <https://github.com/grimme-lab/xtb/blob/main/README.md>`_.
 
 Support and Contact
 -------------------

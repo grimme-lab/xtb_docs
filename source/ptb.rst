@@ -32,6 +32,10 @@ Basic usage
 PTB is implemented in the ``xtb`` program.
 It extends the portfolio of the package by the non-self-consistent density tight-binding method PTB. It is invoked with the keyword ``--ptb`` as shown in the example below.
 
+.. note::
+
+   PTB requires an xTB build with ``tblite`` support.
+
 
 .. tab-set:: 
 
@@ -574,7 +578,10 @@ An example is the spectrum of endothelin (1EDN).
    In this example, Raman activities instead of Raman scattering cross-sections (= intensities) are plotted.
 
 .. note::
-   Vibrational frequencies are not available with PTB! Instead, mixed GFN\ *n*-xTB and PTB spectra can be calculated.
+
+   PTB does not provide an energetic Hessian. For vibrational spectroscopy,
+   ``xtb`` calculates the Hessian and vibrational frequencies with GFN2-xTB
+   and evaluates the response properties and intensities with PTB.
 
 The following example shows the output of a vibrational spectrum calculation utilizing GFN2-xTB frequencies and PTB intensities.
  

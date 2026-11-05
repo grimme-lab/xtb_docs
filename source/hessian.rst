@@ -85,7 +85,7 @@ At the end of the frequency job you get an output like this:
 This output consists of the calculated vibrational frequencies and the vibrational modes (note that ordinary Hessian runs report zero Raman intensities unless Raman/PTB response properties are explicitly requested via ``--raman`` and ``--ptb``). In the example above there are six frequencies which are identically zero. These frequencies correspond to the rotations and translations of the molecule. They have been projected out of the Hessian before the calculation of the frequencies and thus, the zero values do not tell you anything about the quality of the Hessian that has been diagonalized.
 
 ``xtb`` writes an ``g98.out`` file in *GAUSSIAN*-format, which can be opened with the popular *MOLDEN* program to visualize the vibrational modes.
-Further, a ``hessian`` file is written, containing the Cartesian, non-mass-weighted Hessian matrix in *Turbomole* format (the user-selected ``$hess scale`` factor is applied only to the Hessian used for vibrational analysis, not to the Cartesian ``hessian`` output file).
+Further, a ``hessian`` file is written, containing the projected Cartesian, non-mass-weighted Hessian matrix in *Turbomole* format (the user-selected ``$hess scale`` factor is applied only to the Hessian used for vibrational analysis, not to the Cartesian ``hessian`` output file).
 
 Calculation of thermochemical properties
 ________________________________________

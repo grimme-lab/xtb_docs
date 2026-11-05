@@ -7,7 +7,6 @@
 This chapter should serve as a quickstart tutorial guiding you through your first
 calculation employing the xTB methods. 
 As an example, the equilibrium geometry of a water molecule is calculated.
-The description here is based on ``xtb`` version 6.2.2.
 
 .. contents::
 
@@ -185,7 +184,7 @@ The thresholds defined by simple keywords are given here
 +---------+----------+--------------+----------+
 | loose   | 5 × 10⁻⁵ | 4 × 10⁻³     | 2.00     |
 +---------+----------+--------------+----------+
-| lax     | 2 × 10⁻⁵ | 2 × 10⁻³     | 2.00     |
+| lax     | 2 × 10⁻⁵ | 2.5 × 10⁻³   | 2.00     |
 +---------+----------+--------------+----------+
 | normal  | 5 × 10⁻⁶ | 1 × 10⁻³     | 1.00     |
 +---------+----------+--------------+----------+
