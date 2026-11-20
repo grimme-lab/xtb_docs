@@ -16,7 +16,7 @@ Major updates include expanded `tblite <https://github.com/tblite/tblite>`__ int
 Hessian calculations now support the O1NumHess algorithm and include several improvements to vibrational analysis and thermochemistry.
 GFN-FF has been reparameterized for lanthanides, extended to actinides, and improved in topology handling and stability.
 Docking, ONIOM, and molecular dynamics now feature improved constraint handling.
-In addition, the C-API supports solvent-model selection and Hessian access, and we have extended platform support and improved the build system.
+In addition, the C-API supports solvent-model selection and Hessian access, and we have improved the build system and extended platform support (Linux x86_64 and aarch64, macOS x86_64 and arm64, and Windows x86_64).
 Numerous performance optimizations and bug fixes accelerate SCF, gradient, and integral evaluations while reducing memory usage and improving OpenMP parallelization and numerical reliability.
 
 Many thanks to Alberto Boldrini (`@AlbertoBoldrini <https://github.com/AlbertoBoldrini>`__),
